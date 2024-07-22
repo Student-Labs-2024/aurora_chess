@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'exports.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -12,9 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MainMenuView(),
+      theme: Provider.of<ThemeProvider>(context).themeData,
+      home: const MainMenuView(),
     );
   }
 }
