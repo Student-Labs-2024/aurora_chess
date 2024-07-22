@@ -12,6 +12,12 @@ dependencies:
 
   cupertino_icons: ^1.0.6
   provider: ^6.1.2
+  sqflite: ^2.3.3+1
+  sqflite_aurora:
+    git:
+      url: https://gitlab.com/omprussia/flutter/flutter-plugins.git
+      ref: sqflite_aurora-0.5.0
+      path: packages/sqflite/sqflite_aurora
 
 dev_dependencies:
   flutter_test:
