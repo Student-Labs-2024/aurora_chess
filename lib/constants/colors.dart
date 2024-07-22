@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Colors {
-  const Colors();
+class ColorsConst {
+  const ColorsConst();
 
   static const Color neutralColor0 = Color(0xFFF2F0ED);
   static const Color neutralColor100 = Color(0xFF666666);
