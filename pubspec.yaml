@@ -30,6 +30,6 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/images/pieces
-    - assets/images/small_pieces
-    - assets/images/icons
+    - assets/images/pieces/
+    - assets/images/small_pieces/
+    - assets/images/icons/
