@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "aurora_chess"
+version = "0.1.0"
+description = ""
+authors = ["Nikolay Koren <nikolai.koren2004@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
