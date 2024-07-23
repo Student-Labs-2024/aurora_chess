@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/exports.dart';
-import 'package:frontend/views/components/components.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -37,63 +35,74 @@ class _MainMenuViewState extends State<MainMenuView> {
       child: Scaffold(
         backgroundColor: scheme.background,
         body: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 27),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomSwitch(
-                    onChanged: () {
-                      setState(() {
-                        provider.toggleTheme();
-                        piecesFile = provider.isDarkMode ? "pieces_dark" : "pieces_light";
-                      });
-                    },
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: scheme.primary,
-                      ),
-                      child: Icon(
-                        Icons.question_mark,
-                        color: scheme.background,
-                      )
+          margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomSwitch(
+                      onChanged: (value) {
+                        setState(() {
+                          provider.toggleTheme();
+                          piecesFile = provider.isDarkMode ? "pieces_dark" : "pieces_light";
+                        });
+                      },
                     ),
-                  ),
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.only(right: 40, top: 47),
-                child: Text(
-                  slogan,
-                  style: textStyles.title1,
+                    ButtonToGuide(
+                      backGroundColor: scheme.onPrimaryContainer,
+                      iconColor: ColorsConst.neutralColor0,
+                      height: 32,
+                      width: 32,
+                      iconSize: 18,
+                      onTap: () {},
+                    ),
+                  ],
                 ),
-              ),
-              Container(
-                alignment: Alignment.centerRight,
-                child: SvgPicture.asset("assets/images/icons/$piecesFile.svg"),
-              ),
-              const SizedBox(height: 30,),
-              NextPageButton(
-                text: netButton,
-                textColor: ColorsConst.primaryColor0,
-                buttonColor: scheme.onSecondaryContainer,
-                onTap: () {print(netButton);},
-              ),
-              const SizedBox(height: 24,),
-              NextPageButton(
-                text: localButton,
-                textColor: scheme.background,
-                buttonColor: scheme.secondaryContainer,
-                onTap: () {print(localButton);},
-              ),
-            ],
+                Stack(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 40, top: 20),
+                      child: Text(
+                        slogan,
+                        style: textStyles.title1,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 190),
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        child: SvgPicture.asset("assets/images/icons/$piecesFile.svg"),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 30,),
+                NextPageButton(
+                  text: netButton,
+                  textColor: scheme.background,
+                  buttonColor: scheme.onSecondaryContainer,
+                  isClickable: false,
+                  onTap: () {},
+                ),
+                const SizedBox(height: 24,),
+                NextPageButton(
+                  text: localButton,
+                  textColor: ColorsConst.primaryColor0,
+                  buttonColor: scheme.secondaryContainer,
+                  isClickable: true,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return const GameSettingsView();
+                      })
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
