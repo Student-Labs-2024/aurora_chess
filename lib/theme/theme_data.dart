@@ -11,6 +11,8 @@ ThemeData lightMode = ThemeData(
     onBackground: ColorsConst.neutralColor200,
     onPrimaryContainer: ColorsConst.neutralColor200,
     secondary: ColorsConst.secondaryColor0,
+    onSecondaryContainer: ColorsConst.neutralColor100,
+    secondaryContainer: ColorsConst.neutralColor300,
   ),
 );
 
@@ -24,5 +26,7 @@ ThemeData darkMode = ThemeData(
     onBackground: ColorsConst.feedbackColor100,
     onPrimaryContainer: ColorsConst.primaryColor100,
     secondary: ColorsConst.secondaryColor100,
+    onSecondaryContainer: ColorsConst.feedbackColor100,
+    secondaryContainer: ColorsConst.primaryColor100,
   ),
 );
