@@ -7,8 +7,14 @@ class RunConfig(BaseModel):
     port: int = 8000
 
 
+class ApiPrefix(BaseModel):
+    prefix: str = "/api"
+    chess: str = "/chess"
+
+
 class Settings(BaseSettings):
     run: RunConfig = RunConfig()
+    api: ApiPrefix = ApiPrefix()
 
 
 settings = Settings()
