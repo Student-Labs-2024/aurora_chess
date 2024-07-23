@@ -6,11 +6,13 @@ class NextPageButton extends StatelessWidget {
     required this.text,
     required this.textColor,
     required this.buttonColor,
+    required this.isClickable,
     this.onTap,
   });
   final String text;
   final Color textColor;
   final Color buttonColor;
+  final bool isClickable;
   final void Function()? onTap;
 
   @override
