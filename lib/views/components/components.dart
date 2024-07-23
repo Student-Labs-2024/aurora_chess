@@ -1,2 +1,10 @@
 export 'next_page_button.dart';
 export 'custom_switch.dart';
+export 'app_bar_settings.dart';
+export 'button_to_guide.dart';
+export 'text_heading.dart';
+export 'tab_item.dart';
+export 'color_chose_button.dart';
+export 'chose_time_carousel.dart';
+export 'chose_difficulty_button.dart';
+export 'settings_row.dart';
