@@ -310,7 +310,14 @@ class _GameSettingsViewState extends State<GameSettingsView> with TickerProvider
                           textColor: ColorsConst.primaryColor0,
                           buttonColor: scheme.secondaryContainer,
                           isClickable: true,
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (BuildContext context) {
+                                  return const GameView();
+                                })
+                            );
+                          },
                         ),
                       ),
                     ]
