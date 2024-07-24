@@ -13,11 +13,10 @@ class MainMenuView extends StatefulWidget {
 class _MainMenuViewState extends State<MainMenuView> {
 
   var textStyles = const TextStyles();
-  final slogan = "Побеждать в шахматах — побеждать в жизни";
+  final slogan = "Побеждать\nв шахматах — побеждать\nв жизни";
   final netButton = "Сетевая игра";
   final localButton = "Локальная игра";
   String piecesFile = "";
-
 
 
   @override
@@ -31,77 +30,76 @@ class _MainMenuViewState extends State<MainMenuView> {
     var provider = Provider.of<ThemeProvider>(context, listen: false);
     var scheme = Theme.of(context).colorScheme;
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: scheme.background,
-        body: ConstrainedBox(
-          constraints: BoxConstraints(
-              minWidth: MediaQuery.of(context).size.width,
-              minHeight: MediaQuery.of(context).size.height
-          ),
-          child: IntrinsicHeight(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomSwitch(
-                        onChanged: (value) {
-                          setState(() {
-                            provider.toggleTheme();
-                            piecesFile = provider.isDarkMode ? "pieces_dark" : "pieces_light";
-                          });
-                        },
+    return Scaffold(
+      backgroundColor: scheme.background,
+      body: ConstrainedBox(
+        constraints: BoxConstraints(
+            minWidth: MediaQuery.of(context).size.width,
+            minHeight: MediaQuery.of(context).size.height
+        ),
+        child: IntrinsicHeight(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              children: [
+                SizedBox(height: 54,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomSwitch(
+                      onChanged: (value) {
+                        setState(() {
+                          provider.toggleTheme();
+                          piecesFile = provider.isDarkMode ? "pieces_dark" : "pieces_light";
+                        });
+                      },
+                    ),
+                    ButtonToGuide(
+                      backGroundColor: scheme.onPrimaryContainer,
+                      iconColor: ColorsConst.neutralColor0,
+                      height: 32,
+                      width: 32,
+                      iconSize: 18,
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 40,),
+                Stack(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 40),
+                      child: Text(
+                        slogan,
+                        style: textStyles.title1,
                       ),
-                      ButtonToGuide(
-                        backGroundColor: scheme.onPrimaryContainer,
-                        iconColor: ColorsConst.neutralColor0,
-                        height: 32,
-                        width: 32,
-                        iconSize: 18,
-                        onTap: () {},
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 220),
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        child: SvgPicture.asset("assets/images/icons/$piecesFile.svg"),
                       ),
-                    ],
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(right: 40, top: 20),
-                        child: Text(
-                          slogan,
-                          style: textStyles.title1,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 190),
-                        child: Container(
-                          alignment: Alignment.centerRight,
-                          child: SvgPicture.asset("assets/images/icons/$piecesFile.svg"),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 30,),
-                  const SizedBox(height: 60,),
-                  const SizedBox(height: 24,),
-                  NextPageButton(
-                    text: localButton,
-                    textColor: ColorsConst.primaryColor0,
-                    buttonColor: scheme.secondaryContainer,
-                    isClickable: true,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (BuildContext context) {
-                          return const GameSettingsView();
-                        })
-                      );
-                    },
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 48,),
+                NextPageButton(
+                  text: localButton,
+                  textColor: ColorsConst.primaryColor0,
+                  buttonColor: scheme.secondaryContainer,
+                  isClickable: true,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return const GameSettingsView();
+                      })
+                    );
+                  },
+                ),
+                const SizedBox(height: 22,),
+              ],
             ),
           ),
         ),
