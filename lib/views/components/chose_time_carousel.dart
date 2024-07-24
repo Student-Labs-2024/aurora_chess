@@ -69,7 +69,7 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
                     }
                   },
                   icon: SvgPicture.asset(
-                    "assets/images/icons/left_small_arrow_icon.svg",
+                    "assets/images/icons/left_big_arrow_icon.svg",
                     color: scheme.onTertiary,
                   )
                 ),
@@ -80,6 +80,7 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
                   horizontal: true,
                   listHeight: height,
                   itemSize: 65,
+                  perspective: 0.001,
                   onValueChanged: widget.onChanged,
                   datas: widget.values,
                   startPosition: initPosition,
@@ -108,7 +109,7 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
                     }
                   },
                   icon: SvgPicture.asset(
-                    "assets/images/icons/right_small_arrow_icon.svg",
+                    "assets/images/icons/right_big_arrow_icon.svg",
                     color: scheme.onTertiary,
                   )
                 ),
