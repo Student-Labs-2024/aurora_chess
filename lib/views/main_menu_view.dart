@@ -42,7 +42,7 @@ class _MainMenuViewState extends State<MainMenuView> {
             margin: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
-                SizedBox(height: 54,),
+                const SizedBox(height: 54,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

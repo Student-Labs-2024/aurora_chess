@@ -52,8 +52,8 @@ class _GameSettingsViewState extends State<GameSettingsView> with TickerProvider
   bool isThreats = false;
   bool isHints = false;
   int countOfTabs = 2;
-  int durationOfGame = 1;
-  int addingOfMove = 1;
+  int durationOfGame = 30;
+  int addingOfMove = 10;
   late TabController _tabColorController;
   late TabController _tabTimeController;
 
@@ -94,261 +94,259 @@ class _GameSettingsViewState extends State<GameSettingsView> with TickerProvider
   @override
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
-    return SafeArea(
-      child: DefaultTabController(
-        length: countOfTabs,
-        child: Scaffold(
-          body: SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minWidth: MediaQuery.of(context).size.width,
-                minHeight: MediaQuery.of(context).size.height
-              ),
-              child: IntrinsicHeight(
-                child: Container(
-                  margin: const EdgeInsets.only(left: 24, right: 24, top: 27),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      AppBarSettings(label: appBarLabel),
+    return DefaultTabController(
+      length: countOfTabs,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: MediaQuery.of(context).size.width,
+              minHeight: MediaQuery.of(context).size.height
+            ),
+            child: IntrinsicHeight(
+              child: Container(
+                margin: const EdgeInsets.only(left: 24, right: 24, top: 58),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    AppBarSettings(label: appBarLabel),
 
-                      TextHeading(text: gameModeText,),
-                      PreferredSize(
-                        preferredSize: const Size.fromHeight(44),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
-                          child: Container(
-                            height: 44,
-                            padding: const EdgeInsets.all(4),
-                            decoration: ShapeDecoration(
-                              color: scheme.outline,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
+                    TextHeading(text: gameModeText,),
+                    PreferredSize(
+                      preferredSize: const Size.fromHeight(44),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        child: Container(
+                          height: 44,
+                          padding: const EdgeInsets.all(4),
+                          decoration: ShapeDecoration(
+                            color: scheme.outline,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
                             ),
-                            child: TabBar(
-                              indicatorSize: TabBarIndicatorSize.tab,
-                              dividerColor: Colors.transparent,
-                              indicator: const BoxDecoration(
-                                color: ColorsConst.primaryColor100,
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                              ),
-                              controller: _tabColorController,
-                              onTap: (index) {
-                                setState(() {
-                                  enemy = index == 0 ? Enemy.computer : Enemy.player;
-                                });
-                              },
-                              labelPadding: EdgeInsets.zero,
-                              unselectedLabelColor: ColorsConst.neutralColor300,
-                              tabs: [
-                                TabItem(
-                                  title: gameWithComputerText,
-                                  index: 0,
-                                  currentIndex: _tabColorController.index,
-                                ),
-                                TabItem(
-                                  title: gameWithHumanText,
-                                  index: 1,
-                                  currentIndex: _tabColorController.index,
-                                ),
-                              ],
+                          ),
+                          child: TabBar(
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            dividerColor: Colors.transparent,
+                            indicator: const BoxDecoration(
+                              color: ColorsConst.primaryColor100,
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
                             ),
+                            controller: _tabColorController,
+                            onTap: (index) {
+                              setState(() {
+                                enemy = index == 0 ? Enemy.computer : Enemy.player;
+                              });
+                            },
+                            labelPadding: EdgeInsets.zero,
+                            unselectedLabelColor: ColorsConst.neutralColor300,
+                            tabs: [
+                              TabItem(
+                                title: gameWithComputerText,
+                                index: 0,
+                                currentIndex: _tabColorController.index,
+                              ),
+                              TabItem(
+                                title: gameWithHumanText,
+                                index: 1,
+                                currentIndex: _tabColorController.index,
+                              ),
+                            ],
                           ),
                         ),
                       ),
+                    ),
 
-                      TextHeading(text: colorPiecesText,),
-                      Row(
+                    TextHeading(text: colorPiecesText,),
+                    Row(
+                      children: [
+                        ColorChoseButton(
+                          variant: PiecesColor.white,
+                          chose: piecesColor,
+                          onTap: () {
+                            setPiecesColor(PiecesColor.white);
+                          },
+                        ),
+                        const SizedBox(width: 11,),
+                        ColorChoseButton(
+                          variant: PiecesColor.random,
+                          chose: piecesColor,
+                          onTap: () {
+                            setPiecesColor(PiecesColor.random);
+                          },
+                        ),
+                        const SizedBox(width: 11,),
+                        ColorChoseButton(
+                          variant: PiecesColor.black,
+                          chose: piecesColor,
+                          onTap: () {
+                            setPiecesColor(PiecesColor.black);
+                          },
+                        ),
+                      ],
+                    ),
+
+                    TextHeading(text: timeText,),
+                    PreferredSize(
+                      preferredSize: const Size.fromHeight(44),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        child: Container(
+                          height: 44,
+                          padding: const EdgeInsets.all(4),
+                          decoration: ShapeDecoration(
+                            color: scheme.outline,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                          child: TabBar(
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            dividerColor: Colors.transparent,
+                            controller: _tabTimeController,
+                            indicator: const BoxDecoration(
+                              color: ColorsConst.primaryColor100,
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                            ),
+                            onTap: (index) {
+                              setState(() {
+                                withTime = index == 0 ? true : false;
+                              });
+                            },
+                            labelPadding: EdgeInsets.zero,
+                            unselectedLabelColor: ColorsConst.neutralColor300,
+                            tabs: [
+                              TabItem(
+                                title: gameWithTimeText,
+                                index: 0,
+                                currentIndex: _tabTimeController.index,
+                              ),
+                              TabItem(
+                                title: gameWithoutTimeText,
+                                index: 1,
+                                currentIndex: _tabTimeController.index,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    withTime ?
+                      Column(
                         children: [
-                          ColorChoseButton(
-                            variant: PiecesColor.white,
-                            chose: piecesColor,
+                          ChoseTimeCarousel(
+                            values: listOfDurations,
+                            type: 'minutes',
+                            header: minutesSubtitle,
+                            startValue: durationOfGame,
+                            onChanged: setMinutes,
+                          ),
+                          ChoseTimeCarousel(
+                            values: listOfAdditions,
+                            type: 'seconds',
+                            header: secondsSubtitle,
+                            startValue: addingOfMove,
+                            onChanged: setSeconds,
+                          ),
+                        ],
+                      ) : const SizedBox(),
+
+                    enemy == Enemy.computer ?
+                      Column(
+                        children: [
+                          TextHeading(text: levelDifficultyText,),
+                          ChoseDifficultyButton(
+                            level: LevelOfDifficulty.easy,
+                            countOfIcons: 1,
+                            currentLevel: gameMode,
                             onTap: () {
-                              setPiecesColor(PiecesColor.white);
+                              setGameMode(LevelOfDifficulty.easy);
                             },
                           ),
-                          const SizedBox(width: 11,),
-                          ColorChoseButton(
-                            variant: PiecesColor.random,
-                            chose: piecesColor,
+                          ChoseDifficultyButton(
+                            level: LevelOfDifficulty.medium,
+                            countOfIcons: 2,
+                            currentLevel: gameMode,
                             onTap: () {
-                              setPiecesColor(PiecesColor.random);
+                              setGameMode(LevelOfDifficulty.medium);
                             },
                           ),
-                          const SizedBox(width: 11,),
-                          ColorChoseButton(
-                            variant: PiecesColor.black,
-                            chose: piecesColor,
+                          ChoseDifficultyButton(
+                            level: LevelOfDifficulty.hard,
+                            countOfIcons: 3,
+                            currentLevel: gameMode,
                             onTap: () {
-                              setPiecesColor(PiecesColor.black);
+                              setGameMode(LevelOfDifficulty.hard);
+                            },
+                          ),
+                          ChoseDifficultyButton(
+                            level: LevelOfDifficulty.personality,
+                            countOfIcons: 0,
+                            currentLevel: gameMode,
+                            onTap: () {
+                              setGameMode(LevelOfDifficulty.personality);
                             },
                           ),
                         ],
-                      ),
-
-                      TextHeading(text: timeText,),
-                      PreferredSize(
-                        preferredSize: const Size.fromHeight(44),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
-                          child: Container(
-                            height: 44,
-                            padding: const EdgeInsets.all(4),
-                            decoration: ShapeDecoration(
-                              color: scheme.outline,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: TabBar(
-                              indicatorSize: TabBarIndicatorSize.tab,
-                              dividerColor: Colors.transparent,
-                              controller: _tabTimeController,
-                              indicator: const BoxDecoration(
-                                color: ColorsConst.primaryColor100,
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                              ),
-                              onTap: (index) {
-                                setState(() {
-                                  withTime = index == 0 ? true : false;
-                                });
-                              },
-                              labelPadding: EdgeInsets.zero,
-                              unselectedLabelColor: ColorsConst.neutralColor300,
-                              tabs: [
-                                TabItem(
-                                  title: gameWithTimeText,
-                                  index: 0,
-                                  currentIndex: _tabTimeController.index,
-                                ),
-                                TabItem(
-                                  title: gameWithoutTimeText,
-                                  index: 1,
-                                  currentIndex: _tabTimeController.index,
-                                ),
-                              ],
-                            ),
+                      ) : const SizedBox(),
+                    const SizedBox(height: 16,),
+                    gameMode == LevelOfDifficulty.personality && enemy == Enemy.computer ?
+                      Column(
+                        children: [
+                          SettingsRow(
+                            chose: isMoveBack,
+                            text: moveBackText,
+                            onChanged: (chose) {
+                              setState(() {
+                                isMoveBack = chose;
+                              });
+                            },
                           ),
-                        ),
+                          SettingsRow(
+                            chose: isThreats,
+                            text: threatsText,
+                            onChanged: (chose) {
+                              setState(() {
+                                isThreats = chose;
+                              });
+                            },
+                          ),
+                          SettingsRow(
+                            chose: isHints,
+                            text: hintsText,
+                            onChanged: (chose) {
+                              setState(() {
+                                isHints = chose;
+                              });
+                            },
+                          ),
+                        ],
+                      ): const SizedBox(),
+                    const Spacer(),
+                    Container(
+                      margin: const EdgeInsets.only(top: 58, bottom: 48),
+                      child: NextPageButton(
+                        text: startGameText,
+                        textColor: ColorsConst.primaryColor0,
+                        buttonColor: scheme.secondaryContainer,
+                        isClickable: true,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (BuildContext context) {
+                              return const GameView();
+                            })
+                          );
+                        },
                       ),
-                      withTime ?
-                        Column(
-                          children: [
-                            ChoseTimeCarousel(
-                              values: listOfDurations,
-                              type: 'minutes',
-                              header: minutesSubtitle,
-                              startValue: durationOfGame,
-                              onChanged: setMinutes,
-                            ),
-                            ChoseTimeCarousel(
-                              values: listOfAdditions,
-                              type: 'seconds',
-                              header: secondsSubtitle,
-                              startValue: addingOfMove,
-                              onChanged: setSeconds,
-                            ),
-                          ],
-                        ) : const SizedBox(),
-
-                      enemy == Enemy.computer ?
-                        Column(
-                          children: [
-                            TextHeading(text: levelDifficultyText,),
-                            ChoseDifficultyButton(
-                              level: LevelOfDifficulty.easy,
-                              countOfIcons: 1,
-                              currentLevel: gameMode,
-                              onTap: () {
-                                setGameMode(LevelOfDifficulty.easy);
-                              },
-                            ),
-                            ChoseDifficultyButton(
-                              level: LevelOfDifficulty.medium,
-                              countOfIcons: 2,
-                              currentLevel: gameMode,
-                              onTap: () {
-                                setGameMode(LevelOfDifficulty.medium);
-                              },
-                            ),
-                            ChoseDifficultyButton(
-                              level: LevelOfDifficulty.hard,
-                              countOfIcons: 3,
-                              currentLevel: gameMode,
-                              onTap: () {
-                                setGameMode(LevelOfDifficulty.hard);
-                              },
-                            ),
-                            ChoseDifficultyButton(
-                              level: LevelOfDifficulty.personality,
-                              countOfIcons: 0,
-                              currentLevel: gameMode,
-                              onTap: () {
-                                setGameMode(LevelOfDifficulty.personality);
-                              },
-                            ),
-                          ],
-                        ) : const SizedBox(),
-                      const SizedBox(height: 16,),
-                      gameMode == LevelOfDifficulty.personality && enemy == Enemy.computer ?
-                        Column(
-                          children: [
-                            SettingsRow(
-                              chose: isMoveBack,
-                              text: moveBackText,
-                              onChanged: (chose) {
-                                setState(() {
-                                  isMoveBack = chose;
-                                });
-                              },
-                            ),
-                            SettingsRow(
-                              chose: isThreats,
-                              text: threatsText,
-                              onChanged: (chose) {
-                                setState(() {
-                                  isThreats = chose;
-                                });
-                              },
-                            ),
-                            SettingsRow(
-                              chose: isHints,
-                              text: hintsText,
-                              onChanged: (chose) {
-                                setState(() {
-                                  isHints = chose;
-                                });
-                              },
-                            ),
-                          ],
-                        ): const SizedBox(),
-                      const Spacer(),
-                      Container(
-                        margin: const EdgeInsets.only(top: 58, bottom: 48),
-                        child: NextPageButton(
-                          text: startGameText,
-                          textColor: ColorsConst.primaryColor0,
-                          buttonColor: scheme.secondaryContainer,
-                          isClickable: true,
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (BuildContext context) {
-                                return const GameView();
-                              })
-                            );
-                          },
-                        ),
-                      ),
-                    ]
-                  ),
+                    ),
+                  ]
                 ),
               ),
-            )
-          ),
+            ),
+          )
         ),
-      )
+      ),
     );
   }
 }
