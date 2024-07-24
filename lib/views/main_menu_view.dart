@@ -12,7 +12,6 @@ class MainMenuView extends StatefulWidget {
 
 class _MainMenuViewState extends State<MainMenuView> {
 
-  var textStyles = const TextStyles();
   final slogan = "Побеждать\nв шахматах — побеждать\nв жизни";
   final netButton = "Сетевая игра";
   final localButton = "Локальная игра";
@@ -34,8 +33,8 @@ class _MainMenuViewState extends State<MainMenuView> {
       backgroundColor: scheme.background,
       body: ConstrainedBox(
         constraints: BoxConstraints(
-            minWidth: MediaQuery.of(context).size.width,
-            minHeight: MediaQuery.of(context).size.height
+          minWidth: MediaQuery.of(context).size.width,
+          minHeight: MediaQuery.of(context).size.height
         ),
         child: IntrinsicHeight(
           child: Container(
@@ -60,7 +59,14 @@ class _MainMenuViewState extends State<MainMenuView> {
                       height: 32,
                       width: 32,
                       iconSize: 18,
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                            return const GuideChoseView();
+                          })
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -71,7 +77,12 @@ class _MainMenuViewState extends State<MainMenuView> {
                       margin: const EdgeInsets.only(right: 40),
                       child: Text(
                         slogan,
-                        style: textStyles.title1,
+                        style: TextStyle(
+                          fontSize: 36,
+                          fontStyle: FontStyle.normal,
+                          fontWeight: FontWeight.w600,
+                          color: scheme.primary
+                        ),
                       ),
                     ),
                     Padding(
