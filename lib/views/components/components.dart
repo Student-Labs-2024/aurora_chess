@@ -8,3 +8,6 @@ export 'color_chose_button.dart';
 export 'chose_time_carousel.dart';
 export 'chose_difficulty_button.dart';
 export 'settings_row.dart';
+export 'app_bar_guide.dart';
+export 'custom_icon_button.dart';
+export 'guide_chose_piece_button.dart';

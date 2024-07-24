@@ -14,14 +14,13 @@ class AppBarSettings extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        IconButton(
-          onPressed: () {
+        CustomIconButton(
+          iconName: "assets/images/icons/left_big_arrow_icon.svg",
+          color: scheme.onTertiary,
+          iconSize: 32,
+          onTap: () {
             Navigator.pop(context);
           },
-          icon: SvgPicture.asset(
-            "assets/images/icons/left_big_arrow_icon.svg",
-            color: scheme.onSecondary,
-          ),
         ),
         Text(
           label,

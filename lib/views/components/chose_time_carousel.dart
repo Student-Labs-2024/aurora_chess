@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend/constants/colors.dart';
 import 'package:wheel_chooser/wheel_chooser.dart';
+
+import '../../exports.dart';
 
 
 class ChoseTimeCarousel extends StatefulWidget {
@@ -56,23 +56,17 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
           ),
           Row(
             children: [
-              Container(
-                width: 30,
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  constraints: BoxConstraints(),
-                  onPressed: () {
-                    if (initPosition > 0) {
-                      setState(() {
-                        initPosition -= 1;
-                      });
-                    }
-                  },
-                  icon: SvgPicture.asset(
-                    "assets/images/icons/left_big_arrow_icon.svg",
-                    color: scheme.onTertiary,
-                  )
-                ),
+              CustomIconButton(
+                iconName: "assets/images/icons/left_big_arrow_icon.svg",
+                color: scheme.onTertiary,
+                iconSize: 30,
+                onTap: () {
+                  if (initPosition > 0) {
+                    setState(() {
+                      initPosition -= 1;
+                    });
+                  }
+                },
               ),
               SizedBox(
                 height: 50,
@@ -98,21 +92,17 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
                   ),
                 ),
               ),
-              Container(
-                width: 30,
-                child: IconButton(
-                  onPressed: () {
-                    if(initPosition < widget.values.length - 1) {
-                      setState(() {
-                        initPosition += 1;
-                      });
-                    }
-                  },
-                  icon: SvgPicture.asset(
-                    "assets/images/icons/right_big_arrow_icon.svg",
-                    color: scheme.onTertiary,
-                  )
-                ),
+              CustomIconButton(
+                iconName: "assets/images/icons/right_big_arrow_icon.svg",
+                color: scheme.onTertiary,
+                iconSize: 30,
+                onTap: () {
+                  if(initPosition < widget.values.length - 1) {
+                    setState(() {
+                      initPosition += 1;
+                    });
+                  }
+                },
               ),
             ],
           ),
