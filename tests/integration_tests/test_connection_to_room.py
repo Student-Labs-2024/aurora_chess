@@ -9,8 +9,8 @@ client = TestClient(app)
 def test_connection_to_room_positive():
     game_type = "gameWithFriend"
     room_name = "test_connection_to_room_positive"
-    player_name = "player_2"
-    side = "White"
+    player_name_2 = "player_2"
+    side_2 = "white"
 
     request_message_connect = {
         "jsonType": "roomConnectionRequest",
@@ -20,16 +20,14 @@ def test_connection_to_room_positive():
                 "roomName": room_name
             },
             "player": {
-                "playerName": player_name,
-                "playerSide": side
+                "playerName": player_name_2,
+                "playerSide": side_2
             }
         },
     }
 
-    game_type = "gameWithFriend"
-    room_name = "test_connection_to_room_positive"
     player_name = "player_1"
-    side = "Black"
+    side = "black"
 
     request_message_create = {
         "jsonType": "roomInitRequest",
@@ -48,17 +46,18 @@ def test_connection_to_room_positive():
     json_request_message_create = json.dumps(request_message_create)
     json_request_message_connect = json.dumps(request_message_connect)
 
+    room_connection_status = "successfully_connected"
     responce_message_connect = {
         "jsonType": "roomConnectionResponce",
         "data": {
             "gameType": game_type,
             "room": {
                     "roomName": room_name,
-                    "roomConnectionStatus": "successfully connected",
+                    "roomConnectionStatus": room_connection_status,
             },
             "players": {
-                "roomCreator": {"name": "player_1", "side": "Black", },
-                "connectedPlayer": {"name": "player_2", "side": "White", },
+                "roomCreator": {"name": player_name, "side": side, },
+                "connectedPlayer": {"name": player_name_2, "side": side_2, },
             }
         },
     }
@@ -70,14 +69,17 @@ def test_connection_to_room_positive():
             websocket_1.send_json(json_request_message_connect)
             json_responce_message = websocket_1.receive_json()
 
-    actual_responce_message = json.load(json_responce_message)
+        websocket_1.close()
+        websocket.close()
+
+    actual_responce_message = json.loads(json_responce_message)
     assert actual_responce_message["jsonType"] == responce_message_connect["jsonType"]
     assert actual_responce_message["data"] == responce_message_connect["data"]
 
 
 def test_connection_to_room_negative():
     game_type = "gameWithFriend"
-    room_name = "test_connection_to_room_positive"
+    room_name = "test_connection_to_room_negative"
     player_name = "player_2"
     side = "White"
 
@@ -97,15 +99,18 @@ def test_connection_to_room_negative():
 
     json_request_message_connect = json.dumps(request_message_connect)
 
+    connection_status = "does not exists"
     responce_message_connect = {
         "jsonType": "roomConnectionResponce",
         "data": {
             "gameType": game_type,
             "room": {
                 "roomName": room_name,
-                "roomConnectionStatus": "does not exists",
+                "roomConnectionStatus": connection_status,
             },
             "players": {
+                "roomCreator": None,
+                "connectedPlayer": None
             }
         },
     }
@@ -114,7 +119,9 @@ def test_connection_to_room_negative():
         websocket.send_json(json_request_message_connect)
         json_responce_message = websocket.receive_json()
 
-    actual_responce_message = json.load(json_responce_message)
+        websocket.close()
+
+    actual_responce_message = json.loads(json_responce_message)
     assert actual_responce_message["jsonType"] == responce_message_connect["jsonType"]
     assert actual_responce_message["data"] == responce_message_connect["data"]
 

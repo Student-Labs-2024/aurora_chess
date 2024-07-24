@@ -45,7 +45,7 @@ def test_create_room_with_friend_positive():
 
         websocket.close()
 
-    actual_responce_message = json.load(json_responce_message)
+    actual_responce_message = json.loads(json_responce_message)
     assert actual_responce_message["jsonType"] == responce_message["jsonType"]
     assert actual_responce_message["data"] == responce_message["data"]
 
@@ -92,6 +92,6 @@ def test_create_room_with_friend_negative():
         websocket_1.close()
         websocket.close()
 
-    actual_responce_message = json.load(json_responce_message)
+    actual_responce_message = json.loads(json_responce_message)
     assert actual_responce_message["jsonType"] == responce_message["jsonType"]
     assert actual_responce_message["data"] == responce_message["data"]
