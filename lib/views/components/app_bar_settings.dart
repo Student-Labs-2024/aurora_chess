@@ -19,7 +19,7 @@ class AppBarSettings extends StatelessWidget {
             Navigator.pop(context);
           },
           icon: SvgPicture.asset(
-            "assets/images/icons/left_small_arrow_icon.svg",
+            "assets/images/icons/left_big_arrow_icon.svg",
             color: scheme.onSecondary,
           ),
         ),
