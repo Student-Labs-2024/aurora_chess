@@ -52,8 +52,13 @@ class _GameSettingsViewState extends State<GameSettingsView> with TickerProvider
   bool isThreats = false;
   bool isHints = false;
   int countOfTabs = 2;
+  int durationOfGame = 1;
+  int addingOfMove = 1;
   late TabController _tabColorController;
   late TabController _tabTimeController;
+
+  List<int> listOfDurations = [1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 60, 80, 90, 120];
+  List<int> listOfAdditions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 30, 45, 60];
 
   void setPiecesColor(PiecesColor chose) {
     setState(() {
@@ -64,6 +69,18 @@ class _GameSettingsViewState extends State<GameSettingsView> with TickerProvider
   void setGameMode(LevelOfDifficulty chose) {
     setState(() {
       gameMode = chose;
+    });
+  }
+
+  void setMinutes(chose) {
+    setState(() {
+      durationOfGame = chose;
+    });
+  }
+
+  void setSeconds(chose) {
+    setState(() {
+      addingOfMove = chose;
     });
   }
 
@@ -219,14 +236,18 @@ class _GameSettingsViewState extends State<GameSettingsView> with TickerProvider
                         Column(
                           children: [
                             ChoseTimeCarousel(
-                              values: [1, 2, 3, 4, 5],
+                              values: listOfDurations,
                               type: 'minutes',
                               header: minutesSubtitle,
+                              startValue: durationOfGame,
+                              onChanged: setMinutes,
                             ),
                             ChoseTimeCarousel(
-                              values: [1, 2, 3, 4, 5],
+                              values: listOfAdditions,
                               type: 'seconds',
                               header: secondsSubtitle,
+                              startValue: addingOfMove,
+                              onChanged: setSeconds,
                             ),
                           ],
                         ) : const SizedBox(),
@@ -312,10 +333,10 @@ class _GameSettingsViewState extends State<GameSettingsView> with TickerProvider
                           isClickable: true,
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (BuildContext context) {
-                                  return const GameView();
-                                })
+                              context,
+                              MaterialPageRoute(builder: (BuildContext context) {
+                                return const GameView();
+                              })
                             );
                           },
                         ),
