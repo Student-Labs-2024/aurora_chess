@@ -34,6 +34,7 @@ class ChoseDifficultyButton extends StatelessWidget {
         height: 60,
         minWidth: double.infinity,
         onPressed: onTap,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         color: level == currentLevel ? ColorsConst.primaryColor100 : scheme.outline,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
