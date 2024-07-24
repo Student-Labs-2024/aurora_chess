@@ -18,6 +18,8 @@ class SettingsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
     return Container(
+      height: 30,
+      margin: const EdgeInsets.only(bottom: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -28,10 +30,10 @@ class SettingsRow extends StatelessWidget {
                 style: TextStyle(
                   color: scheme.primary,
                   fontSize: 16,
+                  fontFamily: 'Roboto',
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(width: 10,),
               IconButton(
                 padding: EdgeInsets.zero,
                 onPressed: () {},
