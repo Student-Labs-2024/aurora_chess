@@ -19,9 +19,11 @@ ThemeData lightMode = ThemeData(
     tertiary: ColorsConst.neutralColor300,
     tertiaryContainer: ColorsConst.secondaryColor200,
     surfaceTint: ColorsConst.secondaryColor200,
-    inversePrimary: ColorsConst.feedbackColor100,
+    inversePrimary: ColorsConst.active100,
     onTertiary: ColorsConst.neutralColor300,
     onSurface: ColorsConst.secondaryColor200,
+    surfaceVariant: ColorsConst.secondaryColor200,
+    inverseSurface: ColorsConst.secondaryColor20050
   ),
 );
 
@@ -32,11 +34,11 @@ ThemeData darkMode = ThemeData(
     primary: ColorsConst.primaryColor0,
     primaryContainer: ColorsConst.primaryColor0,
     onPrimary: ColorsConst.primaryColor100,
-    onBackground: ColorsConst.feedbackColor100,
+    onBackground: ColorsConst.active100,
     onPrimaryContainer: ColorsConst.primaryColor100,
     secondary: ColorsConst.neutralColor100,
-    onSecondaryContainer: ColorsConst.feedbackColor100,
-    secondaryContainer: ColorsConst.primaryColor100,
+    onSecondaryContainer: ColorsConst.active100,
+    secondaryContainer: ColorsConst.primaryColor200,
     onSecondary: ColorsConst.secondaryColor0,
     surface: ColorsConst.neutralColor0,
     outline: ColorsConst.secondaryColor100,
@@ -46,5 +48,7 @@ ThemeData darkMode = ThemeData(
     inversePrimary: ColorsConst.primaryColor0,
     onTertiary: ColorsConst.primaryColor0,
     onSurface: ColorsConst.primaryColor0,
+    surfaceVariant: ColorsConst.primaryColor200,
+    inverseSurface: ColorsConst.neutralColor0
   ),
 );
