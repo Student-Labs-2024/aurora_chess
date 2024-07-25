@@ -11,3 +11,6 @@ export 'settings_row.dart';
 export 'app_bar_guide.dart';
 export 'custom_icon_button.dart';
 export 'guide_chose_piece_button.dart';
+export 'points_indicator.dart';
+export 'bottom_bar_guide.dart';
+export 'hint_description.dart';

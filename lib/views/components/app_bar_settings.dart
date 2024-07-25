@@ -37,7 +37,14 @@ class AppBarSettings extends StatelessWidget {
           height: 32,
           width: 32,
           iconSize: 18,
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) {
+                return const GuideChoseView();
+              })
+            );
+          },
         ),
       ],
     );

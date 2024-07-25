@@ -41,10 +41,19 @@ class GuideChoseView extends StatelessWidget {
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
-                return GuideChosePieceButton(
-                  iconName: "assets/images/pieces/${piecesIcons[index]}",
-                  label: pieces[index],
-                  onTap: () {},
+                return SingleChildScrollView(
+                  child: GuideChosePieceButton(
+                    iconName: "assets/images/pieces/${piecesIcons[index]}",
+                    label: pieces[index],
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                          return GuideView(index: index,);
+                        })
+                      );
+                    },
+                  ),
                 );
               },
             ),
