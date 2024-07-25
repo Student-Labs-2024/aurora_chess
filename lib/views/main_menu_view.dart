@@ -13,8 +13,7 @@ class MainMenuView extends StatefulWidget {
 class _MainMenuViewState extends State<MainMenuView> {
 
   final slogan = "Побеждать\nв шахматах — побеждать\nв жизни";
-  final netButton = "Сетевая игра";
-  final localButton = "Локальная игра";
+  final localButton = "Начать игру";
   String piecesFile = "";
 
 
@@ -54,7 +53,7 @@ class _MainMenuViewState extends State<MainMenuView> {
                       },
                     ),
                     ButtonToGuide(
-                      backGroundColor: scheme.onPrimaryContainer,
+                      backGroundColor: scheme.secondaryContainer,
                       iconColor: ColorsConst.neutralColor0,
                       height: 32,
                       width: 32,
