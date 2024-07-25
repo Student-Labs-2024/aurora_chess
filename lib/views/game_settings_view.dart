@@ -111,7 +111,11 @@ class _GameSettingsViewState extends State<GameSettingsView> with TickerProvider
                   children: [
                     AppBarSettings(label: appBarLabel),
 
-                    TextHeading(text: gameModeText,),
+                    TextHeading(
+                      text: gameModeText,
+                      topMargin: 32,
+                      bottomMargin: 16,
+                    ),
                     PreferredSize(
                       preferredSize: const Size.fromHeight(44),
                       child: ClipRRect(
@@ -157,7 +161,11 @@ class _GameSettingsViewState extends State<GameSettingsView> with TickerProvider
                       ),
                     ),
 
-                    TextHeading(text: colorPiecesText,),
+                    TextHeading(
+                      text: colorPiecesText,
+                      topMargin: 32,
+                      bottomMargin: 16,
+                    ),
                     Row(
                       children: [
                         ColorChoseButton(
@@ -186,7 +194,11 @@ class _GameSettingsViewState extends State<GameSettingsView> with TickerProvider
                       ],
                     ),
 
-                    TextHeading(text: timeText,),
+                    TextHeading(
+                      text: timeText,
+                      topMargin: 32,
+                      bottomMargin: 16,
+                    ),
                     PreferredSize(
                       preferredSize: const Size.fromHeight(44),
                       child: ClipRRect(
@@ -254,7 +266,11 @@ class _GameSettingsViewState extends State<GameSettingsView> with TickerProvider
                     enemy == Enemy.computer ?
                       Column(
                         children: [
-                          TextHeading(text: levelDifficultyText,),
+                          TextHeading(
+                            text: levelDifficultyText,
+                            topMargin: 32,
+                            bottomMargin: 16,
+                          ),
                           ChoseDifficultyButton(
                             level: LevelOfDifficulty.easy,
                             countOfIcons: 1,
