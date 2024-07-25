@@ -15,6 +15,7 @@ dependencies:
   sqflite: ^2.3.3+1
   flutter_svg: ^2.0.10+1
   wheel_chooser: ^1.1.2
+  infinite_carousel: ^1.1.1
   sqflite_aurora:
     git:
       url: https://gitlab.com/omprussia/flutter/flutter-plugins.git
@@ -35,3 +36,4 @@ flutter:
     - assets/images/pieces/
     - assets/images/small_pieces/
     - assets/images/icons/
+    - assets/images/guide_boards/
