@@ -1,6 +1,7 @@
+import 'package:frontend/constants/colors.dart';
+import 'package:frontend/views/game_settings_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend/exports.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ChoseDifficultyButton extends StatelessWidget {
   const ChoseDifficultyButton({
@@ -35,7 +36,9 @@ class ChoseDifficultyButton extends StatelessWidget {
         minWidth: double.infinity,
         onPressed: onTap,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        color: level == currentLevel ? ColorsConst.primaryColor100 : scheme.outline,
+        color: level == currentLevel
+            ? ColorsConst.primaryColor100
+            : scheme.outline,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -46,18 +49,24 @@ class ChoseDifficultyButton extends StatelessWidget {
                 fontFamily: 'Roboto',
                 fontStyle: FontStyle.normal,
                 fontWeight: FontWeight.w500,
-                color: level == currentLevel ? ColorsConst.primaryColor0 : scheme.primary,
+                color: level == currentLevel
+                    ? ColorsConst.primaryColor0
+                    : scheme.primary,
               ),
             ),
             Row(
               children: [
-                for(var i = 0; i < countOfIcons; i++)
+                for (var i = 0; i < countOfIcons; i++)
                   Row(
                     children: [
-                      const SizedBox(width: 8,),
+                      const SizedBox(
+                        width: 8,
+                      ),
                       SvgPicture.asset(
                         "assets/images/icons/crown_icon.svg",
-                        color: level == currentLevel ? ColorsConst.primaryColor0 : scheme.primary,
+                        color: level == currentLevel
+                            ? ColorsConst.primaryColor0
+                            : scheme.primary,
                       ),
                     ],
                   )
@@ -68,5 +77,4 @@ class ChoseDifficultyButton extends StatelessWidget {
       ),
     );
   }
-
 }

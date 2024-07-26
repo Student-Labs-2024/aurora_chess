@@ -1,8 +1,7 @@
+import 'package:frontend/constants/colors.dart';
+import 'package:frontend/views/components/custom_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:wheel_chooser/wheel_chooser.dart';
-
-import '../../exports.dart';
-
 
 class ChoseTimeCarousel extends StatefulWidget {
   const ChoseTimeCarousel({
@@ -25,7 +24,6 @@ class ChoseTimeCarousel extends StatefulWidget {
 }
 
 class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
-
   int initPosition = 0;
 
   @override
@@ -97,7 +95,7 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
                 color: scheme.onTertiary,
                 iconSize: 30,
                 onTap: () {
-                  if(initPosition < widget.values.length - 1) {
+                  if (initPosition < widget.values.length - 1) {
                     setState(() {
                       initPosition += 1;
                     });

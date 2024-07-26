@@ -1,14 +1,12 @@
+import 'package:frontend/views/components/custom_icon_button.dart';
 import 'package:flutter/material.dart';
 
-import '../../exports.dart';
-
 class AppBarGuide extends StatelessWidget {
-  const AppBarGuide({
-    super.key,
-    required this.isMainGuide,
-    required this.iconName,
-    required this.iconColor
-  });
+  const AppBarGuide(
+      {super.key,
+      required this.isMainGuide,
+      required this.iconName,
+      required this.iconColor});
 
   final bool isMainGuide;
   final String iconName;
@@ -24,15 +22,18 @@ class AppBarGuide extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          isMainGuide ? const SizedBox(width: 42,) :
-          CustomIconButton(
-            iconName: iconName,
-            color: iconColor,
-            iconSize: 42,
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
+          isMainGuide
+              ? const SizedBox(
+                  width: 42,
+                )
+              : CustomIconButton(
+                  iconName: iconName,
+                  color: iconColor,
+                  iconSize: 42,
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
           Text(
             guideHeader,
             style: TextStyle(
@@ -42,19 +43,20 @@ class AppBarGuide extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          isMainGuide ?
-          CustomIconButton(
-            iconName: iconName,
-            color: iconColor,
-            iconSize: 42,
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ) :
-          const SizedBox(width: 42,),
+          isMainGuide
+              ? CustomIconButton(
+                  iconName: iconName,
+                  color: iconColor,
+                  iconSize: 42,
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                )
+              : const SizedBox(
+                  width: 42,
+                ),
         ],
       ),
     );
   }
-
 }
