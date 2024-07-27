@@ -1,20 +1,10 @@
 import json
-from typing import Literal
 
 from fastapi import APIRouter, WebSocket
 
 router = APIRouter(
     tags=["Chess"]
 )
-
-
-class Player:
-    def __init__(self, name: str, side: Literal["white", "black"]):
-        self.name = name
-        self.side = side
-
-
-rooms = dict()
 
 
 @router.websocket("/ws")
