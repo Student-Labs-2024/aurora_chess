@@ -2,6 +2,8 @@ import 'package:frontend/views/components/app_bar_guide.dart';
 import 'package:frontend/views/components/guide_chose_piece_button.dart';
 import 'package:flutter/material.dart';
 
+import 'guide.dart';
+
 List<String> pieces = ["Пешка", "Ладья", "Конь", "Слон", "Ферзь", "Король"];
 List<String> piecesIcons = [
   "pawn.svg",
@@ -35,10 +37,19 @@ class GuideChoseView extends StatelessWidget {
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
-                return GuideChosePieceButton(
-                  iconName: "assets/images/pieces/${piecesIcons[index]}",
-                  label: pieces[index],
-                  onTap: () {},
+                return SingleChildScrollView(
+                  child: GuideChosePieceButton(
+                    iconName: "assets/images/pieces/${piecesIcons[index]}",
+                    label: pieces[index],
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                          return GuideView(index: index,);
+                        })
+                      );
+                    },
+                  ),
                 );
               },
             ),

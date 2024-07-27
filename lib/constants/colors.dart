@@ -10,12 +10,14 @@ class ColorsConst {
 
   static const Color primaryColor0 = Color(0xFFFFFFFF);
   static const Color primaryColor100 = Color(0xFFF07929);
+  static const Color primaryColor200 = Color(0xFFDC6523);
 
   static const Color secondaryColor0 = Color(0xFFC6BAAA);
   static const Color secondaryColor100 = Color(0xFF818181);
   static const Color secondaryColor200 = Color(0xFF806C61);
+  static const Color secondaryColor20050 = Color(0x80806C61);
   static const Color secondaryColor300 = Color(0xFF4E4E4E);
 
-  static const Color feedbackColor0 = Color(0xFFFF5C00);
-  static const Color feedbackColor100 = Color(0xFF9E5523);
+  static const Color target0 = Color(0xFFFF5C00);
+  static const Color active100 = Color(0xFF9E5523);
 }

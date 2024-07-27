@@ -148,6 +148,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
                             AppBarSettings(label: appBarLabel),
                             TextHeading(
                               text: gameModeText,
+                              topMargin: 32,
+                              bottomMargin: 16,
                             ),
                             PreferredSize(
                               preferredSize: const Size.fromHeight(44),
@@ -202,6 +204,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
                             ),
                             TextHeading(
                               text: colorPiecesText,
+                              topMargin: 32,
+                              bottomMargin: 16,
                             ),
                             Row(
                               children: [
@@ -239,6 +243,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
                             ),
                             TextHeading(
                               text: timeText,
+                              topMargin: 32,
+                              bottomMargin: 16,
                             ),
                             PreferredSize(
                               preferredSize: const Size.fromHeight(44),
@@ -317,6 +323,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     children: [
                                       TextHeading(
                                         text: levelDifficultyText,
+                                        topMargin: 32,
+                                        bottomMargin: 16,
                                       ),
                                       ChoseDifficultyButton(
                                         level: LevelOfDifficulty.easy,
