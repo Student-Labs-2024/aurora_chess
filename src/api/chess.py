@@ -20,29 +20,11 @@ rooms = dict()
 @router.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
-    first_message_json: json = await websocket.receive_json()
-    first_message = json.loads(first_message_json)
-    first_message_json_type = first_message["jsonType"]
-    first_message_data = first_message["data"]
-    if first_message_json_type == "roomInitRequest":
-        room_name = first_message_data["room"]["roomName"]
-        if room_name in rooms:
-            room_init_status = "already exists"
-        else:
-            player_info = first_message["data"]["player"]
-            rooms[room_name] = [Player(name=player_info["playerName"], side=player_info["playerSide"])]
-            room_init_status = "successfully created"
-
-        game_type = first_message["data"]["gameType"]
-
-        responce_message = {
-            "jsonType": "roomInitResponce",
-            "data": {
-                "gameType": game_type,
-                "roomName": room_name,
-                "roomInitStatus": room_init_status,
-            },
-        }
+    try:
+        message_json: json = await websocket.receive_json()
+        message = json.loads(message_json)
+        json_type = message["jsonType"]
+        responce_message = message_dispatcher.get_handler(json_type).handle(message, websocket)
         await websocket.send_json(json.dumps(responce_message))
 
     elif first_message["jsonType"] == "roomConnectionRequest":
