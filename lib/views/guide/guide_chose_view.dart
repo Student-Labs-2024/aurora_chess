@@ -1,6 +1,8 @@
+import 'package:frontend/views/components/app_bar_guide.dart';
+import 'package:frontend/views/components/guide_chose_piece_button.dart';
 import 'package:flutter/material.dart';
 
-import '../../exports.dart';
+import 'guide.dart';
 
 List<String> pieces = ["Пешка", "Ладья", "Конь", "Слон", "Ферзь", "Король"];
 List<String> piecesIcons = [
@@ -11,14 +13,8 @@ List<String> piecesIcons = [
   "queen.svg",
   "king.svg",
 ];
-enum Pieces {
-  pawn,
-  rook,
-  knight,
-  bishop,
-  queen,
-  king
-}
+
+enum Pieces { pawn, rook, knight, bishop, queen, king }
 
 class GuideChoseView extends StatelessWidget {
   const GuideChoseView({super.key});
@@ -62,5 +58,4 @@ class GuideChoseView extends StatelessWidget {
       ),
     );
   }
-
 }

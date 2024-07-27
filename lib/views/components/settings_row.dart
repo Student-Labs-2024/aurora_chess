@@ -1,14 +1,10 @@
+import 'package:frontend/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend/constants/colors.dart';
 
 class SettingsRow extends StatelessWidget {
-  const SettingsRow({
-    super.key,
-    required this.chose,
-    required this.text,
-    this.onChanged
-  });
+  const SettingsRow(
+      {super.key, required this.chose, required this.text, this.onChanged});
 
   final bool chose;
   final String text;
@@ -60,5 +56,4 @@ class SettingsRow extends StatelessWidget {
       ),
     );
   }
-
 }

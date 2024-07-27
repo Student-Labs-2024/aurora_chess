@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_carousel/infinite_carousel.dart';
 
-import '../../exports.dart';
+import '../../constants/guide_strings.dart';
+import '../components/components.dart';
+import 'guide.dart';
+// import '../../exports.dart';
 
 Map<String, List<String>> hintsOfPieces = {
   "Пешка": GuideStrings.hintsOfPawn,

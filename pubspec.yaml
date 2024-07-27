@@ -9,13 +9,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.6
-  provider: ^6.1.2
+  provider: ^6.0.5
+  flame: ^1.7.3
+  url_launcher: ^6.0.2
   sqflite: ^2.3.3+1
   flutter_svg: ^2.0.10+1
   wheel_chooser: ^1.1.2
   infinite_carousel: ^1.1.1
+  shared_preferences:
+  async:
   sqflite_aurora:
     git:
       url: https://gitlab.com/omprussia/flutter/flutter-plugins.git
@@ -27,6 +30,16 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path_android: "assets/icons/icon.png"
+  image_path_ios: "assets/icons/icon.png"
+  adaptive_icon_foreground: "assets/icons/icon_foreground.png"
+  adaptive_icon_background: "assets/icons/icon_background.png"
+
 
 flutter:
   uses-material-design: true
@@ -36,4 +49,5 @@ flutter:
     - assets/images/pieces/
     - assets/images/small_pieces/
     - assets/images/icons/
+    - assets/images/pieces/classic/
     - assets/images/guide_boards/

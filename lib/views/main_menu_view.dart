@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/exports.dart';
-import 'package:provider/provider.dart';
+// import 'package:frontend/exports.dart';
+// import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../constants/constants.dart';
+import 'components/components.dart';
+import 'game_settings_view.dart';
+import 'guide/guide.dart';
 
 class MainMenuView extends StatefulWidget {
   const MainMenuView({super.key});
@@ -13,7 +18,8 @@ class MainMenuView extends StatefulWidget {
 class _MainMenuViewState extends State<MainMenuView> {
 
   final slogan = "Побеждать\nв шахматах — побеждать\nв жизни";
-  final localButton = "Начать игру";
+  final netButton = "Сетевая игра";
+  final localButton = "Локальная игра";
   String piecesFile = "";
 
 
@@ -25,7 +31,7 @@ class _MainMenuViewState extends State<MainMenuView> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<ThemeProvider>(context, listen: false);
+    // var provider = Provider.of<ThemeProvider>(context, listen: false);
     var scheme = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -47,13 +53,13 @@ class _MainMenuViewState extends State<MainMenuView> {
                     CustomSwitch(
                       onChanged: (value) {
                         setState(() {
-                          provider.toggleTheme();
-                          piecesFile = provider.isDarkMode ? "pieces_dark" : "pieces_light";
+                          // provider.toggleTheme();
+                          // piecesFile = provider.isDarkMode ? "pieces_dark" : "pieces_light";
                         });
                       },
                     ),
                     ButtonToGuide(
-                      backGroundColor: scheme.secondaryContainer,
+                      backGroundColor: scheme.onPrimaryContainer,
                       iconColor: ColorsConst.neutralColor0,
                       height: 32,
                       width: 32,
