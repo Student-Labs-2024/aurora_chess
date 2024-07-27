@@ -11,7 +11,7 @@ def test_create_room_with_friend_positive():
     game_type = "gameWithFriend"
     room_name = "test_create_room_with_friend_positive"
     player_name = "player_1"
-    side = "Black"
+    side = "black"
 
     request_message = {
         "jsonType": "roomInitRequest",
@@ -54,7 +54,7 @@ def test_create_room_with_friend_negative():
     game_type = "gameWithFriend"
     room_name = "test_create_room_with_friend_positive"
     player_name = "player_1"
-    side = "Black"
+    side = "black"
 
     request_message = {
         "jsonType": "roomInitRequest",

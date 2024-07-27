@@ -53,8 +53,8 @@ def test_connection_to_room_positive():
             "gameType": game_type,
             "room": {
                     "roomName": room_name,
-                    "roomConnectionStatus": room_connection_status,
             },
+            "roomConnectionStatus": room_connection_status,
             "players": {
                 "roomCreator": {"name": player_name, "side": side, },
                 "connectedPlayer": {"name": player_name_2, "side": side_2, },
@@ -81,7 +81,7 @@ def test_connection_to_room_negative():
     game_type = "gameWithFriend"
     room_name = "test_connection_to_room_negative"
     player_name = "player_2"
-    side = "White"
+    side = "white"
 
     request_message_connect = {
         "jsonType": "roomConnectionRequest",
@@ -106,8 +106,8 @@ def test_connection_to_room_negative():
             "gameType": game_type,
             "room": {
                 "roomName": room_name,
-                "roomConnectionStatus": connection_status,
             },
+            "roomConnectionStatus": connection_status,
             "players": {
                 "roomCreator": None,
                 "connectedPlayer": None
@@ -124,4 +124,3 @@ def test_connection_to_room_negative():
     actual_responce_message = json.loads(json_responce_message)
     assert actual_responce_message["jsonType"] == responce_message_connect["jsonType"]
     assert actual_responce_message["data"] == responce_message_connect["data"]
-
