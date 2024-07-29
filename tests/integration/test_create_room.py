@@ -7,7 +7,7 @@ import json
 client = TestClient(app)
 
 
-def test_create_room_with_friend_positive():
+def test_player_can_create_room():
     game_type = "gameWithFriend"
     room_name = "test_create_room_with_friend_positive"
     player_name = "player_1"
@@ -50,7 +50,7 @@ def test_create_room_with_friend_positive():
     assert actual_response_message["data"] == response_message["data"]
 
 
-def test_create_room_with_friend_negative():
+def test_player_cant_create_alredy_exist_room():
     game_type = "gameWithFriend"
     room_name = "test_create_room_with_friend_positive"
     player_name = "player_1"

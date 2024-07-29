@@ -6,7 +6,7 @@ import json
 client = TestClient(app)
 
 
-def test_connection_to_room_positive():
+def test_player_can_connect_to_room():
     game_type = "gameWithFriend"
     room_name = "test_connection_to_room_positive"
     player_name_2 = "player_2"
@@ -77,7 +77,7 @@ def test_connection_to_room_positive():
     assert actual_responce_message["data"] == responce_message_connect["data"]
 
 
-def test_connection_to_room_negative():
+def test_player_cant_connect_to_not_existed_room():
     game_type = "gameWithFriend"
     room_name = "test_connection_to_room_negative"
     player_name = "player_2"
