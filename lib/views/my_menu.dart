@@ -41,7 +41,7 @@ class _MyMenuViewState extends State<MyMenuView> {
                 Column(
                   children: [
                     const SizedBox(
-                      height: 54,
+                      height: 55,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,8 +55,7 @@ class _MyMenuViewState extends State<MyMenuView> {
                           },
                         ),
                         ButtonToGuide(
-                          backGroundColor: scheme.onPrimaryContainer,
-                          iconColor: ColorsConst.neutralColor0,
+                          backGroundColor: scheme.secondaryContainer,
                           height: 40,
                           width: 40,
                           onTap: () {
@@ -78,10 +77,11 @@ class _MyMenuViewState extends State<MyMenuView> {
                           child: Text(
                             slogan,
                             style: TextStyle(
-                                fontSize: 36,
-                                fontStyle: FontStyle.normal,
-                                fontWeight: FontWeight.w600,
-                                color: scheme.primary),
+                              fontSize: 36,
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.w600,
+                              color: scheme.primary
+                            ),
                           ),
                         ),
                         Padding(

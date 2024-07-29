@@ -29,8 +29,7 @@ class AppBarSettings extends StatelessWidget {
             color: scheme.primary),
         ),
         ButtonToGuide(
-          backGroundColor: scheme.secondary,
-          iconColor: scheme.surface,
+          backGroundColor: scheme.secondaryContainer,//onPrimaryContainer
           height: 40,
           width: 40,
           onTap: () {
