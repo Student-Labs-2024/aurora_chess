@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ButtonToGuide extends StatelessWidget {
   const ButtonToGuide({
@@ -7,7 +8,6 @@ class ButtonToGuide extends StatelessWidget {
     required this.iconColor,
     required this.width,
     required this.height,
-    required this.iconSize,
     this.onTap
   });
 
@@ -15,13 +15,14 @@ class ButtonToGuide extends StatelessWidget {
   final Color iconColor;
   final double width;
   final double height;
-  final double iconSize;
   final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: onTap,
+      padding: EdgeInsets.zero,
+      constraints: BoxConstraints(),
       icon: Container(
         width: width,
         height: height,
@@ -29,10 +30,8 @@ class ButtonToGuide extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
           color: backGroundColor,
         ),
-        child: Icon(
-          Icons.question_mark,
-          color: iconColor,
-          size: iconSize,
+        child: SvgPicture.asset(
+          "assets/images/icons/handbook.svg",
         )
       ),
     );

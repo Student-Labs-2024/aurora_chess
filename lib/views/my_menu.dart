@@ -1,14 +1,8 @@
-import 'package:frontend/constants/colors.dart';
-import 'package:frontend/model/app_model.dart';
-import 'package:frontend/theme/theme.dart';
-import 'package:frontend/views/components/button_to_guide.dart';
-import 'package:frontend/views/components/custom_switch.dart';
-import 'package:frontend/views/components/next_page_button.dart';
-import 'package:frontend/views/game_settings_view.dart';
-import 'package:frontend/views/guide/guide_chose_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import '../exports.dart';
+
 
 class MyMenuView extends StatefulWidget {
   const MyMenuView({super.key});
@@ -38,8 +32,8 @@ class _MyMenuViewState extends State<MyMenuView> {
       backgroundColor: scheme.background,
       body: ConstrainedBox(
         constraints: BoxConstraints(
-            minWidth: MediaQuery.of(context).size.width,
-            minHeight: MediaQuery.of(context).size.height),
+          minWidth: MediaQuery.of(context).size.width,
+          minHeight: MediaQuery.of(context).size.height),
         child: IntrinsicHeight(
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 25),
@@ -64,13 +58,12 @@ class _MyMenuViewState extends State<MyMenuView> {
                         ButtonToGuide(
                           backGroundColor: scheme.onPrimaryContainer,
                           iconColor: ColorsConst.neutralColor0,
-                          height: 32,
-                          width: 32,
-                          iconSize: 18,
+                          height: 40,
+                          width: 40,
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (BuildContext context) {
-                              return const GuideChoseView();
+                              builder: (BuildContext context) {
+                                return const GuideChoseView();
                             }));
                           },
                         ),
@@ -86,10 +79,10 @@ class _MyMenuViewState extends State<MyMenuView> {
                           child: Text(
                             slogan,
                             style: TextStyle(
-                                fontSize: 36,
-                                fontStyle: FontStyle.normal,
-                                fontWeight: FontWeight.w600,
-                                color: scheme.primary),
+                              fontSize: 36,
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.w600,
+                              color: scheme.primary),
                           ),
                         ),
                         Padding(
@@ -97,7 +90,7 @@ class _MyMenuViewState extends State<MyMenuView> {
                           child: Container(
                             alignment: Alignment.centerRight,
                             child: SvgPicture.asset(
-                                "assets/images/icons/$piecesFile.svg"),
+                              "assets/images/icons/$piecesFile.svg"),
                           ),
                         ),
                       ],
@@ -118,8 +111,8 @@ class _MyMenuViewState extends State<MyMenuView> {
                       isClickable: true,
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (BuildContext context) {
-                          return const GameSettingsView();
+                          MaterialPageRoute(builder: (BuildContext context) {
+                            return const GameSettingsView();
                         }));
                       },
                     ),
