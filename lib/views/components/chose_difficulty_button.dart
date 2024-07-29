@@ -24,7 +24,6 @@ class ChoseDifficultyButton extends StatelessWidget {
       LevelOfDifficulty.easy: "Лёгкий",
       LevelOfDifficulty.medium: "Средний",
       LevelOfDifficulty.hard: "Сложный",
-      LevelOfDifficulty.personality: "Персональный",
     };
     return Container(
       margin: const EdgeInsets.only(bottom: 8),

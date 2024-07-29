@@ -14,7 +14,7 @@ enum Enemy { computer, player }
 
 enum PiecesColor { black, white, random }
 
-enum LevelOfDifficulty { easy, medium, hard, personality }
+enum LevelOfDifficulty { easy, medium, hard }
 
 class _GameSettingsViewState extends State<GameSettingsView>
     with TickerProviderStateMixin {
@@ -23,6 +23,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
   final String colorPiecesText = "Цвет фигур";
   final String timeText = "Время";
   final String levelDifficultyText = "Уровень сложности";
+  final String additionalSettingsText = "Дополнительно";
   final String startGameText = "Начать партию";
   final String gameWithComputerText = "С компьютером";
   final String gameWithHumanText = "С другом";
@@ -36,7 +37,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
 
   Enemy enemy = Enemy.computer;
   Player piecesColor = Player.random;
-  LevelOfDifficulty gameMode = LevelOfDifficulty.medium;
+  LevelOfDifficulty gameMode = LevelOfDifficulty.easy;
   bool withTime = true;
   bool isMoveBack = true;
   bool isThreats = false;
@@ -126,12 +127,12 @@ class _GameSettingsViewState extends State<GameSettingsView>
                 SingleChildScrollView(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
-                        minWidth: MediaQuery.of(context).size.width,
-                        minHeight: MediaQuery.of(context).size.height),
+                      minWidth: MediaQuery.of(context).size.width,
+                      minHeight: MediaQuery.of(context).size.height),
                     child: IntrinsicHeight(
                       child: Container(
                         margin:
-                            const EdgeInsets.only(left: 24, right: 24, top: 40),
+                          const EdgeInsets.only(left: 24, right: 24, top: 55),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -169,8 +170,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                         final playerCount = index + 1;
                                         appModel.setPlayerCount(playerCount);
                                         enemy = index == 0
-                                            ? Enemy.computer
-                                            : Enemy.player;
+                                          ? Enemy.computer
+                                          : Enemy.player;
                                       });
                                     },
                                     labelPadding: EdgeInsets.zero,
@@ -342,65 +343,54 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                       setGameMode(LevelOfDifficulty.hard);
                                     },
                                   ),
-                                  ChoseDifficultyButton(
-                                    level: LevelOfDifficulty.personality,
-                                    countOfIcons: 0,
-                                    currentLevel: gameMode,
-                                    onTap: () {
-                                      appModel.setAIDifficulty(1);
-                                      setGameMode(
-                                        LevelOfDifficulty.personality
-                                      );
+                                ],
+                              ) : const SizedBox(),
+                            enemy == Enemy.computer
+                              ? Column(
+                                children: [
+                                  TextHeading(
+                                    text: additionalSettingsText,
+                                    topMargin: 32,
+                                    bottomMargin: 16,
+                                  ),
+                                  SettingsRow(
+                                    chose: isMoveBack,
+                                    text: moveBackText,
+                                    modalText: ModalStrings.moveBackModalText,
+                                    modalHeader: moveBackText,
+                                    onChanged: (chose) {
+                                      setState(() {
+                                        appModel.setAllowUndoRedo(chose);
+                                        isMoveBack = chose;
+                                      });
+                                    },
+                                  ),
+                                  SettingsRow(
+                                    chose: isThreats,
+                                    text: threatsText,
+                                    modalText: ModalStrings.threatsModalText,
+                                    modalHeader: threatsText,
+                                    onChanged: (chose) {
+                                      setState(() {
+                                        isThreats = chose;
+                                      });
+                                    },
+                                  ),
+                                  SettingsRow(
+                                    chose: isHints,
+                                    text: hintsText,
+                                    modalText: ModalStrings.hintsModalText,
+                                    modalHeader: hintsText,
+                                    onChanged: (chose) {
+                                      setState(() {
+                                        isHints = chose;
+                                      });
                                     },
                                   ),
                                 ],
-                              ) : const SizedBox(),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            gameMode == LevelOfDifficulty.personality &&
-                              enemy == Enemy.computer
-                                ? Column(
-                                  children: [
-                                    SettingsRow(
-                                      chose: isMoveBack,
-                                      text: moveBackText,
-                                      modalText: ModalStrings.moveBackModalText,
-                                      modalHeader: moveBackText,
-                                      onChanged: (chose) {
-                                        setState(() {
-                                          appModel.setAllowUndoRedo(chose);
-                                          isMoveBack = chose;
-                                        });
-                                      },
-                                    ),
-                                    SettingsRow(
-                                      chose: isThreats,
-                                      text: threatsText,
-                                      modalText: ModalStrings.threatsModalText,
-                                      modalHeader: threatsText,
-                                      onChanged: (chose) {
-                                        setState(() {
-                                          isThreats = chose;
-                                        });
-                                      },
-                                    ),
-                                    SettingsRow(
-                                      chose: isHints,
-                                      text: hintsText,
-                                      modalText: ModalStrings.hintsModalText,
-                                      modalHeader: hintsText,
-                                      onChanged: (chose) {
-                                        setState(() {
-                                          isHints = chose;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ) : const SizedBox(),
+                            ) : const SizedBox(),
                             const Spacer(),
-                            //GameOptions(appModel),
-                            const SizedBox(height: 80),
+                            const SizedBox(height: 100),
                           ],
                         ),
                       ),
