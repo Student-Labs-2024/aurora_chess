@@ -1,17 +1,7 @@
-import 'package:frontend/constants/colors.dart';
-import 'package:frontend/model/app_model.dart';
-import 'package:frontend/views/components/app_bar_settings.dart';
-import 'package:frontend/views/components/chose_difficulty_button.dart';
-import 'package:frontend/views/components/chose_time_carousel.dart';
-import 'package:frontend/views/components/color_chose_button.dart';
 import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
-import 'package:frontend/views/components/next_page_button.dart';
-import 'package:frontend/views/components/settings_row.dart';
-import 'package:frontend/views/components/tab_item.dart';
-import 'package:frontend/views/components/text_heading.dart';
-import 'package:frontend/views/game_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../exports.dart';
 
 class GameSettingsView extends StatefulWidget {
   const GameSettingsView({super.key});
@@ -34,7 +24,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
   final String timeText = "Время";
   final String levelDifficultyText = "Уровень сложности";
   final String startGameText = "Начать партию";
-  final String gameWithComputerText = "Компьютер";
+  final String gameWithComputerText = "С компьютером";
   final String gameWithHumanText = "С другом";
   final String gameWithTimeText = "С часами";
   final String gameWithoutTimeText = "Без часов";
@@ -299,111 +289,115 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               ),
                             ),
                             withTime
-                                ? Column(
-                                    children: [
-                                      ChoseTimeCarousel(
-                                        values: listOfDurations,
-                                        type: 'minutes',
-                                        header: minutesSubtitle,
-                                        startValue: durationOfGame,
-                                        onChanged: setSeconds,
-                                      ),
-                                      ChoseTimeCarousel(
-                                        values: listOfAdditions,
-                                        type: 'seconds',
-                                        header: secondsSubtitle,
-                                        startValue: addingOfMove,
-                                        onChanged: setSeconds,
-                                      ),
-                                    ],
-                                  )
-                                : const SizedBox(),
+                              ? Column(
+                                children: [
+                                  ChoseTimeCarousel(
+                                    values: listOfDurations,
+                                    type: 'minutes',
+                                    header: minutesSubtitle,
+                                    startValue: durationOfGame,
+                                    onChanged: setSeconds,
+                                  ),
+                                  ChoseTimeCarousel(
+                                    values: listOfAdditions,
+                                    type: 'seconds',
+                                    header: secondsSubtitle,
+                                    startValue: addingOfMove,
+                                    onChanged: setSeconds,
+                                  ),
+                                ],
+                              ) : const SizedBox(),
                             enemy == Enemy.computer
-                                ? Column(
-                                    children: [
-                                      TextHeading(
-                                        text: levelDifficultyText,
-                                        topMargin: 32,
-                                        bottomMargin: 16,
-                                      ),
-                                      ChoseDifficultyButton(
-                                        level: LevelOfDifficulty.easy,
-                                        countOfIcons: 1,
-                                        currentLevel: gameMode,
-                                        onTap: () {
-                                          appModel.setAIDifficulty(1);
-                                          setGameMode(LevelOfDifficulty.easy);
-                                        },
-                                      ),
-                                      ChoseDifficultyButton(
-                                        level: LevelOfDifficulty.medium,
-                                        countOfIcons: 2,
-                                        currentLevel: gameMode,
-                                        onTap: () {
-                                          appModel.setAIDifficulty(3);
-                                          setGameMode(LevelOfDifficulty.medium);
-                                        },
-                                      ),
-                                      ChoseDifficultyButton(
-                                        level: LevelOfDifficulty.hard,
-                                        countOfIcons: 3,
-                                        currentLevel: gameMode,
-                                        onTap: () {
-                                          appModel.setAIDifficulty(6);
-                                          setGameMode(LevelOfDifficulty.hard);
-                                        },
-                                      ),
-                                      ChoseDifficultyButton(
-                                        level: LevelOfDifficulty.personality,
-                                        countOfIcons: 0,
-                                        currentLevel: gameMode,
-                                        onTap: () {
-                                          appModel.setAIDifficulty(1);
-                                          setGameMode(
-                                              LevelOfDifficulty.personality);
-                                        },
-                                      ),
-                                    ],
-                                  )
-                                : const SizedBox(),
+                              ? Column(
+                                children: [
+                                  TextHeading(
+                                    text: levelDifficultyText,
+                                    topMargin: 32,
+                                    bottomMargin: 16,
+                                  ),
+                                  ChoseDifficultyButton(
+                                    level: LevelOfDifficulty.easy,
+                                    countOfIcons: 1,
+                                    currentLevel: gameMode,
+                                    onTap: () {
+                                      appModel.setAIDifficulty(1);
+                                      setGameMode(LevelOfDifficulty.easy);
+                                    },
+                                  ),
+                                  ChoseDifficultyButton(
+                                    level: LevelOfDifficulty.medium,
+                                    countOfIcons: 2,
+                                    currentLevel: gameMode,
+                                    onTap: () {
+                                      appModel.setAIDifficulty(3);
+                                      setGameMode(LevelOfDifficulty.medium);
+                                    },
+                                  ),
+                                  ChoseDifficultyButton(
+                                    level: LevelOfDifficulty.hard,
+                                    countOfIcons: 3,
+                                    currentLevel: gameMode,
+                                    onTap: () {
+                                      appModel.setAIDifficulty(6);
+                                      setGameMode(LevelOfDifficulty.hard);
+                                    },
+                                  ),
+                                  ChoseDifficultyButton(
+                                    level: LevelOfDifficulty.personality,
+                                    countOfIcons: 0,
+                                    currentLevel: gameMode,
+                                    onTap: () {
+                                      appModel.setAIDifficulty(1);
+                                      setGameMode(
+                                        LevelOfDifficulty.personality
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ) : const SizedBox(),
                             const SizedBox(
                               height: 16,
                             ),
                             gameMode == LevelOfDifficulty.personality &&
-                                    enemy == Enemy.computer
+                              enemy == Enemy.computer
                                 ? Column(
-                                    children: [
-                                      SettingsRow(
-                                        chose: isMoveBack,
-                                        text: moveBackText,
-                                        onChanged: (chose) {
-                                          setState(() {
-                                            appModel.setAllowUndoRedo(chose);
-                                            isMoveBack = chose;
-                                          });
-                                        },
-                                      ),
-                                      SettingsRow(
-                                        chose: isThreats,
-                                        text: threatsText,
-                                        onChanged: (chose) {
-                                          setState(() {
-                                            isThreats = chose;
-                                          });
-                                        },
-                                      ),
-                                      SettingsRow(
-                                        chose: isHints,
-                                        text: hintsText,
-                                        onChanged: (chose) {
-                                          setState(() {
-                                            isHints = chose;
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  )
-                                : const SizedBox(),
+                                  children: [
+                                    SettingsRow(
+                                      chose: isMoveBack,
+                                      text: moveBackText,
+                                      modalText: ModalStrings.moveBackModalText,
+                                      modalHeader: moveBackText,
+                                      onChanged: (chose) {
+                                        setState(() {
+                                          appModel.setAllowUndoRedo(chose);
+                                          isMoveBack = chose;
+                                        });
+                                      },
+                                    ),
+                                    SettingsRow(
+                                      chose: isThreats,
+                                      text: threatsText,
+                                      modalText: ModalStrings.threatsModalText,
+                                      modalHeader: threatsText,
+                                      onChanged: (chose) {
+                                        setState(() {
+                                          isThreats = chose;
+                                        });
+                                      },
+                                    ),
+                                    SettingsRow(
+                                      chose: isHints,
+                                      text: hintsText,
+                                      modalText: ModalStrings.hintsModalText,
+                                      modalHeader: hintsText,
+                                      onChanged: (chose) {
+                                        setState(() {
+                                          isHints = chose;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ) : const SizedBox(),
                             const Spacer(),
                             //GameOptions(appModel),
                             const SizedBox(height: 80),
@@ -415,24 +409,27 @@ class _GameSettingsViewState extends State<GameSettingsView>
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: NextPageButton(
-                      text: startGameText,
-                      textColor: ColorsConst.primaryColor0,
-                      buttonColor: scheme.secondaryContainer,
-                      isClickable: true,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              appModel.newGame(context, notify: false);
-                              return GameView(appModel);
-                            },
-                          ),
-                        );
-                      },
+                  child: Container(
+                    color: scheme.background,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 15, bottom: 23, left: 23, right: 23),
+                      child: NextPageButton(
+                        text: startGameText,
+                        textColor: ColorsConst.primaryColor0,
+                        buttonColor: scheme.secondaryContainer,
+                        isClickable: true,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                appModel.newGame(context, notify: false);
+                                return GameView(appModel);
+                              },
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
