@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.top]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       //theme: Provider.of<AppModel>(context).newTheme,
