@@ -15,7 +15,7 @@ void main() {
           create: (context) => ThemeProvider(),
         ),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
   _loadFlameAssets();
@@ -38,13 +38,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: []);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.top]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).themeData,
-      //theme: lightMode,
-      home: MyMenuView(),
+      home: const MyMenuView(),
     );
   }
 }
