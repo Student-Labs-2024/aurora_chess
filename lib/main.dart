@@ -1,16 +1,20 @@
-import 'package:frontend/model/app_model.dart';
-import 'package:frontend/theme/theme_data.dart';
-import 'package:frontend/views/my_menu.dart';
+import 'package:frontend/exports.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'logic/shared_functions.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => AppModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => AppModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ThemeProvider(),
+        ),
+      ],
       child: MyApp(),
     ),
   );
@@ -34,11 +38,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.top]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: []);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      //theme: Provider.of<AppModel>(context).newTheme,
-      theme: lightMode,
+      theme: Provider.of<ThemeProvider>(context).themeData,
+      //theme: lightMode,
       home: MyMenuView(),
     );
   }
