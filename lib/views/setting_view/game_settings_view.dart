@@ -1,7 +1,7 @@
 import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../exports.dart';
+import '../../exports.dart';
 
 class GameSettingsView extends StatefulWidget {
   const GameSettingsView({super.key});
@@ -11,30 +11,11 @@ class GameSettingsView extends StatefulWidget {
 }
 
 enum Enemy { computer, player }
-
 enum PiecesColor { black, white, random }
-
 enum LevelOfDifficulty { easy, medium, hard }
 
 class _GameSettingsViewState extends State<GameSettingsView>
     with TickerProviderStateMixin {
-  final String appBarLabel = "Параметры";
-  final String gameModeText = "Режим игры";
-  final String colorPiecesText = "Цвет фигур";
-  final String timeText = "Время";
-  final String levelDifficultyText = "Уровень сложности";
-  final String additionalSettingsText = "Дополнительно";
-  final String startGameText = "Начать партию";
-  final String gameWithComputerText = "С компьютером";
-  final String gameWithHumanText = "С другом";
-  final String gameWithTimeText = "С часами";
-  final String gameWithoutTimeText = "Без часов";
-  final String minutesSubtitle = "Минут на партию";
-  final String secondsSubtitle = "Добавление секунд на ход";
-  final String moveBackText = "Возврат ходов";
-  final String threatsText = "Угрозы";
-  final String hintsText = "Подсказки";
-
   Enemy enemy = Enemy.computer;
   Player piecesColor = Player.random;
   LevelOfDifficulty gameMode = LevelOfDifficulty.easy;
@@ -47,41 +28,6 @@ class _GameSettingsViewState extends State<GameSettingsView>
   int addingOfMove = 10;
   late TabController _tabColorController;
   late TabController _tabTimeController;
-
-  List<int> listOfDurations = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    10,
-    15,
-    20,
-    25,
-    30,
-    40,
-    60,
-    80,
-    90,
-    120
-  ];
-  List<int> listOfAdditions = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    15,
-    20,
-    30,
-    45,
-    60
-  ];
 
   void setPiecesColor(Player chose) {
     setState(() {
@@ -128,7 +74,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
                       minWidth: MediaQuery.of(context).size.width,
-                      minHeight: MediaQuery.of(context).size.height),
+                      minHeight: MediaQuery.of(context).size.height
+                    ),
                     child: IntrinsicHeight(
                       child: Container(
                         margin:
@@ -136,9 +83,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            AppBarSettings(label: appBarLabel),
+                            AppBarSettings(label: GameSettingStringConst.appBarLabel),
                             TextHeading(
-                              text: gameModeText,
+                              text: GameSettingStringConst.gameModeText,
                               topMargin: 32,
                               bottomMargin: 16,
                             ),
@@ -146,7 +93,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               preferredSize: const Size.fromHeight(44),
                               child: ClipRRect(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
+                                  const BorderRadius.all(Radius.circular(10)),
                                 child: Container(
                                   height: 44,
                                   padding: const EdgeInsets.all(4),
@@ -162,7 +109,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     indicator: const BoxDecoration(
                                       color: ColorsConst.primaryColor100,
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
+                                        BorderRadius.all(Radius.circular(10)),
                                     ),
                                     controller: _tabColorController,
                                     onTap: (index) {
@@ -176,15 +123,15 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     },
                                     labelPadding: EdgeInsets.zero,
                                     unselectedLabelColor:
-                                        ColorsConst.neutralColor300,
+                                      ColorsConst.neutralColor300,
                                     tabs: [
                                       TabItem(
-                                        title: gameWithComputerText,
+                                        title: GameSettingStringConst.gameWithComputerText,
                                         index: 0,
                                         currentIndex: _tabColorController.index,
                                       ),
                                       TabItem(
-                                        title: gameWithHumanText,
+                                        title: GameSettingStringConst.gameWithHumanText,
                                         index: 1,
                                         currentIndex: _tabColorController.index,
                                       ),
@@ -194,7 +141,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               ),
                             ),
                             TextHeading(
-                              text: colorPiecesText,
+                              text: GameSettingStringConst.colorPiecesText,
                               topMargin: 32,
                               bottomMargin: 16,
                             ),
@@ -233,7 +180,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               ],
                             ),
                             TextHeading(
-                              text: timeText,
+                              text: GameSettingStringConst.timeText,
                               topMargin: 32,
                               bottomMargin: 16,
                             ),
@@ -272,15 +219,15 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     },
                                     labelPadding: EdgeInsets.zero,
                                     unselectedLabelColor:
-                                        ColorsConst.neutralColor300,
+                                      ColorsConst.neutralColor300,
                                     tabs: [
                                       TabItem(
-                                        title: gameWithTimeText,
+                                        title: GameSettingStringConst.gameWithTimeText,
                                         index: 0,
                                         currentIndex: _tabTimeController.index,
                                       ),
                                       TabItem(
-                                        title: gameWithoutTimeText,
+                                        title: GameSettingStringConst.gameWithoutTimeText,
                                         index: 1,
                                         currentIndex: _tabTimeController.index,
                                       ),
@@ -293,16 +240,16 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               ? Column(
                                 children: [
                                   ChoseTimeCarousel(
-                                    values: listOfDurations,
+                                    values: GameSettingStringConst.listOfDurations,
                                     type: 'minutes',
-                                    header: minutesSubtitle,
+                                    header: GameSettingStringConst.minutesSubtitle,
                                     startValue: durationOfGame,
-                                    onChanged: setSeconds,
+                                    onChanged: setMinutes,
                                   ),
                                   ChoseTimeCarousel(
-                                    values: listOfAdditions,
+                                    values: GameSettingStringConst.listOfAdditions,
                                     type: 'seconds',
-                                    header: secondsSubtitle,
+                                    header: GameSettingStringConst.secondsSubtitle,
                                     startValue: addingOfMove,
                                     onChanged: setSeconds,
                                   ),
@@ -312,36 +259,22 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               ? Column(
                                 children: [
                                   TextHeading(
-                                    text: levelDifficultyText,
+                                    text: GameSettingStringConst.levelDifficultyText,
                                     topMargin: 32,
                                     bottomMargin: 16,
                                   ),
-                                  ChoseDifficultyButton(
-                                    level: LevelOfDifficulty.easy,
-                                    countOfIcons: 1,
-                                    currentLevel: gameMode,
-                                    onTap: () {
-                                      appModel.setAIDifficulty(1);
-                                      setGameMode(LevelOfDifficulty.easy);
-                                    },
-                                  ),
-                                  ChoseDifficultyButton(
-                                    level: LevelOfDifficulty.medium,
-                                    countOfIcons: 2,
-                                    currentLevel: gameMode,
-                                    onTap: () {
-                                      appModel.setAIDifficulty(3);
-                                      setGameMode(LevelOfDifficulty.medium);
-                                    },
-                                  ),
-                                  ChoseDifficultyButton(
-                                    level: LevelOfDifficulty.hard,
-                                    countOfIcons: 3,
-                                    currentLevel: gameMode,
-                                    onTap: () {
-                                      appModel.setAIDifficulty(6);
-                                      setGameMode(LevelOfDifficulty.hard);
-                                    },
+                                  Column(
+                                    children: List.generate(LevelOfDifficulty.values.length, (index) {
+                                      return ChoseDifficultyButton(
+                                        level: LevelOfDifficulty.values[index],
+                                        countOfIcons: index + 1,
+                                        currentLevel: gameMode,
+                                        onTap: () {
+                                          appModel.setAIDifficulty(3);
+                                          setGameMode(LevelOfDifficulty.values[index]);
+                                        },
+                                      );
+                                    })
                                   ),
                                 ],
                               ) : const SizedBox(),
@@ -349,15 +282,15 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               ? Column(
                                 children: [
                                   TextHeading(
-                                    text: additionalSettingsText,
+                                    text: GameSettingStringConst.additionalSettingsText,
                                     topMargin: 32,
                                     bottomMargin: 16,
                                   ),
                                   SettingsRow(
                                     chose: isMoveBack,
-                                    text: moveBackText,
+                                    text: GameSettingStringConst.moveBackText,
                                     modalText: ModalStrings.moveBackModalText,
-                                    modalHeader: moveBackText,
+                                    modalHeader: GameSettingStringConst.moveBackText,
                                     onChanged: (chose) {
                                       setState(() {
                                         appModel.setAllowUndoRedo(chose);
@@ -367,9 +300,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   ),
                                   SettingsRow(
                                     chose: isThreats,
-                                    text: threatsText,
+                                    text: GameSettingStringConst.threatsText,
                                     modalText: ModalStrings.threatsModalText,
-                                    modalHeader: threatsText,
+                                    modalHeader: GameSettingStringConst.threatsText,
                                     onChanged: (chose) {
                                       setState(() {
                                         isThreats = chose;
@@ -378,9 +311,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   ),
                                   SettingsRow(
                                     chose: isHints,
-                                    text: hintsText,
+                                    text: GameSettingStringConst.hintsText,
                                     modalText: ModalStrings.hintsModalText,
-                                    modalHeader: hintsText,
+                                    modalHeader: GameSettingStringConst.hintsText,
                                     onChanged: (chose) {
                                       setState(() {
                                         isHints = chose;
@@ -389,7 +322,6 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   ),
                                 ],
                             ) : const SizedBox(),
-                            const Spacer(),
                             const SizedBox(height: 100),
                           ],
                         ),
@@ -404,7 +336,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                     child: Padding(
                       padding: const EdgeInsets.only(top: 15, bottom: 23, left: 23, right: 23),
                       child: NextPageButton(
-                        text: startGameText,
+                        text: GameSettingStringConst.startGameText,
                         textColor: ColorsConst.primaryColor0,
                         buttonColor: scheme.secondaryContainer,
                         isClickable: true,

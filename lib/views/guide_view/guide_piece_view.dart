@@ -16,15 +16,17 @@ Map<String, List<String>> hintsOfPieces = {
 };
 
 Map<String, List<String>> imgOfHints = {
-  "Пешка": ["pawn_first_hint.svg", "pawn_second_hint.svg", "pawn_third_hint.svg"],
-  "Ладья": ["rook_first_hint.svg"],
-  "Конь": ["knight_first_hint.svg", "knight_second_hint.svg"],
-  "Слон": ["bishop_first_hint.svg",],
-  "Ферзь": ["queen_first_hint.svg"],
-  "Король": ["king_first_hint.svg", "king_second_hint.svg", "king_third_hint.svg", "king_fourth_hint.svg", "king_fifth_hint.svg"],
-  "Взятие на проходе": ["taking_first_hint.svg", "taking_second_hint.svg", "taking_third_hint.svg"],
-  "Рокировка": ["castling_first_hint.svg", "castling_second_hint.svg", "castling_third_hint.svg"],
+  "Пешка": GuideHintsNameConst.pawnHints,
+  "Ладья": GuideHintsNameConst.rookHints,
+  "Конь": GuideHintsNameConst.knightHints,
+  "Слон": GuideHintsNameConst.bishopHints,
+  "Ферзь": GuideHintsNameConst.queenHints,
+  "Король": GuideHintsNameConst.kingHints,
+  "Взятие на проходе": GuideHintsNameConst.takingHints,
+  "Рокировка": GuideHintsNameConst.castlingHints,
 };
+
+List<String> pieces = ["Пешка", "Ладья", "Конь", "Слон", "Ферзь", "Король", "Взятие на проходе", "Рокировка"];
 
 class GuideView extends StatefulWidget {
   const GuideView({
@@ -49,7 +51,6 @@ class _GuideViewState extends State<GuideView> {
     });
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {

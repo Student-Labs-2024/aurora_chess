@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../exports.dart';
+import '../../exports.dart';
 
 class MyMenuView extends StatefulWidget {
   const MyMenuView({super.key});
@@ -11,14 +11,11 @@ class MyMenuView extends StatefulWidget {
 }
 
 class _MyMenuViewState extends State<MyMenuView> {
-  final slogan = "Побеждать\nв шахматах — побеждать\nв жизни";
-  final netButton = "Сетевая игра";
-  final localButton = "Локальная игра";
   String piecesFile = "";
 
   @override
   initState() {
-    piecesFile = "pieces_light";
+    piecesFile = MenuPageStringConst.piecesLightIconName;
     super.initState();
   }
 
@@ -31,8 +28,9 @@ class _MyMenuViewState extends State<MyMenuView> {
       backgroundColor: scheme.background,
       body: ConstrainedBox(
         constraints: BoxConstraints(
-            minWidth: MediaQuery.of(context).size.width,
-            minHeight: MediaQuery.of(context).size.height),
+          minWidth: MediaQuery.of(context).size.width,
+          minHeight: MediaQuery.of(context).size.height
+        ),
         child: IntrinsicHeight(
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 25),
@@ -50,7 +48,9 @@ class _MyMenuViewState extends State<MyMenuView> {
                           onChanged: (value) {
                             setState(() {
                               provider.toggleTheme();
-                              piecesFile = provider.isDarkMode ? "pieces_dark" : "pieces_light";
+                              piecesFile = provider.isDarkMode
+                                ? MenuPageStringConst.piecesDarkIconName
+                                : MenuPageStringConst.piecesLightIconName;
                             });
                           },
                         ),
@@ -60,9 +60,10 @@ class _MyMenuViewState extends State<MyMenuView> {
                           width: 40,
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (BuildContext context) {
-                              return const GuideChoseView();
-                            }));
+                              builder: (BuildContext context) {
+                                return const GuideChoseView();
+                              })
+                            );
                           },
                         ),
                       ],
@@ -75,7 +76,7 @@ class _MyMenuViewState extends State<MyMenuView> {
                         Container(
                           margin: const EdgeInsets.only(right: 40),
                           child: Text(
-                            slogan,
+                            MenuPageStringConst.slogan,
                             style: TextStyle(
                               fontSize: 36,
                               fontStyle: FontStyle.normal,
@@ -89,7 +90,8 @@ class _MyMenuViewState extends State<MyMenuView> {
                           child: Container(
                             alignment: Alignment.centerRight,
                             child: SvgPicture.asset(
-                                "assets/images/icons/$piecesFile.svg"),
+                              "${MenuPageStringConst.pathToIcon}$piecesFile"
+                            ),
                           ),
                         ),
                       ],
@@ -104,15 +106,16 @@ class _MyMenuViewState extends State<MyMenuView> {
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: NextPageButton(
-                      text: localButton,
+                      text: MenuPageStringConst.localButton,
                       textColor: ColorsConst.primaryColor0,
                       buttonColor: scheme.secondaryContainer,
                       isClickable: true,
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (BuildContext context) {
-                          return const GameSettingsView();
-                        }));
+                          MaterialPageRoute(builder: (BuildContext context) {
+                            return const GameSettingsView();
+                          })
+                        );
                       },
                     ),
                   ),

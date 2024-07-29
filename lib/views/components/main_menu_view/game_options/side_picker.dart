@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 
 import 'picker.dart';
 
-enum Player { player1, player2, random }
+enum Player { player1, random, player2 }
 
 class SidePicker extends StatelessWidget {
   final Map<Player, Text> colorOptions = const <Player, Text>{
     Player.player1: Text('White'),
+    Player.random: Text('Random'),
     Player.player2: Text('Black'),
-    Player.random: Text('Random')
   };
 
   final Player playerSide;

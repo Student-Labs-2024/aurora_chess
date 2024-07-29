@@ -12,8 +12,8 @@ class CustomSwitch extends StatefulWidget {
 class _CustomSwitchState extends State<CustomSwitch> {
 
   bool isToggle = false;
-  String activeIcon = "assets/images/icons/dark_switch.svg";
-  String inactiveIcon = "assets/images/icons/light_switch.svg";
+  final activeIcon = "assets/images/icons/dark_switch.svg";
+  final inactiveIcon = "assets/images/icons/light_switch.svg";
 
   void onToggle() {
     setState(() {

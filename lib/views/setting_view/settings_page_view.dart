@@ -4,10 +4,10 @@ import 'package:frontend/views/components/shared/rounded_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import 'components/settings_view/app_theme_picker.dart';
-import 'components/settings_view/toggles.dart';
-import 'components/shared/bottom_padding.dart';
-import 'components/shared/text_variable.dart';
+import '../components/settings_view/app_theme_picker.dart';
+import '../components/settings_view/toggles.dart';
+import '../components/shared/bottom_padding.dart';
+import '../components/shared/text_variable.dart';
 
 class SettingsView extends StatelessWidget {
   @override

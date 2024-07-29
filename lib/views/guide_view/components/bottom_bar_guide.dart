@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../guide/guide.dart';
-import 'components.dart';
-
-// import '../../exports.dart';
+import '../../../exports.dart';
 
 class BottomBarGuide extends StatelessWidget {
   const BottomBarGuide({

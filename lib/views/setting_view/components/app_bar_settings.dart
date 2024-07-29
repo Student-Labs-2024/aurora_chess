@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../exports.dart';
+import '../../../exports.dart';
 
 class AppBarSettings extends StatelessWidget {
   const AppBarSettings({super.key, required this.label});
@@ -29,7 +29,7 @@ class AppBarSettings extends StatelessWidget {
             color: scheme.primary),
         ),
         ButtonToGuide(
-          backGroundColor: scheme.secondaryContainer,//onPrimaryContainer
+          backGroundColor: scheme.secondaryContainer,
           height: 40,
           width: 40,
           onTap: () {

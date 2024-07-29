@@ -1,10 +1,9 @@
-import 'package:frontend/views/components/app_bar_guide.dart';
-import 'package:frontend/views/components/guide_chose_piece_button.dart';
+import 'package:frontend/views/guide_view/components/app_bar_guide.dart';
+import 'package:frontend/views/guide_view/components/guide_chose_piece_button.dart';
 import 'package:flutter/material.dart';
 
-import 'guide.dart';
+import 'guide_view.dart';
 
-List<String> pieces = ["Пешка", "Ладья", "Конь", "Слон", "Ферзь", "Король", "Взятие на проходе", "Рокировка"];
 List<String> piecesIcons = [
   "pawn.svg",
   "rook.svg",

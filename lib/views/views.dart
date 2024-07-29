@@ -1,6 +1,5 @@
-export 'game_settings_view.dart';
-export 'game_view.dart';
-export 'settings_view.dart';
-export 'my_menu.dart';
-export 'guide/guide.dart';
+export 'guide_view/guide_view.dart';
+export 'menu_view/menu_view.dart';
+export 'setting_view/settings_view.dart';
+export 'game_view/game_view.dart';
 export 'components/components.dart';

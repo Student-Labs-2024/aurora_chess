@@ -1,5 +1,5 @@
 import 'package:frontend/constants/colors.dart';
-import 'package:frontend/views/game_settings_view.dart';
+import 'package:frontend/views/setting_view/game_settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -49,8 +49,8 @@ class ChoseDifficultyButton extends StatelessWidget {
                 fontStyle: FontStyle.normal,
                 fontWeight: FontWeight.w500,
                 color: level == currentLevel
-                    ? ColorsConst.primaryColor0
-                    : scheme.primary,
+                  ? ColorsConst.primaryColor0
+                  : scheme.primary,
               ),
             ),
             Row(
@@ -64,8 +64,8 @@ class ChoseDifficultyButton extends StatelessWidget {
                       SvgPicture.asset(
                         "assets/images/icons/crown_icon.svg",
                         color: level == currentLevel
-                            ? ColorsConst.primaryColor0
-                            : scheme.primary,
+                          ? ColorsConst.primaryColor0
+                          : scheme.primary,
                       ),
                     ],
                   )
