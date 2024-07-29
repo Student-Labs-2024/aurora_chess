@@ -29,7 +29,7 @@ class _CustomSwitchState extends State<CustomSwitch> {
       onTap: onToggle,
       child: Container(
         height: 40,
-        width: 90,
+        width: 69,
         padding: const EdgeInsets.all(3),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
@@ -37,7 +37,7 @@ class _CustomSwitchState extends State<CustomSwitch> {
         ),
         child: AnimatedAlign(
           alignment: isToggle ? Alignment.centerRight : Alignment.centerLeft,
-          duration: const Duration(milliseconds: 150),
+          duration: const Duration(milliseconds: 200),
           child: Container(
             width: 34,
             height: 34,

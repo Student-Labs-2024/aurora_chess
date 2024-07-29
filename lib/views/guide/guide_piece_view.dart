@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_carousel/infinite_carousel.dart';
+import '../../exports.dart';
 
-import '../../constants/guide_strings.dart';
-import '../components/components.dart';
-import 'guide.dart';
-// import '../../exports.dart';
 
 Map<String, List<String>> hintsOfPieces = {
   "Пешка": GuideStrings.hintsOfPawn,
@@ -14,15 +11,19 @@ Map<String, List<String>> hintsOfPieces = {
   "Слон": GuideStrings.hintsOfBishop,
   "Ферзь": GuideStrings.hintsOfQueen,
   "Король": GuideStrings.hintsOfKing,
+  "Взятие на проходе": GuideStrings.hintsOfTaking,
+  "Рокировка": GuideStrings.hintsOfCastling,
 };
 
 Map<String, List<String>> imgOfHints = {
-  "Пешка": ["pawn_first_hint", "pawn_second_hint", "pawn_third_hint"],
-  "Ладья": ["rook_first_hint", "rook_second_hint"],
-  "Конь": ["knight_first_hint", "knight_second_hint"],
-  "Слон": ["bishop_first_hint", "bishop_second_hint"],
-  "Ферзь": ["queen_first_hint"],
-  "Король": ["king_first_hint"],
+  "Пешка": ["pawn_first_hint.svg", "pawn_second_hint.svg", "pawn_third_hint.svg"],
+  "Ладья": ["rook_first_hint.svg"],
+  "Конь": ["knight_first_hint.svg", "knight_second_hint.svg"],
+  "Слон": ["bishop_first_hint.svg",],
+  "Ферзь": ["queen_first_hint.svg"],
+  "Король": ["king_first_hint.svg", "king_second_hint.svg", "king_third_hint.svg", "king_fourth_hint.svg", "king_fifth_hint.svg"],
+  "Взятие на проходе": ["taking_first_hint.svg", "taking_second_hint.svg", "taking_third_hint.svg"],
+  "Рокировка": ["castling_first_hint.svg", "castling_second_hint.svg", "castling_third_hint.svg"],
 };
 
 class GuideView extends StatefulWidget {
@@ -137,7 +138,7 @@ class GuidePieceView extends StatelessWidget {
               return Center(
                 child: Column(
                   children: [
-                    SvgPicture.asset("assets/images/guide_boards/${imgOfHints[name]![itemIndex]}.svg", height: 280,),
+                    SvgPicture.asset("assets/images/guide_boards/${imgOfHints[name]![itemIndex]}", height: 280,),
                     HintDescription(text: hintsOfPieces[name]![itemIndex],)
                   ],
                 ),

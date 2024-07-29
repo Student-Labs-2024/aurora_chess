@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'guide.dart';
 
-List<String> pieces = ["Пешка", "Ладья", "Конь", "Слон", "Ферзь", "Король"];
+List<String> pieces = ["Пешка", "Ладья", "Конь", "Слон", "Ферзь", "Король", "Взятие на проходе", "Рокировка"];
 List<String> piecesIcons = [
   "pawn.svg",
   "rook.svg",
@@ -39,8 +39,9 @@ class GuideChoseView extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return SingleChildScrollView(
                   child: GuideChosePieceButton(
-                    iconName: "assets/images/pieces/${piecesIcons[index]}",
+                    iconName: index < 6 ? "assets/images/pieces/${piecesIcons[index]}" : null,
                     label: pieces[index],
+                    isPiece: index < 6,
                     onTap: () {
                       Navigator.push(
                         context,

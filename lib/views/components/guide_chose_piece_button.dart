@@ -6,11 +6,13 @@ class GuideChosePieceButton extends StatelessWidget {
     super.key,
     required this.iconName,
     required this.label,
-    this.onTap
+    required this.isPiece,
+    this.onTap,
   });
 
-  final String iconName;
+  final String? iconName;
   final String label;
+  final bool isPiece;
   final void Function()? onTap;
 
   @override
@@ -32,10 +34,16 @@ class GuideChosePieceButton extends StatelessWidget {
           children: [
             Row(
               children: [
-                SvgPicture.asset(
-                  iconName,
-                  color: scheme.primary,
-                ),
+                isPiece ?
+                Row(
+                  children: [
+                    SvgPicture.asset(
+                      iconName!,
+                      color: scheme.primary,
+                    ),
+                    const SizedBox(width: 8,)
+                  ],
+                ) : const SizedBox(width: 0,),
                 Text(
                   label,
                   style: TextStyle(

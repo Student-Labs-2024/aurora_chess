@@ -17,8 +17,9 @@ class CustomIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: iconSize,
+      height: iconSize,
       child: IconButton(
         onPressed: onTap,
         padding: EdgeInsets.zero,
