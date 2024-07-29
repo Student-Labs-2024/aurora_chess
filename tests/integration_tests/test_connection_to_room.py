@@ -48,7 +48,7 @@ def test_connection_to_room_positive():
 
     room_connection_status = "successfully_connected"
     responce_message_connect = {
-        "jsonType": "roomConnectionResponce",
+        "jsonType": "roomConnectionResponse",
         "data": {
             "gameType": game_type,
             "room": {
@@ -101,7 +101,7 @@ def test_connection_to_room_negative():
 
     connection_status = "does not exists"
     responce_message_connect = {
-        "jsonType": "roomConnectionResponce",
+        "jsonType": "roomConnectionResponse",
         "data": {
             "gameType": game_type,
             "room": {

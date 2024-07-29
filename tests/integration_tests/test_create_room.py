@@ -30,8 +30,8 @@ def test_create_room_with_friend_positive():
     json_request_message = json.dumps(request_message)
 
     room_init_status = "successfully created"
-    responce_message = {
-        "jsonType": "roomInitResponce",
+    response_message = {
+        "jsonType": "roomInitResponse",
         "data": {
             "gameType": game_type,
             "roomName": room_name,
@@ -41,13 +41,13 @@ def test_create_room_with_friend_positive():
 
     with client.websocket_connect(f"api/chess/ws") as websocket:
         websocket.send_json(json_request_message)
-        json_responce_message: json = websocket.receive_json()
+        json_response_message: json = websocket.receive_json()
 
         websocket.close()
 
-    actual_responce_message = json.loads(json_responce_message)
-    assert actual_responce_message["jsonType"] == responce_message["jsonType"]
-    assert actual_responce_message["data"] == responce_message["data"]
+    actual_response_message = json.loads(json_response_message)
+    assert actual_response_message["jsonType"] == response_message["jsonType"]
+    assert actual_response_message["data"] == response_message["data"]
 
 
 def test_create_room_with_friend_negative():
@@ -73,8 +73,8 @@ def test_create_room_with_friend_negative():
     json_request_message = json.dumps(request_message)
 
     room_init_status = "already exists"
-    responce_message = {
-        "jsonType": "roomInitResponce",
+    response_message = {
+        "jsonType": "roomInitResponse",
         "data": {
             "gameType": game_type,
             "roomName": room_name,
@@ -87,11 +87,11 @@ def test_create_room_with_friend_negative():
 
         with client.websocket_connect(f"api/chess/ws") as websocket_1:
             websocket_1.send_json(json_request_message)
-            json_responce_message: json = websocket_1.receive_json()
+            json_response_message: json = websocket_1.receive_json()
 
         websocket_1.close()
         websocket.close()
 
-    actual_responce_message = json.loads(json_responce_message)
-    assert actual_responce_message["jsonType"] == responce_message["jsonType"]
-    assert actual_responce_message["data"] == responce_message["data"]
+    actual_response_message = json.loads(json_response_message)
+    assert actual_response_message["jsonType"] == response_message["jsonType"]
+    assert actual_response_message["data"] == response_message["data"]

@@ -36,8 +36,10 @@ class TestRoomInitRequestHandler(unittest.IsolatedAsyncioTestCase):
         handler.handle(message, connection)
         await asyncio.sleep(0.1)
 
-        responce_message = {
-            "jsonType": "roomInitResponce",
+        response_message = {
+            "errors": None,
+            "system_messages": None,
+            "jsonType": "roomInitResponse",
             "data": {
                 "gameType": "eq",
                 "roomName": "existing_room",
@@ -46,7 +48,7 @@ class TestRoomInitRequestHandler(unittest.IsolatedAsyncioTestCase):
         }
         player_session_factory.create_session.assert_called_once()
         room_service.create_room.assert_not_called()
-        player_session.send_message.assert_awaited_once_with(json.dumps(responce_message))
+        player_session.send_message.assert_awaited_once_with(json.dumps(response_message))
 
     async def test_handle_room_creation(self):
         rooms = {}
@@ -80,8 +82,10 @@ class TestRoomInitRequestHandler(unittest.IsolatedAsyncioTestCase):
         handler.handle(message, connection)
         await asyncio.sleep(0.1)
 
-        responce_message = {
-            "jsonType": "roomInitResponce",
+        response_message = {
+            "errors": None,
+            "system_messages": None,
+            "jsonType": "roomInitResponse",
             "data": {
                 "gameType": "some_game",
                 "roomName": "new_room",
@@ -89,4 +93,4 @@ class TestRoomInitRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
         player_session_factory.create_session.assert_called_once()
-        player_session.send_message.assert_awaited_once_with(json.dumps(responce_message))
+        player_session.send_message.assert_awaited_once_with(json.dumps(response_message))

@@ -35,8 +35,8 @@ class ConnectionRequestHandler(MessageHandler):
             player_2 = {"name": player_info.player_name, "side": player_info.player_side}
 
         game_type = data.game_type
-        responce_message_connect = {
-            "jsonType": "roomConnectionResponce",
+        response_message = {
+            "jsonType": "roomConnectionResponse",
             "data": {
                 "gameType": game_type,
                 "room": {

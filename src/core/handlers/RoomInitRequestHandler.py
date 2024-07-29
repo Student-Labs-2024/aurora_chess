@@ -34,8 +34,9 @@ class RoomInitRequestHandler(MessageHandler):
             room: AbstractGameRoom = self.__room_service.get_room(room_name)
             room.add_player(player)
             room_init_status = "successfully created"
-        responce_message = {
-            "jsonType": "roomInitResponce",
+
+        response_message = {
+            "jsonType": "roomInitResponse",
             "data": {
                 "gameType": game_type,
                 "roomName": room_name,
