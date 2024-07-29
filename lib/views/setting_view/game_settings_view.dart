@@ -188,7 +188,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               preferredSize: const Size.fromHeight(44),
                               child: ClipRRect(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
+                                  const BorderRadius.all(Radius.circular(10)),
                                 child: Container(
                                   height: 44,
                                   padding: const EdgeInsets.all(4),
