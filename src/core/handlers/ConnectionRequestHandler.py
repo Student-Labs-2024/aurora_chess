@@ -5,6 +5,7 @@ from core.entities.AbstractPlayerSession import AbstractPlayerSession
 from core.factories import AbstractPlayerSessionFactory
 from core.handlers.MessageHandler import MessageHandler
 from core.schemas.RoomConnectionRequest import RoomConnectionRequest
+from core.schemas.RoomConnectionResponse import RoomConnectionResponse
 from core.services.RoomService import RoomService
 
 
@@ -31,8 +32,8 @@ class ConnectionRequestHandler(MessageHandler):
             room.add_player(player)
             room_connection_status = "successfully_connected"
             player_1_info = room.get_players()[0]
-            player_1 = {"name": player_1_info.name, "side": player_1_info.side}
-            player_2 = {"name": player_info.player_name, "side": player_info.player_side}
+            player_1 = {"playerName": player_1_info.name, "playerSide": player_1_info.side}
+            player_2 = {"playerName": player_info.player_name, "playerSide": player_info.player_side}
 
         game_type = data.game_type
         response_message = {
@@ -49,5 +50,7 @@ class ConnectionRequestHandler(MessageHandler):
                 }
             },
         }
+        response_message = RoomConnectionResponse.model_validate(response_message)
+
         loop = asyncio.get_event_loop()
-        loop.create_task(player.send_message(json.dumps(responce_message_connect)))
+        loop.create_task(player.send_message(json.dumps(response_message.model_dump(by_alias=True))))

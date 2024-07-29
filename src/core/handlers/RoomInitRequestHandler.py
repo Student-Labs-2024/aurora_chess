@@ -6,6 +6,7 @@ from core.entities.AbstractPlayerSession import AbstractPlayerSession
 from core.factories import AbstractPlayerSessionFactory
 from core.handlers.MessageHandler import MessageHandler
 from core.schemas.RoomInitRequest import RoomInitRequest
+from core.schemas.RoomInitResponse import RoomInitResponse
 from core.services.RoomService import RoomService
 
 
@@ -43,5 +44,8 @@ class RoomInitRequestHandler(MessageHandler):
                 "roomInitStatus": room_init_status,
             },
         }
+
+        response_message = RoomInitResponse.model_validate(response_message)
+
         loop = asyncio.get_event_loop()
-        loop.create_task(player.send_message(json.dumps(responce_message)))
+        loop.create_task(player.send_message(json.dumps(response_message.model_dump(by_alias=True))))

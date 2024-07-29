@@ -56,8 +56,8 @@ def test_connection_to_room_positive():
             },
             "roomConnectionStatus": room_connection_status,
             "players": {
-                "roomCreator": {"name": player_name, "side": side, },
-                "connectedPlayer": {"name": player_name_2, "side": side_2, },
+                "roomCreator": {"playerName": player_name, "playerSide": side, },
+                "connectedPlayer": {"playerName": player_name_2, "playerSide": side_2, },
             }
         },
     }
