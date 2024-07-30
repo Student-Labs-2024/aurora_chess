@@ -25,8 +25,8 @@ class TabItem extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: index == currentIndex
-                  ? ColorsConst.neutralColor0
-                  : scheme.tertiary,
+                ? ColorsConst.neutralColor0
+                : scheme.tertiary,
               fontSize: 16,
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w500,
