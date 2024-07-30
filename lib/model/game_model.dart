@@ -4,32 +4,19 @@ import 'dart:math';
 import 'package:frontend/logic/chess_game.dart';
 import 'package:frontend/logic/move_calculation/move_classes/move_meta.dart';
 import 'package:frontend/logic/shared_functions.dart';
-import 'package:frontend/theme/theme_data.dart';
 import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'app_themes.dart';
-
 const TIMER_ACCURACY_MS = 100;
-const PIECE_THEMES = [
-  'Classic',
-  'Angular',
-  '8-Bit',
-  'Letters',
-  'Video Chess',
-  'Lewis Chessmen',
-  'Mexico City'
-];
 
-class AppModel extends ChangeNotifier {
+class GameModel extends ChangeNotifier {
   int playerCount = 1;
   int aiDifficulty = 3;
   Player selectedSide = Player.player1;
   Player playerSide = Player.player1;
   int timeLimit = 0;
   String pieceTheme = 'Classic';
-  String themeName = 'Jargon Jade';
   bool showMoveHistory = true;
   bool allowUndoRedo = true;
   bool soundEnabled = true;
@@ -47,41 +34,24 @@ class AppModel extends ChangeNotifier {
   Duration player1TimeLeft = Duration.zero;
   Duration player2TimeLeft = Duration.zero;
 
-  ThemeData newTheme = lightMode;
 
-  // void toggleTheme() {
-  //   newTheme == lightMode ? newTheme = darkMode : newTheme = lightMode;
-  //   notifyListeners();
-  // }
-
-  List<String> get pieceThemes {
-    var pieceThemes = List<String>.from(PIECE_THEMES);
-    pieceThemes.sort();
-    return pieceThemes;
-  }
-
-  AppTheme get theme {
-    return themeList[themeIndex];
-  }
-
-  int get themeIndex {
-    var themeIndex = 0;
-    themeList.asMap().forEach((index, theme) {
-      if (theme.name == themeName) {
-        themeIndex = index;
-      }
-    });
-    return themeIndex;
-  }
-
-  int get pieceThemeIndex {
-    var pieceThemeIndex = 0;
-    pieceThemes.asMap().forEach((index, theme) {
-      if (theme == pieceTheme) {
-        pieceThemeIndex = index;
-      }
-    });
-    return pieceThemeIndex;
+  BoardTheme get theme {
+    return BoardTheme(
+      name: 'Grey',
+      background: const LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Color(0xffb2b2b2),
+          Color(0xff4e4e4e),
+        ],
+      ),
+      lightTile: const Color(0xFFC6BAAA),
+      darkTile: const Color(0xFF806C61),
+      moveHint: const Color(0xdd555555),
+      checkHint: const Color(0xff333333),
+      latestMove: const Color(0xdddddddd),
+    );
   }
 
   Player get aiTurn {
@@ -114,7 +84,8 @@ class AppModel extends ChangeNotifier {
           Random.secure().nextInt(2) == 0 ? Player.player1 : Player.player2;
     }
     game = ChessGame(this, context);
-    timer = Timer.periodic(Duration(milliseconds: TIMER_ACCURACY_MS), (timer) {
+    timer = Timer.periodic(const Duration(milliseconds: TIMER_ACCURACY_MS),
+        (timer) {
       turn == Player.player1
           ? decrementPlayer1Timer()
           : decrementPlayer2Timer();
@@ -216,20 +187,6 @@ class AppModel extends ChangeNotifier {
     }
   }
 
-  void setTheme(int index) async {
-    themeName = themeList[index].name ?? "";
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('themeName', themeName);
-    notifyListeners();
-  }
-
-  void setPieceTheme(int index) async {
-    pieceTheme = pieceThemes[index];
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('pieceTheme', pieceTheme);
-    notifyListeners();
-  }
-
   void setShowMoveHistory(bool show) async {
     final prefs = await SharedPreferences.getInstance();
     showMoveHistory = show;
@@ -260,14 +217,13 @@ class AppModel extends ChangeNotifier {
 
   void setAllowUndoRedo(bool allow) async {
     final prefs = await SharedPreferences.getInstance();
-    this.allowUndoRedo = allow;
+    allowUndoRedo = allow;
     prefs.setBool('allowUndoRedo', allow);
     notifyListeners();
   }
 
   void loadSharedPrefs() async {
     final prefs = await SharedPreferences.getInstance();
-    themeName = prefs.getString('themeName') ?? 'Green';
     pieceTheme = prefs.getString('pieceTheme') ?? 'Classic';
     showMoveHistory = prefs.getBool('showMoveHistory') ?? true;
     soundEnabled = prefs.getBool('soundEnabled') ?? true;
@@ -280,4 +236,26 @@ class AppModel extends ChangeNotifier {
   void update() {
     notifyListeners();
   }
+}
+
+class BoardTheme {
+  String? name;
+  LinearGradient? background;
+  Color lightTile;
+  Color darkTile;
+  Color moveHint;
+  Color checkHint;
+  Color latestMove;
+  Color border;
+
+  BoardTheme({
+    this.name,
+    this.background,
+    this.lightTile = const Color(0xFFC9B28F),
+    this.darkTile = const Color(0xFF69493b),
+    this.moveHint = const Color(0xdd5c81c4),
+    this.latestMove = const Color(0xccc47937),
+    this.checkHint = const Color(0x88ff0000),
+    this.border = const Color(0xffffffff),
+  });
 }

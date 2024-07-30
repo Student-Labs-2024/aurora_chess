@@ -1,33 +1,34 @@
+
+import 'package:flutter/material.dart';
 import 'package:frontend/logic/chess_piece.dart';
 import 'package:frontend/logic/shared_functions.dart';
-import 'package:frontend/model/app_model.dart';
+import 'package:frontend/model/game_model.dart';
 import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
-import 'package:flutter/cupertino.dart';
 
 class PromotionOption extends StatelessWidget {
-  final AppModel appModel;
+  final GameModel gameModel;
   final ChessPieceType promotionType;
 
-  PromotionOption(this.appModel, this.promotionType);
+  const PromotionOption(this.gameModel, this.promotionType, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoButton(
-      child: Image(
+    return IconButton(
+      icon: Image(
         image: AssetImage(
-          'assets/images/pieces/${formatPieceTheme(appModel.pieceTheme)}' +
+          'assets/images/pieces/${formatPieceTheme(gameModel.pieceTheme)}' +
               '/${pieceTypeToString(promotionType)}_${_playerColor()}.png',
         ),
       ),
       onPressed: () {
-        appModel.game?.promote(promotionType);
-        appModel.update();
+        gameModel.game?.promote(promotionType);
+        gameModel.update();
         Navigator.pop(context);
       },
     );
   }
 
   String _playerColor() {
-    return appModel.turn == Player.player1 ? 'white' : 'black';
+    return gameModel.turn == Player.player1 ? 'white' : 'black';
   }
 }

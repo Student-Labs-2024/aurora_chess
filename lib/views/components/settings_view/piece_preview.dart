@@ -1,30 +1,29 @@
 import 'dart:ui';
 
 import 'package:frontend/logic/shared_functions.dart';
-import 'package:frontend/model/app_model.dart';
+import 'package:frontend/model/game_model.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/sprite.dart';
-import 'package:flutter/cupertino.dart';
 
 class PiecePreview extends Game {
-  AppModel appModel;
+  GameModel gameModel;
 
   Map<int, String> get imageMap {
     return {
-      0: 'pieces/${formatPieceTheme(appModel.pieceTheme)}/king_black.png',
-      1: 'pieces/${formatPieceTheme(appModel.pieceTheme)}/queen_white.png',
-      2: 'pieces/${formatPieceTheme(appModel.pieceTheme)}/rook_white.png',
-      3: 'pieces/${formatPieceTheme(appModel.pieceTheme)}/bishop_black.png',
-      4: 'pieces/${formatPieceTheme(appModel.pieceTheme)}/knight_black.png',
-      5: 'pieces/${formatPieceTheme(appModel.pieceTheme)}/pawn_white.png',
+      0: 'pieces/${formatPieceTheme(gameModel.pieceTheme)}/king_black.png',
+      1: 'pieces/${formatPieceTheme(gameModel.pieceTheme)}/queen_white.png',
+      2: 'pieces/${formatPieceTheme(gameModel.pieceTheme)}/rook_white.png',
+      3: 'pieces/${formatPieceTheme(gameModel.pieceTheme)}/bishop_black.png',
+      4: 'pieces/${formatPieceTheme(gameModel.pieceTheme)}/knight_black.png',
+      5: 'pieces/${formatPieceTheme(gameModel.pieceTheme)}/pawn_white.png',
     };
   }
 
   Map<int, Sprite> spriteMap = Map();
   bool rendered = false;
 
-  PiecePreview(this.appModel) {
+  PiecePreview(this.gameModel) {
     loadSpriteImages();
   }
 

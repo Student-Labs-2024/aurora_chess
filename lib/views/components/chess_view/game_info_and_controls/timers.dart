@@ -1,33 +1,31 @@
-import 'package:frontend/model/app_model.dart';
+import 'package:frontend/model/game_model.dart';
 import 'package:frontend/views/components/chess_view/game_info_and_controls/timer_widget.dart';
 import 'package:flutter/material.dart';
 
 class Timers extends StatelessWidget {
-  final AppModel appModel;
+  final GameModel gameModel;
 
-  Timers(this.appModel);
+  Timers(this.gameModel);
 
   @override
   Widget build(BuildContext context) {
-    return appModel.timeLimit != 0
+    return gameModel.timeLimit != 0
         ? Column(
             children: [
-              Container(
-                child: Row(
-                  children: [
-                    TimerWidget(
-                      timeLeft: appModel.player1TimeLeft,
-                      color: Colors.white,
-                    ),
-                    SizedBox(width: 10),
-                    TimerWidget(
-                      timeLeft: appModel.player2TimeLeft,
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
+              Row(
+                children: [
+                  TimerWidget(
+                    timeLeft: gameModel.player1TimeLeft,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 10),
+                  TimerWidget(
+                    timeLeft: gameModel.player2TimeLeft,
+                    color: Colors.black,
+                  ),
+                ],
               ),
-              SizedBox(height: 14),
+              const SizedBox(height: 14),
             ],
           )
         : Container();

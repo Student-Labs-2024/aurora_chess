@@ -1,11 +1,11 @@
-import 'package:frontend/model/app_model.dart';
+import 'package:frontend/model/game_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class RestartExitButtons extends StatelessWidget {
-  final AppModel appModel;
+  final GameModel gameModel;
 
-  RestartExitButtons(this.appModel);
+  const RestartExitButtons(this.gameModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +19,10 @@ class RestartExitButtons extends StatelessWidget {
                 color: scheme.primary,
               ),
               onPressed: () {
-                appModel.newGame(context);
+                gameModel.newGame(context);
               }),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Expanded(
           child: IconButton(
               icon: SvgPicture.asset(
@@ -30,7 +30,7 @@ class RestartExitButtons extends StatelessWidget {
                 color: scheme.primary,
               ),
               onPressed: () {
-                appModel.exitChessView();
+                gameModel.exitChessView();
                 Navigator.pop(context);
               }),
         ),

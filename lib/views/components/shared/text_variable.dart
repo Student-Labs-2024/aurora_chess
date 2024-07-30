@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TextDefault extends StatelessWidget {
   final String text;
   final Color color;
 
-  TextDefault(this.text, {this.color = CupertinoColors.white});
+  const TextDefault(this.text, {super.key, this.color = Colors.white});
 
   @override
   Widget build(BuildContext context) {
@@ -23,18 +22,18 @@ class TextDefault extends StatelessWidget {
 class TextSmall extends StatelessWidget {
   final String text;
 
-  TextSmall(this.text);
+  const TextSmall(this.text, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: TextStyle(fontSize: 20));
+    return Text(text, style: const TextStyle(fontSize: 20));
   }
 }
 
 class TextRegular extends StatelessWidget {
   final String text;
 
-  TextRegular(this.text);
+  const TextRegular(this.text, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +45,10 @@ class TextRegular extends StatelessWidget {
 class TextLarge extends StatelessWidget {
   final String text;
 
-  TextLarge(this.text);
+  const TextLarge(this.text, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: TextStyle(fontSize: 36));
+    return Text(text, style: const TextStyle(fontSize: 36));
   }
 }

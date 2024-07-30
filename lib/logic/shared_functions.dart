@@ -1,5 +1,5 @@
 import 'package:frontend/logic/chess_piece.dart';
-import 'package:frontend/model/app_model.dart';
+import 'package:frontend/model/game_model.dart';
 import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
 
 int tileToRow(int tile) {
@@ -10,18 +10,18 @@ int tileToCol(int tile) {
   return tile % 8;
 }
 
-double getXFromTile(int tile, double tileSize, AppModel appModel) {
-  return appModel.flip &&
-          appModel.playingWithAI &&
-          appModel.playerSide == Player.player2
+double getXFromTile(int tile, double tileSize, GameModel GameModel) {
+  return GameModel.flip &&
+          GameModel.playingWithAI &&
+          GameModel.playerSide == Player.player2
       ? (7 - tileToCol(tile)) * tileSize
       : tileToCol(tile) * tileSize;
 }
 
-double getYFromTile(int tile, double tileSize, AppModel appModel) {
-  return appModel.flip &&
-          appModel.playingWithAI &&
-          appModel.playerSide == Player.player2
+double getYFromTile(int tile, double tileSize, GameModel GameModel) {
+  return GameModel.flip &&
+          GameModel.playingWithAI &&
+          GameModel.playerSide == Player.player2
       ? (7 - tileToRow(tile)) * tileSize
       : tileToRow(tile) * tileSize;
 }

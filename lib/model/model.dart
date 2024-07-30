@@ -1,2 +1,1 @@
-export 'app_model.dart';
-export 'app_themes.dart';
+export 'game_model.dart';

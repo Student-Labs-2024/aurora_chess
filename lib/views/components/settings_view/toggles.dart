@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:frontend/model/app_model.dart';
+import 'package:frontend/model/game_model.dart';
 import 'package:flutter/material.dart';
 
 import 'toggle.dart';
 
 class Toggles extends StatelessWidget {
-  final AppModel appModel;
+  final GameModel gameModel;
 
-  Toggles(this.appModel);
+  const Toggles(this.gameModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,24 +16,24 @@ class Toggles extends StatelessWidget {
       children: [
         Toggle(
           'Show Hints',
-          toggle: appModel.showHints,
-          setFunc: appModel.setShowHints,
+          toggle: gameModel.showHints,
+          setFunc: gameModel.setShowHints,
         ),
         Toggle(
           'Allow Undo/Redo',
-          toggle: appModel.allowUndoRedo,
-          setFunc: appModel.setAllowUndoRedo,
+          toggle: gameModel.allowUndoRedo,
+          setFunc: gameModel.setAllowUndoRedo,
         ),
         Toggle(
           'Show Move History',
-          toggle: appModel.showMoveHistory,
-          setFunc: appModel.setShowMoveHistory,
+          toggle: gameModel.showMoveHistory,
+          setFunc: gameModel.setShowMoveHistory,
         ),
         Platform.isAndroid
             ? Toggle(
                 'Sound Enabled',
-                toggle: appModel.soundEnabled,
-                setFunc: appModel.setSoundEnabled,
+                toggle: gameModel.soundEnabled,
+                setFunc: gameModel.setSoundEnabled,
               )
             : Container(),
       ],

@@ -1,29 +1,29 @@
-import 'package:frontend/model/app_model.dart';
+import 'package:frontend/model/game_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class UndoRedoButtons extends StatelessWidget {
-  final AppModel appModel;
+  final GameModel gameModel;
 
   bool get undoEnabled {
-    if (appModel.playingWithAI) {
-      return (appModel.game?.board.moveStack.length ?? 0) > 1 &&
-          !appModel.isAIsTurn;
+    if (gameModel.playingWithAI) {
+      return (gameModel.game?.board.moveStack.length ?? 0) > 1 &&
+          !gameModel.isAIsTurn;
     } else {
-      return appModel.game?.board.moveStack.isNotEmpty ?? false;
+      return gameModel.game?.board.moveStack.isNotEmpty ?? false;
     }
   }
 
   bool get redoEnabled {
-    if (appModel.playingWithAI) {
-      return (appModel.game?.board.redoStack.length ?? 0) > 1 &&
-          !appModel.isAIsTurn;
+    if (gameModel.playingWithAI) {
+      return (gameModel.game?.board.redoStack.length ?? 0) > 1 &&
+          !gameModel.isAIsTurn;
     } else {
-      return appModel.game?.board.redoStack.isNotEmpty ?? false;
+      return gameModel.game?.board.redoStack.isNotEmpty ?? false;
     }
   }
 
-  UndoRedoButtons(this.appModel);
+  const UndoRedoButtons(this.gameModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class UndoRedoButtons extends StatelessWidget {
             onPressed: undoEnabled ? () => undo() : null,
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Expanded(
           child: IconButton(
             icon: SvgPicture.asset(
@@ -54,18 +54,18 @@ class UndoRedoButtons extends StatelessWidget {
   }
 
   void undo() {
-    if (appModel.playingWithAI) {
-      appModel.game?.undoTwoMoves();
+    if (gameModel.playingWithAI) {
+      gameModel.game?.undoTwoMoves();
     } else {
-      appModel.game?.undoMove();
+      gameModel.game?.undoMove();
     }
   }
 
   void redo() {
-    if (appModel.playingWithAI) {
-      appModel.game?.redoTwoMoves();
+    if (gameModel.playingWithAI) {
+      gameModel.game?.redoTwoMoves();
     } else {
-      appModel.game?.redoMove();
+      gameModel.game?.redoMove();
     }
   }
 }

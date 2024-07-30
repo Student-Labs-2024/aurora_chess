@@ -27,7 +27,7 @@ class ButtonToGuide extends StatelessWidget {
       child: IconButton(
         onPressed: onTap,
         padding: EdgeInsets.zero,
-        constraints: BoxConstraints(),
+        constraints: const BoxConstraints(),
         color: backGroundColor,
         icon: SvgPicture.asset(
           "assets/images/icons/handbook.svg",

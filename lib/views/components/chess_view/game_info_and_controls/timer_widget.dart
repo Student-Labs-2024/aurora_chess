@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:frontend/views/components/shared/text_variable.dart';
-import 'package:flutter/cupertino.dart';
 
 class TimerWidget extends StatelessWidget {
   final Duration timeLeft;

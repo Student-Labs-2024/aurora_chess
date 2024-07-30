@@ -1,12 +1,12 @@
-import 'package:frontend/model/app_model.dart';
+import 'package:frontend/model/game_model.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 class ChessBoardWidget extends StatelessWidget {
-  final AppModel appModel;
+  final GameModel gameModel;
 
-  ChessBoardWidget(this.appModel);
+  const ChessBoardWidget(this.gameModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class ChessBoardWidget extends StatelessWidget {
           width: 4,
         ),
         borderRadius: BorderRadius.circular(8),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             blurRadius: 10,
             color: Color(0x88000000),
@@ -26,10 +26,10 @@ class ChessBoardWidget extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
-        child: Container(
-          child: GameWidget(game: appModel.game!),
+        child: SizedBox(
           width: MediaQuery.of(context).size.width - 68,
           height: MediaQuery.of(context).size.width - 68,
+          child: GameWidget(game: gameModel.game!),
         ),
       ),
     );

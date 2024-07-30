@@ -1,4 +1,4 @@
-import 'package:frontend/model/app_model.dart';
+import 'package:frontend/model/game_model.dart';
 import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
@@ -24,7 +24,7 @@ class ChessPieceSprite {
     initSprite(piece);
   }
 
-  void update(double tileSize, AppModel appModel, ChessPiece piece) {
+  void update(double tileSize, GameModel GameModel, ChessPiece piece) {
     if (piece.type != this.type) {
       this.type = piece.type;
       initSprite(piece);
@@ -34,8 +34,8 @@ class ChessPieceSprite {
       offsetX = 0;
       offsetY = 0;
     }
-    var destX = getXFromTile(tile ?? 0, tileSize, appModel);
-    var destY = getYFromTile(tile ?? 0, tileSize, appModel);
+    var destX = getXFromTile(tile ?? 0, tileSize, GameModel);
+    var destY = getYFromTile(tile ?? 0, tileSize, GameModel);
     if ((destX - (spriteX ?? 0)).abs() <= 0.1) {
       spriteX = destX;
       offsetX = 0;
@@ -70,8 +70,8 @@ class ChessPieceSprite {
         'pieces/${formatPieceTheme(pieceTheme ?? "")}/${pieceName}_$color.png'));
   }
 
-  void initSpritePosition(double tileSize, AppModel appModel) {
-    spriteX = getXFromTile(tile ?? 0, tileSize, appModel);
-    spriteY = getYFromTile(tile ?? 0, tileSize, appModel);
+  void initSpritePosition(double tileSize, GameModel GameModel) {
+    spriteX = getXFromTile(tile ?? 0, tileSize, GameModel);
+    spriteY = getYFromTile(tile ?? 0, tileSize, GameModel);
   }
 }

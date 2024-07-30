@@ -1,4 +1,4 @@
-import 'package:frontend/model/app_model.dart';
+import 'package:frontend/model/game_model.dart';
 import 'package:frontend/views/components/chess_view/chess_board_widget.dart';
 import 'package:frontend/views/components/chess_view/game_info_and_controls.dart';
 import 'package:frontend/views/components/chess_view/game_info_and_controls/game_status.dart';
@@ -9,32 +9,29 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class GameView extends StatefulWidget {
-  final AppModel appModel;
+  final GameModel gameModel;
 
-  GameView(this.appModel);
+  const GameView(this.gameModel, {super.key});
 
   @override
-  State<GameView> createState() => _GameViewState(appModel);
+  State<GameView> createState() => _GameViewState();
 }
 
 class _GameViewState extends State<GameView> {
-  AppModel appModel;
-
-  _GameViewState(this.appModel);
 
   @override
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
     return Scaffold(
       backgroundColor: scheme.background,
-      body: Consumer<AppModel>(
-        builder: (context, appModel, child) {
+      body: Consumer<GameModel>(
+        builder: (context, GameModel, child) {
           return WillPopScope(
             onWillPop: _willPopCallback,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                MoveList(appModel),
+                MoveList(GameModel),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 25,
@@ -58,16 +55,16 @@ class _GameViewState extends State<GameView> {
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(30),
-                  child: ChessBoardWidget(appModel),
+                  child: ChessBoardWidget(GameModel),
                 ),
-                SizedBox(height: 30),
-                Spacer(),
+                const SizedBox(height: 30),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(30),
-                  child: GameInfoAndControls(appModel),
+                  child: GameInfoAndControls(GameModel),
                 ),
                 BottomPadding(),
               ],
@@ -79,7 +76,7 @@ class _GameViewState extends State<GameView> {
   }
 
   Future<bool> _willPopCallback() async {
-    appModel.exitChessView();
+    widget.gameModel.exitChessView();
 
     return true;
   }

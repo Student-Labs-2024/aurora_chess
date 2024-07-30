@@ -1,4 +1,4 @@
-import 'package:frontend/exports.dart';
+import '../game_settings_view.dart';
 
 class GameSettingConsts {
   static String appBarLabel = "Параметры";
