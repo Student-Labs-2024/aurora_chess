@@ -9,12 +9,14 @@ class ChoseDifficultyButton extends StatelessWidget {
     required this.level,
     required this.countOfIcons,
     required this.currentLevel,
+    required this.personalityLevel,
     this.onTap,
   });
 
   final LevelOfDifficulty level;
   final int countOfIcons;
   final LevelOfDifficulty currentLevel;
+  final LevelOfDifficulty personalityLevel;
   final void Function()? onTap;
 
   @override
@@ -24,6 +26,7 @@ class ChoseDifficultyButton extends StatelessWidget {
       LevelOfDifficulty.easy: "Лёгкий",
       LevelOfDifficulty.medium: "Средний",
       LevelOfDifficulty.hard: "Сложный",
+      LevelOfDifficulty.personality: "Персональный",
     };
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
@@ -36,8 +39,8 @@ class ChoseDifficultyButton extends StatelessWidget {
         onPressed: onTap,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         color: level == currentLevel
-            ? ColorsConst.primaryColor100
-            : scheme.outline,
+          ? ColorsConst.primaryColor100
+          : scheme.outline,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

@@ -2,6 +2,7 @@ import 'package:frontend/views/components/main_menu_view/game_options/side_picke
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../exports.dart';
+import 'package:sqflite/sqflite.dart';
 
 class GameSettingsView extends StatefulWidget {
   const GameSettingsView({super.key});
@@ -11,59 +12,214 @@ class GameSettingsView extends StatefulWidget {
 }
 
 enum Enemy { computer, player }
-enum PiecesColor { black, white, random }
-enum LevelOfDifficulty { easy, medium, hard }
+enum PiecesColor { white, random, black }
+enum LevelOfDifficulty { easy, medium, hard, personality }
 
 class _GameSettingsViewState extends State<GameSettingsView>
     with TickerProviderStateMixin {
   Enemy enemy = Enemy.computer;
   Player piecesColor = Player.random;
   LevelOfDifficulty gameMode = LevelOfDifficulty.easy;
-  bool withTime = true;
+  LevelOfDifficulty personalityGameMode = LevelOfDifficulty.easy;
+  bool isLoading = true;
+  bool isDBEmpty = false;
+  bool withoutTime = true;
+  bool isPersonality = false;
   bool isMoveBack = true;
   bool isThreats = false;
   bool isHints = false;
   int countOfTabs = 2;
   int durationOfGame = 30;
   int addingOfMove = 10;
+  bool isSettingsEdited = false;
+  late String path;
   late TabController _tabColorController;
   late TabController _tabTimeController;
 
-  void setPiecesColor(Player chose) {
+  void setEnemy(int chose) {
     setState(() {
-      piecesColor = chose;
+      isSettingsEdited = true;
+      enemy = Enemy.values[chose];
     });
   }
 
-  void setGameMode(LevelOfDifficulty chose) {
+  void setPiecesColor(int chose) {
     setState(() {
-      gameMode = chose;
+      isSettingsEdited = true;
+      piecesColor = Player.values[chose];
+    });
+  }
+
+  void setIsTime(int chose) {
+    setState(() {
+      isSettingsEdited = true;
+      withoutTime = chose == 0;
+    });
+  }
+
+  void setGameMode(int chose) {
+    setState(() {
+      isSettingsEdited = true;
+      gameMode = LevelOfDifficulty.values[chose];
+    });
+  }
+
+  void setPersonalityGameMode(int chose) {
+    setState(() {
+      isSettingsEdited = true;
+      personalityGameMode = LevelOfDifficulty.values[chose];
     });
   }
 
   void setMinutes(chose) {
     setState(() {
+      isSettingsEdited = true;
       durationOfGame = chose;
     });
   }
 
   void setSeconds(chose) {
     setState(() {
+      isSettingsEdited = true;
       addingOfMove = chose;
+    });
+  }
+
+  void setIsPersonality(bool chose) {
+    setState(() {
+      isSettingsEdited = true;
+      isPersonality = chose;
+    });
+  }
+
+  void setIsMoveBack(bool chose) {
+    setState(() {
+      isSettingsEdited = true;
+      isMoveBack = chose;
+    });
+  }
+
+  void setIsThreats(bool chose) {
+    setState(() {
+      isSettingsEdited = true;
+      isThreats = chose;
+    });
+  }
+
+  void setIsHints(bool chose) {
+    setState(() {
+      isSettingsEdited = true;
+      isHints = chose;
+    });
+  }
+
+  Future<void> getSettings() async {
+    Database database = await openDatabase(path, version: 1,
+      onCreate: (Database db, int version) async {
+        await db.execute(GameSettingConsts.dbCreateScript);
+      }
+    );
+    List<Map> list = await database.rawQuery(
+      GameSettingConsts.dbGetSettingsScript
+    );
+
+    print(list);
+
+    if (list.isNotEmpty) {
+      Map data = list.first;
+      setEnemy(data["withComputer"]);
+      setPiecesColor(data["colorPieces"]);
+      setIsTime(data["withoutTime"]);
+      setMinutes(data["durationGame"]);
+      setSeconds(data["addingOnMove"]);
+      setIsPersonality(data["isPersonality"] == 0);
+      if (isPersonality) {
+        setPersonalityGameMode(data["levelOfDifficulty"]);
+        setGameMode(3);
+      }
+      else {
+        setGameMode(data["levelOfDifficulty"]);
+      }
+      setIsMoveBack(data["isMoveBack"] == 0);
+      setIsThreats(data["isThreats"] == 0);
+      setIsHints(data["isHints"] == 0);
+      setState(() {
+        isDBEmpty = true;
+      });
+    }
+
+    await database.close();
+  }
+
+  Future<void> setSettings() async {
+    Database database = await openDatabase(path, version: 1,
+      onCreate: (Database db, int version) async {
+        await db.execute(GameSettingConsts.dbCreateScript);
+      }
+    );
+    List<int> updatedSettings = [
+      enemy.index,
+      piecesColor.index,
+      withoutTime ? 0 : 1,
+      durationOfGame,
+      addingOfMove,
+      isPersonality ? personalityGameMode.index : gameMode.index,
+      isPersonality ? 0 : 1,
+      isMoveBack ? 0 : 1,
+      isThreats ? 0 : 1,
+      isHints ? 0 : 1
+    ];
+
+    if (isDBEmpty) {
+      int count = await database.rawUpdate(
+        GameSettingConsts.dbUpdateSettingsScript,
+        updatedSettings
+      );
+      print("update: $count");
+    }
+    else {
+      int id = await database.rawInsert(
+        GameSettingConsts.dbSetSettingsScript,
+        updatedSettings
+      );
+      print("insert: $id");
+    }
+
+    await database.close();
+  }
+
+  void onInit() async {
+    var databasesPath = await getDatabasesPath();
+    String p = '$databasesPath/settings.db';
+    setState(() {
+      path = p;
+    });
+    await getSettings();
+
+    _tabColorController = TabController(
+      length: 2, vsync: this, initialIndex: enemy.index
+    );
+    _tabTimeController = TabController(
+      length: 2, vsync: this, initialIndex: withoutTime ? 0 : 1
+    );
+
+    setState(() {
+      isLoading = false;
     });
   }
 
   @override
   void initState() {
-    _tabColorController = TabController(length: 2, vsync: this);
-    _tabTimeController = TabController(length: 2, vsync: this);
+    onInit();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
-    return Consumer<AppModel>(
+    return isLoading ?
+    const LoadingWidget() :
+      Consumer<AppModel>(
       builder: (context, appModel, child) {
         return DefaultTabController(
           length: countOfTabs,
@@ -83,9 +239,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            AppBarSettings(label: GameSettingStringConst.appBarLabel),
+                            AppBarSettings(label: GameSettingConsts.appBarLabel),
                             TextHeading(
-                              text: GameSettingStringConst.gameModeText,
+                              text: GameSettingConsts.gameModeText,
                               topMargin: 32,
                               bottomMargin: 16,
                             ),
@@ -116,9 +272,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                       setState(() {
                                         final playerCount = index + 1;
                                         appModel.setPlayerCount(playerCount);
-                                        enemy = index == 0
-                                          ? Enemy.computer
-                                          : Enemy.player;
+                                        setEnemy(index);
                                       });
                                     },
                                     labelPadding: EdgeInsets.zero,
@@ -126,12 +280,12 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                       ColorsConst.neutralColor300,
                                     tabs: [
                                       TabItem(
-                                        title: GameSettingStringConst.gameWithComputerText,
+                                        title: GameSettingConsts.gameWithComputerText,
                                         index: 0,
                                         currentIndex: _tabColorController.index,
                                       ),
                                       TabItem(
-                                        title: GameSettingStringConst.gameWithHumanText,
+                                        title: GameSettingConsts.gameWithHumanText,
                                         index: 1,
                                         currentIndex: _tabColorController.index,
                                       ),
@@ -141,7 +295,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               ),
                             ),
                             TextHeading(
-                              text: GameSettingStringConst.colorPiecesText,
+                              text: GameSettingConsts.colorPiecesText,
                               topMargin: 32,
                               bottomMargin: 16,
                             ),
@@ -149,10 +303,10 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               children: [
                                 ColorChoseButton(
                                   variant: Player.player1,
-                                  chose: appModel.selectedSide,
+                                  chose: piecesColor,
                                   onTap: () {
                                     appModel.setPlayerSide(Player.player1);
-                                    setPiecesColor(Player.player1);
+                                    setPiecesColor(0);
                                   },
                                 ),
                                 const SizedBox(
@@ -160,10 +314,10 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                 ),
                                 ColorChoseButton(
                                   variant: Player.random,
-                                  chose: appModel.selectedSide,
+                                  chose: piecesColor,
                                   onTap: () {
                                     appModel.setPlayerSide(Player.random);
-                                    setPiecesColor(Player.random);
+                                    setPiecesColor(1);
                                   },
                                 ),
                                 const SizedBox(
@@ -171,16 +325,16 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                 ),
                                 ColorChoseButton(
                                   variant: Player.player2,
-                                  chose: appModel.selectedSide,
+                                  chose: piecesColor,
                                   onTap: () {
                                     appModel.setPlayerSide(Player.player2);
-                                    setPiecesColor(Player.player2);
+                                    setPiecesColor(2);
                                   },
                                 ),
                               ],
                             ),
                             TextHeading(
-                              text: GameSettingStringConst.timeText,
+                              text: GameSettingConsts.timeText,
                               topMargin: 32,
                               bottomMargin: 16,
                             ),
@@ -208,26 +362,22 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                           BorderRadius.all(Radius.circular(10)),
                                     ),
                                     onTap: (index) {
-                                      setState(() {
-                                        if (index == 0) {
-                                          withTime = true;
-                                        } else {
-                                          withTime = false;
-                                          appModel.setTimeLimit(0);
-                                        }
-                                      });
+                                      setIsTime(index);
+                                      if (index == 0) {
+                                        appModel.setTimeLimit(0);
+                                      }
                                     },
                                     labelPadding: EdgeInsets.zero,
                                     unselectedLabelColor:
                                       ColorsConst.neutralColor300,
                                     tabs: [
                                       TabItem(
-                                        title: GameSettingStringConst.gameWithTimeText,
+                                        title: GameSettingConsts.gameWithoutTimeText,
                                         index: 0,
                                         currentIndex: _tabTimeController.index,
                                       ),
                                       TabItem(
-                                        title: GameSettingStringConst.gameWithoutTimeText,
+                                        title: GameSettingConsts.gameWithTimeText,
                                         index: 1,
                                         currentIndex: _tabTimeController.index,
                                       ),
@@ -236,20 +386,20 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                 ),
                               ),
                             ),
-                            withTime
+                            !withoutTime
                               ? Column(
                                 children: [
                                   ChoseTimeCarousel(
-                                    values: GameSettingStringConst.listOfDurations,
+                                    values: GameSettingConsts.listOfDurations,
                                     type: 'minutes',
-                                    header: GameSettingStringConst.minutesSubtitle,
+                                    header: GameSettingConsts.minutesSubtitle,
                                     startValue: durationOfGame,
                                     onChanged: setMinutes,
                                   ),
                                   ChoseTimeCarousel(
-                                    values: GameSettingStringConst.listOfAdditions,
+                                    values: GameSettingConsts.listOfAdditions,
                                     type: 'seconds',
-                                    header: GameSettingStringConst.secondsSubtitle,
+                                    header: GameSettingConsts.secondsSubtitle,
                                     startValue: addingOfMove,
                                     onChanged: setSeconds,
                                   ),
@@ -259,7 +409,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               ? Column(
                                 children: [
                                   TextHeading(
-                                    text: GameSettingStringConst.levelDifficultyText,
+                                    text: GameSettingConsts.levelDifficultyText,
                                     topMargin: 32,
                                     bottomMargin: 16,
                                   ),
@@ -267,58 +417,72 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     children: List.generate(LevelOfDifficulty.values.length, (index) {
                                       return ChoseDifficultyButton(
                                         level: LevelOfDifficulty.values[index],
-                                        countOfIcons: index + 1,
+                                        countOfIcons: (index + 1) % 4,
                                         currentLevel: gameMode,
+                                        personalityLevel: personalityGameMode,
                                         onTap: () {
-                                          appModel.setAIDifficulty(3);
-                                          setGameMode(LevelOfDifficulty.values[index]);
+                                          GameSettingConsts.difficultyLevels[
+                                            index == 3 ? personalityGameMode
+                                            : LevelOfDifficulty.values[index]
+                                          ];
+                                          setIsPersonality(index == 3);
+                                          setGameMode(index);
                                         },
                                       );
                                     })
                                   ),
                                 ],
                               ) : const SizedBox(),
-                            enemy == Enemy.computer
+                            enemy == Enemy.computer && isPersonality
                               ? Column(
                                 children: [
-                                  TextHeading(
-                                    text: GameSettingStringConst.additionalSettingsText,
-                                    topMargin: 32,
-                                    bottomMargin: 16,
+                                  const SizedBox(height: 16,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "$personalityGameMode",
+                                        style: TextStyle(
+                                          color: scheme.primary,
+                                          fontSize: 16,
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          setPersonalityGameMode((personalityGameMode.index + 1) % 3);
+                                        },
+                                        icon: const Icon(Icons.add, size: 30,)
+                                      )
+                                    ],
                                   ),
+                                  const SizedBox(height: 8,),
                                   SettingsRow(
                                     chose: isMoveBack,
-                                    text: GameSettingStringConst.moveBackText,
+                                    text: GameSettingConsts.moveBackText,
                                     modalText: ModalStrings.moveBackModalText,
-                                    modalHeader: GameSettingStringConst.moveBackText,
+                                    modalHeader: GameSettingConsts.moveBackText,
                                     onChanged: (chose) {
+                                      setIsMoveBack(chose);
                                       setState(() {
                                         appModel.setAllowUndoRedo(chose);
-                                        isMoveBack = chose;
                                       });
                                     },
                                   ),
                                   SettingsRow(
                                     chose: isThreats,
-                                    text: GameSettingStringConst.threatsText,
+                                    text: GameSettingConsts.threatsText,
                                     modalText: ModalStrings.threatsModalText,
-                                    modalHeader: GameSettingStringConst.threatsText,
-                                    onChanged: (chose) {
-                                      setState(() {
-                                        isThreats = chose;
-                                      });
-                                    },
+                                    modalHeader: GameSettingConsts.threatsText,
+                                    onChanged: setIsThreats,
                                   ),
                                   SettingsRow(
                                     chose: isHints,
-                                    text: GameSettingStringConst.hintsText,
+                                    text: GameSettingConsts.hintsText,
                                     modalText: ModalStrings.hintsModalText,
-                                    modalHeader: GameSettingStringConst.hintsText,
-                                    onChanged: (chose) {
-                                      setState(() {
-                                        isHints = chose;
-                                      });
-                                    },
+                                    modalHeader: GameSettingConsts.hintsText,
+                                    onChanged: setIsHints,
                                   ),
                                 ],
                             ) : const SizedBox(),
@@ -336,11 +500,14 @@ class _GameSettingsViewState extends State<GameSettingsView>
                     child: Padding(
                       padding: const EdgeInsets.only(top: 15, bottom: 23, left: 23, right: 23),
                       child: NextPageButton(
-                        text: GameSettingStringConst.startGameText,
+                        text: GameSettingConsts.startGameText,
                         textColor: ColorsConst.primaryColor0,
                         buttonColor: scheme.secondaryContainer,
                         isClickable: true,
-                        onTap: () {
+                        onTap: () async {
+                          if (isSettingsEdited || !isDBEmpty) {
+                            await setSettings();
+                          }
                           Navigator.push(
                             context,
                             MaterialPageRoute(

@@ -1,4 +1,6 @@
-class GameSettingStringConst {
+import 'package:frontend/exports.dart';
+
+class GameSettingConsts {
   static String appBarLabel = "Параметры";
   static String gameModeText = "Режим игры";
   static String colorPiecesText = "Цвет фигур";
@@ -51,4 +53,54 @@ class GameSettingStringConst {
     45,
     60
   ];
+
+  static Map<LevelOfDifficulty, int> difficultyLevels = {
+    LevelOfDifficulty.easy: 1,
+    LevelOfDifficulty.medium: 3,
+    LevelOfDifficulty.hard: 6,
+  };
+
+  static String dbCreateScript = """CREATE TABLE Settings (
+  id INTEGER PRIMARY KEY, 
+  withComputer INTEGER, 
+  colorPieces INTEGER, 
+  withoutTime INTEGER,
+  durationGame INTEGER,
+  addingOnMove INTEGER,
+  levelOfDifficulty INTEGER,
+  isPersonality INTEGER,
+  isMoveBack INTEGER,
+  isThreats INTEGER,
+  isHints INTEGER
+  )""";
+
+  static String dbGetSettingsScript = "SELECT * FROM Settings";
+
+  static String dbUpdateSettingsScript = """UPDATE Settings SET
+  withComputer = ?,
+  colorPieces = ?,
+  withoutTime = ?,
+  durationGame = ?,
+  addingOnMove = ?,
+  levelOfDifficulty = ?,
+  isPersonality = ?,
+  isMoveBack = ?,
+  isThreats = ?,
+  isHints = ?
+  WHERE id = 1
+  """;
+
+  static String dbSetSettingsScript = """INSERT INTO Settings(
+  withComputer,
+  colorPieces,
+  withoutTime,
+  durationGame,
+  addingOnMove,
+  levelOfDifficulty,
+  isPersonality,
+  isMoveBack,
+  isThreats,
+  isHints
+  ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  """;
 }
