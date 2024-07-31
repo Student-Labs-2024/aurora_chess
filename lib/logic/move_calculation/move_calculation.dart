@@ -1,13 +1,18 @@
 import 'package:frontend/logic/move_calculation/move_classes/direction.dart';
 import 'package:frontend/logic/move_calculation/move_classes/move_and_value.dart';
 import 'package:frontend/logic/shared_functions.dart';
-import 'package:frontend/views/components/chess_view/promotion_dialog.dart';
 import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
 
 import '../chess_board.dart';
 import '../chess_piece.dart';
 import 'move_classes/move.dart';
 
+const PROMOTIONS = [
+  ChessPieceType.queen,
+  ChessPieceType.rook,
+  ChessPieceType.bishop,
+  ChessPieceType.knight
+];
 const PAWN_DIAGONALS_1 = [DOWN_LEFT, DOWN_RIGHT];
 const PAWN_DIAGONALS_2 = [UP_LEFT, UP_RIGHT];
 const KNIGHT_MOVES = [
@@ -32,6 +37,7 @@ const KING_QUEEN_MOVES = [
   LEFT,
   UP_LEFT
 ];
+
 
 List<Move> allMoves(Player player, ChessBoard board, int aiDifficulty) {
   List<MoveAndValue> moves = [];

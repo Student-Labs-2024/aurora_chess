@@ -1,12 +1,9 @@
-import 'package:frontend/model/game_model.dart';
-import 'package:frontend/views/components/chess_view/chess_board_widget.dart';
-import 'package:frontend/views/components/chess_view/game_info_and_controls.dart';
-import 'package:frontend/views/components/chess_view/game_info_and_controls/game_status.dart';
-import 'package:frontend/views/components/chess_view/game_info_and_controls/moves_undo_redo_row/move_list.dart';
-import 'package:frontend/views/components/custom_icon_button.dart';
-import 'package:frontend/views/components/shared/bottom_padding.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/model/game_model.dart';
 import 'package:provider/provider.dart';
+import '../components/components.dart';
+import '../components/shared/bottom_padding.dart';
+import 'components/components.dart';
 
 class GameView extends StatefulWidget {
   final GameModel gameModel;
@@ -18,26 +15,25 @@ class GameView extends StatefulWidget {
 }
 
 class _GameViewState extends State<GameView> {
-
   @override
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
     return Scaffold(
       backgroundColor: scheme.background,
       body: Consumer<GameModel>(
-        builder: (context, GameModel, child) {
+        builder: (context, gameModel, child) {
           return WillPopScope(
             onWillPop: _willPopCallback,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                MoveList(GameModel),
+                MoveList(gameModel),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 25,
                     vertical: 30,
                   ),
-                  child: Container(
+                  child: SizedBox(
                     height: 30,
                     child: Stack(
                       children: [
@@ -50,21 +46,20 @@ class _GameViewState extends State<GameView> {
                             Navigator.pop(context);
                           },
                         ),
-                        GameStatus(),
+                        const GameStatus(),
                       ],
                     ),
                   ),
                 ),
                 const Spacer(),
                 Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: ChessBoardWidget(GameModel),
-                ),
+                    padding: const EdgeInsets.all(30),
+                    child: ChessBoardWidget(gameModel)),
                 const SizedBox(height: 30),
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(30),
-                  child: GameInfoAndControls(GameModel),
+                  child: GameInfoAndControls(gameModel),
                 ),
                 BottomPadding(),
               ],

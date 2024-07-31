@@ -15,7 +15,7 @@ class GameModel extends ChangeNotifier {
   int aiDifficulty = 3;
   Player selectedSide = Player.player1;
   Player playerSide = Player.player1;
-  int timeLimit = 0;
+  int timeLimit = 10;
   String pieceTheme = 'Classic';
   bool showMoveHistory = true;
   bool allowUndoRedo = true;

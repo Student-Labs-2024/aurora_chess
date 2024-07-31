@@ -14,25 +14,27 @@ class RestartExitButtons extends StatelessWidget {
       children: [
         Expanded(
           child: IconButton(
-              icon: SvgPicture.asset(
-                "assets/images/icons/gridicons_menus.svg",
-                color: scheme.primary,
-              ),
-              onPressed: () {
-                gameModel.newGame(context);
-              }),
+            icon: SvgPicture.asset(
+              "assets/images/icons/gridicons_menus.svg",
+              color: scheme.primary,
+            ),
+            onPressed: () {
+              gameModel.newGame(context);
+            },
+          ),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: IconButton(
-              icon: SvgPicture.asset(
-                "assets/images/icons/lamp_icon.svg",
-                color: scheme.primary,
-              ),
-              onPressed: () {
-                gameModel.exitChessView();
-                Navigator.pop(context);
-              }),
+            icon: SvgPicture.asset(
+              "assets/images/icons/lamp_icon.svg",
+              color: scheme.primary,
+            ),
+            onPressed: () {
+              gameModel.exitChessView();
+              Navigator.pop(context);
+            },
+          ),
         ),
       ],
     );
