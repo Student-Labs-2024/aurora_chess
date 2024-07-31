@@ -1,6 +1,4 @@
-import 'package:frontend/logic/chess_piece.dart';
-import 'package:frontend/model/game_model.dart';
-import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
+import '../../exports.dart';
 
 int tileToRow(int tile) {
   return (tile / 8).floor();

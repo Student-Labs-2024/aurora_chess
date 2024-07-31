@@ -1,4 +1,4 @@
-import 'package:frontend/model/game_model.dart';
+import '../../../../exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

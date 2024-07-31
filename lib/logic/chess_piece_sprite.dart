@@ -1,11 +1,7 @@
-import 'package:frontend/model/game_model.dart';
-import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
+import '../../exports.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
-
-import 'chess_piece.dart';
-import 'shared_functions.dart';
 
 class ChessPieceSprite {
   ChessPieceType? type;

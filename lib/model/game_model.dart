@@ -1,10 +1,6 @@
 import 'dart:async';
 import 'dart:math';
-
-import 'package:frontend/logic/chess_game.dart';
-import 'package:frontend/logic/move_calculation/move_classes/move_meta.dart';
-import 'package:frontend/logic/shared_functions.dart';
-import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
+import '../../exports.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

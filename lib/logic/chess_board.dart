@@ -1,13 +1,4 @@
-import 'package:frontend/logic/move_calculation/move_classes/move_stack_object.dart';
-import 'package:frontend/logic/move_calculation/openings.dart';
-import 'package:frontend/logic/shared_functions.dart';
-import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
-
-import 'chess_piece.dart';
-import 'move_calculation/move_calculation.dart';
-import 'move_calculation/move_classes/move.dart';
-import 'move_calculation/move_classes/move_meta.dart';
-import 'move_calculation/piece_square_tables.dart';
+import '../../exports.dart';
 
 const KING_ROW_PIECES = [
   ChessPieceType.rook,

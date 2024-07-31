@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/model/game_model.dart';
 import 'package:provider/provider.dart';
-import '../components/components.dart';
-import '../components/shared/bottom_padding.dart';
-import 'components/components.dart';
+import '../../exports.dart';
 
 class GameView extends StatefulWidget {
   final GameModel gameModel;

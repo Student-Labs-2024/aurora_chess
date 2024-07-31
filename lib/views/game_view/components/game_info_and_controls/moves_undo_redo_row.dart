@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/model/game_model.dart';
-import 'package:frontend/views/game_view/components/game_info_and_controls/undo_redo_buttons.dart';
+import '../../../../exports.dart';
 
 class MovesUndoRedoRow extends StatelessWidget {
   final GameModel gameModel;

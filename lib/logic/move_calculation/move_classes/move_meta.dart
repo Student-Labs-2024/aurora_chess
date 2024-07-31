@@ -1,7 +1,4 @@
-import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
-
-import '../../chess_piece.dart';
-import 'move.dart';
+import '../../../exports.dart';
 
 class MoveMeta {
   Move? move;

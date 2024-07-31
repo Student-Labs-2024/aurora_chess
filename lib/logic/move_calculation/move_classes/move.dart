@@ -1,4 +1,4 @@
-import 'package:frontend/logic/chess_piece.dart';
+import '../../../exports.dart';
 
 class Move {
   int from;

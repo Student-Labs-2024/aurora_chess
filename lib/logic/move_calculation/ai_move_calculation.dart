@@ -1,12 +1,5 @@
 import 'dart:math';
-
-import 'package:frontend/logic/move_calculation/move_classes/move_and_value.dart';
-import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
-
-import '../chess_board.dart';
-import '../shared_functions.dart';
-import 'move_calculation.dart';
-import 'move_classes/move.dart';
+import '../../exports.dart';
 
 const INITIAL_ALPHA = -40000;
 const STALEMATE_ALPHA = -20000;

@@ -1,5 +1,4 @@
-import '../../chess_piece.dart';
-import 'move.dart';
+import '../../../exports.dart';
 
 class MoveStackObject {
   Move move;

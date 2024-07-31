@@ -1,17 +1,7 @@
-import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/views/setting_view/components/app_bar_settings.dart';
-import 'package:frontend/views/setting_view/components/chose_difficulty_button.dart';
-import 'package:frontend/views/setting_view/components/chose_time_carousel.dart';
-import 'package:frontend/views/setting_view/components/color_chose_button.dart';
-import 'package:frontend/views/setting_view/components/settings_row.dart';
-import 'package:frontend/views/setting_view/components/tab_item.dart';
-import 'package:frontend/views/setting_view/components/text_heading.dart';
-import 'package:frontend/views/setting_view/constants/game_setting_const.dart';
-import 'package:frontend/views/setting_view/constants/modal_strings.dart';
 import 'package:provider/provider.dart';
-import '../../exports.dart';
 import 'package:sqflite/sqflite.dart';
+import '../../exports.dart';
 
 class GameSettingsView extends StatefulWidget {
   const GameSettingsView({super.key});

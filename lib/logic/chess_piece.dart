@@ -1,4 +1,4 @@
-import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
+import '../../exports.dart';
 
 enum ChessPieceType { pawn, rook, knight, bishop, king, queen, promotion }
 

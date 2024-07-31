@@ -1,6 +1,5 @@
-import 'package:frontend/model/game_model.dart';
-import 'package:frontend/views/game_view/components/game_info_and_controls/timer_widget.dart';
 import 'package:flutter/material.dart';
+import '../../../../exports.dart';
 
 class Timers extends StatelessWidget {
   final GameModel gameModel;

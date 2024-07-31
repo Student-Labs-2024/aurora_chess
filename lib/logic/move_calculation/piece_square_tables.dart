@@ -1,5 +1,4 @@
-import 'package:frontend/logic/chess_piece.dart';
-import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
+import '../../exports.dart';
 
 const KING_TABLE = [
   -30,

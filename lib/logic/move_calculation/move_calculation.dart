@@ -1,11 +1,4 @@
-import 'package:frontend/logic/move_calculation/move_classes/direction.dart';
-import 'package:frontend/logic/move_calculation/move_classes/move_and_value.dart';
-import 'package:frontend/logic/shared_functions.dart';
-import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
-
-import '../chess_board.dart';
-import '../chess_piece.dart';
-import 'move_classes/move.dart';
+import '../../exports.dart';
 
 const PROMOTIONS = [
   ChessPieceType.queen,

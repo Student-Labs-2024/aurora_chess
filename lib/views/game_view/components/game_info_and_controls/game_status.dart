@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/model/game_model.dart';
-import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
 import 'package:provider/provider.dart';
+import '../../../../exports.dart';
 
 class GameStatus extends StatelessWidget {
   const GameStatus({super.key});

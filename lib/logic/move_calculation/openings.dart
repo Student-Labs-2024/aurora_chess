@@ -1,4 +1,4 @@
-import 'move_classes/move.dart';
+import '../../exports.dart';
 
 var openings = [
   [

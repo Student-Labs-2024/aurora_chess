@@ -2,7 +2,6 @@ import 'package:frontend/exports.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend/views/menu_view/menu_page_view.dart';
 
 import 'package:provider/provider.dart';
 
