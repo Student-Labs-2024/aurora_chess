@@ -50,8 +50,8 @@ class _GameViewState extends State<GameView> {
                 ),
                 const Spacer(),
                 Padding(
-                    padding: const EdgeInsets.all(30),
-                    child: ChessBoardWidget(gameModel)),
+                  padding: const EdgeInsets.all(30),
+                  child: ChessBoardWidget(gameModel)),
                 const SizedBox(height: 30),
                 const Spacer(),
                 Padding(
