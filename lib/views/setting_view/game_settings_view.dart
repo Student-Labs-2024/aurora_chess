@@ -72,7 +72,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
     });
   }
 
-  void setMinutes(chose) {
+  void setMinutes(GameModel gameModel, chose) {
+    gameModel.setTimeLimit(chose);
     setState(() {
       isSettingsEdited = true;
       durationOfGame = chose;
@@ -129,7 +130,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
       setEnemy(data["withComputer"]);
       setPiecesColor(data["colorPieces"]);
       setIsTime(data["withoutTime"]);
-      setMinutes(data["durationGame"]);
+      //setMinutes(data["durationGame"]);
       setSeconds(data["addingOnMove"]);
       setIsPersonality(data["isPersonality"] == 0);
       if (isPersonality) {
@@ -367,6 +368,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                             setIsTime(index);
                                             if (index == 0) {
                                               gameModel.setTimeLimit(0);
+                                              setState(() {});
                                             }
                                           },
                                           labelPadding: EdgeInsets.zero,
@@ -401,8 +403,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                               type: 'minutes',
                                               header: GameSettingConsts
                                                   .minutesSubtitle,
-                                              startValue: durationOfGame,
-                                              onChanged: setMinutes,
+                                              startValue: gameModel.timeLimit,
+                                              onChanged: (value) => setMinutes(gameModel, value),
                                             ),
                                             ChoseTimeCarousel(
                                               values: GameSettingConsts
