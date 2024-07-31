@@ -1,7 +1,7 @@
-import 'package:frontend/constants/colors.dart';
-import 'package:frontend/views/components/main_menu_view/game_options/side_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../exports.dart';
 
 class ColorChoseButton extends StatelessWidget {
   const ColorChoseButton({

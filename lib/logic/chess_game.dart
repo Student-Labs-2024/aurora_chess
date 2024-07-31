@@ -254,8 +254,8 @@ class ChessGame extends Game with TapDetector {
         ),
         Paint()
           ..color = (tileNo + (tileNo / 8).floor()) % 2 == 0
-              ? gameModel.theme.lightTile
-              : gameModel.theme.darkTile,
+              ? ColorsConst.secondaryColor0       //light tile
+              : ColorsConst.secondaryColor200,    //dark tile
       );
     }
   }
@@ -283,7 +283,7 @@ class ChessGame extends Game with TapDetector {
               ((tileSize ?? 0) / 2),
         ),
         (tileSize ?? 0) / 5,
-        Paint()..color = gameModel.theme.moveHint,
+        Paint()..color = ColorsConst.primaryColor100,   //moveHint
       );
     }
   }
@@ -297,7 +297,7 @@ class ChessGame extends Game with TapDetector {
           tileSize ?? 0,
           tileSize ?? 0,
         ),
-        Paint()..color = gameModel.theme.latestMove,
+        Paint()..color = ColorsConst.feedback300,   //latestMove
       );
       canvas.drawRect(
         Rect.fromLTWH(
@@ -306,7 +306,7 @@ class ChessGame extends Game with TapDetector {
           tileSize ?? 0,
           tileSize ?? 0,
         ),
-        Paint()..color = gameModel.theme.latestMove,
+        Paint()..color = ColorsConst.feedback300,   //latestMove
       );
     }
   }
@@ -320,7 +320,7 @@ class ChessGame extends Game with TapDetector {
           tileSize ?? 0,
           tileSize ?? 0,
         ),
-        Paint()..color = gameModel.theme.checkHint,
+        Paint()..color = ColorsConst.feedback100,   //CheckHint
       );
     }
   }
@@ -334,7 +334,7 @@ class ChessGame extends Game with TapDetector {
           tileSize ?? 0,
           tileSize ?? 0,
         ),
-        Paint()..color = gameModel.theme.moveHint,
+        Paint()..color = ColorsConst.primaryColor100,   //moveHint
       );
     }
   }

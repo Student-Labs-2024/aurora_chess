@@ -1,8 +1,8 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:infinite_carousel/infinite_carousel.dart';
+import 'package:provider/provider.dart';
 import '../../exports.dart';
-
 
 Map<String, List<String>> hintsOfPieces = {
   "Пешка": GuideStrings.hintsOfPawn,
@@ -26,7 +26,16 @@ Map<String, List<String>> imgOfHints = {
   "Рокировка": GuideHintsNameConst.castlingHints,
 };
 
-List<String> pieces = ["Пешка", "Ладья", "Конь", "Слон", "Ферзь", "Король", "Взятие на проходе", "Рокировка"];
+List<String> pieces = [
+  "Пешка",
+  "Ладья",
+  "Конь",
+  "Слон",
+  "Ферзь",
+  "Король",
+  "Взятие на проходе",
+  "Рокировка"
+];
 
 class GuideView extends StatefulWidget {
   const GuideView({
@@ -41,7 +50,6 @@ class GuideView extends StatefulWidget {
 }
 
 class _GuideViewState extends State<GuideView> {
-
   int index = 0;
 
   @override
@@ -68,6 +76,7 @@ class _GuideViewState extends State<GuideView> {
               ),
               GuidePieceView(
                 pieceIndex: index,
+                index: 0,
               ),
             ],
           ),
@@ -98,21 +107,33 @@ class _GuideViewState extends State<GuideView> {
   }
 }
 
-
-class GuidePieceView extends StatelessWidget {
+class GuidePieceView extends StatefulWidget {
   const GuidePieceView({
     super.key,
     required this.pieceIndex,
+    required this.index,
   });
-
+  final int index;
   final int pieceIndex;
+
+  @override
+  State<GuidePieceView> createState() => _GuidePieceViewState();
+}
+
+class _GuidePieceViewState extends State<GuidePieceView> {
+  late CarouselController carouselController;
+
+  @override
+  void initState() {
+    carouselController = CarouselController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     var scheme = Theme.of(context).colorScheme;
-    String name = pieces[pieceIndex];
+    String name = pieces[widget.pieceIndex];
     return Column(
       children: [
         Text(
@@ -125,22 +146,33 @@ class GuidePieceView extends StatelessWidget {
             height: 0.05,
           ),
         ),
-        const SizedBox(height: 32,),
+        const SizedBox(
+          height: 32,
+        ),
         SizedBox(
           height: height - 270,
-          child: InfiniteCarousel.builder(
+          child: CarouselSlider.builder(
+            carouselController: carouselController,
             itemCount: imgOfHints[name]!.length,
-            itemExtent: width - 100,
-            center: true,
-            onIndexChanged: (index) {},
-            axisDirection: Axis.horizontal,
-            loop: false,
+            options: CarouselOptions(
+              initialPage: 0,
+              aspectRatio: 9 / 13,
+              enableInfiniteScroll: false,
+              enlargeCenterPage: true,
+              enlargeFactor: 0.2,
+              viewportFraction: 0.7,
+            ),
             itemBuilder: (context, itemIndex, realIndex) {
               return Center(
                 child: Column(
                   children: [
-                    SvgPicture.asset("assets/images/guide_boards/${imgOfHints[name]![itemIndex]}", height: 280,),
-                    HintDescription(text: hintsOfPieces[name]![itemIndex],)
+                    SvgPicture.asset(
+                      "assets/images/guide_boards/${imgOfHints[name]![itemIndex]}",
+                      height: 280,
+                    ),
+                    HintDescription(
+                      text: hintsOfPieces[name]![itemIndex],
+                    )
                   ],
                 ),
               );
@@ -149,6 +181,11 @@ class GuidePieceView extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
 }

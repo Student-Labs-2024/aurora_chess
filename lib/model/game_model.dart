@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const TIMER_ACCURACY_MS = 100;
 
+enum Player { player1, random, player2 }
+
 class GameModel extends ChangeNotifier {
   int playerCount = 1;
   int aiDifficulty = 3;
@@ -30,26 +32,6 @@ class GameModel extends ChangeNotifier {
   Duration player1TimeLeft = Duration.zero;
   Duration player2TimeLeft = Duration.zero;
 
-
-  BoardTheme get theme {
-    return BoardTheme(
-      name: 'Grey',
-      background: const LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [
-          Color(0xffb2b2b2),
-          Color(0xff4e4e4e),
-        ],
-      ),
-      lightTile: const Color(0xFFC6BAAA),
-      darkTile: const Color(0xFF806C61),
-      moveHint: const Color(0xdd555555),
-      checkHint: const Color(0xff333333),
-      latestMove: const Color(0xdddddddd),
-    );
-  }
-
   Player get aiTurn {
     return oppositePlayer(playerSide);
   }
@@ -60,10 +42,6 @@ class GameModel extends ChangeNotifier {
 
   bool get playingWithAI {
     return playerCount == 1;
-  }
-
-  AppModel() {
-    loadSharedPrefs();
   }
 
   void newGame(BuildContext context, {bool notify = true}) {
@@ -232,26 +210,4 @@ class GameModel extends ChangeNotifier {
   void update() {
     notifyListeners();
   }
-}
-
-class BoardTheme {
-  String? name;
-  LinearGradient? background;
-  Color lightTile;
-  Color darkTile;
-  Color moveHint;
-  Color checkHint;
-  Color latestMove;
-  Color border;
-
-  BoardTheme({
-    this.name,
-    this.background,
-    this.lightTile = const Color(0xFFC9B28F),
-    this.darkTile = const Color(0xFF69493b),
-    this.moveHint = const Color(0xdd5c81c4),
-    this.latestMove = const Color(0xccc47937),
-    this.checkHint = const Color(0x88ff0000),
-    this.border = const Color(0xffffffff),
-  });
 }
