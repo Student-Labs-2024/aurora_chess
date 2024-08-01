@@ -1,7 +1,4 @@
-import 'package:frontend/views/guide_view/components/app_bar_guide.dart';
-import 'package:frontend/views/guide_view/components/guide_chose_piece_button.dart';
 import 'package:flutter/material.dart';
-
 import 'guide_view.dart';
 
 List<String> piecesIcons = [
