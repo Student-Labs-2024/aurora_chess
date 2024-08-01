@@ -1,7 +1,11 @@
-from core.entities.AbstractGameRoom import AbstractGameRoom
+from core.entities.GameRoom.AbstractGameRoom import AbstractGameRoom
 
 
 class GameRoom(AbstractGameRoom):
+    def __init__(self, room_name, game_type):
+        super().__init__(room_name, game_type)
+        self.players = []
+
     def make_move(self, move) -> None:
         pass
 
@@ -10,10 +14,6 @@ class GameRoom(AbstractGameRoom):
 
     def get_board(self):
         pass
-
-    def __init__(self, room_name, game_type):
-        super().__init__(room_name, game_type)
-        self.players = []
 
     def add_player(self, player):
         self.players.append(player)

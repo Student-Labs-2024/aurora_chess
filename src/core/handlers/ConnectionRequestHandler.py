@@ -1,7 +1,7 @@
 import asyncio
 import json
 
-from core.entities.AbstractPlayerSession import AbstractPlayerSession
+from core.entities.PlayerSession.AbstractPlayerSession import AbstractPlayerSession
 from core.factories import AbstractPlayerSessionFactory
 from core.handlers.MessageHandler import MessageHandler
 from core.schemas.RoomConnectionRequest import RoomConnectionRequest

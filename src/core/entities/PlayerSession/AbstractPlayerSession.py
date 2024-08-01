@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Literal
 
-from core.entities.AbstractGameRoom import AbstractGameRoom
+from core.entities.GameRoom import AbstractGameRoom
 
 
 class AbstractPlayerSession(ABC):

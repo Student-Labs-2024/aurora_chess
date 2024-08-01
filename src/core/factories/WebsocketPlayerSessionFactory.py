@@ -1,4 +1,4 @@
-from core.entities.WebsocketPlayerSession import WebsocketPlayerSession
+from core.entities.PlayerSession.WebsocketPlayerSession import WebsocketPlayerSession
 from core.factories.AbstractPlayerSessionFactory import PlayerSessionFactory
 
 

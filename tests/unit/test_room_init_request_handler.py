@@ -3,7 +3,7 @@ import json
 import unittest
 from unittest.mock import MagicMock, AsyncMock
 
-from core.entities.AbstractGameRoom import AbstractGameRoom
+from core.entities.GameRoom import AbstractGameRoom
 from core.handlers.RoomInitRequestHandler import RoomInitRequestHandler
 from core.services.RoomService import RoomService
 
