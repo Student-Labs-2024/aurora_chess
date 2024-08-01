@@ -38,6 +38,9 @@
 ### Backend:
 - python-chess: 1.10.0
 - fastapi: 0.111.1
+- uvicorn: 0.30.3
+- pytest: 8.3.1 
+- pytest-cov: 5.0.0 
 
 ## Среда разработки
 - Android Studio Koala 2024.1.1
