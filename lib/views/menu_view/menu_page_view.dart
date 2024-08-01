@@ -26,14 +26,15 @@ class _MyMenuViewState extends State<MyMenuView> {
   Widget build(BuildContext context) {
     var provider = Provider.of<ThemeProvider>(context, listen: false);
     var scheme = Theme.of(context).colorScheme;
-
+    piecesFile = provider.isDarkMode
+        ? MenuPageStringConst.piecesDarkIconName
+        : MenuPageStringConst.piecesLightIconName;
     return Scaffold(
       backgroundColor: scheme.background,
       body: ConstrainedBox(
         constraints: BoxConstraints(
-          minWidth: MediaQuery.of(context).size.width,
-          minHeight: MediaQuery.of(context).size.height
-        ),
+            minWidth: MediaQuery.of(context).size.width,
+            minHeight: MediaQuery.of(context).size.height),
         child: IntrinsicHeight(
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 25),
@@ -47,16 +48,7 @@ class _MyMenuViewState extends State<MyMenuView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CustomSwitch(
-                          onChanged: (value) {
-                            setState(() {
-                              provider.toggleTheme();
-                              piecesFile = provider.isDarkMode
-                                ? MenuPageStringConst.piecesDarkIconName
-                                : MenuPageStringConst.piecesLightIconName;
-                            });
-                          },
-                        ),
+                        CustomSwitch(provider),
                         ButtonToGuide(
                           backGroundColor: scheme.secondaryContainer,
                           height: 40,
@@ -77,11 +69,10 @@ class _MyMenuViewState extends State<MyMenuView> {
                           child: Text(
                             MenuPageStringConst.slogan,
                             style: TextStyle(
-                              fontSize: 36,
-                              fontStyle: FontStyle.normal,
-                              fontWeight: FontWeight.w600,
-                              color: scheme.primary
-                            ),
+                                fontSize: 36,
+                                fontStyle: FontStyle.normal,
+                                fontWeight: FontWeight.w600,
+                                color: scheme.primary),
                           ),
                         ),
                         Padding(
@@ -89,8 +80,7 @@ class _MyMenuViewState extends State<MyMenuView> {
                           child: Container(
                             alignment: Alignment.centerRight,
                             child: SvgPicture.asset(
-                              "${MenuPageStringConst.pathToIcon}$piecesFile"
-                            ),
+                                "${MenuPageStringConst.pathToIcon}$piecesFile"),
                           ),
                         ),
                       ],
