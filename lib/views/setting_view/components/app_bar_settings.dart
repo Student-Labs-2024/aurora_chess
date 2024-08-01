@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../exports.dart';
 
 class AppBarSettings extends StatelessWidget {
@@ -17,7 +18,7 @@ class AppBarSettings extends StatelessWidget {
           color: scheme.onTertiary,
           iconSize: 40,
           onTap: () {
-            Navigator.pop(context);
+            context.go(RouteLocations.homeScreen);
           },
         ),
         Text(
@@ -33,14 +34,7 @@ class AppBarSettings extends StatelessWidget {
           height: 40,
           width: 40,
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return const GuideChoseView();
-                },
-              ),
-            );
+            context.push(RouteLocations.guidebookScreen);
           },
         ),
       ],

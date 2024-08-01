@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/router/router.dart';
+import 'package:go_router/go_router.dart';
 import 'guide_view.dart';
 
 List<String> piecesIcons = [
@@ -13,6 +15,8 @@ List<String> piecesIcons = [
 enum Pieces { pawn, rook, knight, bishop, queen, king }
 
 class GuideChoseView extends StatelessWidget {
+  static GuideChoseView builder(BuildContext context, GoRouterState state) =>
+      const GuideChoseView();
   const GuideChoseView({super.key});
   @override
   Widget build(BuildContext context) {
@@ -39,12 +43,7 @@ class GuideChoseView extends StatelessWidget {
                     label: pieces[index],
                     isPiece: index < 6,
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (BuildContext context) {
-                          return GuideView(index: index,);
-                        })
-                      );
+                      context.push(RouteLocations.guideScreen, extra: index);
                     },
                   ),
                 );

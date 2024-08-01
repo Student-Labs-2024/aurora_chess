@@ -1,5 +1,6 @@
 import 'package:frontend/views/components/custom_icon_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AppBarGuide extends StatelessWidget {
   const AppBarGuide(
@@ -31,7 +32,7 @@ class AppBarGuide extends StatelessWidget {
                   color: iconColor,
                   iconSize: 42,
                   onTap: () {
-                    Navigator.pop(context);
+                    context.pop();
                   },
                 ),
           Text(
@@ -49,7 +50,7 @@ class AppBarGuide extends StatelessWidget {
                   color: iconColor,
                   iconSize: 42,
                   onTap: () {
-                    Navigator.pop(context);
+                    context.pop();
                   },
                 )
               : const SizedBox(

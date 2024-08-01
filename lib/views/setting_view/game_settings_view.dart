@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../exports.dart';
 
 class GameSettingsView extends StatefulWidget {
+  static GameSettingsView builder(BuildContext context, GoRouterState state) =>
+      const GameSettingsView();
   const GameSettingsView({super.key});
 
   @override
@@ -431,15 +434,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
                           if (isSettingsEdited || !isDBEmpty) {
                             await setSettings();
                           }
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                gameModel.newGame(context, notify: false);
-                                return GameView(gameModel);
-                              },
-                            ),
-                          );
+                          gameModel.newGame(context, notify: false);
+                          context.go(RouteLocations.gameScreen, extra: gameModel);
                         },
                       ),
                     ),

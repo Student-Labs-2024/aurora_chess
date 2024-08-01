@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../exports.dart';
 
 class MyMenuView extends StatefulWidget {
+  static MyMenuView builder(BuildContext context, GoRouterState state) =>
+      const MyMenuView();
   const MyMenuView({super.key});
 
   @override
@@ -59,11 +62,7 @@ class _MyMenuViewState extends State<MyMenuView> {
                           height: 40,
                           width: 40,
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return const GuideChoseView();
-                              })
-                            );
+                            context.push(RouteLocations.guidebookScreen);
                           },
                         ),
                       ],
@@ -111,11 +110,7 @@ class _MyMenuViewState extends State<MyMenuView> {
                       buttonColor: scheme.secondaryContainer,
                       isClickable: true,
                       onTap: () {
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (BuildContext context) {
-                            return const GameSettingsView();
-                          })
-                        );
+                        context.go(RouteLocations.settingsScreen);
                       },
                     ),
                   ),

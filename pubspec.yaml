@@ -17,6 +17,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   wheel_chooser: ^1.1.2
   carousel_slider: ^4.2.1
+  go_router: ^14.2.1
   shared_preferences:
   async:
   sqflite_aurora:
