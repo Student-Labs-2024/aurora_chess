@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 import '../../exports.dart';
 
 Map<String, List<String>> hintsOfPieces = {
@@ -51,6 +50,7 @@ class GuideView extends StatefulWidget {
 
 class _GuideViewState extends State<GuideView> {
   int index = 0;
+  CarouselController carouselController = CarouselController();
 
   @override
   void initState() {
@@ -77,6 +77,7 @@ class _GuideViewState extends State<GuideView> {
               GuidePieceView(
                 pieceIndex: index,
                 index: 0,
+                carouselController: carouselController,
               ),
             ],
           ),
@@ -87,6 +88,7 @@ class _GuideViewState extends State<GuideView> {
                 if (index > 0) {
                   setState(() {
                     index -= 1;
+                    carouselController.jumpToPage(0);
                   });
                 }
               });
@@ -96,6 +98,7 @@ class _GuideViewState extends State<GuideView> {
                 if (index < hintsOfPieces.length - 1) {
                   setState(() {
                     index += 1;
+                    carouselController.jumpToPage(0);
                   });
                 }
               });
@@ -107,33 +110,22 @@ class _GuideViewState extends State<GuideView> {
   }
 }
 
-class GuidePieceView extends StatefulWidget {
+class GuidePieceView extends StatelessWidget {
   const GuidePieceView({
     super.key,
     required this.pieceIndex,
     required this.index,
+    required this.carouselController
   });
   final int index;
   final int pieceIndex;
-
-  @override
-  State<GuidePieceView> createState() => _GuidePieceViewState();
-}
-
-class _GuidePieceViewState extends State<GuidePieceView> {
-  late CarouselController carouselController;
-
-  @override
-  void initState() {
-    carouselController = CarouselController();
-    super.initState();
-  }
+  final CarouselController carouselController;
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var scheme = Theme.of(context).colorScheme;
-    String name = pieces[widget.pieceIndex];
+    String name = pieces[pieceIndex];
     return Column(
       children: [
         Text(
@@ -156,7 +148,7 @@ class _GuidePieceViewState extends State<GuidePieceView> {
             itemCount: imgOfHints[name]!.length,
             options: CarouselOptions(
               initialPage: 0,
-              aspectRatio: 9 / 13,
+              aspectRatio: 9 / 14,
               enableInfiniteScroll: false,
               enlargeCenterPage: true,
               enlargeFactor: 0.2,
@@ -182,10 +174,4 @@ class _GuidePieceViewState extends State<GuidePieceView> {
       ],
     );
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
 }
