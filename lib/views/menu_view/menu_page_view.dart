@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/views/menu_view/components/custom_switch.dart';
-import 'package:frontend/views/menu_view/constants/menu_page_string_const.dart';
-import 'package:frontend/views/setting_view/game_settings_view.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../exports.dart';
