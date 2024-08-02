@@ -267,8 +267,8 @@ class ChessGame extends Game with TapDetector {
             size: Vector2((tileSize ?? 0) - LogicConsts.height,
                 (tileSize ?? 0) - LogicConsts.height),
             position: Vector2(
-              (spriteMap[piece]?.spriteX ?? 0) + 5,
-              (spriteMap[piece]?.spriteY ?? 0) + 5,
+              (spriteMap[piece]?.spriteX ?? 0) + LogicConsts.offset,
+              (spriteMap[piece]?.spriteY ?? 0) + LogicConsts.offset,
             ),
           );
     }
@@ -283,7 +283,7 @@ class ChessGame extends Game with TapDetector {
           getYFromTile(tile, (tileSize ?? 0), gameModel) +
               ((tileSize ?? 0) / 2),
         ),
-        (tileSize ?? 0) / 5,
+        (tileSize ?? 0) / LogicConsts.offset,
         Paint()..color = ColorsConst.primaryColor100,
       );
     }
@@ -298,7 +298,7 @@ class ChessGame extends Game with TapDetector {
           tileSize ?? 0,
           tileSize ?? 0,
         ),
-        Paint()..color = ColorsConst.feedback300,   //latestMove
+        Paint()..color = ColorsConst.feedback300,
       );
       canvas.drawRect(
         Rect.fromLTWH(
@@ -307,7 +307,7 @@ class ChessGame extends Game with TapDetector {
           tileSize ?? 0,
           tileSize ?? 0,
         ),
-        Paint()..color = ColorsConst.feedback300,   //latestMove
+        Paint()..color = ColorsConst.feedback300,
       );
     }
   }
@@ -321,7 +321,7 @@ class ChessGame extends Game with TapDetector {
           tileSize ?? 0,
           tileSize ?? 0,
         ),
-        Paint()..color = ColorsConst.feedback100,   //CheckHint
+        Paint()..color = ColorsConst.feedback100,
       );
     }
   }
@@ -335,7 +335,7 @@ class ChessGame extends Game with TapDetector {
           tileSize ?? 0,
           tileSize ?? 0,
         ),
-        Paint()..color = ColorsConst.primaryColor100,   //moveHint
+        Paint()..color = ColorsConst.primaryColor100,
       );
     }
   }
