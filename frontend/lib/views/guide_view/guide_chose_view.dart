@@ -21,36 +21,39 @@ class GuideChoseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
-    return Scaffold(
-      body: Column(
-        children: [
-          AppBarGuide(
-            isMainGuide: true,
-            iconName: "assets/images/icons/cancel.svg",
-            iconColor: scheme.onSurface,
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 24),
-            child: ListView.builder(
-              padding: EdgeInsets.zero,
-              itemCount: pieces.length,
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return SingleChildScrollView(
-                  child: GuideChosePieceButton(
-                    iconName: index < 6 ? "assets/images/pieces/${piecesIcons[index]}" : null,
-                    label: pieces[index],
-                    isPiece: index < 6,
-                    onTap: () {
-                      context.push(RouteLocations.guideScreen, extra: index);
-                    },
-                  ),
-                );
-              },
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            AppBarGuide(
+              isMainGuide: true,
+              iconName: "assets/images/icons/cancel.svg",
+              iconColor: scheme.onTertiary,
+              bottomMargin: 21,
             ),
-          )
-        ],
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 24),
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: pieces.length,
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return SingleChildScrollView(
+                    child: GuideChosePieceButton(
+                      iconName: index < 6 ? "assets/images/pieces/${piecesIcons[index]}" : null,
+                      label: pieces[index],
+                      isPiece: index < 6,
+                      onTap: () {
+                        context.push(RouteLocations.guideScreen, extra: index);
+                      },
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

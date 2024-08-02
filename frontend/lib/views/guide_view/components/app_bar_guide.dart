@@ -3,22 +3,26 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 
 class AppBarGuide extends StatelessWidget {
-  const AppBarGuide(
-      {super.key,
-      required this.isMainGuide,
-      required this.iconName,
-      required this.iconColor});
+  const AppBarGuide({
+    super.key,
+    required this.isMainGuide,
+    required this.iconName,
+    required this.iconColor,
+    required this.bottomMargin
+  });
 
   final bool isMainGuide;
   final String iconName;
   final Color iconColor;
+  final double bottomMargin;
 
   @override
   Widget build(BuildContext context) {
     const guideHeader = "Справочник";
     var scheme = Theme.of(context).colorScheme;
     return Container(
-      margin: const EdgeInsets.only(left: 29, right: 29, top: 66, bottom: 32),
+      margin: EdgeInsets.only(
+          left: 24, right: 24, top: 40, bottom: bottomMargin),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,7 +45,7 @@ class AppBarGuide extends StatelessWidget {
               color: scheme.surface,
               fontSize: 20,
               fontFamily: "Roboto",
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w700,
             ),
           ),
           isMainGuide

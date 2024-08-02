@@ -10,7 +10,9 @@ class BaseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var scheme = Theme.of(context).colorScheme;
     return Scaffold(
+      backgroundColor: scheme.background,
       body: child,
     );
   }
