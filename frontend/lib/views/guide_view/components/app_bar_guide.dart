@@ -1,6 +1,6 @@
-import 'package:frontend/views/components/custom_icon_button.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import "package:frontend/views/components/custom_icon_button.dart";
+import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 
 class AppBarGuide extends StatelessWidget {
   const AppBarGuide(
@@ -40,7 +40,7 @@ class AppBarGuide extends StatelessWidget {
             style: TextStyle(
               color: scheme.surface,
               fontSize: 20,
-              fontFamily: 'Roboto',
+              fontFamily: "Roboto",
               fontWeight: FontWeight.w500,
             ),
           ),

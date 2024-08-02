@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class TextDefault extends StatelessWidget {
   final String text;
@@ -12,7 +12,7 @@ class TextDefault extends StatelessWidget {
       text,
       style: TextStyle(
         fontSize: 16,
-        fontFamily: 'Jura',
+        fontFamily: "Jura",
         color: color,
       ),
     );

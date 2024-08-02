@@ -1,5 +1,5 @@
-import 'package:frontend/constants/colors.dart';
-import 'package:flutter/material.dart';
+import "package:frontend/constants/colors.dart";
+import "package:flutter/material.dart";
 
 class TabItem extends StatelessWidget {
   final String title;
@@ -28,7 +28,7 @@ class TabItem extends StatelessWidget {
                 ? ColorsConst.neutralColor0
                 : scheme.tertiary,
               fontSize: 16,
-              fontFamily: 'Roboto',
+              fontFamily: "Roboto",
               fontWeight: FontWeight.w500,
               height: 0.08,
             ),

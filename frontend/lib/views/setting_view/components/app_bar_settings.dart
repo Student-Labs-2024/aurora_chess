@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../../../exports.dart';
+import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
+import "../../../exports.dart";
 
 class AppBarSettings extends StatelessWidget {
   const AppBarSettings({super.key, required this.label});

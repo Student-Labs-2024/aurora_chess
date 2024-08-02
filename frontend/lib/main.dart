@@ -1,9 +1,9 @@
-import 'package:frontend/exports.dart';
-import 'package:flame/flame.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import "package:frontend/exports.dart";
+import "package:flame/flame.dart";
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
-import 'package:provider/provider.dart';
+import "package:provider/provider.dart";
 
 void main() {
   runApp(
@@ -24,10 +24,10 @@ void main() {
 
 void _loadFlameAssets() async {
   List<String> pieceImages = [];
-  for (var color in ['black', 'white']) {
-    for (var piece in ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn']) {
+  for (var color in ["black", "white"]) {
+    for (var piece in ["king", "queen", "rook", "bishop", "knight", "pawn"]) {
       pieceImages
-          .add('pieces/${formatPieceTheme("Classic")}/${piece}_$color.png');
+          .add("pieces/${formatPieceTheme("Classic")}/${piece}_$color.png");
     }
   }
   await Flame.images.loadAll(pieceImages);

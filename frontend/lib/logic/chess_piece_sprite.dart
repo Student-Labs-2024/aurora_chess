@@ -1,7 +1,7 @@
-import '../exports.dart';
-import 'package:flame/components.dart';
-import 'package:flame/flame.dart';
-import 'package:flame/sprite.dart';
+import "../exports.dart";
+import "package:flame/components.dart";
+import "package:flame/flame.dart";
+import "package:flame/sprite.dart";
 
 class ChessPieceSprite {
   ChessPieceType? type;
@@ -57,13 +57,13 @@ class ChessPieceSprite {
   }
 
   void initSprite(ChessPiece piece) async {
-    String color = piece.player == Player.player1 ? 'white' : 'black';
+    String color = piece.player == Player.player1 ? "white" : "black";
     String pieceName = pieceTypeToString(piece.type);
     if (piece.type == ChessPieceType.promotion) {
-      pieceName = 'pawn';
+      pieceName = "pawn";
     }
     sprite = Sprite(await Flame.images.load(
-        'pieces/${formatPieceTheme(pieceTheme ?? "")}/${pieceName}_$color.png'));
+        "pieces/${formatPieceTheme(pieceTheme ?? "")}/${pieceName}_$color.png"));
   }
 
   void initSpritePosition(double tileSize, GameModel GameModel) {

@@ -1,4 +1,4 @@
-import '../exports.dart';
+import "../exports.dart";
 
 enum ChessPieceType { pawn, rook, knight, bishop, king, queen, promotion }
 

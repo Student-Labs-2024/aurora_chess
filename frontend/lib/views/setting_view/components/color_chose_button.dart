@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import "package:flutter/material.dart";
+import "package:flutter_svg/flutter_svg.dart";
 
-import '../../../exports.dart';
+import "../../../exports.dart";
 
 class ColorChoseButton extends StatelessWidget {
   const ColorChoseButton({

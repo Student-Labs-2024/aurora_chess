@@ -1,9 +1,9 @@
-import 'package:async/async.dart';
-import 'package:flutter/material.dart';
-import 'package:flame/events.dart';
-import 'package:flame/game.dart';
-import 'package:flutter/foundation.dart';
-import '../exports.dart';
+import "package:async/async.dart";
+import "package:flutter/material.dart";
+import "package:flame/events.dart";
+import "package:flame/game.dart";
+import "package:flutter/foundation.dart";
+import "../exports.dart";
 
 class ChessGame extends Game with TapDetector {
   double? width;
@@ -114,9 +114,9 @@ class ChessGame extends Game with TapDetector {
   void _aiMove() async {
     await Future.delayed(Duration(milliseconds: 500));
     var args = Map();
-    args['aiPlayer'] = gameModel.aiTurn;
-    args['aiDifficulty'] = gameModel.aiDifficulty;
-    args['board'] = board;
+    args["aiPlayer"] = gameModel.aiTurn;
+    args["aiDifficulty"] = gameModel.aiDifficulty;
+    args["board"] = board;
     aiOperation = CancelableOperation.fromFuture(
       compute(calculateAIMove, args),
     );

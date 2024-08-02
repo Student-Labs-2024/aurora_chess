@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../../../exports.dart';
+import "package:flutter/cupertino.dart";
+import "package:flutter/material.dart";
+import "package:provider/provider.dart";
+import "../../../../exports.dart";
 
 class GameStatus extends StatelessWidget {
   const GameStatus({super.key});
@@ -19,7 +19,7 @@ class GameStatus extends StatelessWidget {
             style: TextStyle(
               color: scheme.primary,
               fontSize: 25,
-              fontFamily: 'Roboto',
+              fontFamily: "Roboto",
               fontWeight: FontWeight.w700,
               height: 0.07,
             ),
@@ -38,32 +38,32 @@ class GameStatus extends StatelessWidget {
     if (!gameModel.gameOver) {
       if (gameModel.playerCount == 1) {
         if (gameModel.isAIsTurn) {
-          return 'Ход противника ';
+          return "Ход противника ";
         } else {
-          return 'Ваш ход';
+          return "Ваш ход";
         }
       } else {
         if (gameModel.turn == Player.player1) {
-          return 'Ход белых';
+          return "Ход белых";
         } else {
-          return 'Ход чёрных';
+          return "Ход чёрных";
         }
       }
     } else {
       if (gameModel.stalemate) {
-        return 'Ничья';
+        return "Ничья";
       } else {
         if (gameModel.playerCount == 1) {
           if (gameModel.isAIsTurn) {
-            return 'Вы выиграли!';
+            return "Вы выиграли!";
           } else {
-            return 'Вы проиграли';
+            return "Вы проиграли";
           }
         } else {
           if (gameModel.turn == Player.player1) {
-            return 'Выиграли чёрные';
+            return "Выиграли чёрные";
           } else {
-            return 'Выиграли белые';
+            return "Выиграли белые";
           }
         }
       }

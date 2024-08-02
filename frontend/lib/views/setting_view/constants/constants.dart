@@ -1,2 +1,2 @@
-export 'game_setting_const.dart';
-export 'modal_strings.dart';
+export "game_setting_const.dart";
+export "modal_strings.dart";

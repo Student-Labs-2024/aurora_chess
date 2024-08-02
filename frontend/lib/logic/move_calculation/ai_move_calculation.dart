@@ -1,5 +1,5 @@
-import 'dart:math';
-import '../../exports.dart';
+import "dart:math";
+import "../../exports.dart";
 
 const INITIAL_ALPHA = -40000;
 const STALEMATE_ALPHA = -20000;
@@ -7,12 +7,12 @@ const INITIAL_BETA = 40000;
 const STALEMATE_BETA = 20000;
 
 Move calculateAIMove(Map args) {
-  ChessBoard board = args['board'];
+  ChessBoard board = args["board"];
   if (board.possibleOpenings.isNotEmpty) {
-    return _openingMove(board, args['aiPlayer']);
+    return _openingMove(board, args["aiPlayer"]);
   } else {
-    return _alphaBeta(board, args['aiPlayer'], Move(0, 0), 0,
-            args['aiDifficulty'], INITIAL_ALPHA, INITIAL_BETA)
+    return _alphaBeta(board, args["aiPlayer"], Move(0, 0), 0,
+            args["aiDifficulty"], INITIAL_ALPHA, INITIAL_BETA)
         .move;
   }
 }

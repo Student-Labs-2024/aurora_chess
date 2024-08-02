@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:frontend/exports.dart';
+import "package:flutter/material.dart";
+import "package:frontend/exports.dart";
 
 class ChoseColorWidget extends StatelessWidget {
   const ChoseColorWidget({
