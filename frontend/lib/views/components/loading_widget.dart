@@ -7,11 +7,12 @@ class LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
-    return Scaffold(
-      backgroundColor: scheme.background,
-      body: const Center(
-        child: CircularProgressIndicator(
-          color: ColorsConst.primaryColor200,
+    return const SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(
+            color: ColorsConst.primaryColor200,
+          ),
         ),
       ),
     );

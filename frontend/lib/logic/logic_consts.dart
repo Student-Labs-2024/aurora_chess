@@ -10,4 +10,5 @@ class LogicConsts {
   static int height = 10;
   static int minCountOfPieces = 3;
   static int baseChar = 97;
+  static int offset = 5;
 }
