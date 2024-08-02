@@ -1,4 +1,4 @@
-import '../../exports.dart';
+import '../exports.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:math';
-import '../../exports.dart';
+import '../exports.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

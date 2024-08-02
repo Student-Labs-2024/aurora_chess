@@ -1,4 +1,4 @@
-import '../../exports.dart';
+import '../exports.dart';
 
 int tileToRow(int tile) {
   return (tile / 8).floor();

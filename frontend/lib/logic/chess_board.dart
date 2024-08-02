@@ -1,4 +1,4 @@
-import '../../exports.dart';
+import '../exports.dart';
 
 const KING_ROW_PIECES = [
   ChessPieceType.rook,
