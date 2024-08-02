@@ -28,7 +28,7 @@ jobs:
           key: venv-${{ hashFiles('poetry.lock') }}
 
       - name: Install the project dependencies
-        run: poetry install
+        run: cd backend && poetry install
 
       - name: Tests
-        run: poetry run pytest --cov=src/core --cov-report=term-missing
+        run: cd backend && poetry run pytest --cov=src/core --cov-report=term-missing
