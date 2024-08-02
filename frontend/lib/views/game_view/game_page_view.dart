@@ -55,6 +55,7 @@ class _GameViewState extends State<GameView> {
                   child: ChessBoardWidget(gameModel)),
                 const SizedBox(height: 30),
                 const Spacer(),
+                Timers(gameModel),
                 Padding(
                   padding: const EdgeInsets.all(30),
                   child: GameInfoAndControls(gameModel),
