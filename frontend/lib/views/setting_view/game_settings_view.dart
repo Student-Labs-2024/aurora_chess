@@ -37,8 +37,6 @@ class _GameSettingsViewState extends State<GameSettingsView>
   int addingOfMove = 10;
   bool isSettingsEdited = false;
   late String path;
-  // late TabController _tabColorController;
-  late TabController _tabTimeController;
 
   void setEnemy(int chose) {
     setState(() {
@@ -172,13 +170,11 @@ class _GameSettingsViewState extends State<GameSettingsView>
     ];
 
     if (isDBEmpty) {
-      int count = await database.rawUpdate(
+      await database.rawUpdate(
           GameSettingConsts.dbUpdateSettingsScript, updatedSettings);
-      print("update: $count");
     } else {
-      int id = await database.rawInsert(
+      await database.rawInsert(
           GameSettingConsts.dbSetSettingsScript, updatedSettings);
-      print("insert: $id");
     }
 
     await database.close();
@@ -186,14 +182,11 @@ class _GameSettingsViewState extends State<GameSettingsView>
 
   void onInit() async {
     var databasesPath = await getDatabasesPath();
-    String p = '$databasesPath/settings.db';
+    String p = "$databasesPath/settings.db";
     setState(() {
       path = p;
     });
     await getSettings();
-
-    _tabTimeController = TabController(
-        length: 2, vsync: this, initialIndex: withoutTime ? 0 : 1);
 
     setState(() {
       isLoading = false;
@@ -283,7 +276,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                 ChoseTimeCarousel(
                                   values: GameSettingConsts
                                       .listOfDurations,
-                                  type: 'minutes',
+                                  type: "minutes",
                                   header: GameSettingConsts
                                       .minutesSubtitle,
                                   startValue:durationOfGame,
@@ -292,7 +285,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                 ChoseTimeCarousel(
                                   values: GameSettingConsts
                                       .listOfAdditions,
-                                  type: 'seconds',
+                                  type: "seconds",
                                   header: GameSettingConsts
                                       .secondsSubtitle,
                                   startValue: addingOfMove,
@@ -317,7 +310,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                       return ChoseDifficultyButton(
                                         level: LevelOfDifficulty
                                             .values[index],
-                                        countOfIcons: (index + 1) % 4,
+                                        countOfIcons: (index + 1) %
+                                            LevelOfDifficulty.values.length,
                                         currentLevel: gameMode,
                                         personalityLevel:
                                         personalityGameMode,
@@ -348,21 +342,21 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                       .spaceBetween,
                                   children: [
                                     Text(
-                                      "$personalityGameMode",
+                                      GameSettingConsts
+                                          .personalLevelDifficultyText,
                                       style: TextStyle(
                                         color: scheme.primary,
                                         fontSize: 16,
-                                        fontFamily: 'Roboto',
+                                        fontFamily: "Roboto",
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                     IconButton(
                                         onPressed: () {
-                                          setPersonalityGameMode(
-                                              (personalityGameMode
-                                                  .index +
-                                                  1) %
-                                                  3);
+                                            setPersonalityGameMode(
+                                              (personalityGameMode.index + 1)
+                                                  % GameSettingConsts
+                                                  .countOfDifficultyLevels);
                                         },
                                         icon: const Icon(
                                           Icons.add,

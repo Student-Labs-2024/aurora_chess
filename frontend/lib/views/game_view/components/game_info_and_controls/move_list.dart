@@ -7,14 +7,17 @@ class MoveList extends StatelessWidget {
 
   MoveList(this.gameModel, {super.key});
 
+  final int len = 8;
+  final int baseChar = 97;
+
   @override
   Widget build(BuildContext context) {
+
     var scheme = Theme.of(context).colorScheme;
     WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
     return Container(
       height: 60,
       decoration: BoxDecoration(
-        //borderRadius: BorderRadius.all(Radius.circular(15)),
         color: scheme.surfaceTint,
       ),
       child: SingleChildScrollView(
@@ -69,12 +72,12 @@ class MoveList extends StatelessWidget {
           ? _colToChar(tileToCol(meta.move?.from ?? 0))
           : "";
       ambiguity +=
-          meta.colIsAmbiguous ? "${8 - tileToRow(meta.move?.from ?? 0)}" : "";
+          meta.colIsAmbiguous ? "${len - tileToRow(meta.move?.from ?? 0)}" : "";
       String takeString = meta.took ? "x" : "";
       String promotion = meta.promotion
           ? "=${_pieceToChar(meta.promotionType ?? ChessPieceType.promotion)}"
           : "";
-      String row = "${8 - tileToRow(meta.move?.to ?? 0)}";
+      String row = "${len - tileToRow(meta.move?.to ?? 0)}";
       String col = _colToChar(tileToCol(meta.move?.to ?? 0));
       move =
           "${_pieceToChar(meta.type ?? ChessPieceType.promotion)}$ambiguity$takeString" +
@@ -82,7 +85,7 @@ class MoveList extends StatelessWidget {
     }
     String check = meta.isCheck ? "+" : "";
     String checkmate = meta.isCheckmate && !meta.isStalemate ? "#" : "";
-    return move + "$check$checkmate";
+    return "$move$check$checkmate";
   }
 
   String _pieceToChar(ChessPieceType type) {
@@ -119,6 +122,6 @@ class MoveList extends StatelessWidget {
   }
 
   String _colToChar(int col) {
-    return String.fromCharCode(97 + col);
+    return String.fromCharCode(baseChar + col);
   }
 }

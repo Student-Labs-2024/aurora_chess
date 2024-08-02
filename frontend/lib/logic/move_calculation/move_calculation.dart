@@ -39,7 +39,7 @@ List<Move> allMoves(Player player, ChessBoard board, int aiDifficulty) {
     var tiles = movesForPiece(piece, board);
     for (var tile in tiles) {
       if (piece.type == ChessPieceType.pawn &&
-          (tileToRow(tile) == 0 || tileToRow(tile) == 7)) {
+          (tileToRow(tile) == 0 || tileToRow(tile) == LogicConsts.lenOfRow - 1)) {
         for (var promotion in PROMOTIONS) {
           var move =
               MoveAndValue(Move(piece.tile, tile, promotionType: promotion), 0);
@@ -115,7 +115,8 @@ List<int> movesForPiece(ChessPiece piece, ChessBoard board,
 
 List<int> _pawnMoves(ChessPiece pawn, ChessBoard board) {
   List<int> moves = [];
-  var offset = pawn.player == Player.player1 ? -8 : 8;
+  var offset = pawn.player == Player.player1
+      ? -LogicConsts.lenOfRow : LogicConsts.lenOfRow;
   var firstTile = pawn.tile + offset;
   if (board.tiles[firstTile] == null) {
     moves.add(firstTile);
@@ -149,7 +150,8 @@ List<int> _pawnDiagonalAttacks(ChessPiece pawn, ChessBoard board) {
 }
 
 bool _canTakeEnPassant(Player pawnPlayer, int diagonal, ChessBoard board) {
-  var offset = (pawnPlayer == Player.player1) ? 8 : -8;
+  var offset = (pawnPlayer == Player.player1)
+      ? LogicConsts.lenOfRow : -LogicConsts.lenOfRow;
   var takenPiece = board.tiles[diagonal + offset];
   return takenPiece != null &&
       takenPiece.player != pawnPlayer &&
@@ -283,9 +285,10 @@ bool kingInCheckmate(Player player, ChessBoard board) {
 }
 
 bool _inBounds(int row, int col) {
-  return row >= 0 && row < 8 && col >= 0 && col < 8;
+  return row >= 0 && row < LogicConsts.lenOfRow
+      && col >= 0 && col < LogicConsts.lenOfRow;
 }
 
 int _rowColToTile(int row, int col) {
-  return row * 8 + col;
+  return row * LogicConsts.lenOfRow + col;
 }

@@ -12,6 +12,7 @@ class ChessPieceSprite {
   double? spriteY;
   double offsetX = 0;
   double offsetY = 0;
+  double maxSprite = 0.1;
 
   ChessPieceSprite(ChessPiece piece, String pieceTheme) {
     this.tile = piece.tile;
@@ -32,23 +33,23 @@ class ChessPieceSprite {
     }
     var destX = getXFromTile(tile ?? 0, tileSize, GameModel);
     var destY = getYFromTile(tile ?? 0, tileSize, GameModel);
-    if ((destX - (spriteX ?? 0)).abs() <= 0.1) {
+    if ((destX - (spriteX ?? 0)).abs() <= maxSprite) {
       spriteX = destX;
       offsetX = 0;
     } else {
       if (offsetX == 0) {
-        offsetX = (destX - (spriteX ?? 0)) / 10;
+        offsetX = (destX - (spriteX ?? 0)) / LogicConsts.height;
       }
       if (spriteX != null) {
         spriteX = (spriteX ?? 0) + offsetX;
       }
     }
-    if ((destY - (spriteY ?? 0)).abs() <= 0.1) {
+    if ((destY - (spriteY ?? 0)).abs() <= maxSprite) {
       spriteY = destY;
       offsetY = 0;
     } else {
       if (offsetY == 0) {
-        offsetY += (destY - (spriteY ?? 0)) / 10;
+        offsetY += (destY - (spriteY ?? 0)) / LogicConsts.height;
       }
       if (spriteX != null) {
         spriteY = (spriteY ?? 0) + offsetY;

@@ -472,7 +472,8 @@ const PAWN_TABLE = [
 int squareValue(ChessPiece piece, bool inEndGame) {
   var tile = piece.player == Player.player1
       ? piece.tile
-      : piece.tile + 56 - 16 * (piece.tile / 8).floor();
+      : piece.tile + (LogicConsts.countOfSquares - LogicConsts.lenOfRow)
+      - 2 * LogicConsts.lenOfRow * (piece.tile / LogicConsts.lenOfRow).floor();
   int value;
   switch (piece.type) {
     case ChessPieceType.pawn:

@@ -18,6 +18,7 @@ class GameSettingConsts {
   static String moveBackText = "Возврат ходов";
   static String threatsText = "Угрозы";
   static String hintsText = "Подсказки";
+  static int countOfDifficultyLevels = 3;
 
   static List<int> listOfDurations = [
     1,
