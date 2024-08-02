@@ -26,7 +26,6 @@
 
 ## Внешние зависимости
 ### Frontend:
-- cupertino_icons: 1.0.6
 - provider: 6.0.5
 - flame: 1.7.3
 - url_launcher: 6.0.2
