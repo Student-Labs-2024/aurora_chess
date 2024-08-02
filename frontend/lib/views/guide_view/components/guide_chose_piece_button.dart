@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import "package:flutter/material.dart";
+import "package:flutter_svg/flutter_svg.dart";
 
 class GuideChosePieceButton extends StatelessWidget {
   const GuideChosePieceButton({
@@ -49,7 +49,7 @@ class GuideChosePieceButton extends StatelessWidget {
                   style: TextStyle(
                     color: scheme.primary,
                     fontSize: 20,
-                    fontFamily: 'Roboto',
+                    fontFamily: "Roboto",
                     fontWeight: FontWeight.w700,
                   ),
                 ),

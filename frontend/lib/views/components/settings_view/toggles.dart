@@ -1,9 +1,9 @@
-import 'dart:io';
+import "dart:io";
 
-import 'package:frontend/model/game_model.dart';
-import 'package:flutter/material.dart';
+import "package:frontend/model/game_model.dart";
+import "package:flutter/material.dart";
 
-import 'toggle.dart';
+import "toggle.dart";
 
 class Toggles extends StatelessWidget {
   final GameModel gameModel;
@@ -15,23 +15,23 @@ class Toggles extends StatelessWidget {
     return Column(
       children: [
         Toggle(
-          'Show Hints',
+          "Show Hints",
           toggle: gameModel.showHints,
           setFunc: gameModel.setShowHints,
         ),
         Toggle(
-          'Allow Undo/Redo',
+          "Allow Undo/Redo",
           toggle: gameModel.allowUndoRedo,
           setFunc: gameModel.setAllowUndoRedo,
         ),
         Toggle(
-          'Show Move History',
+          "Show Move History",
           toggle: gameModel.showMoveHistory,
           setFunc: gameModel.setShowMoveHistory,
         ),
         Platform.isAndroid
             ? Toggle(
-                'Sound Enabled',
+                "Sound Enabled",
                 toggle: gameModel.soundEnabled,
                 setFunc: gameModel.setSoundEnabled,
               )

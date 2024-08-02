@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:frontend/router/router.dart';
-import 'package:go_router/go_router.dart';
-import 'guide_view.dart';
+import "package:flutter/material.dart";
+import "package:frontend/router/router.dart";
+import "package:go_router/go_router.dart";
+import "guide_view.dart";
 
 List<String> piecesIcons = [
   "pawn.svg",

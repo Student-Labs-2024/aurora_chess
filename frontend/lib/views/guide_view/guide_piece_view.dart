@@ -1,7 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '../../exports.dart';
+import "package:carousel_slider/carousel_slider.dart";
+import "package:flutter/material.dart";
+import "package:flutter_svg/flutter_svg.dart";
+import "../../exports.dart";
 
 Map<String, List<String>> hintsOfPieces = {
   "Пешка": GuideStrings.hintsOfPawn,
@@ -133,7 +133,7 @@ class GuidePieceView extends StatelessWidget {
           style: TextStyle(
             color: scheme.primary,
             fontSize: 24,
-            fontFamily: 'Roboto',
+            fontFamily: "Roboto",
             fontWeight: FontWeight.w700,
             height: 0.05,
           ),

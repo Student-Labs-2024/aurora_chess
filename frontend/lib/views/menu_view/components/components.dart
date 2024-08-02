@@ -1,1 +1,1 @@
-export 'custom_switch.dart';
+export "custom_switch.dart";

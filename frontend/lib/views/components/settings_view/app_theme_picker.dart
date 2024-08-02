@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:frontend/model/game_model.dart';
-import 'package:frontend/views/components/shared/text_variable.dart';
+import "package:flutter/material.dart";
+import "package:frontend/model/game_model.dart";
+import "package:frontend/views/components/shared/text_variable.dart";
 
-import 'package:provider/provider.dart';
+import "package:provider/provider.dart";
 
 class AppThemePicker extends StatelessWidget {
   const AppThemePicker({super.key});
@@ -14,7 +14,7 @@ class AppThemePicker extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(10),
-            child: TextSmall('App Theme'),
+            child: TextSmall("App Theme"),
           ),
           Container(
             height: 120,

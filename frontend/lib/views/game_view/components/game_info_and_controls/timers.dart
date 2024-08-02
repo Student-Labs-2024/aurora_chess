@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import '../../../../exports.dart';
+import "package:flutter/material.dart";
+import "../../../../exports.dart";
 
 class Timers extends StatelessWidget {
   final GameModel gameModel;

@@ -1,6 +1,6 @@
-import 'package:frontend/constants/colors.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import "package:frontend/constants/colors.dart";
+import "package:flutter/material.dart";
+import "package:flutter_svg/flutter_svg.dart";
 
 class SettingsRow extends StatelessWidget {
   const SettingsRow({
@@ -34,7 +34,7 @@ class SettingsRow extends StatelessWidget {
                 style: TextStyle(
                   color: scheme.primary,
                   fontSize: 16,
-                  fontFamily: 'Roboto',
+                  fontFamily: "Roboto",
                   fontWeight: FontWeight.w500,
                 ),
               ),

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import '../../../../exports.dart';
+import "package:flutter/material.dart";
+import "../../../../exports.dart";
 
 class TimerWidget extends StatelessWidget {
   final Duration timeLeft;
@@ -28,15 +28,15 @@ class TimerWidget extends StatelessWidget {
     if (duration.inHours > 0) {
       String hours = duration.inHours.toString();
       String minutes =
-          duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+          duration.inMinutes.remainder(60).toString().padLeft(2, "0");
       String seconds =
-          duration.inSeconds.remainder(60).toString().padLeft(2, '0');
-      return '$hours:$minutes:$seconds';
+          duration.inSeconds.remainder(60).toString().padLeft(2, "0");
+      return "$hours:$minutes:$seconds";
     } else if (duration.inMinutes > 0) {
       String minutes = duration.inMinutes.toString();
       String seconds =
-          duration.inSeconds.remainder(60).toString().padLeft(2, '0');
-      return '$minutes:$seconds';
+          duration.inSeconds.remainder(60).toString().padLeft(2, "0");
+      return "$minutes:$seconds";
     } else {
       String seconds = duration.inSeconds.toString();
       return seconds;

@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 
-import '../exports.dart';
+import "../exports.dart";
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -9,12 +9,12 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
 class RouteLocations {
   const RouteLocations._();
 
-  static String get homeScreen => '/';
-  static String get settingsScreen => '/settingsScreen';
-  static String get gameScreen => '/gameScreen';
+  static String get homeScreen => "/";
+  static String get settingsScreen => "/settingsScreen";
+  static String get gameScreen => "/gameScreen";
 
-  static String get guidebookScreen => '/guidebookScreen';
-  static String get guideScreen => '/guideScreen';
+  static String get guidebookScreen => "/guidebookScreen";
+  static String get guideScreen => "/guideScreen";
 }
 
 final router = GoRouter(

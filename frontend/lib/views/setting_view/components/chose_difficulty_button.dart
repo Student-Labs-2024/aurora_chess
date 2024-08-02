@@ -1,7 +1,7 @@
-import 'package:frontend/constants/colors.dart';
-import 'package:frontend/views/setting_view/game_settings_view.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import "package:frontend/constants/colors.dart";
+import "package:frontend/views/setting_view/game_settings_view.dart";
+import "package:flutter/material.dart";
+import "package:flutter_svg/svg.dart";
 
 class ChoseDifficultyButton extends StatelessWidget {
   const ChoseDifficultyButton({
@@ -48,7 +48,7 @@ class ChoseDifficultyButton extends StatelessWidget {
               levelOfDifficultyText[level] ?? "",
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'Roboto',
+                fontFamily: "Roboto",
                 fontStyle: FontStyle.normal,
                 fontWeight: FontWeight.w500,
                 color: level == currentLevel

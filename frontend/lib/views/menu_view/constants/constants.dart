@@ -1,1 +1,1 @@
-export 'menu_page_string_const.dart';
+export "menu_page_string_const.dart";

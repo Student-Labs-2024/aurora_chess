@@ -6,6 +6,7 @@ class GameSettingConsts {
   static String colorPiecesText = "Цвет фигур";
   static String timeText = "Время";
   static String levelDifficultyText = "Уровень сложности";
+  static String personalLevelDifficultyText = "Сложность бота";
   static String additionalSettingsText = "Дополнительно";
   static String startGameText = "Начать партию";
   static String gameWithComputerText = "С компьютером";
@@ -17,6 +18,7 @@ class GameSettingConsts {
   static String moveBackText = "Возврат ходов";
   static String threatsText = "Угрозы";
   static String hintsText = "Подсказки";
+  static int countOfDifficultyLevels = 3;
 
   static List<int> listOfDurations = [
     1,
@@ -58,6 +60,12 @@ class GameSettingConsts {
     LevelOfDifficulty.easy: 1,
     LevelOfDifficulty.medium: 3,
     LevelOfDifficulty.hard: 6,
+  };
+
+  static Map<LevelOfDifficulty, String> personalLevelOfDifficultyText = {
+    LevelOfDifficulty.easy: "Лёгкий",
+    LevelOfDifficulty.medium: "Средний",
+    LevelOfDifficulty.hard: "Сложный",
   };
 
   static String dbCreateScript = """CREATE TABLE Settings (

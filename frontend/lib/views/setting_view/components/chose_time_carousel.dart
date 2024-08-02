@@ -1,10 +1,8 @@
-import 'package:frontend/constants/colors.dart';
-import 'package:frontend/views/components/custom_icon_button.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:wheel_chooser/wheel_chooser.dart';
+import "package:flutter/material.dart";
+import "package:provider/provider.dart";
+import "package:wheel_chooser/wheel_chooser.dart";
 
-import '../../../exports.dart';
+import "../../../exports.dart";
 
 class ChoseTimeCarousel extends StatefulWidget {
   const ChoseTimeCarousel({
@@ -50,7 +48,7 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
             style: TextStyle(
               color: scheme.primary,
               fontSize: 20,
-              fontFamily: 'Roboto',
+              fontFamily: "Roboto",
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -83,13 +81,13 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
                     selectTextStyle: const TextStyle(
                       color: ColorsConst.primaryColor100,
                       fontSize: 20,
-                      fontFamily: 'Roboto',
+                      fontFamily: "Roboto",
                       fontWeight: FontWeight.w700,
                     ),
                     unSelectTextStyle: TextStyle(
                       color: scheme.onTertiary,
                       fontSize: 20,
-                      fontFamily: 'Roboto',
+                      fontFamily: "Roboto",
                       fontWeight: FontWeight.w500,
                     ),
                   ),

@@ -1,6 +1,6 @@
-import 'package:flame/game.dart';
-import '../../../exports.dart';
-import 'package:flutter/material.dart';
+import "package:flame/game.dart";
+import "../../../exports.dart";
+import "package:flutter/material.dart";
 
 class ChessBoardWidget extends StatelessWidget {
   final GameModel gameModel;

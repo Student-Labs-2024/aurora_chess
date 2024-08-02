@@ -1,4 +1,4 @@
-import 'move.dart';
+import "move.dart";
 
 class MoveAndValue {
   Move move;

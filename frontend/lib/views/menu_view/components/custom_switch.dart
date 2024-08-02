@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend/exports.dart';
+import "package:flutter/material.dart";
+import "package:flutter_svg/flutter_svg.dart";
+import "package:frontend/exports.dart";
 
 class CustomSwitch extends StatefulWidget {
   CustomSwitch(this.provider, {super.key});

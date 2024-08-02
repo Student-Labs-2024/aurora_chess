@@ -1,9 +1,9 @@
-import 'package:async/async.dart';
-import 'package:flutter/material.dart';
-import 'package:flame/events.dart';
-import 'package:flame/game.dart';
-import 'package:flutter/foundation.dart';
-import '../exports.dart';
+import "package:async/async.dart";
+import "package:flutter/material.dart";
+import "package:flame/events.dart";
+import "package:flame/game.dart";
+import "package:flutter/foundation.dart";
+import "../exports.dart";
 
 class ChessGame extends Game with TapDetector {
   double? width;
@@ -21,7 +21,7 @@ class ChessGame extends Game with TapDetector {
 
   ChessGame(this.gameModel, this.context) {
     width = MediaQuery.of(context).size.width - 68;
-    tileSize = (width ?? 0) / 8;
+    tileSize = (width ?? 0) / LogicConsts.lenOfRow;
     for (var piece in board.player1Pieces + board.player2Pieces) {
       spriteMap[piece] = ChessPieceSprite(piece, gameModel.pieceTheme);
     }
@@ -114,9 +114,9 @@ class ChessGame extends Game with TapDetector {
   void _aiMove() async {
     await Future.delayed(Duration(milliseconds: 500));
     var args = Map();
-    args['aiPlayer'] = gameModel.aiTurn;
-    args['aiDifficulty'] = gameModel.aiDifficulty;
-    args['board'] = board;
+    args["aiPlayer"] = gameModel.aiTurn;
+    args["aiDifficulty"] = gameModel.aiDifficulty;
+    args["board"] = board;
     aiOperation = CancelableOperation.fromFuture(
       compute(calculateAIMove, args),
     );
@@ -235,27 +235,27 @@ class ChessGame extends Game with TapDetector {
     if (gameModel.flip &&
         gameModel.playingWithAI &&
         gameModel.playerSide == Player.player2) {
-      return (7 - (vector2.y / (tileSize ?? 0)).floor()) * 8 +
+      return (7 - (vector2.y / (tileSize ?? 0)).floor()) * LogicConsts.lenOfRow +
           (7 - (vector2.x / (tileSize ?? 0)).floor());
     } else {
-      return (vector2.y / (tileSize ?? 0)).floor() * 8 +
+      return (vector2.y / (tileSize ?? 0)).floor() * LogicConsts.lenOfRow +
           (vector2.x / (tileSize ?? 0)).floor();
     }
   }
 
   void _drawBoard(Canvas canvas) {
-    for (int tileNo = 0; tileNo < 64; tileNo++) {
+    for (int tileNo = 0; tileNo < LogicConsts.countOfSquares; tileNo++) {
       canvas.drawRect(
         Rect.fromLTWH(
-          (tileNo % 8) * (tileSize ?? 0),
-          (tileNo / 8).floor() * (tileSize ?? 0),
+          (tileNo % LogicConsts.lenOfRow) * (tileSize ?? 0),
+          (tileNo / LogicConsts.lenOfRow).floor() * (tileSize ?? 0),
           (tileSize ?? 0),
           (tileSize ?? 0),
         ),
         Paint()
-          ..color = (tileNo + (tileNo / 8).floor()) % 2 == 0
-              ? ColorsConst.secondaryColor0       //light tile
-              : ColorsConst.secondaryColor200,    //dark tile
+          ..color = (tileNo + (tileNo / LogicConsts.lenOfRow).floor()) % 2 == 0
+              ? ColorsConst.secondaryColor0
+              : ColorsConst.secondaryColor200,
       );
     }
   }
@@ -264,7 +264,8 @@ class ChessGame extends Game with TapDetector {
     for (var piece in board.player1Pieces + board.player2Pieces) {
       spriteMap[piece]?.sprite?.render(
             canvas,
-            size: Vector2((tileSize ?? 0) - 10, (tileSize ?? 0) - 10),
+            size: Vector2((tileSize ?? 0) - LogicConsts.height,
+                (tileSize ?? 0) - LogicConsts.height),
             position: Vector2(
               (spriteMap[piece]?.spriteX ?? 0) + 5,
               (spriteMap[piece]?.spriteY ?? 0) + 5,
@@ -283,7 +284,7 @@ class ChessGame extends Game with TapDetector {
               ((tileSize ?? 0) / 2),
         ),
         (tileSize ?? 0) / 5,
-        Paint()..color = ColorsConst.primaryColor100,   //moveHint
+        Paint()..color = ColorsConst.primaryColor100,
       );
     }
   }

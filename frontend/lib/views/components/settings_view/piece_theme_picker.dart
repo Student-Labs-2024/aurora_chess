@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:frontend/model/game_model.dart';
-import 'package:frontend/views/components/settings_view/piece_preview.dart';
-import 'package:frontend/views/components/shared/text_variable.dart';
-import 'package:flame/game.dart';
+import "package:flutter/material.dart";
+import "package:frontend/model/game_model.dart";
+import "package:frontend/views/components/settings_view/piece_preview.dart";
+import "package:frontend/views/components/shared/text_variable.dart";
+import "package:flame/game.dart";
 
-import 'package:provider/provider.dart';
+import "package:provider/provider.dart";
 
 class PieceThemePicker extends StatelessWidget {
   const PieceThemePicker({super.key});
@@ -16,7 +16,7 @@ class PieceThemePicker extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(10),
-            child: TextSmall('Piece Theme'),
+            child: TextSmall("Piece Theme"),
           ),
           ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(15)),

@@ -1,18 +1,18 @@
-import '../exports.dart';
+import "../exports.dart";
 
 int tileToRow(int tile) {
-  return (tile / 8).floor();
+  return (tile / LogicConsts.lenOfRow).floor();
 }
 
 int tileToCol(int tile) {
-  return tile % 8;
+  return tile % LogicConsts.lenOfRow;
 }
 
 double getXFromTile(int tile, double tileSize, GameModel GameModel) {
   return GameModel.flip &&
           GameModel.playingWithAI &&
           GameModel.playerSide == Player.player2
-      ? (7 - tileToCol(tile)) * tileSize
+      ? ((LogicConsts.lenOfRow - 1) - tileToCol(tile)) * tileSize
       : tileToCol(tile) * tileSize;
 }
 
@@ -20,7 +20,7 @@ double getYFromTile(int tile, double tileSize, GameModel GameModel) {
   return GameModel.flip &&
           GameModel.playingWithAI &&
           GameModel.playerSide == Player.player2
-      ? (7 - tileToRow(tile)) * tileSize
+      ? ((LogicConsts.lenOfRow - 1) - tileToRow(tile)) * tileSize
       : tileToRow(tile) * tileSize;
 }
 
@@ -29,9 +29,9 @@ Player oppositePlayer(Player player) {
 }
 
 String formatPieceTheme(String themeString) {
-  return themeString.toLowerCase().replaceAll(' ', '');
+  return themeString.toLowerCase().replaceAll(" ", "");
 }
 
 String pieceTypeToString(ChessPieceType type) {
-  return type.toString().substring(type.toString().indexOf('.') + 1);
+  return type.toString().substring(type.toString().indexOf(".") + 1);
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class HintDescription extends StatelessWidget {
   const HintDescription({super.key, required this.text});
@@ -16,7 +16,7 @@ class HintDescription extends StatelessWidget {
           style: TextStyle(
             color: scheme.primary,
             fontSize: 20,
-            fontFamily: 'Roboto',
+            fontFamily: "Roboto",
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -26,7 +26,7 @@ class HintDescription extends StatelessWidget {
           style: TextStyle(
             color: scheme.primary,
             fontSize: 16,
-            fontFamily: 'Roboto',
+            fontFamily: "Roboto",
             fontWeight: FontWeight.w500,
           ),
         )

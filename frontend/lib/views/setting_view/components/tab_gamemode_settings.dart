@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import '../../../constants/constants.dart';
-import '../setting_view.dart';
+import "package:flutter/material.dart";
+import "../../../constants/constants.dart";
+import "../setting_view.dart";
 
 class TabGameModeSettings extends StatefulWidget{
   const TabGameModeSettings({

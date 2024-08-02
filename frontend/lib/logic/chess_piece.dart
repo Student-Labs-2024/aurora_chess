@@ -1,4 +1,4 @@
-import '../exports.dart';
+import "../exports.dart";
 
 enum ChessPieceType { pawn, rook, knight, bishop, king, queen, promotion }
 
@@ -9,37 +9,38 @@ class ChessPiece {
   int moveCount = 0;
   int tile;
 
+
   int get value {
     int value = 0;
     switch (type) {
       case ChessPieceType.pawn:
         {
-          value = 100;
+          value = LogicConsts.priceOfPawn;
         }
         break;
       case ChessPieceType.knight:
         {
-          value = 320;
+          value = LogicConsts.priceOfKnight;
         }
         break;
       case ChessPieceType.bishop:
         {
-          value = 330;
+          value = LogicConsts.priceOfBishop;
         }
         break;
       case ChessPieceType.rook:
         {
-          value = 500;
+          value = LogicConsts.priceOfRook;
         }
         break;
       case ChessPieceType.queen:
         {
-          value = 900;
+          value = LogicConsts.priceOfQueen;
         }
         break;
       case ChessPieceType.king:
         {
-          value = 20000;
+          value = LogicConsts.priceOfKing;
         }
         break;
       default:
