@@ -7,4 +7,3 @@ export "settings_row.dart";
 export "tab_item.dart";
 export "tab_gamemode_settings.dart";
 export "chose_color_widget.dart";
-export "dropdown_widget.dart";
