@@ -19,26 +19,28 @@ class ColorChoseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
     Map<Player, String> icon = {
-      Player.player2: "dark.svg",
-      Player.player1: "light.svg",
-      Player.random: "both.svg",
+      Player.player2: "black.svg",
+      Player.player1: "white.svg",
+      Player.random: "random.svg",
     };
     return Expanded(
-        flex: variant == Player.random ? 115 : 90,
-        child: GestureDetector(
-          onTap: onTap,
-          child: Container(
-            height: variant == Player.random ? 90 : 70,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: variant == chose
-                  ? ColorsConst.primaryColor100
-                  : scheme.outline,
-            ),
-            child: Center(
-                child:
-                    SvgPicture.asset("assets/images/icons/${icon[variant]}")),
+      flex: variant == Player.random ? 115 : 90,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          height: variant == Player.random ? 90 : 70,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: variant == chose
+              ? ColorsConst.primaryColor100
+              : scheme.outline,
           ),
-        ));
+          child: Center(
+            child:
+              SvgPicture.asset("assets/images/icons/${icon[variant]}")
+          ),
+        ),
+      )
+    );
   }
 }
