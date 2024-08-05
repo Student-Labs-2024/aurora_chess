@@ -6,6 +6,7 @@ class GameSettingConsts {
   static String colorPiecesText = "Цвет фигур";
   static String timeText = "Время";
   static String levelDifficultyText = "Уровень сложности";
+  static String choseDiffModalHeader = "Уровень сложности бота";
   static String personalLevelDifficultyText = "Сложность бота";
   static String additionalSettingsText = "Дополнительно";
   static String startGameText = "Начать партию";
@@ -18,6 +19,10 @@ class GameSettingConsts {
   static String moveBackText = "Возврат ходов";
   static String threatsText = "Угрозы";
   static String hintsText = "Подсказки";
+  static String easyDescription = "Подсказки и возврат хода";
+  static String mediumDescription = "Только возврат хода";
+  static String hardDescription = "Никакой помощи";
+  static String personalityDescription = "Настрой под себя";
   static int countOfDifficultyLevels = 3;
 
   static List<int> listOfDurations = [

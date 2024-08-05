@@ -3,6 +3,8 @@ import "package:frontend/views/setting_view/game_settings_view.dart";
 import "package:flutter/material.dart";
 import "package:flutter_svg/svg.dart";
 
+import "../constants/constants.dart";
+
 class ChoseDifficultyButton extends StatelessWidget {
   const ChoseDifficultyButton({
     super.key,
@@ -28,6 +30,12 @@ class ChoseDifficultyButton extends StatelessWidget {
       LevelOfDifficulty.hard: "Сложный",
       LevelOfDifficulty.personality: "Персональный",
     };
+    Map<LevelOfDifficulty, String> description = {
+      LevelOfDifficulty.easy: GameSettingConsts.easyDescription,
+      LevelOfDifficulty.medium: GameSettingConsts.mediumDescription,
+      LevelOfDifficulty.hard: GameSettingConsts.hardDescription,
+      LevelOfDifficulty.personality: GameSettingConsts.personalityDescription,
+    };
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       child: MaterialButton(
@@ -44,17 +52,35 @@ class ChoseDifficultyButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              levelOfDifficultyText[level] ?? "",
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: "Roboto",
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.w500,
-                color: level == currentLevel
-                  ? ColorsConst.primaryColor0
-                  : scheme.primary,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  levelOfDifficultyText[level] ?? "",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: "Roboto",
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.w500,
+                    // height: 0.11,
+                    color: level == currentLevel
+                      ? ColorsConst.primaryColor0
+                      : scheme.primary,
+                  ),
+                ),
+                Text(
+                  description[level] ?? "",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500,
+                    // height: 0.11,
+                    color: level == currentLevel
+                        ? ColorsConst.primaryColor0
+                        : scheme.primary,
+                  ),
+                ),
+              ],
             ),
             Row(
               children: [

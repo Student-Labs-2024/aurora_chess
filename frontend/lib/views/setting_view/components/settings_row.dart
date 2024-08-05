@@ -2,21 +2,37 @@ import "package:frontend/constants/colors.dart";
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
 
+import "../setting_view.dart";
+
 class SettingsRow extends StatelessWidget {
   const SettingsRow({
     super.key,
-    required this.chose,
+    this.chose,
     required this.text,
     required this.modalHeader,
     required this.modalText,
+    required this.isChoseDiff,
+    this.initValue,
+    this.choseDiffWidget,
     this.onChanged,
+    this.onChose,
   });
 
-  final bool chose;
+  final bool? chose;
   final String text;
   final String modalHeader;
   final String modalText;
+  final bool isChoseDiff;
+  final LevelOfDifficulty? initValue;
+  final Widget? choseDiffWidget;
   final void Function(bool)? onChanged;
+  final void Function(LevelOfDifficulty?)? onChose;
+
+  List<LevelOfDifficulty> getPersonalityList(LevelOfDifficulty initValue) {
+    List<LevelOfDifficulty> list = LevelOfDifficulty.values.sublist(0, 3);
+    list.remove(initValue);
+    return list;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +66,12 @@ class SettingsRow extends StatelessWidget {
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(16.0))
                         ),
-                        contentPadding: const EdgeInsets.only(top: 8, bottom: 32, left: 32, right: 32),
+                        titlePadding: const EdgeInsets.only(top: 32, bottom: 0, left: 15, right: 15),
+                        contentPadding: const EdgeInsets.only(top: 16, bottom: 32, left: 22, right: 22),
                         title: Text(
                           modalHeader,
                           textAlign: TextAlign.center,
+                          // maxLines: 2,
                           style: TextStyle(
                             fontFamily: "Roboto",
                             fontWeight: FontWeight.w600,
@@ -86,11 +104,17 @@ class SettingsRow extends StatelessWidget {
               ),
             ],
           ),
+          isChoseDiff ?
+          DropdownWidget(
+            values: getPersonalityList(initValue!),
+            initValue: initValue!,
+            onTap: onChose,
+          ) :
           Theme(
             data: ThemeData(useMaterial3: false),
             child: Switch(
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              value: chose,
+              value: chose!,
               inactiveThumbColor: scheme.surfaceTint,
               inactiveTrackColor: scheme.outline,
               activeColor: scheme.inversePrimary,
