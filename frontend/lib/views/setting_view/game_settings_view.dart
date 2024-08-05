@@ -337,36 +337,18 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment
-                                        .spaceBetween,
-                                    children: [
-                                      Text(
-                                        GameSettingConsts
-                                            .personalLevelDifficultyText,
-                                        style: TextStyle(
-                                          color: scheme.primary,
-                                          fontSize: 16,
-                                          fontFamily: "Roboto",
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      IconButton(
-                                          onPressed: () {
-                                              setPersonalityGameMode(
-                                                (personalityGameMode.index + 1)
-                                                    % GameSettingConsts
-                                                    .countOfDifficultyLevels);
-                                          },
-                                          icon: const Icon(
-                                            Icons.add,
-                                            size: 30,
-                                          ))
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 8,
+                                  SettingsRow(
+                                    text: GameSettingConsts
+                                        .personalLevelDifficultyText,
+                                    modalText: ModalStrings
+                                        .choseDiffModalText,
+                                    modalHeader: GameSettingConsts
+                                        .choseDiffModalHeader,
+                                    initValue: personalityGameMode,
+                                    isChoseDiff: true,
+                                    onChose: (value) {
+                                      setPersonalityGameMode(value!.index);
+                                    },
                                   ),
                                   SettingsRow(
                                     chose: isMoveBack,
@@ -376,6 +358,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                         .moveBackModalText,
                                     modalHeader: GameSettingConsts
                                         .moveBackText,
+                                    isChoseDiff: false,
                                     onChanged: (chose) {
                                       setIsMoveBack(chose);
                                       setState(() {
@@ -392,6 +375,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     ModalStrings.threatsModalText,
                                     modalHeader:
                                     GameSettingConsts.threatsText,
+                                    isChoseDiff: false,
                                     onChanged: setIsThreats,
                                   ),
                                   SettingsRow(
@@ -401,6 +385,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     ModalStrings.hintsModalText,
                                     modalHeader:
                                     GameSettingConsts.hintsText,
+                                    isChoseDiff: false,
                                     onChanged: setIsHints,
                                   ),
                                 ],
