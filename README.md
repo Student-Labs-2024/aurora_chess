@@ -40,7 +40,6 @@
 - sqflite: 2.3.0
 - flutter_svg: 2.0.10+1
 - wheel_chooser: 1.1.2
-- carousel_slider: 4.2.1
 - sqflite_aurora: 0.5.0
 ### Backend:
 - python-chess: 1.10.0
