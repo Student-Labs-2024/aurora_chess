@@ -4,9 +4,7 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 
 from dependencies import message_dispatcher
 
-router = APIRouter(
-    tags=["Chess"]
-)
+router = APIRouter(tags=["Chess"])
 
 
 @router.websocket("/ws")

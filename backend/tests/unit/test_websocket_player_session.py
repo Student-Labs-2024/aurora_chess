@@ -1,8 +1,9 @@
 import unittest
 from unittest.mock import MagicMock
 from fastapi import WebSocket
-from core.entities.GameRoom import AbstractGameRoom
-from core.entities.PlayerSession.WebsocketPlayerSession import WebsocketPlayerSession
+
+from core.entities.game_room.abstract_game_room import AbstractGameRoom
+from core.entities.player_session.websocket_player_session import WebsocketPlayerSession
 
 
 class TestWebsocketPlayerSession(unittest.IsolatedAsyncioTestCase):

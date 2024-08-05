@@ -1,4 +1,4 @@
-from core.handlers.MessageHandler import MessageHandler
+from core.handlers.message_handler import MessageHandler
 
 
 class MessageHandlerService:

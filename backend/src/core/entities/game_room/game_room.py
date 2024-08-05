@@ -1,4 +1,4 @@
-from core.entities.GameRoom.AbstractGameRoom import AbstractGameRoom
+from core.entities.game_room.abstract_game_room import AbstractGameRoom
 
 
 class GameRoom(AbstractGameRoom):

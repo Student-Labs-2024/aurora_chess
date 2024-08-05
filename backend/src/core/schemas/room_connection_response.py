@@ -1,10 +1,10 @@
 from pydantic import BaseModel, Field
 
-from core.schemas.Player import Player
-from core.schemas.Room import Room
-from core.schemas.mixins.ErrorsMixin import ErrorsMixin
-from core.schemas.mixins.JsonTypeStrMixin import JsonTypeStrMixin
-from core.schemas.mixins.SystemMessageMixin import SystemMessagesMixin
+from core.schemas.player import Player
+from core.schemas.room import Room
+from core.schemas.mixins.error_mixin import ErrorsMixin
+from core.schemas.mixins.json_type_str_mixin import JsonTypeStrMixin
+from core.schemas.mixins.system_message_mixin import SystemMessagesMixin
 
 
 class Players(BaseModel):

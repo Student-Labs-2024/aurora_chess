@@ -1,5 +1,7 @@
-from core.entities.GameRoom.GameRoom import GameRoom
-from core.repository.RoomRepository.AbstractRoomRepository import AbstractRoomRepository
+from core.entities.game_room.game_room import GameRoom
+from core.repository.room_repository.abstract_room_repository import (
+    AbstractRoomRepository,
+)
 
 
 class RAMRoomRepository(AbstractRoomRepository):
