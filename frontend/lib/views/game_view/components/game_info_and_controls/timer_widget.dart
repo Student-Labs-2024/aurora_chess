@@ -3,23 +3,21 @@ import "../../../../exports.dart";
 
 class TimerWidget extends StatelessWidget {
   final Duration timeLeft;
-  final Color color;
+  final bool isFilled;
 
-  const TimerWidget({super.key, required this.timeLeft, required this.color});
+  const TimerWidget({super.key, required this.timeLeft, required this.isFilled});
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          border: Border.all(color: color, width: 2),
-          borderRadius: BorderRadius.circular(14),
-          color: const Color(0x20000000),
-        ),
-        child: Center(
-          child: TextRegular(_durationToString(timeLeft)),
-        ),
+    return Container(
+      height: 60,
+      width: 80,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        color: isFilled ? Theme.of(context).colorScheme.secondary : Colors.transparent,
+      ),
+      child: Center(
+        child: TextRegular(_durationToString(timeLeft)),
       ),
     );
   }

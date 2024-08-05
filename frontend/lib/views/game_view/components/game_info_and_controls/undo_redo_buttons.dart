@@ -34,6 +34,7 @@ class UndoRedoButtons extends StatelessWidget {
           child: IconButton(
             icon: SvgPicture.asset(
               "assets/images/icons/left_arrow_icon.svg",
+              height: 25,
               color: scheme.primary,
             ),
             onPressed: undoEnabled ? () => undo() : null,
@@ -44,6 +45,7 @@ class UndoRedoButtons extends StatelessWidget {
           child: IconButton(
             icon: SvgPicture.asset(
               "assets/images/icons/right_arrow_icon.svg",
+              height: 25,
               color: scheme.primary,
             ),
             onPressed: redoEnabled ? () => redo() : null,

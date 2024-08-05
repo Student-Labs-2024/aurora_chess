@@ -15,12 +15,12 @@ class Timers extends StatelessWidget {
                 children: [
                   TimerWidget(
                     timeLeft: gameModel.player1TimeLeft,
-                    color: Colors.red,
+                    isFilled: gameModel.turn == Player.player1,
                   ),
                   const SizedBox(width: 10),
                   TimerWidget(
                     timeLeft: gameModel.player2TimeLeft,
-                    color: Colors.red,
+                    isFilled: gameModel.turn == Player.player2,
                   ),
                 ],
               ),
