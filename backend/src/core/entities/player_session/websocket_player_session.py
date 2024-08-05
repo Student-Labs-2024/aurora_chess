@@ -8,7 +8,9 @@ from core.entities.player_session.abstract_player_session import AbstractPlayerS
 
 
 class WebsocketPlayerSession(AbstractPlayerSession):
-    def __init__(self, name: str, side: Literal["white", "black"], connection: WebSocket):
+    def __init__(
+        self, name: str, side: Literal["white", "black"], connection: WebSocket
+    ):
         super().__init__(name, side)
         self.__connection: WebSocket = connection
 

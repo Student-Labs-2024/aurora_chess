@@ -1,5 +1,7 @@
 from core.entities.game_room.abstract_game_room import AbstractGameRoom
-from core.repository.room_repository.abstract_room_repository import AbstractRoomRepository
+from core.repository.room_repository.abstract_room_repository import (
+    AbstractRoomRepository,
+)
 
 
 class RoomService:
