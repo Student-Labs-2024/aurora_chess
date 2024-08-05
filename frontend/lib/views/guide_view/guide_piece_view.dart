@@ -1,4 +1,3 @@
-import "package:carousel_slider/carousel_slider.dart";
 import "package:flutter/material.dart";
 import "../../exports.dart";
 
@@ -38,7 +37,7 @@ class GuideView extends StatefulWidget {
 
 class _GuideViewState extends State<GuideView> {
   int index = 0;
-  CarouselController carouselController = CarouselController();
+  PageController carouselController = PageController(viewportFraction: 0.8,);
 
   @override
   void initState() {
@@ -74,24 +73,20 @@ class _GuideViewState extends State<GuideView> {
             BottomBarGuide(
               index: index,
               onBack: () {
-                setState(() {
-                  if (index > 0) {
-                    setState(() {
-                      index -= 1;
-                      carouselController.jumpToPage(0);
-                    });
-                  }
-                });
+                if (index > 0) {
+                  setState(() {
+                    index -= 1;
+                    carouselController.jumpToPage(0);
+                  });
+                }
               },
               onForward: () {
-                setState(() {
-                  if (index < hintsOfPieces.length - 1) {
-                    setState(() {
-                      index += 1;
-                      carouselController.jumpToPage(0);
-                    });
-                  }
-                });
+                if (index < hintsOfPieces.length - 1) {
+                  setState(() {
+                    index += 1;
+                    carouselController.jumpToPage(0);
+                  });
+                }
               },
             ),
           ],
@@ -100,5 +95,3 @@ class _GuideViewState extends State<GuideView> {
     );
   }
 }
-
-
