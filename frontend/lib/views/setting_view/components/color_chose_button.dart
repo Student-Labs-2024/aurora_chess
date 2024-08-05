@@ -19,9 +19,9 @@ class ColorChoseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
     Map<Player, String> icon = {
-      Player.player2: "dark.svg",
-      Player.player1: "light.svg",
-      Player.random: "both.svg",
+      Player.player2: "black.svg",
+      Player.player1: "white.svg",
+      Player.random: "random.svg",
     };
     return Expanded(
         flex: variant == Player.random ? 115 : 90,
