@@ -45,5 +45,4 @@ class BottomBarGuide extends StatelessWidget {
       ),
     );
   }
-
 }
