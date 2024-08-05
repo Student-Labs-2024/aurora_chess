@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
-from core.repository.RoomRepository.AbstractRoomRepository import AbstractRoomRepository
-from core.services.RoomService import RoomService
+from core.repository.room_repository.abstract_room_repository import AbstractRoomRepository
+from core.services.room_service import RoomService
 
 
 class TestRoomService(unittest.TestCase):

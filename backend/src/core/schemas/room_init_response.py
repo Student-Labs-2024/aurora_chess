@@ -1,8 +1,8 @@
 from pydantic import BaseModel, Field
 
-from core.schemas.mixins.ErrorsMixin import ErrorsMixin
-from core.schemas.mixins.JsonTypeStrMixin import JsonTypeStrMixin
-from core.schemas.mixins.SystemMessageMixin import SystemMessagesMixin
+from core.schemas.mixins.error_mixin import ErrorsMixin
+from core.schemas.mixins.json_type_str_mixin import JsonTypeStrMixin
+from core.schemas.mixins.system_message_mixin import SystemMessagesMixin
 
 
 class RoomInitResponseData(BaseModel):

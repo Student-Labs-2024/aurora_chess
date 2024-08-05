@@ -1,4 +1,4 @@
-from core.entities.PlayerSession.AbstractPlayerSession import AbstractPlayerSession
+from core.entities.player_session.abstract_player_session import AbstractPlayerSession
 
 
 class PlayerSessionFactory:

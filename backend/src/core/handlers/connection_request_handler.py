@@ -1,12 +1,15 @@
 import asyncio
 import json
 
-from core.entities.PlayerSession.AbstractPlayerSession import AbstractPlayerSession
-from core.factories import AbstractPlayerSessionFactory
-from core.handlers.MessageHandler import MessageHandler
+from core.entities.player_session.abstract_player_session import AbstractPlayerSession
+from core.handlers.message_handler import MessageHandler
 from core.schemas.RoomConnectionRequest import RoomConnectionRequest
 from core.schemas.RoomConnectionResponse import RoomConnectionResponse
-from core.services.RoomService import RoomService
+from core.services.room_service import RoomService
+
+
+class AbstractPlayerSessionFactory:
+    pass
 
 
 class ConnectionRequestHandler(MessageHandler):

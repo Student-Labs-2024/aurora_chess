@@ -3,9 +3,9 @@ import json
 import unittest
 from unittest.mock import MagicMock, AsyncMock
 
-from core.entities.GameRoom import AbstractGameRoom
-from core.handlers.RoomInitRequestHandler import RoomInitRequestHandler
-from core.services.RoomService import RoomService
+from core.entities.game_room.abstract_game_room import AbstractGameRoom
+from core.handlers.room_init_request_handler import RoomInitRequestHandler
+from core.services.room_service import RoomService
 
 
 class TestRoomInitRequestHandler(unittest.IsolatedAsyncioTestCase):

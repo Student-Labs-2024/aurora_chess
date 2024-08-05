@@ -3,8 +3,8 @@ from typing import Literal
 from fastapi import WebSocket
 from pydantic import json
 
-from core.entities.GameRoom import AbstractGameRoom
-from core.entities.PlayerSession.AbstractPlayerSession import AbstractPlayerSession
+from core.entities.game_room.abstract_game_room import AbstractGameRoom
+from core.entities.player_session.abstract_player_session import AbstractPlayerSession
 
 
 class WebsocketPlayerSession(AbstractPlayerSession):
