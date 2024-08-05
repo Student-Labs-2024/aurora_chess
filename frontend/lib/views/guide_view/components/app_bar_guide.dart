@@ -46,6 +46,7 @@ class AppBarGuide extends StatelessWidget {
               fontSize: 20,
               fontFamily: "Roboto",
               fontWeight: FontWeight.w700,
+              height: 0.05
             ),
           ),
           isMainGuide
