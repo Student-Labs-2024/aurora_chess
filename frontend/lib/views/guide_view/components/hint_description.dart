@@ -10,6 +10,9 @@ class HintDescription extends StatelessWidget {
     var scheme = Theme.of(context).colorScheme;
     return Column(
       children: [
+        const SizedBox(
+          height: 24,
+        ),
         Text(
           "Описание",
           textAlign: TextAlign.center,
@@ -18,7 +21,11 @@ class HintDescription extends StatelessWidget {
             fontSize: 20,
             fontFamily: "Roboto",
             fontWeight: FontWeight.w700,
+            height: 0.1
           ),
+        ),
+        const SizedBox(
+          height: 16,
         ),
         Text(
           text,
@@ -33,5 +40,4 @@ class HintDescription extends StatelessWidget {
       ],
     );
   }
-
 }

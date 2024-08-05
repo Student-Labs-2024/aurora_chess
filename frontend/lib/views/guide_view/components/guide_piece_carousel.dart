@@ -1,7 +1,6 @@
-import "package:carousel_slider/carousel_slider.dart";
 import "package:flutter/material.dart";
 import "package:flutter_svg/svg.dart";
-import "../../views.dart";
+import "../guide_view.dart";
 
 List<String> pieces = [
   "Пешка",
@@ -19,11 +18,11 @@ class GuidePieceCarousel extends StatelessWidget {
     super.key,
     required this.pieceIndex,
     required this.index,
-    required this.carouselController
+    required this.carouselController,
   });
   final int index;
   final int pieceIndex;
-  final CarouselController carouselController;
+  final PageController carouselController;
 
   @override
   Widget build(BuildContext context) {
@@ -46,31 +45,23 @@ class GuidePieceCarousel extends StatelessWidget {
           height: 32,
         ),
         SizedBox(
-          height: height - 270,
-          child: CarouselSlider.builder(
-            carouselController: carouselController,
+          height: height - 260,
+          child: PageView.builder(
+            scrollDirection: Axis.horizontal,
+            physics: const PageScrollPhysics(),
+            controller: carouselController,
             itemCount: imgOfHints[name]!.length,
-            options: CarouselOptions(
-              initialPage: 0,
-              aspectRatio: 9 / 14,
-              enableInfiniteScroll: false,
-              enlargeCenterPage: true,
-              enlargeFactor: 0.2,
-              viewportFraction: 0.7,
-            ),
-            itemBuilder: (context, itemIndex, realIndex) {
-              return Center(
-                child: Column(
-                  children: [
-                    SvgPicture.asset(
-                      "assets/images/guide_boards/${imgOfHints[name]![itemIndex]}",
-                      height: 280,
-                    ),
-                    HintDescription(
-                      text: hintsOfPieces[name]![itemIndex],
-                    )
-                  ],
-                ),
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  SvgPicture.asset(
+                    "assets/images/guide_boards/${imgOfHints[name]![index]}",
+                    height: 280,
+                  ),
+                  HintDescription(
+                    text: hintsOfPieces[name]![index],
+                  )
+                ],
               );
             },
           ),
