@@ -24,21 +24,23 @@ class ColorChoseButton extends StatelessWidget {
       Player.random: "random.svg",
     };
     return Expanded(
-        flex: variant == Player.random ? 115 : 90,
-        child: GestureDetector(
-          onTap: onTap,
-          child: Container(
-            height: variant == Player.random ? 90 : 70,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: variant == chose
-                  ? ColorsConst.primaryColor100
-                  : scheme.outline,
-            ),
-            child: Center(
-                child:
-                    SvgPicture.asset("assets/images/icons/${icon[variant]}")),
+      flex: variant == Player.random ? 115 : 90,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          height: variant == Player.random ? 90 : 70,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: variant == chose
+              ? ColorsConst.primaryColor100
+              : scheme.outline,
           ),
-        ));
+          child: Center(
+            child:
+              SvgPicture.asset("assets/images/icons/${icon[variant]}")
+          ),
+        ),
+      )
+    );
   }
 }
