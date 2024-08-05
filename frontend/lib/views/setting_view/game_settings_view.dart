@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:sqflite/sqflite.dart';
-import '../../exports.dart';
+import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
+import "package:provider/provider.dart";
+import "package:sqflite/sqflite.dart";
+import "../../exports.dart";
 
 class GameSettingsView extends StatefulWidget {
   static GameSettingsView builder(BuildContext context, GoRouterState state) =>
