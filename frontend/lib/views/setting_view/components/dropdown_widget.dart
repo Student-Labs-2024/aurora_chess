@@ -46,8 +46,8 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                   children: [
                     Text(
                       GameSettingConsts.personalLevelOfDifficultyText[value]!,
-                      style: const TextStyle(
-                        color: ColorsConst.neutralColor200,
+                      style: TextStyle(
+                        color: scheme.primary,
                         fontSize: 16,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w500,

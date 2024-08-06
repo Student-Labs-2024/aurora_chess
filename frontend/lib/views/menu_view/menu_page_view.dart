@@ -14,11 +14,9 @@ class MyMenuView extends StatefulWidget {
 }
 
 class _MyMenuViewState extends State<MyMenuView> {
-  String piecesFile = "";
 
   @override
   initState() {
-    piecesFile = MenuPageStringConst.piecesLightIconName;
     super.initState();
   }
 
@@ -26,9 +24,6 @@ class _MyMenuViewState extends State<MyMenuView> {
   Widget build(BuildContext context) {
     var provider = Provider.of<ThemeProvider>(context, listen: false);
     var scheme = Theme.of(context).colorScheme;
-    piecesFile = provider.isDarkMode
-        ? MenuPageStringConst.piecesDarkIconName
-        : MenuPageStringConst.piecesLightIconName;
     return SafeArea(
       child: Scaffold(
         body: ConstrainedBox(
@@ -62,28 +57,20 @@ class _MyMenuViewState extends State<MyMenuView> {
                       const SizedBox(
                         height: 40,
                       ),
-                      Stack(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(right: 40),
-                            child: Text(
-                              MenuPageStringConst.slogan,
-                              style: TextStyle(
-                                  fontSize: 36,
-                                  fontStyle: FontStyle.normal,
-                                  fontWeight: FontWeight.w600,
-                                  color: scheme.primary),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 220),
-                            child: Container(
-                              alignment: Alignment.centerRight,
-                              child: SvgPicture.asset(
-                                  "${MenuPageStringConst.pathToIcon}$piecesFile"),
-                            ),
-                          ),
-                        ],
+                      Text(
+                        MenuPageStringConst.slogan,
+                        style: TextStyle(
+                          fontSize: 36,
+                          fontStyle: FontStyle.normal,
+                          fontWeight: FontWeight.w600,
+                          color: scheme.primary
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        child: Image.asset(
+                          "${MenuPageStringConst.pathToIcon}pieces.png"
+                        ),
                       ),
                       const SizedBox(
                         height: 48,
