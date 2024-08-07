@@ -317,14 +317,17 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                           personalityLevel:
                                           personalityGameMode,
                                           onTap: () {
-                                            GameSettingConsts
+                                            gameModel.setAIDifficulty(
+                                              GameSettingConsts
                                                 .difficultyLevels[
-                                            index == 3
-                                                ? personalityGameMode
-                                                : LevelOfDifficulty
-                                                .values[index]];
+                                                  index == 3
+                                                    ? personalityGameMode
+                                                    : LevelOfDifficulty
+                                                    .values[index]]
+                                            );
                                             setIsPersonality(index == 3);
                                             setGameMode(index);
+
                                           },
                                         );
                                       })),
@@ -348,6 +351,10 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     isChoseDiff: true,
                                     onChose: (value) {
                                       setPersonalityGameMode(value!.index);
+                                      gameModel.setAIDifficulty(
+                                        GameSettingConsts
+                                          .difficultyLevels[value]
+                                      );
                                     },
                                   ),
                                   SettingsRow(
@@ -386,7 +393,10 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     modalHeader:
                                     GameSettingConsts.hintsText,
                                     isChoseDiff: false,
-                                    onChanged: setIsHints,
+                                    onChanged: (chose) {
+                                      gameModel.setShowHints(chose);
+                                      setIsHints(chose);
+                                    },
                                   ),
                                 ],
                               )

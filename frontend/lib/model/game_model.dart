@@ -175,7 +175,7 @@ class GameModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setShowHints(bool show) async {
+  Future<void> setShowHints(bool show) async {
     final prefs = await SharedPreferences.getInstance();
     showHints = show;
     prefs.setBool("showHints", show);
@@ -189,7 +189,7 @@ class GameModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setAllowUndoRedo(bool allow) async {
+  Future<void> setAllowUndoRedo(bool allow) async {
     final prefs = await SharedPreferences.getInstance();
     allowUndoRedo = allow;
     prefs.setBool("allowUndoRedo", allow);
