@@ -228,14 +228,15 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               AppBarSettings(
                                   label: GameSettingConsts.appBarLabel
                               ),
-          
-                              TabGameModeSettings(
+
+                              CustomTabBar(
                                 initialIndex: enemy.index,
                                 header: GameSettingConsts.gameModeText,
-                                firstSubTitle: GameSettingConsts
-                                    .gameWithComputerText,
-                                secondSubTitle: GameSettingConsts
-                                    .gameWithHumanText,
+                                subTitles: [
+                                  GameSettingConsts.gameWithComputerText,
+                                  GameSettingConsts.gameWithHumanText,
+                                ],
+                                isSettingsPage: true,
                                 onTap: (index) {
                                   setState(() {
                                     final playerCount = index + 1;
@@ -254,14 +255,15 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   setPiecesColor(player.index);
                                 },
                               ),
-          
-                              TabGameModeSettings(
+
+                              CustomTabBar(
                                 initialIndex: withoutTime ? 0 : 1,
                                 header: GameSettingConsts.timeText,
-                                firstSubTitle: GameSettingConsts
-                                    .gameWithoutTimeText,
-                                secondSubTitle: GameSettingConsts
-                                    .gameWithTimeText,
+                                subTitles: [
+                                  GameSettingConsts.gameWithoutTimeText,
+                                  GameSettingConsts.gameWithTimeText,
+                                ],
+                                isSettingsPage: true,
                                 onTap: (index) {
                                   setIsTime(index);
                                   if (index == 0) {
