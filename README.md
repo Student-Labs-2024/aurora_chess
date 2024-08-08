@@ -33,6 +33,7 @@
 - flutter_svg: 2.0.10+1
 - wheel_chooser: 1.1.2
 - sqflite_aurora: 0.5.0
+- intl: 0.19.0
 ### Backend:
 - python-chess: 1.10.0
 - fastapi: 0.111.1
