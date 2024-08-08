@@ -38,7 +38,6 @@ class _GameViewState extends State<GameView> {
     widget.gameModel.setAIDifficulty(GameSettingConsts.difficultyLevels[LevelOfDifficulty
         .values[data["levelOfDifficulty"]]]);
     await widget.gameModel.setAllowUndoRedo(data["isMoveBack"] == 0);
-    await widget.gameModel.setShowHints(data["isHints"] == 0);
     setState(() {
       isLoading = false;
     });
