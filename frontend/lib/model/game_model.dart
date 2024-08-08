@@ -2,7 +2,6 @@ import "dart:async";
 import "dart:math";
 import "../exports.dart";
 import "package:flutter/material.dart";
-import "package:shared_preferences/shared_preferences.dart";
 
 const TIMER_ACCURACY_MS = 100;
 
@@ -14,10 +13,8 @@ class GameModel extends ChangeNotifier {
   Player selectedSide = Player.player1;
   Player playerSide = Player.player1;
   int timeLimit = 10;
-  String pieceTheme = "Classic";
   bool showMoveHistory = true;
   bool allowUndoRedo = true;
-  bool soundEnabled = true;
   bool showHints = true;
   bool flip = true;
 
@@ -162,48 +159,22 @@ class GameModel extends ChangeNotifier {
   }
 
   void setShowMoveHistory(bool show) async {
-    final prefs = await SharedPreferences.getInstance();
     showMoveHistory = show;
-    prefs.setBool("showMoveHistory", show);
-    notifyListeners();
-  }
-
-  void setSoundEnabled(bool enabled) async {
-    final prefs = await SharedPreferences.getInstance();
-    soundEnabled = enabled;
-    prefs.setBool("soundEnabled", enabled);
     notifyListeners();
   }
 
   Future<void> setShowHints(bool show) async {
-    final prefs = await SharedPreferences.getInstance();
     showHints = show;
-    prefs.setBool("showHints", show);
     notifyListeners();
   }
 
   void setFlipBoard(bool flip) async {
-    final prefs = await SharedPreferences.getInstance();
     this.flip = flip;
-    prefs.setBool("flip", flip);
     notifyListeners();
   }
 
   Future<void> setAllowUndoRedo(bool allow) async {
-    final prefs = await SharedPreferences.getInstance();
     allowUndoRedo = allow;
-    prefs.setBool("allowUndoRedo", allow);
-    notifyListeners();
-  }
-
-  void loadSharedPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    pieceTheme = prefs.getString("pieceTheme") ?? "Classic";
-    showMoveHistory = prefs.getBool("showMoveHistory") ?? true;
-    soundEnabled = prefs.getBool("soundEnabled") ?? true;
-    showHints = prefs.getBool("showHints") ?? true;
-    flip = prefs.getBool("flip") ?? true;
-    allowUndoRedo = prefs.getBool("allowUndoRedo") ?? true;
     notifyListeners();
   }
 
