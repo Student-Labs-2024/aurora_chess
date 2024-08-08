@@ -16,7 +16,7 @@ class MoveList extends StatelessWidget {
     var scheme = Theme.of(context).colorScheme;
     WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
     return Container(
-      height: 60,
+      height: 40,
       decoration: BoxDecoration(
         color: scheme.surfaceTint,
       ),

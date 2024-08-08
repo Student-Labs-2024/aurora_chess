@@ -228,14 +228,15 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               AppBarSettings(
                                   label: GameSettingConsts.appBarLabel
                               ),
-          
-                              TabGameModeSettings(
+
+                              CustomTabBar(
                                 initialIndex: enemy.index,
                                 header: GameSettingConsts.gameModeText,
-                                firstSubTitle: GameSettingConsts
-                                    .gameWithComputerText,
-                                secondSubTitle: GameSettingConsts
-                                    .gameWithHumanText,
+                                subTitles: [
+                                  GameSettingConsts.gameWithComputerText,
+                                  GameSettingConsts.gameWithHumanText,
+                                ],
+                                isSettingsPage: true,
                                 onTap: (index) {
                                   setState(() {
                                     final playerCount = index + 1;
@@ -254,14 +255,15 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   setPiecesColor(player.index);
                                 },
                               ),
-          
-                              TabGameModeSettings(
+
+                              CustomTabBar(
                                 initialIndex: withoutTime ? 0 : 1,
                                 header: GameSettingConsts.timeText,
-                                firstSubTitle: GameSettingConsts
-                                    .gameWithoutTimeText,
-                                secondSubTitle: GameSettingConsts
-                                    .gameWithTimeText,
+                                subTitles: [
+                                  GameSettingConsts.gameWithoutTimeText,
+                                  GameSettingConsts.gameWithTimeText,
+                                ],
+                                isSettingsPage: true,
                                 onTap: (index) {
                                   setIsTime(index);
                                   if (index == 0) {
@@ -317,14 +319,17 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                           personalityLevel:
                                           personalityGameMode,
                                           onTap: () {
-                                            GameSettingConsts
+                                            gameModel.setAIDifficulty(
+                                              GameSettingConsts
                                                 .difficultyLevels[
-                                            index == 3
-                                                ? personalityGameMode
-                                                : LevelOfDifficulty
-                                                .values[index]];
+                                                  index == 3
+                                                    ? personalityGameMode
+                                                    : LevelOfDifficulty
+                                                    .values[index]]
+                                            );
                                             setIsPersonality(index == 3);
                                             setGameMode(index);
+
                                           },
                                         );
                                       })),
@@ -348,6 +353,10 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     isChoseDiff: true,
                                     onChose: (value) {
                                       setPersonalityGameMode(value!.index);
+                                      gameModel.setAIDifficulty(
+                                        GameSettingConsts
+                                          .difficultyLevels[value]
+                                      );
                                     },
                                   ),
                                   SettingsRow(
@@ -386,7 +395,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     modalHeader:
                                     GameSettingConsts.hintsText,
                                     isChoseDiff: false,
-                                    onChanged: setIsHints,
+                                    onChanged: (chose) {
+                                      setIsHints(chose);
+                                    },
                                   ),
                                 ],
                               )

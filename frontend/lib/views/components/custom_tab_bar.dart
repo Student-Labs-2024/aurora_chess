@@ -1,41 +1,37 @@
 import "package:flutter/material.dart";
-import "../../../constants/constants.dart";
-import "../setting_view.dart";
+import "../../constants/constants.dart";
+import "../setting_view/setting_view.dart";
 
-class TabGameModeSettings extends StatefulWidget{
-  const TabGameModeSettings({
+class CustomTabBar extends StatefulWidget{
+  const CustomTabBar({
     super.key,
     required this.initialIndex,
     required this.header,
-    required this.firstSubTitle,
-    required this.secondSubTitle,
+    required this.subTitles,
+    required this.isSettingsPage,
     this.onTap,
   });
 
   final int initialIndex;
   final String header;
-  final String firstSubTitle;
-  final String secondSubTitle;
+  final List<String> subTitles;
+  final bool isSettingsPage;
   final void Function(int)? onTap;
 
   @override
-  State<TabGameModeSettings> createState() => _TabGameModeSettingsState();
+  State<CustomTabBar> createState() => _CustomTabBarState();
 }
 
-class _TabGameModeSettingsState extends State<TabGameModeSettings>
+class _CustomTabBarState extends State<CustomTabBar>
     with TickerProviderStateMixin  {
 
   late TabController _tabColorController;
-  late List<String> subTitles;
 
   @override
   void initState() {
     _tabColorController =
-        TabController(length: 2, vsync: this, initialIndex: widget.initialIndex);
-    subTitles = [
-      widget.firstSubTitle,
-      widget.secondSubTitle
-    ];
+        TabController(length: widget.subTitles.length,
+            vsync: this, initialIndex: widget.initialIndex);
     super.initState();
   }
 
@@ -44,11 +40,12 @@ class _TabGameModeSettingsState extends State<TabGameModeSettings>
     var scheme = Theme.of(context).colorScheme;
     return Column(
       children: [
+        widget.isSettingsPage ?
         TextHeading(
           text: widget.header,
           topMargin: 32,
           bottomMargin: 16,
-        ),
+        ) : const SizedBox(),
         PreferredSize(
           preferredSize: const Size.fromHeight(44),
           child: ClipRRect(
@@ -58,7 +55,7 @@ class _TabGameModeSettingsState extends State<TabGameModeSettings>
               height: 44,
               padding: const EdgeInsets.all(4),
               decoration: ShapeDecoration(
-                color: scheme.outline,
+                color: scheme.secondary,
                 shape: RoundedRectangleBorder(
                   borderRadius:
                   BorderRadius.circular(16),
@@ -81,7 +78,7 @@ class _TabGameModeSettingsState extends State<TabGameModeSettings>
                 tabs: List.generate(
                   _tabColorController.length, (index) {
                     return TabItem(
-                      title: subTitles[index],
+                      title: widget.subTitles[index],
                       index: index,
                       currentIndex:
                       _tabColorController.index,

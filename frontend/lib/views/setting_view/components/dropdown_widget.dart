@@ -100,7 +100,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
           maxWidth: 123
         ),
         decoration: BoxDecoration(
-          color: scheme.tertiaryContainer,
+          color: scheme.scrim,
           borderRadius: BorderRadius.vertical(
             top: const Radius.circular(16),
             bottom: Radius.circular(isOpened ? 0 : 16)

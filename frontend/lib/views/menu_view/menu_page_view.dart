@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:provider/provider.dart";
-import "package:flutter_svg/flutter_svg.dart";
 import "../../exports.dart";
 
 class MyMenuView extends StatefulWidget {

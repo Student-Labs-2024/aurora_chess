@@ -7,12 +7,18 @@ class GuideChosePieceButton extends StatelessWidget {
     required this.iconName,
     required this.label,
     required this.isPiece,
+    required this.buttonColor,
+    required this.iconArrowColor,
+    required this.textColor,
     this.onTap,
   });
 
   final String? iconName;
   final String label;
   final bool isPiece;
+  final Color buttonColor;
+  final Color iconArrowColor;
+  final Color textColor;
   final void Function()? onTap;
 
   @override
@@ -27,7 +33,7 @@ class GuideChosePieceButton extends StatelessWidget {
         height: 48,
         minWidth: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        color: scheme.secondary,
+        color: buttonColor,
         onPressed: onTap,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,7 +53,7 @@ class GuideChosePieceButton extends StatelessWidget {
                 Text(
                   label,
                   style: TextStyle(
-                    color: scheme.primary,
+                    color: textColor,
                     fontSize: 20,
                     fontFamily: "Roboto",
                     fontWeight: FontWeight.w700,
@@ -57,7 +63,7 @@ class GuideChosePieceButton extends StatelessWidget {
             ),
             SvgPicture.asset(
               "assets/images/icons/back_arrow_icon.svg",
-              color: scheme.onPrimaryContainer,
+              color: iconArrowColor,
             ),
           ],
         ),

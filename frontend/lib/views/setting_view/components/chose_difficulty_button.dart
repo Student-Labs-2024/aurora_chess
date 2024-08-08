@@ -48,7 +48,7 @@ class ChoseDifficultyButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         color: level == currentLevel
           ? ColorsConst.primaryColor100
-          : scheme.outline,
+          : scheme.secondary,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
