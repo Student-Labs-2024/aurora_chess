@@ -17,6 +17,7 @@ class InfoPartyBar extends StatelessWidget {
     return Container(
       height: 48,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      margin: const EdgeInsets.only(top: 16),
       decoration: BoxDecoration(
         color: scheme.onSurfaceVariant,
         borderRadius: BorderRadius.circular(16)
