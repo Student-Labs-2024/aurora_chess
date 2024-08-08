@@ -98,16 +98,19 @@ class ChessGame extends Game with TapDetector {
       }
     }
   }
-
+  
   void _movePiece(int tile) {
     if (validMoves.contains(tile)) {
-      validMoves = [];
       var meta =
           push(Move(selectedPiece?.tile ?? 0, tile), board, getMeta: true);
-      if (meta.promotion) {
-        gameModel.requestPromotion();
+      if (selectedPiece?.type == ChessPieceType.promotion &&
+          (tileToRow(tile) == 0 ||
+              tileToRow(tile) == LogicConsts.lenOfRow - 1)) {
+        _moveCompletion(meta, changeTurn: false);
+        promote(ChessPieceType.queen);
+      } else {
+        _moveCompletion(meta, changeTurn: true);
       }
-      _moveCompletion(meta, changeTurn: !meta.promotion);
     }
   }
 
@@ -235,7 +238,8 @@ class ChessGame extends Game with TapDetector {
     if (gameModel.flip &&
         gameModel.playingWithAI &&
         gameModel.playerSide == Player.player2) {
-      return (7 - (vector2.y / (tileSize ?? 0)).floor()) * LogicConsts.lenOfRow +
+      return (7 - (vector2.y / (tileSize ?? 0)).floor()) *
+              LogicConsts.lenOfRow +
           (7 - (vector2.x / (tileSize ?? 0)).floor());
     } else {
       return (vector2.y / (tileSize ?? 0)).floor() * LogicConsts.lenOfRow +
