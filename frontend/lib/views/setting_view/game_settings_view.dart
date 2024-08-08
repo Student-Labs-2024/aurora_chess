@@ -396,7 +396,6 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     GameSettingConsts.hintsText,
                                     isChoseDiff: false,
                                     onChanged: (chose) {
-                                      gameModel.setShowHints(chose);
                                       setIsHints(chose);
                                     },
                                   ),
