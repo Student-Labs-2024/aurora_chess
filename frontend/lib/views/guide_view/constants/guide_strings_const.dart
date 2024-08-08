@@ -66,4 +66,12 @@ class GuideStrings {
     """Короткая рокировка осуществляется\nна королевском фланге.
     Король перемещается\nна 2 клетки вправо,\nа правая ладья на 2 влево."""
   ];
+
+  static String partyHistoryPage = "История ваших партий";
+
+  static String guideHeader = "Справочник";
+
+  static String appbarMainIcon = "assets/images/icons/cancel.svg";
+
+  static String appbarIcon = "assets/images/icons/left_big_arrow_icon.svg";
 }

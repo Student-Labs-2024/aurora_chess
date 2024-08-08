@@ -24,34 +24,57 @@ class GuideChoseView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AppBarGuide(
-              isMainGuide: true,
-              iconName: "assets/images/icons/cancel.svg",
-              iconColor: scheme.onTertiary,
-              bottomMargin: 21,
+            Column(
+              children: [
+                AppBarGuide(
+                  isMainGuide: true,
+                  iconName: GuideStrings.appbarMainIcon,
+                  iconColor: scheme.onTertiary,
+                  bottomMargin: 21,
+                  header: GuideStrings.guideHeader,
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  child: ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: pieces.length,
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return SingleChildScrollView(
+                        child: GuideChosePieceButton(
+                          iconName: index < 6 ? "assets/images/pieces/${piecesIcons[index]}" : null,
+                          label: pieces[index],
+                          isPiece: index < 6,
+                          buttonColor: scheme.secondary,
+                          iconArrowColor: scheme.onPrimaryContainer,
+                          textColor: scheme.primary,
+                          onTap: () {
+                            context.push(RouteLocations.guideScreen, extra: index);
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 24),
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                itemCount: pieces.length,
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return SingleChildScrollView(
-                    child: GuideChosePieceButton(
-                      iconName: index < 6 ? "assets/images/pieces/${piecesIcons[index]}" : null,
-                      label: pieces[index],
-                      isPiece: index < 6,
-                      onTap: () {
-                        context.push(RouteLocations.guideScreen, extra: index);
-                      },
-                    ),
-                  );
+              margin: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
+              child: GuideChosePieceButton(
+                iconName: null,
+                label: GuideStrings.partyHistoryPage,
+                isPiece: false,
+                buttonColor: scheme.onTertiaryContainer,
+                iconArrowColor: scheme.background,
+                textColor: scheme.background,
+                onTap: () {
+                  context.push(RouteLocations.partyHistoryScreen);
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

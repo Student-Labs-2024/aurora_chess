@@ -59,9 +59,10 @@ class _GuideViewState extends State<GuideView> {
               children: [
                 AppBarGuide(
                   isMainGuide: false,
-                  iconName: "assets/images/icons/left_big_arrow_icon.svg",
+                  iconName: GuideStrings.appbarIcon,
                   iconColor: scheme.onTertiary,
                   bottomMargin: 32,
+                  header: GuideStrings.guideHeader,
                 ),
                 GuidePieceCarousel(
                   pieceIndex: index,

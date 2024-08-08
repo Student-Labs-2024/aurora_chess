@@ -15,6 +15,7 @@ class RouteLocations {
 
   static String get guidebookScreen => "/guidebookScreen";
   static String get guideScreen => "/guideScreen";
+  static String get partyHistoryScreen => "/partyHistory";
 }
 
 final router = GoRouter(
@@ -32,9 +33,10 @@ final router = GoRouter(
       routes: shellRoutes,
     ),
     GoRoute(
-        path: RouteLocations.guidebookScreen,
-        parentNavigatorKey: rootNavigatorKey,
-        builder: GuideChoseView.builder),
+      path: RouteLocations.guidebookScreen,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: GuideChoseView.builder
+    ),
     GoRoute(
       path: RouteLocations.guideScreen,
       parentNavigatorKey: rootNavigatorKey,
@@ -42,18 +44,27 @@ final router = GoRouter(
         return GuideView(index: state.extra as int);
       },
     ),
+    GoRoute(
+      path: RouteLocations.partyHistoryScreen,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (BuildContext context, GoRouterState state) {
+        return const PartyHistoryMainView();
+      },
+    ),
   ],
 );
 
 final shellRoutes = [
   GoRoute(
-      path: RouteLocations.homeScreen,
-      parentNavigatorKey: shellNavigatorKey,
-      builder: MyMenuView.builder),
+    path: RouteLocations.homeScreen,
+    parentNavigatorKey: shellNavigatorKey,
+    builder: MyMenuView.builder
+  ),
   GoRoute(
-      path: RouteLocations.settingsScreen,
-      parentNavigatorKey: shellNavigatorKey,
-      builder: GameSettingsView.builder),
+    path: RouteLocations.settingsScreen,
+    parentNavigatorKey: shellNavigatorKey,
+    builder: GameSettingsView.builder
+  ),
   GoRoute(
     path: RouteLocations.gameScreen,
     parentNavigatorKey: shellNavigatorKey,

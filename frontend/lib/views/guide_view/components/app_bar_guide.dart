@@ -8,17 +8,18 @@ class AppBarGuide extends StatelessWidget {
     required this.isMainGuide,
     required this.iconName,
     required this.iconColor,
-    required this.bottomMargin
+    required this.bottomMargin,
+    required this.header
   });
 
   final bool isMainGuide;
   final String iconName;
   final Color iconColor;
   final double bottomMargin;
+  final String header;
 
   @override
   Widget build(BuildContext context) {
-    const guideHeader = "Справочник";
     var scheme = Theme.of(context).colorScheme;
     return Container(
       margin: EdgeInsets.only(
@@ -40,7 +41,7 @@ class AppBarGuide extends StatelessWidget {
                   },
                 ),
           Text(
-            guideHeader,
+            header,
             style: TextStyle(
               color: scheme.surface,
               fontSize: 20,
