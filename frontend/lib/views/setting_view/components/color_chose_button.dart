@@ -33,7 +33,7 @@ class ColorChoseButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             color: variant == chose
               ? ColorsConst.primaryColor100
-              : scheme.outline,
+              : scheme.secondary,
           ),
           child: Center(
             child:
