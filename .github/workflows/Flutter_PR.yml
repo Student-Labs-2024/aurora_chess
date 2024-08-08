@@ -1,0 +1,63 @@
+name: Flutter PR
+
+on:
+  push:
+    branches: 
+      - "main/develop"
+  pull_request:
+    branches: 
+      - "main/develop"
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "19.x"
+
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+      - uses: actions/checkout@v1
+      - name: Загрузить все пакеты
+        run: |
+          flutter pub get
+          cd core 
+          for dir in */ ; do
+
+            echo ${dir}
+            cd ${dir}
+            pwd
+            flutter pub get
+            cd ..
+            pwd
+            if [ "$#" -gt 0 ]; then shift; fi
+            # shift
+          done
+      - name: Анализ кода
+        run: |
+          OUTPUT="$(flutter analyze)"
+          echo "$OUTPUT"
+          echo
+          if grep -q "error •" echo "$OUTPUT"; then
+              echo "flutter analyze found errors"
+              exit 1
+          else
+              echo "flutter analyze didn't find any errors"
+              exit 0
+          fi
+      - name: Запуск тестов
+        run: flutter test
+     
+      - name: Создание приложения для Авроры
+        run: flutter-aurora create --platforms=aurora --template=app --org=com.example example
+      - name: Добавление поддержки Авроры
+        run: flutter-aurora create --platforms=aurora --org=com.example .
+      - name: Сборка приложения
+        run: flutter-aurora build aurora --release
+      - name: Подписание приложения
+        run: aurora_psdk rpmsign-external sign --key {{ secrets.REGULAR_KEY }} --cert {{ secrets.REGULAR_CERT }}
