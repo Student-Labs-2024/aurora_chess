@@ -6,6 +6,7 @@ from core.schemas.move import Move
 class ChessEngine:
     def __init__(self):
         self.board = chess.Board()
+        self.moves: list[Move] = []
 
     def make_move(self, move: Move):
         piece = (
@@ -46,3 +47,6 @@ class ChessEngine:
         elif result == "1/2-1/2":
             return "draw"
         return "game in progress"
+
+    def get_moves(self) -> list[Move]:
+        return self.moves
