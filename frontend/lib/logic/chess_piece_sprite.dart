@@ -5,7 +5,6 @@ import "package:flame/sprite.dart";
 
 class ChessPieceSprite {
   ChessPieceType? type;
-  String? pieceTheme;
   int? tile;
   Sprite? sprite;
   double? spriteX;
@@ -14,10 +13,9 @@ class ChessPieceSprite {
   double offsetY = 0;
   double maxSprite = 0.1;
 
-  ChessPieceSprite(ChessPiece piece, String pieceTheme) {
+  ChessPieceSprite(ChessPiece piece) {
     this.tile = piece.tile;
     this.type = piece.type;
-    this.pieceTheme = pieceTheme;
     initSprite(piece);
   }
 

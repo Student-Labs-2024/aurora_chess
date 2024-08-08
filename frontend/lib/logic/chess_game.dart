@@ -23,7 +23,7 @@ class ChessGame extends Game with TapDetector {
     width = MediaQuery.of(context).size.width - 68;
     tileSize = (width ?? 0) / LogicConsts.lenOfRow;
     for (var piece in board.player1Pieces + board.player2Pieces) {
-      spriteMap[piece] = ChessPieceSprite(piece, gameModel.pieceTheme);
+      spriteMap[piece] = ChessPieceSprite(piece);
     }
     _initSpritePositions();
     if (gameModel.isAIsTurn) {
