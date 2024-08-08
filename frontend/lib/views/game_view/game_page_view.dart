@@ -126,7 +126,6 @@ class _GameViewState extends State<GameView> {
                     padding: const EdgeInsets.all(30),
                     child: GameInfoAndControls(gameModel),
                   ),
-                  BottomPadding(),
                 ],
               ),
             );

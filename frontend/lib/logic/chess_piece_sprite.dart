@@ -64,7 +64,7 @@ class ChessPieceSprite {
       pieceName = "pawn";
     }
     sprite = Sprite(await Flame.images.load(
-        "pieces/${formatPieceTheme(pieceTheme ?? "")}/${pieceName}_$color.png"));
+        "pieces/${pieceName}_$color.png"));
   }
 
   void initSpritePosition(double tileSize, GameModel GameModel) {
