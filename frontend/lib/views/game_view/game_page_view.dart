@@ -98,7 +98,11 @@ class _GameViewState extends State<GameView> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  const TextRegular('Робот'),
+                                  TextRegular(
+                                    gameModel.playerCount == 1
+                                        ? 'Робот'
+                                        : 'Игрок2',
+                                  ),
                                   Expanded(child: Container()),
                                   TimerWidget(
                                     timeLeft: gameModel.player2TimeLeft,
@@ -116,7 +120,11 @@ class _GameViewState extends State<GameView> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  const TextRegular('Игрок'),
+                                  TextRegular(
+                                    gameModel.playerCount == 1
+                                        ? 'Игрок'
+                                        : 'Игрок2',
+                                  ),
                                   Expanded(child: Container()),
                                   TimerWidget(
                                     timeLeft: gameModel.player1TimeLeft,
