@@ -36,13 +36,15 @@ class ChessBoard {
 
   void _addPiecesForPlayer(Player player) {
     var kingRowOffset = player == Player.player1
-        ? (LogicConsts.countOfSquares - LogicConsts.lenOfRow) : 0;
-    var pawnRowOffset = player == Player.player1
-        ? -LogicConsts.lenOfRow : LogicConsts.lenOfRow;
+        ? (LogicConsts.countOfSquares - LogicConsts.lenOfRow)
+        : 0;
+    var pawnRowOffset =
+        player == Player.player1 ? -LogicConsts.lenOfRow : LogicConsts.lenOfRow;
     var index = 0;
     for (var pieceType in KING_ROW_PIECES) {
       var id = player == Player.player1
-          ? index * 2 : index * 2 + 2 * LogicConsts.lenOfRow;
+          ? index * 2
+          : index * 2 + 2 * LogicConsts.lenOfRow;
       var piece = ChessPiece(id, pieceType, player, kingRowOffset + index);
       var pawn = ChessPiece(id + 1, ChessPieceType.pawn, player,
           kingRowOffset + pawnRowOffset + index);
@@ -162,12 +164,15 @@ void _castle(ChessBoard board, MoveStackObject mso, MoveMeta meta) {
   _setTile(king?.tile, null, board);
   _setTile(rook?.tile, null, board);
   var kingCol = tileToCol(rook?.tile ?? 0) == 0
-      ? LogicConsts.minCountOfPieces - 1 : LogicConsts.lenOfRow - 2;
+      ? LogicConsts.minCountOfPieces - 1
+      : LogicConsts.lenOfRow - 2;
   var rookCol = tileToCol(rook?.tile ?? 0) == 0
       ? LogicConsts.minCountOfPieces
       : LogicConsts.lenOfRow - LogicConsts.minCountOfPieces;
-  _setTile(tileToRow(king?.tile ?? 0) * LogicConsts.lenOfRow + kingCol, king, board);
-  _setTile(tileToRow(rook?.tile ?? 0) * LogicConsts.lenOfRow + rookCol, rook, board);
+  _setTile(
+      tileToRow(king?.tile ?? 0) * LogicConsts.lenOfRow + kingCol, king, board);
+  _setTile(
+      tileToRow(rook?.tile ?? 0) * LogicConsts.lenOfRow + rookCol, rook, board);
   tileToCol(rook?.tile ?? 0) == LogicConsts.minCountOfPieces
       ? meta.queenCastle = true
       : meta.kingCastle = true;
@@ -186,9 +191,11 @@ void _undoCastle(ChessBoard board, MoveStackObject mso) {
   _setTile(king?.tile, null, board);
   _setTile(rook?.tile, null, board);
   var rookCol = tileToCol(rook?.tile ?? 0) == LogicConsts.minCountOfPieces
-      ? 0 : LogicConsts.lenOfRow - 1;
+      ? 0
+      : LogicConsts.lenOfRow - 1;
   _setTile(tileToRow(king?.tile ?? 0) * LogicConsts.lenOfRow + 4, king, board);
-  _setTile(tileToRow(rook?.tile ?? 0) * LogicConsts.lenOfRow + rookCol, rook, board);
+  _setTile(
+      tileToRow(rook?.tile ?? 0) * LogicConsts.lenOfRow + rookCol, rook, board);
   king?.moveCount--;
   rook?.moveCount--;
 }
@@ -247,7 +254,8 @@ void _undoPromote(ChessBoard board, MoveStackObject mso) {
 
 void _checkEnPassant(ChessBoard board, MoveStackObject mso, MoveMeta meta) {
   var offset = mso.movedPiece?.player == Player.player1
-      ? LogicConsts.lenOfRow : -LogicConsts.lenOfRow;
+      ? LogicConsts.lenOfRow
+      : -LogicConsts.lenOfRow;
   var tile = (mso.movedPiece?.tile ?? 0) + offset;
   var takenPiece = board.tiles[tile];
   if (takenPiece != null && takenPiece == board.enPassantPiece) {
@@ -363,8 +371,8 @@ bool _canTakeEnPassant(ChessPiece? movedPiece) {
 bool _inEndGame(ChessBoard board) {
   return (_queensForPlayer(Player.player1, board).isEmpty &&
           _queensForPlayer(Player.player2, board).isEmpty) ||
-      piecesForPlayer(Player.player1, board).length
-          <= LogicConsts.minCountOfPieces ||
-      piecesForPlayer(Player.player2, board).length
-          <= LogicConsts.minCountOfPieces;
+      piecesForPlayer(Player.player1, board).length <=
+          LogicConsts.minCountOfPieces ||
+      piecesForPlayer(Player.player2, board).length <=
+          LogicConsts.minCountOfPieces;
 }

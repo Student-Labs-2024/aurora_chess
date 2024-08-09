@@ -51,5 +51,9 @@ class ChessPiece {
     return (player == Player.player1) ? value : -value;
   }
 
+  int? get advantage {
+    return LogicConsts.advantagesForPieces[type];
+  }
+
   ChessPiece(this.id, this.type, this.player, this.tile);
 }

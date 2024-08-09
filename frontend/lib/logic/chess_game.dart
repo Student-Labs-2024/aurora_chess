@@ -243,9 +243,22 @@ class ChessGame extends Game with TapDetector {
       gameModel.changeTurn();
     }
     selectedPiece = null;
+    _sendAdvantagesToProvider();
     if (gameModel.isAIsTurn && clearRedo && changeTurn) {
       _aiMove();
     }
+  }
+
+  void _sendAdvantagesToProvider() {
+    int player1Advantage = 0;
+    int player2Advantage = 0;
+    for (var piece in board.player1Pieces) {
+      player1Advantage += piece.advantage ?? 0;
+    }
+    for (var piece in board.player2Pieces) {
+      player2Advantage += piece.advantage ?? 0;
+    }
+    gameModel.setPlayersAdvantage(player1Advantage, player2Advantage);
   }
 
   int _vector2ToTile(Vector2 vector2) {
