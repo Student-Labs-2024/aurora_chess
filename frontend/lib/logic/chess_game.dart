@@ -11,7 +11,7 @@ class ChessGame extends Game with TapDetector {
   GameModel gameModel;
   BuildContext context;
   ChessBoard board = ChessBoard();
-  Map<ChessPiece, ChessPieceSprite> spriteMap = Map();
+  Map<ChessPiece, ChessPieceSprite> spriteMap = {};
 
   CancelableOperation? aiOperation;
   List<int> validMoves = [];
@@ -32,9 +32,10 @@ class ChessGame extends Game with TapDetector {
   }
 
   @override
-  void onTapDown(TapDownInfo details) {
-    if (gameModel.gameOver || !(gameModel.isAIsTurn)) {
-      var tile = _vector2ToTile(details.eventPosition.widget);
+  void onTapDown(TapDownInfo info) {
+    if ((gameModel.gameOver || !(gameModel.isAIsTurn)) &&
+        !gameModel.isPromotionForPlayer) {
+      var tile = _vector2ToTile(info.eventPosition.widget);
       var touchedPiece = board.tiles[tile];
       if (touchedPiece == selectedPiece) {
         validMoves = [];
@@ -73,7 +74,7 @@ class ChessGame extends Game with TapDetector {
   }
 
   @override
-  void update(double t) {
+  void update(double dt) {
     for (var piece in board.player1Pieces + board.player2Pieces) {
       spriteMap[piece]?.update(tileSize ?? 0, gameModel, piece);
     }
@@ -98,25 +99,36 @@ class ChessGame extends Game with TapDetector {
       }
     }
   }
-  
-  void _movePiece(int tile) {
+
+  void _movePiece(int tile) async {
     if (validMoves.contains(tile)) {
       var meta =
           push(Move(selectedPiece?.tile ?? 0, tile), board, getMeta: true);
       if (selectedPiece?.type == ChessPieceType.promotion &&
           (tileToRow(tile) == 0 ||
               tileToRow(tile) == LogicConsts.lenOfRow - 1)) {
+        gameModel.isPromotionForPlayer = true;
         _moveCompletion(meta, changeTurn: false);
-        promote(ChessPieceType.queen);
+        _promotionWaiter(gameModel)
+            .then((value) => promote(gameModel.pieceForPromotion));
       } else {
         _moveCompletion(meta, changeTurn: true);
       }
     }
   }
 
+  Future<bool> _promotionWaiter(GameModel gameModel) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    if (gameModel.pieceForPromotion == ChessPieceType.promotion) {
+      return _promotionWaiter(gameModel);
+    } else {
+      return true;
+    }
+  }
+
   void _aiMove() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    var args = Map();
+    await Future.delayed(const Duration(milliseconds: 500));
+    var args = {};
     args["aiPlayer"] = gameModel.aiTurn;
     args["aiDifficulty"] = gameModel.aiDifficulty;
     args["board"] = board;
@@ -190,6 +202,8 @@ class ChessGame extends Game with TapDetector {
     addPromotedPiece(board, board.moveStack.last);
     gameModel.moveMetaList.last.promotionType = type;
     _moveCompletion(gameModel.moveMetaList.last, updateMetaList: false);
+    gameModel.pieceForPromotion = ChessPieceType.promotion;
+    gameModel.isPromotionForPlayer = false;
   }
 
   void _moveCompletion(
