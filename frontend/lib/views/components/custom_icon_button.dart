@@ -23,11 +23,11 @@ class CustomIconButton extends StatelessWidget {
       child: IconButton(
         onPressed: onTap,
         padding: EdgeInsets.zero,
-        constraints: BoxConstraints(),
+        constraints: const BoxConstraints(),
         icon: SvgPicture.asset(
           iconName,
-          color: color,
-        )
+          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+        ),
       ),
     );
   }

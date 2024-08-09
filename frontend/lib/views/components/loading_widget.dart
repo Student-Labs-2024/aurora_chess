@@ -15,7 +15,7 @@ class LoadingWidget extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 "assets/images/icons/loading.svg",
-                color: scheme.primary,
+                colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
               ),
               const SizedBox(
                 height: 24,

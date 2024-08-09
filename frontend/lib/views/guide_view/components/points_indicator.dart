@@ -22,7 +22,11 @@ class PointsIndicator extends StatelessWidget {
               "assets/images/icons/point_light.svg",
               width: 10,
               height: 10,
-              color: index == currentIndex ? scheme.surfaceVariant : scheme.inverseSurface,
+              colorFilter: ColorFilter.mode(
+                  index == currentIndex
+                      ? scheme.surfaceVariant
+                      : scheme.inverseSurface,
+                  BlendMode.srcIn),
             ),
             SizedBox(width: index < count - 1 ? 5 : 0,)
           ],

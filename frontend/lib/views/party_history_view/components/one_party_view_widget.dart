@@ -32,8 +32,10 @@ class OnePartyViewWidget extends StatelessWidget {
             PartyHistoryConst.infoPartyIconName,
             height: 35,
             width: 35,
-            color: isComputer ? listOfColorsIcons[partyData["result"]]
+            colorFilter: ColorFilter.mode(isComputer
+                ? listOfColorsIcons[partyData["result"]]!
                 : scheme.primary,
+                BlendMode.srcIn),
           ),
           const SizedBox(
             width: 8,

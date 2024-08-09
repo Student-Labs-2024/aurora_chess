@@ -8,18 +8,18 @@ int tileToCol(int tile) {
   return tile % LogicConsts.lenOfRow;
 }
 
-double getXFromTile(int tile, double tileSize, GameModel GameModel) {
-  return GameModel.flip &&
-          GameModel.playingWithAI &&
-          GameModel.playerSide == Player.player2
+double getXFromTile(int tile, double tileSize, GameModel gameModel) {
+  return gameModel.flip &&
+          gameModel.playingWithAI &&
+          gameModel.playerSide == Player.player2
       ? ((LogicConsts.lenOfRow - 1) - tileToCol(tile)) * tileSize
       : tileToCol(tile) * tileSize;
 }
 
-double getYFromTile(int tile, double tileSize, GameModel GameModel) {
-  return GameModel.flip &&
-          GameModel.playingWithAI &&
-          GameModel.playerSide == Player.player2
+double getYFromTile(int tile, double tileSize, GameModel gameModel) {
+  return gameModel.flip &&
+          gameModel.playingWithAI &&
+          gameModel.playerSide == Player.player2
       ? ((LogicConsts.lenOfRow - 1) - tileToRow(tile)) * tileSize
       : tileToRow(tile) * tileSize;
 }

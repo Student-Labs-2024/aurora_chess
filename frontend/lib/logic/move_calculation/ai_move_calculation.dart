@@ -1,10 +1,10 @@
 import "dart:math";
 import "../../exports.dart";
 
-const INITIAL_ALPHA = -40000;
-const STALEMATE_ALPHA = -20000;
-const INITIAL_BETA = 40000;
-const STALEMATE_BETA = 20000;
+const initialAlpha = -40000;
+const stalemateAlpha = -20000;
+const initialBeta = 40000;
+const stalemateBeta = 20000;
 
 Move calculateAIMove(Map args) {
   ChessBoard board = args["board"];
@@ -12,7 +12,7 @@ Move calculateAIMove(Map args) {
     return _openingMove(board, args["aiPlayer"]);
   } else {
     return _alphaBeta(board, args["aiPlayer"], Move(0, 0), 0,
-            args["aiDifficulty"], INITIAL_ALPHA, INITIAL_BETA)
+            args["aiDifficulty"], initialAlpha, initialBeta)
         .move;
   }
 }
@@ -23,7 +23,7 @@ MoveAndValue _alphaBeta(ChessBoard board, Player player, Move move, int depth,
     return MoveAndValue(move, boardValue(board));
   }
   var bestMove = MoveAndValue(
-      Move(0, 0), player == Player.player1 ? INITIAL_ALPHA : INITIAL_BETA);
+      Move(0, 0), player == Player.player1 ? initialAlpha : initialBeta);
   for (var move in allMoves(player, board, maxDepth)) {
     push(move, board, promotionType: move.promotionType);
     var result = _alphaBeta(
@@ -48,13 +48,13 @@ MoveAndValue _alphaBeta(ChessBoard board, Player player, Move move, int depth,
       }
     }
   }
-  if (bestMove.value.abs() == INITIAL_BETA && !kingInCheck(player, board)) {
+  if (bestMove.value.abs() == initialBeta && !kingInCheck(player, board)) {
     if (piecesForPlayer(player, board).length == 1) {
       bestMove.value =
-          player == Player.player1 ? STALEMATE_BETA : STALEMATE_ALPHA;
+          player == Player.player1 ? stalemateBeta : stalemateAlpha;
     } else {
       bestMove.value =
-          player == Player.player1 ? STALEMATE_ALPHA : STALEMATE_BETA;
+          player == Player.player1 ? stalemateAlpha : stalemateBeta;
     }
   }
   return bestMove;

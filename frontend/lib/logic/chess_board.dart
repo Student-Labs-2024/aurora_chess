@@ -1,6 +1,6 @@
 import "../exports.dart";
 
-const KING_ROW_PIECES = [
+const kingRowPieces = [
   ChessPieceType.rook,
   ChessPieceType.knight,
   ChessPieceType.bishop,
@@ -40,7 +40,7 @@ class ChessBoard {
     var pawnRowOffset = player == Player.player1
         ? -LogicConsts.lenOfRow : LogicConsts.lenOfRow;
     var index = 0;
-    for (var pieceType in KING_ROW_PIECES) {
+    for (var pieceType in kingRowPieces) {
       var id = player == Player.player1
           ? index * 2 : index * 2 + 2 * LogicConsts.lenOfRow;
       var piece = ChessPiece(id, pieceType, player, kingRowOffset + index);

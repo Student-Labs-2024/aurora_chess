@@ -79,7 +79,7 @@ class SettingsRow extends StatelessWidget {
                             color: scheme.primary
                           ),
                         ),
-                        content: Container(
+                        content: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: Text(
                             modalText,
@@ -99,7 +99,8 @@ class SettingsRow extends StatelessWidget {
                 },
                 icon: SvgPicture.asset(
                   "assets/images/icons/question_icon.svg",
-                  color: scheme.tertiaryContainer,
+                  colorFilter: ColorFilter.mode(scheme.tertiaryContainer,
+                      BlendMode.srcIn),
                 ),
               ),
             ],

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/exports.dart';
 import 'package:sqflite/sqflite.dart';
@@ -36,15 +35,10 @@ class _PartyHistoryMainViewState extends State<PartyHistoryMainView> {
       }
     }
 
-    print(computerParties);
-    print(friendParties);
-
     setState(() {
       currentLength = computerParties.length;
       isLoading = false;
     });
-
-    print(currentLength);
 
     await database.close();
   }

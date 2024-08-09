@@ -73,7 +73,7 @@ class RestartExitButtons extends StatelessWidget {
           child: IconButton(
             icon: SvgPicture.asset(
               "assets/images/icons/gridicons_menus.svg",
-              color: scheme.primary,
+              colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
             ),
             onPressed: () {
               gameModel.newGame(context);
@@ -85,7 +85,7 @@ class RestartExitButtons extends StatelessWidget {
           child: IconButton(
             icon: SvgPicture.asset(
               "assets/images/icons/lamp_icon.svg",
-              color: scheme.primary,
+              colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
             ),
             onPressed: () async {
               if (gameModel.gameOver) {

@@ -1,11 +1,10 @@
 import "dart:async";
 import "dart:math";
-import "package:frontend/logic/chess_piece.dart";
 
 import "../exports.dart";
 import "package:flutter/material.dart";
 
-const TIMER_ACCURACY_MS = 100;
+const timerAccuracyMs = 100;
 
 enum Player { player1, random, player2 }
 
@@ -59,7 +58,7 @@ class GameModel extends ChangeNotifier {
           Random.secure().nextInt(2) == 0 ? Player.player1 : Player.player2;
     }
     game = ChessGame(this, context);
-    timer = Timer.periodic(const Duration(milliseconds: TIMER_ACCURACY_MS),
+    timer = Timer.periodic(const Duration(milliseconds: timerAccuracyMs),
         (timer) {
       turn == Player.player1
           ? decrementPlayer1Timer()
@@ -154,7 +153,7 @@ class GameModel extends ChangeNotifier {
   void decrementPlayer1Timer() {
     if (player1TimeLeft.inMilliseconds > 0 && !gameOver) {
       player1TimeLeft = Duration(
-          milliseconds: player1TimeLeft.inMilliseconds - TIMER_ACCURACY_MS);
+          milliseconds: player1TimeLeft.inMilliseconds - timerAccuracyMs);
       notifyListeners();
     }
   }
@@ -162,7 +161,7 @@ class GameModel extends ChangeNotifier {
   void decrementPlayer2Timer() {
     if (player2TimeLeft.inMilliseconds > 0 && !gameOver) {
       player2TimeLeft = Duration(
-          milliseconds: player2TimeLeft.inMilliseconds - TIMER_ACCURACY_MS);
+          milliseconds: player2TimeLeft.inMilliseconds - timerAccuracyMs);
       notifyListeners();
     }
   }

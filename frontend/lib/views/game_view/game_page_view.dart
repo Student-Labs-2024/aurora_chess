@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:flutter_svg/svg.dart";
 import "package:go_router/go_router.dart";
 import "package:provider/provider.dart";
 import "package:sqflite/sqflite.dart";
@@ -59,8 +58,9 @@ class _GameViewState extends State<GameView> {
               backgroundColor: scheme.background,
               body: Consumer<GameModel>(
                 builder: (context, gameModel, child) {
-                  return WillPopScope(
-                    onWillPop: _willPopCallback,
+                  return PopScope(
+                    canPop: true,
+                    onPopInvoked: _willPopCallback,
                     child: Stack(
                       children: [
                         Column(
@@ -145,9 +145,7 @@ class _GameViewState extends State<GameView> {
           );
   }
 
-  Future<bool> _willPopCallback() async {
+  Future<void> _willPopCallback(bool didPop) async {
     widget.gameModel.exitChessView();
-
-    return true;
   }
 }

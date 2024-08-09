@@ -4,7 +4,7 @@ import "package:frontend/constants/colors.dart";
 import "../setting_view.dart";
 
 class DropdownWidget extends StatefulWidget {
-  DropdownWidget({
+  const DropdownWidget({
     super.key,
     required this.values,
     required this.initValue, 

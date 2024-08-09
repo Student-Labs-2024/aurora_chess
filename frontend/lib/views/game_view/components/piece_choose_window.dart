@@ -4,11 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../exports.dart';
 
 class PieceChooseWindow extends StatelessWidget {
-  GameModel gameModel;
-  PieceChooseWindow(this.gameModel, {super.key});
+  final GameModel gameModel;
+  const PieceChooseWindow(this.gameModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    var scheme = Theme.of(context).colorScheme;
     return Container(
       width: 245,
       height: 275,
@@ -45,7 +46,8 @@ class PieceChooseWindow extends StatelessWidget {
                         'assets/images/pieces/bishop.svg',
                         width: 55,
                         height: 55,
-                        color: Theme.of(context).colorScheme.primary,
+                        colorFilter: ColorFilter.mode(
+                            scheme.primary, BlendMode.srcIn),
                       ),
                       onPressed: () => gameModel.setPieceForPromotion(
                         ChessPieceType.bishop,
@@ -56,7 +58,8 @@ class PieceChooseWindow extends StatelessWidget {
                         'assets/images/pieces/rook.svg',
                         width: 55,
                         height: 55,
-                        color: Theme.of(context).colorScheme.primary,
+                        colorFilter: ColorFilter.mode(
+                            scheme.primary, BlendMode.srcIn),
                       ),
                       onPressed: () => gameModel.setPieceForPromotion(
                         ChessPieceType.rook,
@@ -73,7 +76,8 @@ class PieceChooseWindow extends StatelessWidget {
                         'assets/images/pieces/knight.svg',
                         width: 55,
                         height: 55,
-                        color: Theme.of(context).colorScheme.primary,
+                        colorFilter: ColorFilter.mode(
+                            scheme.primary, BlendMode.srcIn),
                       ),
                       onPressed: () => gameModel.setPieceForPromotion(
                         ChessPieceType.knight,
@@ -84,7 +88,8 @@ class PieceChooseWindow extends StatelessWidget {
                         'assets/images/pieces/queen.svg',
                         width: 55,
                         height: 55,
-                        color: Theme.of(context).colorScheme.primary,
+                        colorFilter: ColorFilter.mode(
+                            scheme.primary, BlendMode.srcIn),
                       ),
                       onPressed: () => gameModel.setPieceForPromotion(
                         ChessPieceType.queen,

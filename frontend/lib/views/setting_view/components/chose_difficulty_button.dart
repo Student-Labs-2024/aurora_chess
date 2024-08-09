@@ -92,9 +92,10 @@ class ChoseDifficultyButton extends StatelessWidget {
                       ),
                       SvgPicture.asset(
                         "assets/images/icons/crown_icon.svg",
-                        color: level == currentLevel
-                          ? ColorsConst.primaryColor0
-                          : scheme.primary,
+                        colorFilter: ColorFilter.mode(level == currentLevel
+                            ? ColorsConst.primaryColor0
+                            : scheme.primary,
+                            BlendMode.srcIn),
                       ),
                     ],
                   )

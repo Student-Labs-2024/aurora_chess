@@ -1,6 +1,6 @@
 import "../../exports.dart";
 
-const KING_TABLE = [
+const kingTable = [
   -30,
   -40,
   -40,
@@ -67,7 +67,7 @@ const KING_TABLE = [
   20
 ];
 
-const KING_ENDGAME_TABLE = [
+const kingEndgameTable = [
   -50,
   -40,
   -30,
@@ -134,7 +134,7 @@ const KING_ENDGAME_TABLE = [
   -50
 ];
 
-const QUEEN_TABLE = [
+const queenTable = [
   -20,
   -10,
   -10,
@@ -201,7 +201,7 @@ const QUEEN_TABLE = [
   -20
 ];
 
-const ROOK_TABLE = [
+const rookTable = [
   0,
   0,
   0,
@@ -268,7 +268,7 @@ const ROOK_TABLE = [
   0
 ];
 
-const BISHOP_TABLE = [
+const bishopTable = [
   -20,
   -10,
   -10,
@@ -335,7 +335,7 @@ const BISHOP_TABLE = [
   -20
 ];
 
-const KNIGHT_TABLE = [
+const knightTable = [
   -50,
   -40,
   -30,
@@ -402,7 +402,7 @@ const KNIGHT_TABLE = [
   -50
 ];
 
-const PAWN_TABLE = [
+const pawnTable = [
   0,
   0,
   0,
@@ -478,32 +478,32 @@ int squareValue(ChessPiece piece, bool inEndGame) {
   switch (piece.type) {
     case ChessPieceType.pawn:
       {
-        value = PAWN_TABLE[tile];
+        value = pawnTable[tile];
       }
       break;
     case ChessPieceType.knight:
       {
-        value = KNIGHT_TABLE[tile];
+        value = knightTable[tile];
       }
       break;
     case ChessPieceType.bishop:
       {
-        value = BISHOP_TABLE[tile];
+        value = bishopTable[tile];
       }
       break;
     case ChessPieceType.rook:
       {
-        value = ROOK_TABLE[tile];
+        value = rookTable[tile];
       }
       break;
     case ChessPieceType.queen:
       {
-        value = QUEEN_TABLE[tile];
+        value = queenTable[tile];
       }
       break;
     case ChessPieceType.king:
       {
-        value = inEndGame ? KING_ENDGAME_TABLE[tile] : KING_TABLE[tile];
+        value = inEndGame ? kingEndgameTable[tile] : kingTable[tile];
       }
       break;
     default:

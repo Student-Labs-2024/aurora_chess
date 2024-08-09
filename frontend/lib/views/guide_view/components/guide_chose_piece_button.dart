@@ -45,7 +45,8 @@ class GuideChosePieceButton extends StatelessWidget {
                   children: [
                     SvgPicture.asset(
                       iconName!,
-                      color: scheme.primary,
+                      colorFilter: ColorFilter.mode(
+                          scheme.primary, BlendMode.srcIn),
                     ),
                     const SizedBox(width: 8,)
                   ],
@@ -63,7 +64,7 @@ class GuideChosePieceButton extends StatelessWidget {
             ),
             SvgPicture.asset(
               "assets/images/icons/back_arrow_icon.svg",
-              color: iconArrowColor,
+              colorFilter: ColorFilter.mode(iconArrowColor, BlendMode.srcIn),
             ),
           ],
         ),

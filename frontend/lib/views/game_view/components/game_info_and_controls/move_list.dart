@@ -80,8 +80,8 @@ class MoveList extends StatelessWidget {
       String row = "${len - tileToRow(meta.move?.to ?? 0)}";
       String col = _colToChar(tileToCol(meta.move?.to ?? 0));
       move =
-          "${_pieceToChar(meta.type ?? ChessPieceType.promotion)}$ambiguity$takeString" +
-              "$col$row$promotion";
+          "${_pieceToChar(meta.type ?? ChessPieceType.promotion)}"
+              "$ambiguity$takeString$col$row$promotion";
     }
     String check = meta.isCheck ? "+" : "";
     String checkmate = meta.isCheckmate && !meta.isStalemate ? "#" : "";

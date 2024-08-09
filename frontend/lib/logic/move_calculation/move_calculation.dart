@@ -1,14 +1,14 @@
 import "../../exports.dart";
 
-const PROMOTIONS = [
+const promotions = [
   ChessPieceType.queen,
   ChessPieceType.rook,
   ChessPieceType.bishop,
   ChessPieceType.knight
 ];
-const PAWN_DIAGONALS_1 = [DOWN_LEFT, DOWN_RIGHT];
-const PAWN_DIAGONALS_2 = [UP_LEFT, UP_RIGHT];
-const KNIGHT_MOVES = [
+const pawnDiagonals1 = [downLeft, downRight];
+const pawnDiagonals2 = [upLeft, upRight];
+const knightMoves = [
   Direction(1, 2),
   Direction(-1, 2),
   Direction(1, -2),
@@ -18,17 +18,17 @@ const KNIGHT_MOVES = [
   Direction(2, -1),
   Direction(-2, -1)
 ];
-const BISHOP_MOVES = [UP_RIGHT, DOWN_RIGHT, DOWN_LEFT, UP_LEFT];
-const ROOK_MOVES = [UP, RIGHT, DOWN, LEFT];
-const KING_QUEEN_MOVES = [
-  UP,
-  UP_RIGHT,
-  RIGHT,
-  DOWN_RIGHT,
-  DOWN,
-  DOWN_LEFT,
-  LEFT,
-  UP_LEFT
+const bishopMoves = [upRight, downRight, downLeft, upLeft];
+const rookMoves = [up, right, down, left];
+const kingQueenMoves = [
+  up,
+  upRight,
+  right,
+  downRight,
+  down,
+  downLeft,
+  left,
+  upLeft
 ];
 
 
@@ -40,7 +40,7 @@ List<Move> allMoves(Player player, ChessBoard board, int aiDifficulty) {
     for (var tile in tiles) {
       if (piece.type == ChessPieceType.pawn &&
           (tileToRow(tile) == 0 || tileToRow(tile) == LogicConsts.lenOfRow - 1)) {
-        for (var promotion in PROMOTIONS) {
+        for (var promotion in promotions) {
           var move =
               MoveAndValue(Move(piece.tile, tile, promotionType: promotion), 0);
           push(move.move, board, promotionType: promotion);
@@ -133,7 +133,7 @@ List<int> _pawnMoves(ChessPiece pawn, ChessBoard board) {
 List<int> _pawnDiagonalAttacks(ChessPiece pawn, ChessBoard board) {
   List<int> moves = [];
   var diagonals =
-      pawn.player == Player.player1 ? PAWN_DIAGONALS_1 : PAWN_DIAGONALS_2;
+      pawn.player == Player.player1 ? pawnDiagonals1 : pawnDiagonals2;
   for (var diagonal in diagonals) {
     var row = tileToRow(pawn.tile) + diagonal.up;
     var col = tileToCol(pawn.tile) + diagonal.right;
@@ -159,24 +159,24 @@ bool _canTakeEnPassant(Player pawnPlayer, int diagonal, ChessBoard board) {
 }
 
 List<int> _knightMoves(ChessPiece knight, ChessBoard board) {
-  return _movesFromDirections(knight, board, KNIGHT_MOVES, false);
+  return _movesFromDirections(knight, board, knightMoves, false);
 }
 
 List<int> _bishopMoves(ChessPiece bishop, ChessBoard board) {
-  return _movesFromDirections(bishop, board, BISHOP_MOVES, true);
+  return _movesFromDirections(bishop, board, bishopMoves, true);
 }
 
 List<int> _rookMoves(ChessPiece rook, ChessBoard board, bool legal) {
-  return _movesFromDirections(rook, board, ROOK_MOVES, true) +
+  return _movesFromDirections(rook, board, rookMoves, true) +
       _rookCastleMove(rook, board, legal);
 }
 
 List<int> _queenMoves(ChessPiece queen, ChessBoard board) {
-  return _movesFromDirections(queen, board, KING_QUEEN_MOVES, true);
+  return _movesFromDirections(queen, board, kingQueenMoves, true);
 }
 
 List<int> _kingMoves(ChessPiece king, ChessBoard board, bool legal) {
-  return _movesFromDirections(king, board, KING_QUEEN_MOVES, false) +
+  return _movesFromDirections(king, board, kingQueenMoves, false) +
       _kingCastleMoves(king, board, legal);
 }
 

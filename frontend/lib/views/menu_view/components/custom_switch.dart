@@ -3,8 +3,8 @@ import "package:flutter_svg/flutter_svg.dart";
 import "package:frontend/exports.dart";
 
 class CustomSwitch extends StatefulWidget {
-  CustomSwitch(this.provider, {super.key});
-  ThemeProvider provider;
+  const CustomSwitch(this.provider, {super.key});
+  final ThemeProvider provider;
 
   @override
   State<CustomSwitch> createState() => _CustomSwitchState();

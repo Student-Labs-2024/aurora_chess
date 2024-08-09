@@ -32,7 +32,8 @@ class InfoPartyBar extends StatelessWidget {
                   PartyHistoryConst.infoPartyIconName,
                   height: 24,
                   width: 24,
-                  color: listOfColorsIcons[index],
+                  colorFilter: ColorFilter.mode(listOfColorsIcons[index],
+                      BlendMode.srcIn),
                 ),
                 const SizedBox(
                   width: 4,

@@ -14,23 +14,23 @@ class ChessPieceSprite {
   double maxSprite = 0.1;
 
   ChessPieceSprite(ChessPiece piece) {
-    this.tile = piece.tile;
-    this.type = piece.type;
+    tile = piece.tile;
+    type = piece.type;
     initSprite(piece);
   }
 
-  void update(double tileSize, GameModel GameModel, ChessPiece piece) {
-    if (piece.type != this.type) {
-      this.type = piece.type;
+  void update(double tileSize, GameModel gameModel, ChessPiece piece) {
+    if (piece.type != type) {
+      type = piece.type;
       initSprite(piece);
     }
-    if (piece.tile != this.tile) {
-      this.tile = piece.tile;
+    if (piece.tile != tile) {
+      tile = piece.tile;
       offsetX = 0;
       offsetY = 0;
     }
-    var destX = getXFromTile(tile ?? 0, tileSize, GameModel);
-    var destY = getYFromTile(tile ?? 0, tileSize, GameModel);
+    var destX = getXFromTile(tile ?? 0, tileSize, gameModel);
+    var destY = getYFromTile(tile ?? 0, tileSize, gameModel);
     if ((destX - (spriteX ?? 0)).abs() <= maxSprite) {
       spriteX = destX;
       offsetX = 0;
@@ -65,8 +65,8 @@ class ChessPieceSprite {
         "pieces/${pieceName}_$color.png"));
   }
 
-  void initSpritePosition(double tileSize, GameModel GameModel) {
-    spriteX = getXFromTile(tile ?? 0, tileSize, GameModel);
-    spriteY = getYFromTile(tile ?? 0, tileSize, GameModel);
+  void initSpritePosition(double tileSize, GameModel gameModel) {
+    spriteX = getXFromTile(tile ?? 0, tileSize, gameModel);
+    spriteY = getYFromTile(tile ?? 0, tileSize, gameModel);
   }
 }
