@@ -2,9 +2,11 @@ name: Flutter PR
 
 on:
   push:
-    branches: [ "main/develop" ]
+    branches: 
+      - develop
   pull_request:
-    branches: [ "main/develop" ]
+    branches: 
+      - develop
 
 
   workflow_dispatch:
