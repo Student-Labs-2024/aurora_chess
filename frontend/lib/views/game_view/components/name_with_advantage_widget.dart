@@ -33,6 +33,7 @@ class NameWithAdvantageForPlayer extends StatelessWidget {
       );
     } else {
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextRegular(
             gameModel.playerCount == 1 ? 'Робот' : 'Игрок2',
