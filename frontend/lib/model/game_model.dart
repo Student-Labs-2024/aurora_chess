@@ -1,5 +1,7 @@
 import "dart:async";
 import "dart:math";
+import "package:frontend/logic/chess_piece.dart";
+
 import "../exports.dart";
 import "package:flutter/material.dart";
 
@@ -23,6 +25,8 @@ class GameModel extends ChangeNotifier {
   bool gameOver = false;
   bool stalemate = false;
   bool promotionRequested = false;
+  bool isPromotionForPlayer = false;
+  ChessPieceType pieceForPromotion = ChessPieceType.promotion;
   bool moveListUpdated = false;
   Player turn = Player.player1;
   List<MoveMeta> moveMetaList = [];
@@ -140,6 +144,11 @@ class GameModel extends ChangeNotifier {
       player2TimeLeft = Duration(minutes: timeLimit);
       notifyListeners();
     }
+  }
+
+  void setPieceForPromotion(ChessPieceType piece) async {
+    pieceForPromotion = piece;
+    notifyListeners();
   }
 
   void decrementPlayer1Timer() {
