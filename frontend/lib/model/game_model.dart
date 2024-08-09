@@ -32,6 +32,15 @@ class GameModel extends ChangeNotifier {
   Duration player1TimeLeft = Duration.zero;
   Duration player2TimeLeft = Duration.zero;
 
+  int player1Advantage = 0;
+  int player2Advantage = 0;
+
+  void setPlayersAdvantage(int player1Advantage, int player2Advantage) {
+    this.player1Advantage = player1Advantage;
+    this.player2Advantage = player2Advantage;
+    notifyListeners();
+  }
+
   Player get aiTurn {
     return oppositePlayer(playerSide);
   }

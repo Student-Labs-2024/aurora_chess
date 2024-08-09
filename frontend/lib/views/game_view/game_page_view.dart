@@ -98,7 +98,10 @@ class _GameViewState extends State<GameView> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  const TextRegular('Робот'),
+                                  NameWithAdvantageForPlayer(
+                                    player: Player.player2,
+                                    gameModel: gameModel,
+                                  ),
                                   Expanded(child: Container()),
                                   TimerWidget(
                                     timeLeft: gameModel.player2TimeLeft,
@@ -116,7 +119,10 @@ class _GameViewState extends State<GameView> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  const TextRegular('Игрок'),
+                                  NameWithAdvantageForPlayer(
+                                    player: Player.player1,
+                                    gameModel: gameModel,
+                                  ),
                                   Expanded(child: Container()),
                                   TimerWidget(
                                     timeLeft: gameModel.player1TimeLeft,
@@ -147,5 +153,54 @@ class _GameViewState extends State<GameView> {
 
   Future<void> _willPopCallback(bool didPop) async {
     widget.gameModel.exitChessView();
+  }
+}
+
+class NameWithAdvantageForPlayer extends StatelessWidget {
+  GameModel gameModel;
+  Player player;
+  NameWithAdvantageForPlayer(
+      {required this.player, required this.gameModel, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    if (player == Player.player1) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextRegular(
+            gameModel.playerCount == 1 ? 'Игрок' : 'Игрок1',
+          ),
+          gameModel.player1Advantage > gameModel.player2Advantage
+              ? Row(
+                  children: [
+                    SvgPicture.asset('assets/images/icons/advantage.svg'),
+                    const SizedBox(width: 5),
+                    TextRegular(
+                        " +${gameModel.player1Advantage - gameModel.player2Advantage}"),
+                  ],
+                )
+              : Container()
+        ],
+      );
+    } else {
+      return Column(
+        children: [
+          TextRegular(
+            gameModel.playerCount == 1 ? 'Робот' : 'Игрок2',
+          ),
+          gameModel.player1Advantage < gameModel.player2Advantage
+              ? Row(
+                  children: [
+                    SvgPicture.asset('assets/images/icons/advantage.svg'),
+                    const SizedBox(width: 5),
+                    TextRegular(
+                        "+${gameModel.player2Advantage - gameModel.player1Advantage}"),
+                  ],
+                )
+              : Container(),
+        ],
+      );
+    }
   }
 }
