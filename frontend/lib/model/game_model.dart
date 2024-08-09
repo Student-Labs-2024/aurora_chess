@@ -54,6 +54,8 @@ class GameModel extends ChangeNotifier {
   }
 
   void newGame(BuildContext context, {bool notify = true}) {
+    player1Advantage = 0;
+    player2Advantage = 0;
     game?.cancelAIMove();
     timer?.cancel();
     gameOver = false;
