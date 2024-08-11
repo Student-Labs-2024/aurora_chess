@@ -16,13 +16,8 @@ def test_player_can_connect_to_room():
         "jsonType": "roomConnectionRequest",
         "data": {
             "gameType": game_type,
-            "room": {
-                "roomName": room_name
-            },
-            "player": {
-                "playerName": player_name_2,
-                "playerSide": side_2
-            }
+            "room": {"roomName": room_name},
+            "player": {"playerName": player_name_2, "playerSide": side_2},
         },
     }
 
@@ -33,13 +28,8 @@ def test_player_can_connect_to_room():
         "jsonType": "roomInitRequest",
         "data": {
             "gameType": game_type,
-            "room": {
-                "roomName": room_name
-            },
-            "player": {
-                "playerName": player_name,
-                "playerSide": side
-            }
+            "room": {"roomName": room_name},
+            "player": {"playerName": player_name, "playerSide": side},
         },
     }
 
@@ -52,13 +42,19 @@ def test_player_can_connect_to_room():
         "data": {
             "gameType": game_type,
             "room": {
-                    "roomName": room_name,
+                "roomName": room_name,
             },
             "roomConnectionStatus": room_connection_status,
             "players": {
-                "roomCreator": {"playerName": player_name, "playerSide": side, },
-                "connectedPlayer": {"playerName": player_name_2, "playerSide": side_2, },
-            }
+                "roomCreator": {
+                    "playerName": player_name,
+                    "playerSide": side,
+                },
+                "connectedPlayer": {
+                    "playerName": player_name_2,
+                    "playerSide": side_2,
+                },
+            },
         },
     }
 
@@ -87,13 +83,8 @@ def test_player_cant_connect_to_not_existed_room():
         "jsonType": "roomConnectionRequest",
         "data": {
             "gameType": game_type,
-            "room": {
-                "roomName": room_name
-            },
-            "player": {
-                "playerName": player_name,
-                "playerSide": side
-            }
+            "room": {"roomName": room_name},
+            "player": {"playerName": player_name, "playerSide": side},
         },
     }
 
@@ -108,10 +99,7 @@ def test_player_cant_connect_to_not_existed_room():
                 "roomName": room_name,
             },
             "roomConnectionStatus": connection_status,
-            "players": {
-                "roomCreator": None,
-                "connectedPlayer": None
-            }
+            "players": {"roomCreator": None, "connectedPlayer": None},
         },
     }
 
