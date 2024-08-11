@@ -8,10 +8,12 @@ class RoomService:
     def __init__(self, game_room_repository):
         self.__game_room_repository: AbstractRoomRepository = game_room_repository
 
-    def create_room(self, room_name: str, game_type: str) -> None:
+    def create_room(self, room_name: str, game_type: str) -> str:
         game_room = self.__game_room_repository.get_room(room_name)
-        if not game_room:
-            self.__game_room_repository.create_room(room_name, game_type)
+        if game_room:
+            return "already exists"
+        self.__game_room_repository.create_room(room_name, game_type)
+        return "successfully created"
 
     def get_room(self, room_name: str) -> AbstractGameRoom:
         return self.__game_room_repository.get_room(room_name)
