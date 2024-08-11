@@ -26,6 +26,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Загрузить все пакеты
         run: |
+          cd frontend
           flutter pub get
           cd core 
           for dir in */ ; do
@@ -53,11 +54,9 @@ jobs:
           fi
       - name: Запуск тестов
         run: flutter test
-     
-      - name: Создание приложения для Авроры
-        run: flutter-aurora create --platforms=aurora --template=app --org=com.example example
+
       - name: Добавление поддержки Авроры
-        run: flutter-aurora create --platforms=aurora --org=com.example .
+        run: flutter-aurora create --platforms=aurora --org=com.frontend .
       - name: Сборка приложения
         run: flutter-aurora build aurora --release
       - name: Подписание приложения
