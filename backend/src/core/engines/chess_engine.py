@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 import chess
 
 from core.schemas.move import Move
@@ -34,6 +36,7 @@ class ChessEngine:
         ):
             return False, self.board.board_fen(), "Illegal move"
         self.board.push(chess_move)
+        self.moves.append(move)
         new_fen = self.board.board_fen()
         status = self.get_game_status()
         return True, new_fen, status
@@ -49,4 +52,4 @@ class ChessEngine:
         return "game in progress"
 
     def get_moves(self) -> list[Move]:
-        return self.moves
+        return deepcopy(self.moves)
