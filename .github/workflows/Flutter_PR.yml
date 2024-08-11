@@ -28,18 +28,7 @@ jobs:
         run: |
           cd frontend
           flutter pub get
-          cd core 
-          for dir in */ ; do
 
-            echo ${dir}
-            cd ${dir}
-            pwd
-            flutter pub get
-            cd ..
-            pwd
-            if [ "$#" -gt 0 ]; then shift; fi
-            # shift
-          done
       - name: Анализ кода
         run: |
           OUTPUT="$(flutter analyze)"
