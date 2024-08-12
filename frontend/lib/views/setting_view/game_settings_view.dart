@@ -33,8 +33,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
   bool isThreats = false;
   bool isHints = false;
   int countOfTabs = 2;
-  int durationOfGame = 30;
-  int addingOfMove = 10;
+  int durationOfGame = 15;
+  int addingOfMove = 0;
   bool isSettingsEdited = false;
   late String path;
 
