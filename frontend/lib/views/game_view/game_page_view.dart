@@ -33,7 +33,12 @@ class _GameViewState extends State<GameView> {
     Map data = await _getSettings();
     widget.gameModel.setPlayerCount(data["withComputer"] + 1);
     widget.gameModel.setPlayerSide(Player.values[data["colorPieces"]]);
-    widget.gameModel.setTimeLimit(data["durationGame"]);
+    if (data["withoutTime"] == 0) {
+      widget.gameModel.setTimeLimit(0);
+    }
+    else {
+      widget.gameModel.setTimeLimit(data["durationGame"]);
+    }
     widget.gameModel.setAIDifficulty(GameSettingConsts
         .difficultyLevels[LevelOfDifficulty.values[data["levelOfDifficulty"]]]);
     await widget.gameModel.setAllowUndoRedo(data["isMoveBack"] == 0);
@@ -103,10 +108,12 @@ class _GameViewState extends State<GameView> {
                                     gameModel: gameModel,
                                   ),
                                   Expanded(child: Container()),
-                                  TimerWidget(
-                                    timeLeft: gameModel.player2TimeLeft,
-                                    isFilled: gameModel.turn == Player.player2,
-                                  ),
+                                  gameModel.timeLimit == 0
+                                    ? const SizedBox(height: 60,)
+                                    : TimerWidget(
+                                      timeLeft: gameModel.player2TimeLeft,
+                                      isFilled: gameModel.turn == Player.player2,
+                                    ),
                                 ],
                               ),
                             ),
@@ -124,10 +131,12 @@ class _GameViewState extends State<GameView> {
                                     gameModel: gameModel,
                                   ),
                                   Expanded(child: Container()),
-                                  TimerWidget(
-                                    timeLeft: gameModel.player1TimeLeft,
-                                    isFilled: gameModel.turn == Player.player1,
-                                  ),
+                                  gameModel.timeLimit == 0
+                                    ? const SizedBox(height: 60,)
+                                    : TimerWidget(
+                                      timeLeft: gameModel.player1TimeLeft,
+                                      isFilled: gameModel.turn == Player.player1,
+                                    ),
                                 ],
                               ),
                             ),
