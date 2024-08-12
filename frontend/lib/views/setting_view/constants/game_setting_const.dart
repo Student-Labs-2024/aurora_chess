@@ -44,6 +44,7 @@ class GameSettingConsts {
   ];
 
   static List<int> listOfAdditions = [
+    0,
     1,
     2,
     3,

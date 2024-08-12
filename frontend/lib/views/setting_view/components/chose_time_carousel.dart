@@ -65,6 +65,11 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
                       gameModel.setTimeLimit(widget.values[currentIndex]);
                       scrollController.jumpToItem(currentIndex);
                     }
+                    // var currentIndex = scrollController.selectedItem > 0
+                    //     ? scrollController.selectedItem - 1
+                    //     : widget.values.length - 1;
+                    // gameModel.setTimeLimit(widget.values[currentIndex]);
+                    // scrollController.jumpToItem(currentIndex);
                   },
                 ),
                 SizedBox(
@@ -73,14 +78,15 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
                     controller: scrollController,
                     horizontal: true,
                     listHeight: height,
+                    // isInfinite: true,
                     itemSize: 65,
-                    perspective: 0.001,
+                    perspective: 0.003,
                     onValueChanged: widget.onChanged,
                     datas: widget.values,
                     startPosition: null,
                     selectTextStyle: const TextStyle(
                       color: ColorsConst.primaryColor100,
-                      fontSize: 20,
+                      fontSize: 22,
                       fontFamily: "Roboto",
                       fontWeight: FontWeight.w700,
                     ),
@@ -98,10 +104,13 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
                   iconSize: 30,
                   onTap: () {
                     if (scrollController.selectedItem < widget.values.length - 1) {
-                      var currentIndex = scrollController.selectedItem + 1;
+                      var currentIndex = (scrollController.selectedItem + 1) % widget.values.length;
                       gameModel.setTimeLimit(widget.values[currentIndex]);
                       scrollController.jumpToItem(currentIndex);
                     }
+                    // var currentIndex = (scrollController.selectedItem + 1) % widget.values.length;
+                    // gameModel.setTimeLimit(widget.values[currentIndex]);
+                    // scrollController.jumpToItem(currentIndex);
                   },
                 ),
               ],
