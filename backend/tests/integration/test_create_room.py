@@ -16,14 +16,9 @@ def test_player_can_create_room():
     request_message = {
         "jsonType": "roomInitRequest",
         "data": {
-                    "gameType": game_type,
-                    "room": {
-                        "roomName": room_name
-                    },
-                    "player": {
-                        "playerName": player_name,
-                        "playerSide": side
-                    }
+            "gameType": game_type,
+            "room": {"roomName": room_name},
+            "player": {"playerName": player_name, "playerSide": side},
         },
     }
 
@@ -59,14 +54,9 @@ def test_player_cant_create_alredy_exist_room():
     request_message = {
         "jsonType": "roomInitRequest",
         "data": {
-                    "gameType": game_type,
-                    "room": {
-                        "roomName": room_name
-                    },
-                    "player": {
-                        "playerName": player_name,
-                        "playerSide": side
-                    }
+            "gameType": game_type,
+            "room": {"roomName": room_name},
+            "player": {"playerName": player_name, "playerSide": side},
         },
     }
 
