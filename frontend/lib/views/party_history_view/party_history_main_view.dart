@@ -86,9 +86,10 @@ class _PartyHistoryMainViewState extends State<PartyHistoryMainView> {
                       });
                     },
                   ),
-                  currentIndex == 0
-                      ? const InfoPartyBar()
-                      : const SizedBox(),
+                  InfoPartyBar(
+                    height: currentIndex == 0 ? 48 : 80,
+                    isComputer: currentIndex == 0,
+                  ),
                   const SizedBox(
                     height: 24,
                   ),

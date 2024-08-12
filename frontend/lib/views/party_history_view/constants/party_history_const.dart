@@ -7,6 +7,8 @@ class PartyHistoryConst {
 
   static List<String> gameResults = ["Победа", "Поражение", "Ничья"];
 
+  static List<String> friendGameResults = ["Победа белых", "Победа чёрных", "Ничья"];
+
   static List<String> gameEnemies = ["Компьютер", "Друг"];
 
   static String dbCreateScript = """CREATE TABLE History (
