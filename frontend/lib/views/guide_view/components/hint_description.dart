@@ -30,13 +30,14 @@ class HintDescription extends StatelessWidget {
         Text(
           text,
           textAlign: TextAlign.center,
+          softWrap: false,
           style: TextStyle(
             color: scheme.primary,
             fontSize: 16,
             fontFamily: "Roboto",
             fontWeight: FontWeight.w500,
           ),
-        )
+        ),
       ],
     );
   }
