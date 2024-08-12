@@ -10,7 +10,7 @@ class ChessEngine:
         self.board = chess.Board()
         self.moves: list[Move] = []
 
-    def make_move(self, move: Move):
+    def is_legal_move(self, move: Move):
         piece = (
             move.piece[0].upper()
             if move.color[0].lower() == "w"
@@ -34,6 +34,12 @@ class ChessEngine:
             and piece == current_piece
             and self.board.fen().split(" ")[1] == move.color[0].lower()
         ):
+            return False, chess_move
+        return True, chess_move
+
+    def make_move(self, move: Move):
+        is_valid_move, chess_move = self.is_legal_move(move)
+        if not is_valid_move:
             return False, self.board.board_fen(), "Illegal move"
         self.board.push(chess_move)
         self.moves.append(move)
