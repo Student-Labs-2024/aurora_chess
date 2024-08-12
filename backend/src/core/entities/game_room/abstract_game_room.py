@@ -7,7 +7,7 @@ class AbstractGameRoom(ABC):
         self.__game_type = game_type
 
     @abstractmethod
-    def make_move(self, move) -> None:
+    def make_move(self, move):
         pass
 
     @abstractmethod
@@ -33,3 +33,14 @@ class AbstractGameRoom(ABC):
     @abstractmethod
     def get_board(self):
         pass
+
+    @abstractmethod
+    def is_legal_move(self, move):
+        raise NotImplemented
+
+    def get_game_type(self):
+        return self.__game_type
+
+    @abstractmethod
+    def is_active(self):
+        raise NotImplemented
