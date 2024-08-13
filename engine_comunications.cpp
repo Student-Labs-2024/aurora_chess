@@ -11,11 +11,14 @@ using namespace std;
 
 
 // Getting bash script to get best move for executing
-char* get_best_move_cmd(char* moves_history, char* depth, char* path_to_engine){ 
-  char c1[] = "echo \"position startpos moves ";
+char* get_best_move_cmd(char* moves_history, char* depth, char* skill, char* path_to_engine){ 
+  char c0[] = "echo \"setoption name Skill Level value ";
+  char c1[] = " \n position startpos moves ";
   char c2[] = " \n go depth ";
   char c3[] = " \" | ";
-	char *s = new char[strlen(c1) + strlen(moves_history) + strlen(c2) + + strlen(depth) + strlen(c3) + strlen(path_to_engine) + 1];
+	char *s = new char[strlen(c0) + strlen(skill) + strlen(c1) + strlen(moves_history) + strlen(c2) + + strlen(depth) + strlen(c3) + strlen(path_to_engine) + 1];
+  strcat(s,c0);
+  strcat(s,skill);
   strcat(s,c1);
   strcat(s,moves_history);
   strcat(s,c2);
@@ -42,9 +45,9 @@ char* get_engine_respones_on_cmd(char* cmd, function<char*(char*, char*)> string
 
 
 // Getting best move
-char* get_best_move(char* moves_history, char* depth, char* path_to_engine){
+char* get_best_move(char* moves_history, char* depth, char* skill, char* path_to_engine){
   char* s2;
-  char* s = get_best_move_cmd(moves_history, depth, path_to_engine);
+  char* s = get_best_move_cmd(moves_history, depth, skill, path_to_engine);
   s2 = get_engine_respones_on_cmd(s, &strcpy);
   return s2;
 }
@@ -52,13 +55,12 @@ char* get_best_move(char* moves_history, char* depth, char* path_to_engine){
 
 // Example of usage
 int main(int argc, char* argv[]){
-
-  char moves[] = "e2e4 a7a6 a2a3";
-  char depth[] = "3";
   char path_to_engine[] = "./engines/stockfish-ubuntu-x86-64-avx2";
 
-  char* s2 = get_best_move(moves, depth, path_to_engine);
-  
+  char skill[] = "10";
+  char moves[] = "e2e4 a7a6 a2a3";
+  char depth[] = "3";
+  char* s2 = get_best_move(moves, depth, skill, path_to_engine);
   fputs(s2, stderr); // bestmove a6a5
   return 0;
 }
