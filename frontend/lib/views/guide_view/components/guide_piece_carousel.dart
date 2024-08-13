@@ -46,7 +46,7 @@ class GuidePieceCarousel extends StatelessWidget {
           height: 32,
         ),
         SizedBox(
-          height: height - 260,
+          height: height * 0.65,
           child: PageView.builder(
             scrollDirection: Axis.horizontal,
             physics: const PageScrollPhysics(),
