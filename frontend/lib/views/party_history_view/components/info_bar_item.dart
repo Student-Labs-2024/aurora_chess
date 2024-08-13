@@ -16,15 +16,15 @@ class InfoBarItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
     List<Color> computerColors = [
-      scheme.errorContainer,
+      scheme.onSecondaryContainer,
       scheme.primary,
       ColorsConst.secondaryColor100
     ];
 
     List<Color> friendColors = [
       scheme.primaryContainer,
-      scheme.error,
-      scheme.onError
+      scheme.onSecondary,
+      scheme.onSurface
     ];
 
     return Row(
@@ -46,10 +46,10 @@ class InfoBarItem extends StatelessWidget {
               : PartyHistoryConst.friendGameResults[index],
           style: TextStyle(
             color: scheme.primary,
-            fontSize: 16,
+            fontSize: 14,
             fontFamily: 'Roboto',
             fontWeight: FontWeight.w500,
-            height: 0.08,
+            height: 0.09,
           ),
         ),
       ],

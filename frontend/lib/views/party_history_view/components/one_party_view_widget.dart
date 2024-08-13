@@ -16,15 +16,15 @@ class OnePartyViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
     Map<String, Color> computerListOfColorsIcons = {
-      "Победа": scheme.errorContainer,
+      "Победа": scheme.onSecondaryContainer,
       "Поражение": scheme.primary,
       "Ничья": ColorsConst.secondaryColor100
     };
 
     Map<String, Color> friendListOfColorsIcons = {
-      "Победа белых": scheme.errorContainer,
-      "Победа чёрных": scheme.primary,
-      "Ничья": ColorsConst.secondaryColor100
+      "Победа белых": scheme.primaryContainer,
+      "Победа чёрных": scheme.onSecondary,
+      "Ничья": scheme.onSurface
     };
 
     return Container(
