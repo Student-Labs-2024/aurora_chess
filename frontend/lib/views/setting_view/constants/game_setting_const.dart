@@ -6,7 +6,7 @@ class GameSettingConsts {
   static String colorPiecesText = "Цвет фигур";
   static String timeText = "Время";
   static String levelDifficultyText = "Уровень сложности";
-  static String choseDiffModalHeader = "Уровень сложности бота";
+  static String choseDiffModalHeader = "Уровень\nсложности бота";
   static String personalLevelDifficultyText = "Сложность бота";
   static String additionalSettingsText = "Дополнительно";
   static String startGameText = "Начать партию";
