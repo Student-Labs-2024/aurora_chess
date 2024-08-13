@@ -109,7 +109,7 @@ class _GameViewState extends State<GameView> {
                                   ),
                                   Expanded(child: Container()),
                                   gameModel.timeLimit == 0
-                                    ? const SizedBox(height: 60,)
+                                    ? const SizedBox(height: 48,)
                                     : TimerWidget(
                                       timeLeft: gameModel.player2TimeLeft,
                                       isFilled: gameModel.turn == Player.player2,
@@ -132,7 +132,7 @@ class _GameViewState extends State<GameView> {
                                   ),
                                   Expanded(child: Container()),
                                   gameModel.timeLimit == 0
-                                    ? const SizedBox(height: 60,)
+                                    ? const SizedBox(height: 48,)
                                     : TimerWidget(
                                       timeLeft: gameModel.player1TimeLeft,
                                       isFilled: gameModel.turn == Player.player1,
