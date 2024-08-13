@@ -23,6 +23,7 @@ class GameSettingConsts {
   static String mediumDescription = "Только возврат хода";
   static String hardDescription = "Никакой помощи";
   static String personalityDescription = "Настрой под себя";
+  static String longDashSymbol = "—";
   static int countOfDifficultyLevels = 3;
 
   static List<int> listOfDurations = [
@@ -43,8 +44,8 @@ class GameSettingConsts {
     120
   ];
 
-  static List<int> listOfAdditions = [
-    0,
+  static List<dynamic> listOfAdditions = [
+    longDashSymbol,
     1,
     2,
     3,

@@ -14,7 +14,7 @@ class ChoseTimeCarousel extends StatefulWidget {
     this.onChanged,
   });
 
-  final List<int> values;
+  final List<dynamic> values;
   final String type;
   final String header;
   final int startValue;
@@ -62,7 +62,9 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
                   onTap: () {
                     if (scrollController.selectedItem > 0) {
                       var currentIndex = scrollController.selectedItem - 1;
-                      gameModel.setTimeLimit(widget.values[currentIndex]);
+                      gameModel.setTimeLimit(widget.values[currentIndex]
+                          == GameSettingConsts.longDashSymbol ? 0
+                          : widget.values[currentIndex]);
                       scrollController.jumpToItem(currentIndex);
                     }
                     // var currentIndex = scrollController.selectedItem > 0
