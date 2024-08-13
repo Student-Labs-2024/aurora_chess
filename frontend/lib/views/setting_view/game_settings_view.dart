@@ -86,7 +86,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
   void setSeconds(chose) {
     setState(() {
       isSettingsEdited = true;
-      addingOfMove = chose;
+      addingOfMove = chose == GameSettingConsts.longDashSymbol ? 0 : chose;
     });
   }
 
@@ -95,6 +95,16 @@ class _GameSettingsViewState extends State<GameSettingsView>
       isSettingsEdited = true;
       isPersonality = chose;
     });
+  }
+
+  void setAdditionSettings(int index) {
+    if (index < 3) {
+      setState(() {
+        setIsMoveBack(index < 2);
+        setIsThreats(index == 0);
+        setIsHints(index == 0);
+      });
+    }
   }
 
   void setIsMoveBack(bool chose) {
@@ -329,7 +339,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                             );
                                             setIsPersonality(index == 3);
                                             setGameMode(index);
-
+                                            setAdditionSettings(index);
                                           },
                                         );
                                       })),
