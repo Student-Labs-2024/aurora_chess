@@ -15,10 +15,16 @@ class InfoBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
-    List<Color> listOfColorsIcons = [
+    List<Color> computerColors = [
       scheme.errorContainer,
       scheme.primary,
       ColorsConst.secondaryColor100
+    ];
+
+    List<Color> friendColors = [
+      scheme.primaryContainer,
+      scheme.error,
+      scheme.onError
     ];
 
     return Row(
@@ -27,7 +33,9 @@ class InfoBarItem extends StatelessWidget {
           PartyHistoryConst.infoPartyIconName,
           height: 24,
           width: 24,
-          colorFilter: ColorFilter.mode(listOfColorsIcons[index],
+          colorFilter: ColorFilter.mode(isComputer
+              ? computerColors[index]
+              : friendColors[index],
               BlendMode.srcIn),
         ),
         const SizedBox(

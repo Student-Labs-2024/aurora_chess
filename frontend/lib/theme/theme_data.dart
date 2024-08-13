@@ -30,6 +30,8 @@ ThemeData lightMode = ThemeData(
     onSurfaceVariant: ColorsConst.primaryColor0,
     scrim: ColorsConst.secondaryColor200,
     errorContainer: ColorsConst.primaryColor100,
+    error: ColorsConst.neutralColor200,
+    onError: ColorsConst.secondaryColor100,
   ),
 );
 
@@ -62,5 +64,7 @@ ThemeData darkMode = ThemeData(
     onSurfaceVariant: ColorsConst.secondaryColor300,
     scrim: ColorsConst.secondaryColor300,
     errorContainer: ColorsConst.primaryColor200,
+    error: ColorsConst.secondaryColor100,
+    onError: ColorsConst.primaryColor200,
   ),
 );
