@@ -26,12 +26,12 @@ class _PartyHistoryMainViewState extends State<PartyHistoryMainView> {
     List<Map> list =
         await database.rawQuery(PartyHistoryConst.dbGetHistoryScript);
 
-    for (var party in list) {
-      if (party["enemy"] == "Компьютер") {
-        computerParties.add(party);
+    for (var i = list.length - 1; i >= 0; i--) {
+      if (list[i]["enemy"] == "Компьютер") {
+        computerParties.add(list[i]);
       }
       else {
-        friendParties.add(party);
+        friendParties.add(list[i]);
       }
     }
 
