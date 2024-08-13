@@ -301,7 +301,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     type: "seconds",
                                     header: GameSettingConsts
                                         .secondsSubtitle,
-                                    startValue: addingOfMove,
+                                    startValue: addingOfMove == 0
+                                        ? GameSettingConsts.longDashSymbol
+                                        : addingOfMove,
                                     onChanged: setSeconds,
                                   ),
                                 ],
