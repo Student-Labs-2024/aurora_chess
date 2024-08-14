@@ -11,7 +11,7 @@ class GameInfoAndControls extends StatelessWidget {
     var scheme = Theme.of(context).colorScheme;
     return Container(
       decoration: ShapeDecoration(
-        color: scheme.surfaceTint,
+        color: scheme.onInverseSurface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),

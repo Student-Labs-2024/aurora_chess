@@ -15,10 +15,16 @@ class OnePartyViewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
-    Map<String, Color> listOfColorsIcons = {
-      "Победа": scheme.errorContainer,
+    Map<String, Color> computerListOfColorsIcons = {
+      "Победа": scheme.onSecondaryContainer,
       "Поражение": scheme.primary,
       "Ничья": ColorsConst.secondaryColor100
+    };
+
+    Map<String, Color> friendListOfColorsIcons = {
+      "Победа белых": scheme.primaryContainer,
+      "Победа чёрных": scheme.onSecondary,
+      "Ничья": scheme.onSurface
     };
 
     return Container(
@@ -33,8 +39,8 @@ class OnePartyViewWidget extends StatelessWidget {
             height: 35,
             width: 35,
             colorFilter: ColorFilter.mode(isComputer
-                ? listOfColorsIcons[partyData["result"]]!
-                : scheme.primary,
+                ? computerListOfColorsIcons[partyData["result"]]!
+                : friendListOfColorsIcons[partyData["result"]]!,
                 BlendMode.srcIn),
           ),
           const SizedBox(

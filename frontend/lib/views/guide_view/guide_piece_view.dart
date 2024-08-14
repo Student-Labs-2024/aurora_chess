@@ -37,7 +37,7 @@ class GuideView extends StatefulWidget {
 
 class _GuideViewState extends State<GuideView> {
   int index = 0;
-  PageController carouselController = PageController(viewportFraction: 0.85,);
+  PageController carouselController = PageController(viewportFraction: 0.815,);
 
   @override
   void initState() {

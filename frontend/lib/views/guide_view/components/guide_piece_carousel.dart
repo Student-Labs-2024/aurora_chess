@@ -27,6 +27,7 @@ class GuidePieceCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     var scheme = Theme.of(context).colorScheme;
     String name = pieces[pieceIndex];
     return Column(
@@ -45,7 +46,7 @@ class GuidePieceCarousel extends StatelessWidget {
           height: 32,
         ),
         SizedBox(
-          height: height - 260,
+          height: height * 0.65,
           child: PageView.builder(
             scrollDirection: Axis.horizontal,
             physics: const PageScrollPhysics(),
@@ -56,7 +57,7 @@ class GuidePieceCarousel extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                     "assets/images/guide_boards/${imgOfHints[name]![index]}",
-                    height: 280,
+                    height: width * 0.74,
                   ),
                   HintDescription(
                     text: hintsOfPieces[name]![index],

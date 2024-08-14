@@ -10,8 +10,8 @@ class TimerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
-      width: 80,
+      height: 48,
+      width: timeLeft.inHours > 0 ? 100 : 80,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
         color: isFilled ? Theme.of(context).colorScheme.secondary : Colors.transparent,

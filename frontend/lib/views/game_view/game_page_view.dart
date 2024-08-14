@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_svg/flutter_svg.dart";
 import "package:go_router/go_router.dart";
 import "package:provider/provider.dart";
 import "package:sqflite/sqflite.dart";
@@ -33,7 +34,12 @@ class _GameViewState extends State<GameView> {
     Map data = await _getSettings();
     widget.gameModel.setPlayerCount(data["withComputer"] + 1);
     widget.gameModel.setPlayerSide(Player.values[data["colorPieces"]]);
-    widget.gameModel.setTimeLimit(data["durationGame"]);
+    if (data["withoutTime"] == 0) {
+      widget.gameModel.setTimeLimit(0);
+    }
+    else {
+      widget.gameModel.setTimeLimit(data["durationGame"]);
+    }
     widget.gameModel.setAIDifficulty(GameSettingConsts
         .difficultyLevels[LevelOfDifficulty.values[data["levelOfDifficulty"]]]);
     await widget.gameModel.setAllowUndoRedo(data["isMoveBack"] == 0);
@@ -55,12 +61,12 @@ class _GameViewState extends State<GameView> {
         ? const LoadingWidget()
         : SafeArea(
             child: Scaffold(
-              backgroundColor: scheme.background,
+              backgroundColor: scheme.surfaceDim,
               body: Consumer<GameModel>(
                 builder: (context, gameModel, child) {
                   return PopScope(
                     canPop: true,
-                    onPopInvoked: _willPopCallback,
+                    onPopInvokedWithResult: _willPopCallback,
                     child: Stack(
                       children: [
                         Column(
@@ -69,18 +75,17 @@ class _GameViewState extends State<GameView> {
                             MoveList(gameModel),
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 25,
-                                vertical: 30,
+                                horizontal: 24,
                               ),
                               child: SizedBox(
-                                height: 30,
+                                height: 40,
                                 child: Stack(
                                   children: [
                                     CustomIconButton(
                                       iconName:
                                           "assets/images/icons/left_big_arrow_icon.svg",
-                                      color: scheme.secondary,
-                                      iconSize: 32,
+                                      color: scheme.outlineVariant,
+                                      iconSize: 40,
                                       onTap: () {
                                         context
                                             .go(RouteLocations.settingsScreen);
@@ -91,7 +96,7 @@ class _GameViewState extends State<GameView> {
                                 ),
                               ),
                             ),
-                            const Spacer(),
+                            const SizedBox(height: 16,),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 30),
@@ -103,16 +108,34 @@ class _GameViewState extends State<GameView> {
                                     gameModel: gameModel,
                                   ),
                                   Expanded(child: Container()),
-                                  TimerWidget(
-                                    timeLeft: gameModel.player2TimeLeft,
-                                    isFilled: gameModel.turn == Player.player2,
+                                  gameModel.timeLimit == 0
+                                    ? const SizedBox(height: 48,)
+                                    : TimerWidget(
+                                      timeLeft: gameModel.player2TimeLeft,
+                                      isFilled: gameModel.turn == Player.player2,
+                                    ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 17, bottom: 15),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 0.5, vertical: 0.5),
+                                    child: SvgPicture.asset(
+                                      "assets/images/board.svg",
+                                      width: MediaQuery.of(context).size.width - 1,
+                                      height: MediaQuery.of(context).size.width - 1,
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.topCenter,
+                                    child: ChessBoardWidget(gameModel)
                                   ),
                                 ],
                               ),
                             ),
-                            Padding(
-                                padding: const EdgeInsets.all(30),
-                                child: ChessBoardWidget(gameModel)),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 30),
@@ -124,14 +147,15 @@ class _GameViewState extends State<GameView> {
                                     gameModel: gameModel,
                                   ),
                                   Expanded(child: Container()),
-                                  TimerWidget(
-                                    timeLeft: gameModel.player1TimeLeft,
-                                    isFilled: gameModel.turn == Player.player1,
-                                  ),
+                                  gameModel.timeLimit == 0
+                                    ? const SizedBox(height: 48,)
+                                    : TimerWidget(
+                                      timeLeft: gameModel.player1TimeLeft,
+                                      isFilled: gameModel.turn == Player.player1,
+                                    ),
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 30),
                             const Spacer(),
                             Padding(
                               padding: const EdgeInsets.all(30),
@@ -151,7 +175,7 @@ class _GameViewState extends State<GameView> {
           );
   }
 
-  Future<void> _willPopCallback(bool didPop) async {
+  Future<void> _willPopCallback(bool didPop, result) async {
     widget.gameModel.exitChessView();
   }
 }

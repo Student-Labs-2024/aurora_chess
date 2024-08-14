@@ -25,7 +25,7 @@ class BottomBarGuide extends StatelessWidget {
         children: [
           index > 0 ?
           CustomIconButton(
-            color: scheme.surfaceVariant,
+            color: scheme.surfaceContainer,
             iconName: "assets/images/icons/left_arrow_icon.svg",
             iconSize: 40,
             onTap: onBack,
@@ -36,7 +36,7 @@ class BottomBarGuide extends StatelessWidget {
           ),
           index < hintsOfPieces.length - 1 ?
           CustomIconButton(
-            color: scheme.surfaceVariant,
+            color: scheme.surfaceContainer,
             iconName: "assets/images/icons/right_arrow_icon.svg",
             iconSize: 40,
             onTap: onForward,

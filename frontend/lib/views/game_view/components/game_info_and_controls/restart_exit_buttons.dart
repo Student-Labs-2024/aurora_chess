@@ -29,9 +29,9 @@ class RestartExitButtons extends StatelessWidget {
         }
       } else {
         if (gameModel.turn == Player.player1) {
-          return "Победили чёрные";
+          return "Победа чёрных";
         } else {
-          return "Победили белые";
+          return "Победа белых";
         }
       }
     }

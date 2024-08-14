@@ -18,8 +18,8 @@ class GameStatus extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: scheme.primary,
-              fontSize: 25,
-              fontFamily: "Roboto",
+              fontSize: 20,
+              fontFamily: 'Roboto',
               fontWeight: FontWeight.w700,
               height: 0.07,
             ),

@@ -28,10 +28,12 @@ class _DropdownWidgetState extends State<DropdownWidget> {
       popUpAnimationStyle: AnimationStyle(
         duration: const Duration(milliseconds: 10),
       ),
+      enableFeedback: false,
+      splashRadius: 16,
       itemBuilder: (context) {
         return widget.values.map((LevelOfDifficulty value) {
           return PopupMenuItem(
-            height: 20,
+            height: 30,
             padding: EdgeInsets.zero,
             value: value,
             onTap: () {
@@ -40,24 +42,21 @@ class _DropdownWidgetState extends State<DropdownWidget> {
               });
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      GameSettingConsts.personalLevelOfDifficultyText[value]!,
-                      style: TextStyle(
-                        color: scheme.primary,
-                        fontSize: 16,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
-                        height: 1,
-                      ),
+                Center(
+                  child: Text(
+                    GameSettingConsts.personalLevelOfDifficultyText[value]!,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: scheme.primary,
+                      fontSize: 16,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w500,
+                      height: 1,
                     ),
-                    const SizedBox(
-                      width: 20,
-                    )
-                  ],
+                  ),
                 ),
                 SizedBox(height: value == widget.values.first ? 10 : 0,)
               ],
@@ -95,7 +94,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
       child: Container(
         padding: const EdgeInsets.only(left: 15, right: 9),
         constraints: const BoxConstraints(
-          maxHeight: 40,
+          minHeight: 40,
           minWidth: 123,
           maxWidth: 123
         ),
@@ -121,7 +120,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
             ),
             Icon(
               isOpened ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-              color: scheme.onInverseSurface,
+              color: scheme.outline,
             ),
           ],
         ),

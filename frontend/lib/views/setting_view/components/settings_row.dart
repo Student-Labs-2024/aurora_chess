@@ -63,19 +63,21 @@ class SettingsRow extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(horizontal: 24),
                       child: AlertDialog(
                         insetPadding: EdgeInsets.zero,
+                        backgroundColor: scheme.secondaryFixed,
                         shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(16.0))
+                          borderRadius: BorderRadius.all(Radius.circular(16.0)),
                         ),
-                        titlePadding: const EdgeInsets.only(top: 32, bottom: 0, left: 15, right: 15),
-                        contentPadding: const EdgeInsets.only(top: 16, bottom: 32, left: 22, right: 22),
+                        titlePadding: const EdgeInsets.only(
+                            top: 32, bottom: 0, left: 22, right: 22),
+                        contentPadding: const EdgeInsets.only(
+                            top: 16, bottom: 32, left: 22, right: 22),
                         title: Text(
                           modalHeader,
                           textAlign: TextAlign.center,
-                          // maxLines: 2,
                           style: TextStyle(
                             fontFamily: "Roboto",
-                            fontWeight: FontWeight.w600,
-                            fontSize: 36,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 28,
                             color: scheme.primary
                           ),
                         ),

@@ -14,7 +14,7 @@ class PieceChooseWindow extends StatelessWidget {
       width: 245,
       height: 275,
       decoration: ShapeDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: scheme.surfaceDim,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),

@@ -33,8 +33,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
   bool isThreats = false;
   bool isHints = false;
   int countOfTabs = 2;
-  int durationOfGame = 30;
-  int addingOfMove = 10;
+  int durationOfGame = 15;
+  int addingOfMove = 0;
   bool isSettingsEdited = false;
   late String path;
 
@@ -86,7 +86,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
   void setSeconds(chose) {
     setState(() {
       isSettingsEdited = true;
-      addingOfMove = chose;
+      addingOfMove = chose == GameSettingConsts.longDashSymbol ? 0 : chose;
     });
   }
 
@@ -95,6 +95,16 @@ class _GameSettingsViewState extends State<GameSettingsView>
       isSettingsEdited = true;
       isPersonality = chose;
     });
+  }
+
+  void setAdditionSettings(int index) {
+    if (index < 3) {
+      setState(() {
+        setIsMoveBack(index < 2);
+        setIsThreats(index == 0);
+        setIsHints(index == 0);
+      });
+    }
   }
 
   void setIsMoveBack(bool chose) {
@@ -291,7 +301,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     type: "seconds",
                                     header: GameSettingConsts
                                         .secondsSubtitle,
-                                    startValue: addingOfMove,
+                                    startValue: addingOfMove == 0
+                                        ? GameSettingConsts.longDashSymbol
+                                        : addingOfMove,
                                     onChanged: setSeconds,
                                   ),
                                 ],
@@ -329,7 +341,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                             );
                                             setIsPersonality(index == 3);
                                             setGameMode(index);
-
+                                            setAdditionSettings(index);
                                           },
                                         );
                                       })),
@@ -412,7 +424,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      color: scheme.background,
+                      color: scheme.surfaceDim,
                       child: Padding(
                         padding: const EdgeInsets.only(
                             top: 15, bottom: 23, left: 23, right: 23),

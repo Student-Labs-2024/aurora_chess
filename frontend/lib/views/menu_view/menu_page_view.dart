@@ -23,6 +23,7 @@ class _MyMenuViewState extends State<MyMenuView> {
   Widget build(BuildContext context) {
     var provider = Provider.of<ThemeProvider>(context, listen: false);
     var scheme = Theme.of(context).colorScheme;
+    var width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         body: ConstrainedBox(
@@ -68,7 +69,8 @@ class _MyMenuViewState extends State<MyMenuView> {
                       Container(
                         alignment: Alignment.centerRight,
                         child: Image.asset(
-                          "${MenuPageStringConst.pathToIcon}pieces.png"
+                          "${MenuPageStringConst.pathToIcon}pieces.png",
+                          width: width * 0.9,
                         ),
                       ),
                       const SizedBox(
