@@ -42,3 +42,9 @@ class GameRoom(AbstractGameRoom):
 
     def is_active(self):
         return self.game_status == "active"
+
+    def get_owner(self):
+        return self.players[0]
+
+    def start_game(self):
+        self.game_status = "active"

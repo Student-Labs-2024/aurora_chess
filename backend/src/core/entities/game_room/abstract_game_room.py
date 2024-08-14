@@ -44,3 +44,11 @@ class AbstractGameRoom(ABC):
     @abstractmethod
     def is_active(self):
         raise NotImplemented
+
+    @abstractmethod
+    def get_owner(self):
+        raise NotImplemented
+
+    @abstractmethod
+    def start_game(self):
+        raise NotImplemented
