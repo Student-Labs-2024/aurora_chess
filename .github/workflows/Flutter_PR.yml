@@ -46,9 +46,4 @@ jobs:
             cd frontend
             flutter test test/widget_test.dart
 
-      - name: Добавление поддержки Авроры
-        run: flutter-aurora create --platforms=aurora --org=com.frontend .
-      - name: Сборка приложения
-        run: flutter-aurora build aurora --release
-      - name: Подписание приложения
         run: aurora_psdk rpmsign-external sign --key {{ secrets.REGULAR_KEY }} --cert {{ secrets.REGULAR_CERT }}
