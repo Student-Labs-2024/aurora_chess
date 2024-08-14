@@ -1,6 +1,7 @@
 import '../exports.dart';
 
 class LogicConsts {
+  static const secondsToHint = 50; //25-60 seconds is best choice
   static const int priceOfPawn = 100;
   static const int priceOfKnight = 320;
   static const int priceOfBishop = 330;
