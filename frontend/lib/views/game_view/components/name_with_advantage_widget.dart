@@ -29,7 +29,7 @@ class NameWithAdvantageForPlayer extends StatelessWidget {
               fontSize: 20,
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w500,
-              height: 1,
+              height: 1.2,
             ),
           ),
           gameModel.player1Advantage > gameModel.player2Advantage
@@ -63,7 +63,7 @@ class NameWithAdvantageForPlayer extends StatelessWidget {
               fontSize: 20,
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w500,
-              height: 1,
+              height: 1.2,
             ),
           ),
           gameModel.player1Advantage < gameModel.player2Advantage
