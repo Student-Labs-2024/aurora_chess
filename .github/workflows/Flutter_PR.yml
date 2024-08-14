@@ -45,5 +45,3 @@ jobs:
         run: | 
             cd frontend
             flutter test test/widget_test.dart
-
-        run: aurora_psdk rpmsign-external sign --key {{ secrets.REGULAR_KEY }} --cert {{ secrets.REGULAR_CERT }}
