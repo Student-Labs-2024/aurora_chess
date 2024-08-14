@@ -9,6 +9,7 @@ class MoveList extends StatelessWidget {
 
   final int len = 8;
   final int baseChar = 97;
+  final String pieceName = "assets/images/pieces/";
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +18,63 @@ class MoveList extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
     return Container(
       height: 40,
+      margin: const EdgeInsets.only(top: 7, bottom: 16),
       decoration: BoxDecoration(
-        color: scheme.surfaceTint,
+        color: scheme.onInverseSurface,
       ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         controller: scrollController,
-        padding: const EdgeInsets.only(left: 15, right: 15),
-        child: Center(child: TextRegular(_allMoves())),
+        padding: const EdgeInsets.only(right: 24),
+        child: Row(
+          children: List.generate(gameModel.moveMetaList.length, (index) {
+            final MoveMeta move = gameModel.moveMetaList[index];
+            return Row(
+              children: [
+                index % 2 == 0 ?
+                Row(
+                  children: [
+                    const SizedBox(width: 24,),
+                    Text(
+                      "${((index + 1) / 2).ceil().toString()}.",
+                      style: TextStyle(
+                        color: scheme.error,
+                        fontSize: 20,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w500,
+                        height: 1,
+                      ),
+                    ),
+                  ],
+                ) : const SizedBox(width: 4,),
+                const SizedBox(width: 4,),
+                move.type != ChessPieceType.promotion ?
+                  Row(
+                    children: [
+                      Image.asset(
+                        "$pieceName${move.type!.name}_"
+                            "${PiecesColor.values[move.player!.index].name}.png",
+                        width: 22,
+                      ),
+                      const SizedBox(width: 4,)
+                    ],
+                  ) : const SizedBox(),
+                Text(
+                  _moveToString(move),
+                  style: TextStyle(
+                    color: move.player!.index == 0
+                        ? ColorsConst.primaryColor0
+                        : ColorsConst.neutralColor300,
+                    fontSize: 20,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500,
+                    height: 1,
+                  ),
+                )
+              ],
+            );
+          }),
+        )
       ),
     );
   }
@@ -34,31 +84,6 @@ class MoveList extends StatelessWidget {
       scrollController.jumpTo(scrollController.position.maxScrollExtent);
       gameModel.moveListUpdated = false;
     }
-  }
-
-  String _allMoves() {
-    var moveString = "";
-    gameModel.moveMetaList.asMap().forEach((index, move) {
-      var turnNumber = ((index + 1) / 2).ceil();
-      if (index % 2 == 0) {
-        moveString += index == 0 ? "$turnNumber. " : "   $turnNumber. ";
-      }
-      moveString += _moveToString(move);
-      if (index % 2 == 0) {
-        moveString += " ";
-      }
-    });
-    if (gameModel.gameOver) {
-      if (gameModel.turn == Player.player1) {
-        moveString += " ";
-      }
-      if (gameModel.stalemate) {
-        moveString += "  ½-½";
-      } else {
-        moveString += gameModel.turn == Player.player2 ? "  1-0" : "  0-1";
-      }
-    }
-    return moveString;
   }
 
   String _moveToString(MoveMeta meta) {
@@ -79,9 +104,7 @@ class MoveList extends StatelessWidget {
           : "";
       String row = "${len - tileToRow(meta.move?.to ?? 0)}";
       String col = _colToChar(tileToCol(meta.move?.to ?? 0));
-      move =
-          "${_pieceToChar(meta.type ?? ChessPieceType.promotion)}"
-              "$ambiguity$takeString$col$row$promotion";
+      move = "$ambiguity$takeString$col$row$promotion";
     }
     String check = meta.isCheck ? "+" : "";
     String checkmate = meta.isCheckmate && !meta.isStalemate ? "#" : "";
