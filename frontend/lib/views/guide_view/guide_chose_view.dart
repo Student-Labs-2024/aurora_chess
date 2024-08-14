@@ -68,8 +68,8 @@ class GuideChoseView extends StatelessWidget {
                 label: GuideStrings.partyHistoryPage,
                 isPiece: false,
                 buttonColor: scheme.onTertiaryContainer,
-                iconArrowColor: scheme.background,
-                textColor: scheme.background,
+                iconArrowColor: scheme.surfaceDim,
+                textColor: scheme.surfaceDim,
                 onTap: () {
                   context.push(RouteLocations.partyHistoryScreen);
                 },

@@ -120,7 +120,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
             ),
             Icon(
               isOpened ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-              color: scheme.onInverseSurface,
+              color: scheme.outline,
             ),
           ],
         ),

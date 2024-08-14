@@ -424,7 +424,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      color: scheme.background,
+                      color: scheme.surfaceDim,
                       child: Padding(
                         padding: const EdgeInsets.only(
                             top: 15, bottom: 23, left: 23, right: 23),

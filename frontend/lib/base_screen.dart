@@ -12,7 +12,7 @@ class BaseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: scheme.background,
+      backgroundColor: scheme.surfaceDim,
       body: child,
     );
   }
