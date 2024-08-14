@@ -10,25 +10,13 @@ class ChessBoardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.white,
-          width: 4,
-        ),
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 10,
-            color: Color(0x88000000),
-          ),
-        ],
-      ),
+      margin: const EdgeInsets.only(left: 14, right: 14),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
         child: SizedBox(
-          width: MediaQuery.of(context).size.width - 68,
-          height: MediaQuery.of(context).size.width - 68,
-          child: GameWidget(game: gameModel.game!),
+          width: MediaQuery.of(context).size.width - LogicConsts.boardMargin,
+          height: MediaQuery.of(context).size.width - LogicConsts.boardMargin,
+          child: GameWidget(game: gameModel.game!, ),
         ),
       ),
     );
