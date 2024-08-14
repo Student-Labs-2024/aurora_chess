@@ -29,8 +29,8 @@ jobs:
           cd frontend
           flutter pub get
           
-      - name: Run linter tool
-        run: npm run lint
+      - name: Анализ кода
+        run: flutter analyze
       - name: Запуск тестов
         run: flutter test
 
