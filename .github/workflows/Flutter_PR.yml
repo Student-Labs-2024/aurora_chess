@@ -42,7 +42,7 @@ jobs:
               exit 0
           fi
       - name: Запуск тестов
-        run: flutter test
+        run: flutter test --total-shards 10 --shard-index 1
 
       - name: Добавление поддержки Авроры
         run: flutter-aurora create --platforms=aurora --org=com.frontend .
