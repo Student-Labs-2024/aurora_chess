@@ -42,7 +42,9 @@ jobs:
               exit 0
           fi
       - name: Запуск тестов
-        run: flutter test test/widget_test.dart
+        run: | 
+            cd frontend
+            flutter test test/widget_test.dart
 
       - name: Добавление поддержки Авроры
         run: flutter-aurora create --platforms=aurora --org=com.frontend .
