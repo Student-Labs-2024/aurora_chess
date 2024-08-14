@@ -28,6 +28,8 @@ class _DropdownWidgetState extends State<DropdownWidget> {
       popUpAnimationStyle: AnimationStyle(
         duration: const Duration(milliseconds: 10),
       ),
+      enableFeedback: false,
+      splashRadius: 16,
       itemBuilder: (context) {
         return widget.values.map((LevelOfDifficulty value) {
           return PopupMenuItem(
