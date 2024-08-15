@@ -40,7 +40,7 @@ class RestartExitButtons extends StatelessWidget {
   List<String> _getPartyData() {
     String enemy = PartyHistoryConst.gameEnemies[gameModel.playerCount - 1];
     String formattedDate = DateFormat("dd.MM.yyyy").format(DateTime.now());
-    String formattedTime = DateFormat("kk:mm").format(DateTime.now());
+    String formattedTime = DateFormat.Hm().format(DateTime.now());
     int firstTimeLeft = Duration(minutes: gameModel.timeLimit).inSeconds
         - gameModel.player1TimeLeft.inSeconds;
     int secondTimeLeft = Duration(minutes: gameModel.timeLimit).inSeconds
@@ -66,7 +66,7 @@ class RestartExitButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Row(
       children: [
         Expanded(
