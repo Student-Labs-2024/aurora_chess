@@ -26,6 +26,7 @@ class _MyMenuViewState extends State<MyMenuView> {
     var width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         body: ConstrainedBox(
           constraints: BoxConstraints(
               minWidth: MediaQuery.of(context).size.width,

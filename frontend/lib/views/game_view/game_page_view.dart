@@ -61,7 +61,7 @@ class _GameViewState extends State<GameView> {
         ? const LoadingWidget()
         : SafeArea(
             child: Scaffold(
-              backgroundColor: scheme.surfaceDim,
+              backgroundColor: Colors.transparent,
               body: Consumer<GameModel>(
                 builder: (context, gameModel, child) {
                   return PopScope(

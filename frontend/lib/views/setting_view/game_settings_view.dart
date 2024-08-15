@@ -220,6 +220,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
           return DefaultTabController(
             length: countOfTabs,
             child: Scaffold(
+              backgroundColor: Colors.transparent,
               body: Stack(
                 children: [
                   SingleChildScrollView(

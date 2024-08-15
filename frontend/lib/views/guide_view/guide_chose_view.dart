@@ -18,12 +18,14 @@ class GuideChoseView extends StatelessWidget {
   static GuideChoseView builder(BuildContext context, GoRouterState state) =>
       const GuideChoseView();
   const GuideChoseView({super.key});
+
   @override
   Widget build(BuildContext context) {
     var scheme = Theme.of(context).colorScheme;
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+    return Scaffold(
+      backgroundColor: scheme.surfaceDim,
+      body: SafeArea(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
@@ -43,18 +45,16 @@ class GuideChoseView extends StatelessWidget {
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
-                      return SingleChildScrollView(
-                        child: GuideChosePieceButton(
-                          iconName: index < 6 ? "assets/images/pieces/${piecesIcons[index]}" : null,
-                          label: pieces[index],
-                          isPiece: index < 6,
-                          buttonColor: scheme.secondary,
-                          iconArrowColor: scheme.onPrimaryContainer,
-                          textColor: scheme.primary,
-                          onTap: () {
-                            context.push(RouteLocations.guideScreen, extra: index);
-                          },
-                        ),
+                      return GuideChosePieceButton(
+                        iconName: index < 6 ? "assets/images/pieces/${piecesIcons[index]}" : null,
+                        label: pieces[index],
+                        isPiece: index < 6,
+                        buttonColor: scheme.secondary,
+                        iconArrowColor: scheme.onPrimaryContainer,
+                        textColor: scheme.primary,
+                        onTap: () {
+                          context.push(RouteLocations.guideScreen, extra: index);
+                        },
                       );
                     },
                   ),

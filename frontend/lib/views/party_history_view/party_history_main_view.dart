@@ -54,65 +54,66 @@ class _PartyHistoryMainViewState extends State<PartyHistoryMainView> {
     var scheme = Theme.of(context).colorScheme;
     return isLoading
       ? const LoadingWidget()
-      : SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            AppBarGuide(
-              isMainGuide: false,
-              iconName: PartyHistoryConst.appbarIconName,
-              iconColor: scheme.onTertiary,
-              bottomMargin: 32,
-              header: PartyHistoryConst.partyHistoryHeader,
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                children: [
-                  CustomTabBar(
-                    initialIndex: currentIndex,
-                    header: "",
-                    subTitles: [
-                      GameSettingConsts.gameWithComputerText,
-                      GameSettingConsts.gameWithHumanText,
-                    ],
-                    isSettingsPage: false,
-                    onTap: (chose) {
-                      setState(() {
-                        currentIndex = chose;
-                        currentLength = chose == 0
-                            ? computerParties.length
-                            : friendParties.length;
-                      });
-                    },
-                  ),
-                  InfoPartyBar(
-                    height: currentIndex == 0 ? 48 : 80,
-                    isComputer: currentIndex == 0,
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                ],
+      : Scaffold(
+        backgroundColor: scheme.surfaceDim,
+        body: SafeArea(
+          child: Column(
+            children: [
+              AppBarGuide(
+                isMainGuide: false,
+                iconName: PartyHistoryConst.appbarIconName,
+                iconColor: scheme.onTertiary,
+                bottomMargin: 32,
+                header: PartyHistoryConst.partyHistoryHeader,
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: currentLength,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return  OnePartyViewWidget(
-                    isComputer: currentIndex == 0,
-                    partyData: currentIndex == 0
-                        ? computerParties[index]
-                        : friendParties[index],
-                  );
-                }
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  children: [
+                    CustomTabBar(
+                      initialIndex: currentIndex,
+                      header: "",
+                      subTitles: [
+                        GameSettingConsts.gameWithComputerText,
+                        GameSettingConsts.gameWithHumanText,
+                      ],
+                      isSettingsPage: false,
+                      onTap: (chose) {
+                        setState(() {
+                          currentIndex = chose;
+                          currentLength = chose == 0
+                              ? computerParties.length
+                              : friendParties.length;
+                        });
+                      },
+                    ),
+                    InfoPartyBar(
+                      height: currentIndex == 0 ? 48 : 80,
+                      isComputer: currentIndex == 0,
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              Expanded(
+                child: ListView.builder(
+                  itemCount: currentLength,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    return  OnePartyViewWidget(
+                      isComputer: currentIndex == 0,
+                      partyData: currentIndex == 0
+                          ? computerParties[index]
+                          : friendParties[index],
+                    );
+                  }
+                ),
+              ),
+            ],
+          ),
         ),
-      )
-    );
+      );
   }
 }
