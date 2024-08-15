@@ -19,7 +19,7 @@ class GameRoom(AbstractGameRoom):
         pass
 
     def get_board(self):
-        pass
+        return self.__engine.board.board_fen()
 
     def add_player(self, player):
         self.players.append(player)

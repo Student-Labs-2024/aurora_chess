@@ -16,6 +16,6 @@ async def websocket_endpoint(websocket: WebSocket):
         message_json: json = await websocket.receive_json()
         message = json.loads(message_json)
         json_type = message["jsonType"]
-        message_dispatcher.get_handler(json_type).handle(message, player_session)
+        await message_dispatcher.get_handler(json_type).handle(message, player_session)
     except WebSocketDisconnect:
         pass

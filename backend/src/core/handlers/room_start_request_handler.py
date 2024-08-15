@@ -8,6 +8,7 @@ from core.schemas.player_move_response import PlayerMoveResponse, PlayerMoveResp
 from core.schemas.room_start_request import RoomStartRequest
 from core.schemas.room_start_response import RoomStartResponseData, RoomStartResponse
 from core.services.room_service import RoomService
+from utils.chess_board import fen_to_list_board
 
 
 class RoomStartRequestHandler(MessageHandler):
@@ -25,7 +26,7 @@ class RoomStartRequestHandler(MessageHandler):
             and owner.get_session() == session
         )
 
-    def handle(self, *args) -> json:
+    async def handle(self, *args) -> json:
         message = RoomStartRequest.model_validate(args[0])
         player_session: AbstractPlayerSession = args[1]
 
@@ -51,11 +52,8 @@ class RoomStartRequestHandler(MessageHandler):
             response_message = RoomStartResponse(
                 jsonType="roomStartResponse", data=response_data
             )
-            loop = asyncio.get_event_loop()
-            loop.create_task(
-                player_session.send_message(
-                    json.dumps(response_message.model_dump(by_alias=True))
-                )
+            await player_session.send_message(
+                json.dumps(response_message.model_dump(by_alias=True))
             )
             return
 
@@ -65,7 +63,7 @@ class RoomStartRequestHandler(MessageHandler):
             confirmationStatus="confirmed",
             gameType=game_type,
             roomName=room_name,
-            board=room.get_board(),
+            board=fen_to_list_board(room.get_board()),
             players=[
                 {"playerName": player.get_name(), "playerSide": player.get_side()}
                 for player in room.get_players()
@@ -81,16 +79,10 @@ class RoomStartRequestHandler(MessageHandler):
             if player.get_session() != player_session
         ][0]
 
-        loop = asyncio.get_event_loop()
-        loop.create_task(
-            player_session.send_message(
-                json.dumps(response_message.model_dump(by_alias=True))
-            )
+        await player_session.send_message(
+            json.dumps(response_message.model_dump(by_alias=True))
         )
 
-        loop = asyncio.get_event_loop()
-        loop.create_task(
-            other_player_session.send_message(
-                json.dumps(response_message.model_dump(by_alias=True))
-            )
+        await other_player_session.send_message(
+            json.dumps(response_message.model_dump(by_alias=True))
         )

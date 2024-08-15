@@ -32,7 +32,7 @@ class TestRoomInitRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, connection)
+        await handler.handle(message, connection)
         await asyncio.sleep(0.1)
 
         response_message = {
@@ -47,9 +47,7 @@ class TestRoomInitRequestHandler(unittest.IsolatedAsyncioTestCase):
         }
         player_factory.create_player.assert_not_called()
         room_service.create_room.assert_called_once()
-        connection.send_message.assert_awaited_once_with(
-            json.dumps(response_message)
-        )
+        connection.send_message.assert_awaited_once_with(json.dumps(response_message))
 
     async def test_handle_room_creation(self):
         rooms = {}
@@ -79,7 +77,7 @@ class TestRoomInitRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, player_session)
+        await handler.handle(message, player_session)
         await asyncio.sleep(0.1)
 
         response_message = {
