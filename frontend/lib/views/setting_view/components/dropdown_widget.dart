@@ -23,7 +23,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
   bool isOpened = false;
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return PopupMenuButton<LevelOfDifficulty>(
       popUpAnimationStyle: AnimationStyle(
         duration: const Duration(milliseconds: 10),
@@ -33,7 +33,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
       itemBuilder: (context) {
         return widget.values.map((LevelOfDifficulty value) {
           return PopupMenuItem(
-            height: 30,
+            height: 34,
             padding: EdgeInsets.zero,
             value: value,
             onTap: () {
@@ -94,7 +94,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
       child: Container(
         padding: const EdgeInsets.only(left: 15, right: 9),
         constraints: const BoxConstraints(
-          minHeight: 40,
+          minHeight: 37,
           minWidth: 123,
           maxWidth: 123
         ),
