@@ -8,7 +8,7 @@ class GameInfoAndControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
       decoration: ShapeDecoration(

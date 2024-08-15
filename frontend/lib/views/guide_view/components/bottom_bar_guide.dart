@@ -16,7 +16,7 @@ class BottomBarGuide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Container(
       margin: const EdgeInsets.only(left: 24, right: 24, bottom: 37),
       padding: EdgeInsets.zero,

@@ -26,9 +26,9 @@ class GuidePieceCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-    var scheme = Theme.of(context).colorScheme;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final scheme = Theme.of(context).colorScheme;
     String name = pieces[pieceIndex];
     return Column(
       children: [

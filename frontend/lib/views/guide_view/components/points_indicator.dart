@@ -13,7 +13,7 @@ class PointsIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Row(
       children: List.generate(count, (index) {
         return Row(

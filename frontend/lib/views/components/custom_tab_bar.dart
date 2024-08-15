@@ -37,7 +37,7 @@ class _CustomTabBarState extends State<CustomTabBar>
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Column(
       children: [
         widget.isSettingsPage ?
@@ -68,7 +68,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                 indicator: const BoxDecoration(
                   color: ColorsConst.primaryColor100,
                   borderRadius: BorderRadius.all(
-                      Radius.circular(10)),
+                      Radius.circular(12)),
                 ),
                 controller: _tabColorController,
                 onTap: widget.onTap,

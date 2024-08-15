@@ -7,7 +7,7 @@ class HintDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Column(
       children: [
         const SizedBox(

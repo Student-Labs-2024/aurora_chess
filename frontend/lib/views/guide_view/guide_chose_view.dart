@@ -21,7 +21,7 @@ class GuideChoseView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Scaffold(
       backgroundColor: scheme.surfaceDim,
       body: SafeArea(
@@ -41,6 +41,7 @@ class GuideChoseView extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 24),
                   child: ListView.builder(
                     padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: pieces.length,
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -53,7 +54,10 @@ class GuideChoseView extends StatelessWidget {
                         iconArrowColor: scheme.onPrimaryContainer,
                         textColor: scheme.primary,
                         onTap: () {
-                          context.push(RouteLocations.guideScreen, extra: index);
+                          Future.delayed(const Duration(milliseconds: 100), () {
+                            context.push(RouteLocations.guideScreen,
+                                extra: index);
+                          });
                         },
                       );
                     },
@@ -71,7 +75,9 @@ class GuideChoseView extends StatelessWidget {
                 iconArrowColor: scheme.surfaceDim,
                 textColor: scheme.surfaceDim,
                 onTap: () {
-                  context.push(RouteLocations.partyHistoryScreen);
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    context.push(RouteLocations.partyHistoryScreen);
+                  });
                 },
               ),
             ),

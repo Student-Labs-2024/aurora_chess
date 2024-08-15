@@ -14,7 +14,7 @@ class OnePartyViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     Map<String, Color> computerListOfColorsIcons = {
       "Победа": scheme.onSecondaryContainer,
       "Поражение": scheme.primary,
@@ -26,12 +26,10 @@ class OnePartyViewWidget extends StatelessWidget {
       "Победа чёрных": scheme.onSecondary,
       "Ничья": scheme.onSurface
     };
-
     return Container(
       margin: const EdgeInsets.only(bottom: 12, left: 24, right: 24),
       height: 55,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SvgPicture.asset(
@@ -53,11 +51,10 @@ class OnePartyViewWidget extends StatelessWidget {
               Text(
                 partyData["date"],
                 style: TextStyle(
-                  color: scheme.primary,
-                  fontSize: 20,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w700,
-                  height: 1
+                    color: scheme.primary,
+                    fontSize: 20,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w700,
                 ),
               ),
               Text(
@@ -71,6 +68,71 @@ class OnePartyViewWidget extends StatelessWidget {
               )
             ],
           ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      "Длительность:",
+                      style: TextStyle(
+                        color: scheme.onPrimaryFixed,
+                        fontSize: 12,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w500,
+                        height: 1
+                      ),
+                    ),
+                    Text(
+                      "Цвет фигур:",
+                      style: TextStyle(
+                        color: scheme.onPrimaryFixed,
+                        fontSize: 12,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w500,
+                          height: 1
+                      ),
+                    ),
+
+                  ],
+                ),
+                SizedBox(
+                  width: 50,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        partyData["durationGame"].toString(),
+                        style: TextStyle(
+                          color: scheme.onPrimaryFixed,
+                          fontSize: 12,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500,
+                          height: 1
+                        ),
+                      ),
+                      Container(
+                        width: 12,
+                        height: 12,
+                        margin: const EdgeInsets.only(right: 4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: partyData["color"] == "белые"
+                              ? scheme.inverseSurface
+                              : ColorsConst.neutralColor100
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );

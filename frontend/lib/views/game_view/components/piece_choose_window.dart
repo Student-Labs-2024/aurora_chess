@@ -9,7 +9,7 @@ class PieceChooseWindow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Container(
       width: 245,
       height: 275,
@@ -49,6 +49,7 @@ class PieceChooseWindow extends StatelessWidget {
                         colorFilter: ColorFilter.mode(
                             scheme.primary, BlendMode.srcIn),
                       ),
+                      highlightColor: scheme.surfaceBright,
                       onPressed: () => gameModel.setPieceForPromotion(
                         ChessPieceType.bishop,
                       ),
@@ -61,6 +62,7 @@ class PieceChooseWindow extends StatelessWidget {
                         colorFilter: ColorFilter.mode(
                             scheme.primary, BlendMode.srcIn),
                       ),
+                      highlightColor: scheme.surfaceBright,
                       onPressed: () => gameModel.setPieceForPromotion(
                         ChessPieceType.rook,
                       ),
@@ -79,6 +81,7 @@ class PieceChooseWindow extends StatelessWidget {
                         colorFilter: ColorFilter.mode(
                             scheme.primary, BlendMode.srcIn),
                       ),
+                      highlightColor: scheme.surfaceBright,
                       onPressed: () => gameModel.setPieceForPromotion(
                         ChessPieceType.knight,
                       ),
@@ -91,6 +94,7 @@ class PieceChooseWindow extends StatelessWidget {
                         colorFilter: ColorFilter.mode(
                             scheme.primary, BlendMode.srcIn),
                       ),
+                      highlightColor: scheme.surfaceBright,
                       onPressed: () => gameModel.setPieceForPromotion(
                         ChessPieceType.queen,
                       ),

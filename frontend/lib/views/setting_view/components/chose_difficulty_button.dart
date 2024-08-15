@@ -23,7 +23,7 @@ class ChoseDifficultyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     Map<LevelOfDifficulty, String> levelOfDifficultyText = {
       LevelOfDifficulty.easy: "Лёгкий",
       LevelOfDifficulty.medium: "Средний",

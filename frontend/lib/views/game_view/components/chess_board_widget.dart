@@ -9,13 +9,14 @@ class ChessBoardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Container(
-      margin: const EdgeInsets.only(left: 14, right: 14),
+      margin: const EdgeInsets.only(left: 14, right: 14, top: 1),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
         child: SizedBox(
-          width: MediaQuery.of(context).size.width - LogicConsts.boardMargin,
-          height: MediaQuery.of(context).size.width - LogicConsts.boardMargin,
+          width: width - LogicConsts.boardWidthMargin,
+          height: width - LogicConsts.boardHeightMargin,
           child: GameWidget(game: gameModel.game!, ),
         ),
       ),

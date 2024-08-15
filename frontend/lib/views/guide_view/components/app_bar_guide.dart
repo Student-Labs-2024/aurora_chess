@@ -20,7 +20,7 @@ class AppBarGuide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Container(
       margin: EdgeInsets.only(
           left: 24, right: 24, top: 40, bottom: bottomMargin),

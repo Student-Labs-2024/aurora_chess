@@ -14,7 +14,7 @@ class MoveList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
     return Container(
       height: 40,
@@ -38,7 +38,7 @@ class MoveList extends StatelessWidget {
                     Text(
                       "${((index + 1) / 2).ceil().toString()}.",
                       style: TextStyle(
-                        color: scheme.error,
+                        color: scheme.onPrimaryFixed,
                         fontSize: 20,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w500,

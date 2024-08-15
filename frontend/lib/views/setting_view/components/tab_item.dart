@@ -15,7 +15,7 @@ class TabItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Tab(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
