@@ -20,7 +20,7 @@ class ChessGame extends Game with TapDetector {
   Move? latestMove;
 
   ChessGame(this.gameModel, this.context) {
-    width = MediaQuery.of(context).size.width - LogicConsts.boardMargin;
+    width = MediaQuery.of(context).size.width - LogicConsts.boardWidthMargin;
     tileSize = (width ?? 0) / LogicConsts.lenOfRow;
     for (var piece in board.player1Pieces + board.player2Pieces) {
       spriteMap[piece] = ChessPieceSprite(piece);
