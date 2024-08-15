@@ -21,13 +21,13 @@ class _MyMenuViewState extends State<MyMenuView> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<ThemeProvider>(context, listen: false);
-    var scheme = Theme.of(context).colorScheme;
-    var width = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: ConstrainedBox(
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    final scheme = Theme.of(context).colorScheme;
+    final width = MediaQuery.of(context).size.width;
+    return Scaffold(
+      backgroundColor: scheme.surfaceDim,
+      body: SafeArea(
+        child: ConstrainedBox(
           constraints: BoxConstraints(
               minWidth: MediaQuery.of(context).size.width,
               minHeight: MediaQuery.of(context).size.height),

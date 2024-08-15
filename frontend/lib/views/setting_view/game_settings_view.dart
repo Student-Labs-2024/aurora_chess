@@ -211,17 +211,17 @@ class _GameSettingsViewState extends State<GameSettingsView>
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return isLoading
         ? const LoadingWidget()
-        : SafeArea(
-          child: Consumer<GameModel>(
-            builder: (context, gameModel, child) {
-          return DefaultTabController(
-            length: countOfTabs,
-            child: Scaffold(
-              backgroundColor: Colors.transparent,
-              body: Stack(
+        : Consumer<GameModel>(
+          builder: (context, gameModel, child) {
+        return DefaultTabController(
+          length: countOfTabs,
+          child: Scaffold(
+            backgroundColor: scheme.surfaceDim,
+            body: SafeArea(
+              child: Stack(
                 children: [
                   SingleChildScrollView(
                     child: ConstrainedBox(
@@ -239,7 +239,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               AppBarSettings(
                                   label: GameSettingConsts.appBarLabel
                               ),
-
+                      
                               CustomTabBar(
                                 initialIndex: enemy.index,
                                 header: GameSettingConsts.gameModeText,
@@ -257,7 +257,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   });
                                 },
                               ),
-          
+                      
                               ChoseColorWidget(
                                 piecesColor: piecesColor,
                                 onTap: (player) {
@@ -266,7 +266,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   setPiecesColor(player.index);
                                 },
                               ),
-
+                      
                               CustomTabBar(
                                 initialIndex: withoutTime ? 0 : 1,
                                 header: GameSettingConsts.timeText,
@@ -283,7 +283,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   }
                                 },
                               ),
-          
+                      
                               !withoutTime
                                   ? Column(
                                 children: [
@@ -448,9 +448,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
                 ],
               ),
             ),
-          );
-                },
-              ),
+          ),
         );
+              },
+            );
   }
 }
