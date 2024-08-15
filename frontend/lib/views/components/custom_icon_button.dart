@@ -17,6 +17,7 @@ class CustomIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     return SizedBox(
       width: iconSize,
       height: iconSize,
@@ -24,6 +25,7 @@ class CustomIconButton extends StatelessWidget {
         onPressed: onTap,
         padding: EdgeInsets.zero,
         constraints: const BoxConstraints(),
+        highlightColor: scheme.surfaceBright,
         icon: SvgPicture.asset(
           iconName,
           colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
