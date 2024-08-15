@@ -15,7 +15,7 @@ class ConnectionRequestHandler(MessageHandler):
         self.__room_service = room_service
         self.__player_factory: AbstractPlayerFactory = player_factory
 
-    def handle(self, *args) -> json:
+    async def handle(self, *args) -> json:
         message: RoomConnectionRequest = RoomConnectionRequest.model_validate(args[0])
         player_session: AbstractPlayerSession = args[1]
 
@@ -66,17 +66,12 @@ class ConnectionRequestHandler(MessageHandler):
         }
         response_message = RoomConnectionResponse.model_validate(response_message)
 
-        loop = asyncio.get_event_loop()
         if room_connection_status == "successfully_connected":
-            owner = room.get_players()[0].get_session()
-            loop.create_task(
-                owner.send_message(
-                    json.dumps(response_message.model_dump(by_alias=True))
-                )
-            )
-
-        loop.create_task(
-            player_session.send_message(
+            owner = room.get_owner().get_session()
+            await owner.send_message(
                 json.dumps(response_message.model_dump(by_alias=True))
             )
+
+        await player_session.send_message(
+            json.dumps(response_message.model_dump(by_alias=True))
         )

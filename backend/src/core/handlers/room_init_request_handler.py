@@ -20,7 +20,7 @@ class RoomInitRequestHandler(MessageHandler):
         self.__room_service: RoomService = room_service
         self.__player_factory: AbstractPlayerFactory = player_factory
 
-    def handle(self, *args) -> json:
+    async def handle(self, *args) -> json:
         message = RoomInitRequest.model_validate(args[0])
         player_session: AbstractPlayerSession = args[1]
 
@@ -52,9 +52,6 @@ class RoomInitRequestHandler(MessageHandler):
 
         response_message = RoomInitResponse.model_validate(response_message)
 
-        loop = asyncio.get_event_loop()
-        loop.create_task(
-            player_session.send_message(
-                json.dumps(response_message.model_dump(by_alias=True))
-            )
+        await player_session.send_message(
+            json.dumps(response_message.model_dump(by_alias=True))
         )

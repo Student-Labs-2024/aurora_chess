@@ -71,7 +71,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, player_session)
+        await handler.handle(message, player_session)
         await asyncio.sleep(0.1)
 
         response_data = PlayerMoveResponseData(
@@ -144,7 +144,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, player_session)
+        await handler.handle(message, player_session)
         await asyncio.sleep(0.1)
 
         response_data = PlayerMoveResponseData(
@@ -213,7 +213,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, player_session)
+        await handler.handle(message, player_session)
         await asyncio.sleep(0.1)
 
         response_data = PlayerMoveResponseData(
@@ -281,7 +281,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, player_session)
+        await handler.handle(message, player_session)
         await asyncio.sleep(0.1)
 
         response_data = PlayerMoveResponseData(
@@ -349,7 +349,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, player_session)
+        await handler.handle(message, player_session)
         await asyncio.sleep(0.1)
 
         response_data = PlayerMoveResponseData(
@@ -417,7 +417,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, player_session)
+        await handler.handle(message, player_session)
         await asyncio.sleep(0.1)
 
         response_data = PlayerMoveResponseData(

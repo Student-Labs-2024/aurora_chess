@@ -10,7 +10,7 @@ class RoomStartResponseData(BaseModel):
     game_type: str = Field(alias="gameType")
     room_name: str = Field(alias="roomName")
     confirmation_status: str = Field(alias="confirmationStatus")
-    board: str | None = Field(alias="board", default=None)
+    board: list[list[str]] | None = Field(alias="board", default=None)
     players: list[Player] | None = Field(alias="players", default=None)
 
 

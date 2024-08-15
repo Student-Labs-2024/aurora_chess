@@ -31,7 +31,7 @@ class PlayerMoveRequestHandler(MessageHandler):
                 return True
         return False
 
-    def handle(self, *args) -> json:
+    async def handle(self, *args) -> json:
         message = PlayerMoveRequest.model_validate(args[0])
         player_session: AbstractPlayerSession = args[1]
 
@@ -63,11 +63,8 @@ class PlayerMoveRequestHandler(MessageHandler):
             response_message = PlayerMoveResponse(
                 jsonType="moveConfirmationResponce", data=response_data
             )
-            loop = asyncio.get_event_loop()
-            loop.create_task(
-                player_session.send_message(
-                    json.dumps(response_message.model_dump(by_alias=True))
-                )
+            await player_session.send_message(
+                json.dumps(response_message.model_dump(by_alias=True))
             )
             return
 
@@ -93,16 +90,10 @@ class PlayerMoveRequestHandler(MessageHandler):
             if player.get_session() != player_session
         ][0]
 
-        loop = asyncio.get_event_loop()
-        loop.create_task(
-            player_session.send_message(
-                json.dumps(response_message.model_dump(by_alias=True))
-            )
+        await player_session.send_message(
+            json.dumps(response_message.model_dump(by_alias=True))
         )
 
-        loop = asyncio.get_event_loop()
-        loop.create_task(
-            other_player_session.send_message(
-                json.dumps(to_other_player_message.model_dump(by_alias=True))
-            )
+        await other_player_session.send_message(
+            json.dumps(to_other_player_message.model_dump(by_alias=True))
         )

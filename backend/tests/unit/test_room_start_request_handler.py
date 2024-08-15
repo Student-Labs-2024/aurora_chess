@@ -6,9 +6,9 @@ from unittest.mock import MagicMock, AsyncMock
 from core.entities.game_room.abstract_game_room import AbstractGameRoom
 from core.entities.player.chess_player import ChessPlayer
 from core.handlers.room_start_request_handler import RoomStartRequestHandler
-from core.schemas.player_move_response import PlayerMoveResponseData, PlayerMoveResponse
 from core.schemas.room_start_response import RoomStartResponseData, RoomStartResponse
 from core.services.room_service import RoomService
+from utils.chess_board import fen_to_list_board
 
 
 class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
@@ -17,7 +17,7 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         game_room = MagicMock(spec=AbstractGameRoom)
         game_room.is_active.return_value = False
         game_room.is_full.return_value = True
-        board = "qwe"
+        board = "a/b/c/d/e"
         game_room.get_board.return_value = board
         room_service.get_room.return_value = game_room
 
@@ -52,14 +52,14 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, player_session_white)
+        await handler.handle(message, player_session_white)
         await asyncio.sleep(0.1)
 
         response_data = RoomStartResponseData(
             confirmationStatus="confirmed",
             gameType=game_type,
             roomName=room_name,
-            board=board,
+            board=fen_to_list_board(board),
             players=[
                 {"playerName": "player_white", "playerSide": "white"},
                 {"playerName": "player_black", "playerSide": "black"},
@@ -125,7 +125,7 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, player_session_white)
+        await handler.handle(message, player_session_white)
         await asyncio.sleep(0.1)
 
         response_data = RoomStartResponseData(
@@ -190,7 +190,7 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, player_session_white)
+        await handler.handle(message, player_session_white)
         await asyncio.sleep(0.1)
 
         response_data = RoomStartResponseData(
@@ -255,7 +255,7 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, player_session_white)
+        await handler.handle(message, player_session_white)
         await asyncio.sleep(0.1)
 
         response_data = RoomStartResponseData(
@@ -320,7 +320,7 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, player_session_black)
+        await handler.handle(message, player_session_black)
         await asyncio.sleep(0.1)
 
         response_data = RoomStartResponseData(
@@ -385,7 +385,7 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
             },
         }
 
-        handler.handle(message, player_session_white)
+        await handler.handle(message, player_session_white)
         await asyncio.sleep(0.1)
 
         response_data = RoomStartResponseData(
