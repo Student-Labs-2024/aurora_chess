@@ -66,7 +66,7 @@ class GameSettingConsts {
   static Map<LevelOfDifficulty, int> difficultyLevels = {
     LevelOfDifficulty.easy: 1,
     LevelOfDifficulty.medium: 3,
-    LevelOfDifficulty.hard: 6,
+    LevelOfDifficulty.hard: 5,
   };
 
   static Map<LevelOfDifficulty, String> personalLevelOfDifficultyText = {
