@@ -33,10 +33,11 @@ class UndoRedoButtons extends StatelessWidget {
         Expanded(
           child: IconButton(
             icon: SvgPicture.asset(
-              "assets/images/icons/left_arrow_icon.svg",
-              height: 25,
+              GamePageConst.leftArrow,
+              // height: 25,
               colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
             ),
+            highlightColor: Colors.white.withOpacity(0.3),
             onPressed: undoEnabled ? () => undo() : null,
           ),
         ),
@@ -44,10 +45,11 @@ class UndoRedoButtons extends StatelessWidget {
         Expanded(
           child: IconButton(
             icon: SvgPicture.asset(
-              "assets/images/icons/right_arrow_icon.svg",
-              height: 25,
+              GamePageConst.rightArrow,
+              // height: 25,
               colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
             ),
+            highlightColor: Colors.white.withOpacity(0.3),
             onPressed: redoEnabled ? () => redo() : null,
           ),
         ),
