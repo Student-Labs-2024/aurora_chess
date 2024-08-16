@@ -93,22 +93,30 @@ class MoveList extends StatelessWidget {
     } else if (meta.queenCastle) {
       move = "O-O-O";
     } else {
-      String ambiguity = meta.rowIsAmbiguous
-          ? _colToChar(tileToCol(meta.move?.from ?? 0))
-          : "";
-      ambiguity +=
-          meta.colIsAmbiguous ? "${len - tileToRow(meta.move?.from ?? 0)}" : "";
       String takeString = meta.took ? "x" : "";
       String promotion = meta.promotion
           ? "=${_pieceToChar(meta.promotionType ?? ChessPieceType.promotion)}"
           : "";
-      String row = "${len - tileToRow(meta.move?.to ?? 0)}";
-      String col = _colToChar(tileToCol(meta.move?.to ?? 0));
-      move = "$ambiguity$takeString$col$row$promotion";
+      String tile = _intToTile(meta.move!.to, len);
+      move = "$takeString$tile$promotion";
     }
     String check = meta.isCheck ? "+" : "";
     String checkmate = meta.isCheckmate && !meta.isStalemate ? "#" : "";
     return "$move$check$checkmate";
+  }
+
+  String _intToTile(int tile, int len) {
+    String row;
+    String col;
+    if (gameModel.playerCount == 1 && gameModel.playerSide == Player.player2) {
+      col = GamePageConst.listOfColumns[tile % len];
+      row = ((tile / len).floor() + 1).toString();
+    }
+    else {
+      row = "${len - tileToRow(tile)}";
+      col = _colToChar(tileToCol(tile));
+    }
+    return "$col$row";
   }
 
   String _pieceToChar(ChessPieceType type) {

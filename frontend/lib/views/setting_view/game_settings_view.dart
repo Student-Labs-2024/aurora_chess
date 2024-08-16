@@ -257,15 +257,15 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   });
                                 },
                               ),
-                      
-                              ChoseColorWidget(
-                                piecesColor: piecesColor,
-                                onTap: (player) {
-                                  gameModel
-                                      .setPlayerSide(player);
-                                  setPiecesColor(player.index);
-                                },
-                              ),
+                              enemy == Enemy.computer ?
+                                ChoseColorWidget(
+                                  piecesColor: piecesColor,
+                                  onTap: (player) {
+                                    gameModel
+                                        .setPlayerSide(player);
+                                    setPiecesColor(player.index);
+                                  },
+                                ) : const SizedBox(),
                       
                               CustomTabBar(
                                 initialIndex: withoutTime ? 0 : 1,
