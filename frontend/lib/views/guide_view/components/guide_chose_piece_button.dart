@@ -1,5 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
+import "package:provider/provider.dart";
+
+import "../../../exports.dart";
 
 class GuideChosePieceButton extends StatelessWidget {
   const GuideChosePieceButton({
@@ -7,6 +10,7 @@ class GuideChosePieceButton extends StatelessWidget {
     required this.iconName,
     required this.label,
     required this.isPiece,
+    required this.isPartyPage,
     required this.buttonColor,
     required this.iconArrowColor,
     required this.textColor,
@@ -16,6 +20,7 @@ class GuideChosePieceButton extends StatelessWidget {
   final String? iconName;
   final String label;
   final bool isPiece;
+  final bool isPartyPage;
   final Color buttonColor;
   final Color iconArrowColor;
   final Color textColor;
@@ -24,6 +29,7 @@ class GuideChosePieceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       child: MaterialButton(
@@ -31,6 +37,8 @@ class GuideChosePieceButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.0),
         ),
         height: 48,
+        splashColor: (isPartyPage && provider.isDarkMode)
+            ? Colors.black12.withOpacity(0.3) : null,
         minWidth: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 24),
         color: buttonColor,
@@ -71,5 +79,4 @@ class GuideChosePieceButton extends StatelessWidget {
       ),
     );
   }
-
 }

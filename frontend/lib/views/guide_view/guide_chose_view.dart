@@ -50,11 +50,12 @@ class GuideChoseView extends StatelessWidget {
                         iconName: index < 6 ? "assets/images/pieces/${piecesIcons[index]}" : null,
                         label: pieces[index],
                         isPiece: index < 6,
+                        isPartyPage: false,
                         buttonColor: scheme.secondary,
                         iconArrowColor: scheme.onPrimaryContainer,
                         textColor: scheme.primary,
                         onTap: () {
-                          Future.delayed(const Duration(milliseconds: 100), () {
+                          Future.delayed(const Duration(milliseconds: 200), () {
                             context.push(RouteLocations.guideScreen,
                                 extra: index);
                           });
@@ -71,11 +72,12 @@ class GuideChoseView extends StatelessWidget {
                 iconName: null,
                 label: GuideStrings.partyHistoryPage,
                 isPiece: false,
+                isPartyPage: true,
                 buttonColor: scheme.onTertiaryContainer,
                 iconArrowColor: scheme.surfaceDim,
                 textColor: scheme.surfaceDim,
                 onTap: () {
-                  Future.delayed(const Duration(milliseconds: 100), () {
+                  Future.delayed(const Duration(milliseconds: 200), () {
                     context.push(RouteLocations.partyHistoryScreen);
                   });
                 },
