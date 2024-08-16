@@ -244,16 +244,12 @@ class ChessGame extends Game with TapDetector {
     }
     selectedPiece = null;
     _sendAdvantagesToProvider();
-    Future.delayed(const Duration(seconds: LogicConsts.secondsToHint))
-        .then((value) {
-      _aiHint();
-    });
     if (gameModel.isAIsTurn && clearRedo && changeTurn) {
       _aiMove();
     }
   }
 
-  void _aiHint() {
+  void aiHint() {
     var args = {};
     args["aiPlayer"] = gameModel.playerSide;
     args["aiDifficulty"] = gameModel.aiDifficulty;

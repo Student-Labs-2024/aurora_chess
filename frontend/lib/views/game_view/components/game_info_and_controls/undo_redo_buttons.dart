@@ -4,6 +4,7 @@ import "package:flutter_svg/svg.dart";
 
 class UndoRedoButtons extends StatelessWidget {
   final GameModel gameModel;
+  final bool isMoveBack;
 
   bool get undoEnabled {
     if (gameModel.playingWithAI) {
@@ -23,7 +24,7 @@ class UndoRedoButtons extends StatelessWidget {
     }
   }
 
-  const UndoRedoButtons(this.gameModel, {super.key});
+  const UndoRedoButtons(this.gameModel, this.isMoveBack, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +35,15 @@ class UndoRedoButtons extends StatelessWidget {
           child: IconButton(
             icon: SvgPicture.asset(
               GamePageConst.leftArrow,
-              // height: 25,
-              colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                (isMoveBack || gameModel.playerCount == 2)
+                    ? scheme.primary : ColorsConst.neutralColor100,
+                BlendMode.srcIn
+              ),
             ),
             highlightColor: Colors.white.withOpacity(0.3),
-            onPressed: undoEnabled ? () => undo() : null,
+            onPressed: ((isMoveBack || gameModel.playerCount == 2)
+                && undoEnabled)  ? () => undo() : null,
           ),
         ),
         const SizedBox(width: 10),
@@ -46,11 +51,15 @@ class UndoRedoButtons extends StatelessWidget {
           child: IconButton(
             icon: SvgPicture.asset(
               GamePageConst.rightArrow,
-              // height: 25,
-              colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                (isMoveBack || gameModel.playerCount == 2)
+                    ? scheme.primary : ColorsConst.neutralColor100,
+                BlendMode.srcIn
+              ),
             ),
             highlightColor: Colors.white.withOpacity(0.3),
-            onPressed: redoEnabled ? () => redo() : null,
+            onPressed: ((isMoveBack || gameModel.playerCount == 2)
+                && redoEnabled) ? () => redo() : null,
           ),
         ),
       ],

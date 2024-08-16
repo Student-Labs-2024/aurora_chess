@@ -7,8 +7,9 @@ import "../../../../exports.dart";
 
 class RestartExitButtons extends StatelessWidget {
   final GameModel gameModel;
+  final bool isHints;
 
-  const RestartExitButtons(this.gameModel, {super.key});
+  const RestartExitButtons(this.gameModel, this.isHints, {super.key});
 
   String _formatDuration(Duration duration) {
     int hours = duration.inHours;
@@ -76,8 +77,13 @@ class RestartExitButtons extends StatelessWidget {
               colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
             ),
             highlightColor: Colors.white.withOpacity(0.3),
-            onPressed: () {
-              gameModel.newGame(context);
+            onPressed: () async {
+              // gameModel.newGame(context);
+              if (gameModel.gameOver) {
+                await _addPartyToHistory();
+              }
+              gameModel.exitChessView();
+              context.go(RouteLocations.settingsScreen);
             },
           ),
         ),
@@ -86,16 +92,16 @@ class RestartExitButtons extends StatelessWidget {
           child: IconButton(
             icon: SvgPicture.asset(
               GamePageConst.lampIcon,
-              colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                (isHints || gameModel.playerCount == 2)
+                    ? scheme.primary : ColorsConst.neutralColor100,
+                BlendMode.srcIn
+              ),
             ),
             highlightColor: Colors.white.withOpacity(0.3),
-            onPressed: () async {
-              if (gameModel.gameOver) {
-                await _addPartyToHistory();
-              }
-              gameModel.exitChessView();
-              context.go(RouteLocations.settingsScreen);
-            },
+            onPressed: (isHints || gameModel.playerCount == 2) ? () {
+              gameModel.game!.aiHint();
+            } : null,
           ),
         ),
       ],

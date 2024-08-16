@@ -16,6 +16,9 @@ class GameView extends StatefulWidget {
 
 class _GameViewState extends State<GameView> {
   bool isLoading = true;
+  bool isMoveBack = true;
+  bool isThreats = true;
+  bool isHints = true;
 
   Future<Map> _getSettings() async {
     var databasesPath = await getDatabasesPath();
@@ -32,6 +35,11 @@ class _GameViewState extends State<GameView> {
 
   void _setSettings() async {
     Map data = await _getSettings();
+    setState(() {
+      isMoveBack = data["isMoveBack"] == 0;
+      isThreats = data["isThreats"] == 0;
+      isHints = data["isHints"] == 0;
+    });
     widget.gameModel.setPlayerCount(data["withComputer"] + 1);
     widget.gameModel.setPlayerSide(Player.values[data["colorPieces"]]);
     if (data["withoutTime"] == 0) {
@@ -42,7 +50,8 @@ class _GameViewState extends State<GameView> {
     }
     widget.gameModel.setAIDifficulty(GameSettingConsts
         .difficultyLevels[LevelOfDifficulty.values[data["levelOfDifficulty"]]]);
-    await widget.gameModel.setAllowUndoRedo(data["isMoveBack"] == 0);
+    await widget.gameModel.setAllowUndoRedo(isMoveBack);
+
     Future.delayed(const Duration(milliseconds: 300), () {
       setState(() {
         isLoading = false;
@@ -161,7 +170,11 @@ class _GameViewState extends State<GameView> {
                           const Spacer(),
                           Padding(
                             padding: const EdgeInsets.all(30),
-                            child: GameInfoAndControls(gameModel),
+                            child: GameInfoAndControls(
+                              gameModel: gameModel,
+                              isMoveBack: isMoveBack,
+                              isHints: isHints,
+                            ),
                           ),
                         ],
                       ),
