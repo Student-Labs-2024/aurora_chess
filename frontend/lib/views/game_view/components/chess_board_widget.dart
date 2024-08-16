@@ -11,7 +11,7 @@ class ChessBoardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Container(
-      margin: const EdgeInsets.only(left: 14, right: 14, top: 1),
+      margin: const EdgeInsets.only(left: 14, right: 14),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
         child: SizedBox(
