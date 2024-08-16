@@ -74,59 +74,66 @@ class OnePartyViewWidget extends StatelessWidget {
             child: Row(
               children: [
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: isComputer
+                      ? MainAxisAlignment.spaceBetween
+                      : MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "Длительность:",
+                      partyData["durationGame"] != "00:00"
+                          ? "Длительность:" : "Без часов",
                       style: TextStyle(
-                        color: scheme.onPrimaryFixed,
-                        fontSize: 12,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
-                        height: 1
-                      ),
-                    ),
-                    Text(
-                      "Цвет фигур:",
-                      style: TextStyle(
-                        color: scheme.onPrimaryFixed,
-                        fontSize: 12,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
-                          height: 1
-                      ),
-                    ),
-
-                  ],
-                ),
-                SizedBox(
-                  width: 50,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        partyData["durationGame"].toString(),
-                        style: TextStyle(
                           color: scheme.onPrimaryFixed,
                           fontSize: 12,
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w500,
                           height: 1
-                        ),
                       ),
-                      Container(
-                        width: 12,
-                        height: 12,
-                        margin: const EdgeInsets.only(right: 4),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: partyData["color"] == "белые"
-                              ? scheme.inverseSurface
-                              : ColorsConst.neutralColor100
+                    ),
+                    isComputer ?
+                      Text(
+                        "Цвет фигур:",
+                        style: TextStyle(
+                          color: scheme.onPrimaryFixed,
+                          fontSize: 12,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500,
+                            height: 1
                         ),
-                      )
+                      ) : const SizedBox(),
+                  ],
+                ),
+                SizedBox(
+                  width: 50,
+                  child: Column(
+                    mainAxisAlignment: isComputer
+                        ? MainAxisAlignment.spaceBetween
+                        : MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      partyData["durationGame"] != "00:00" ?
+                        Text(
+                          partyData["durationGame"].toString(),
+                          style: TextStyle(
+                            color: scheme.onPrimaryFixed,
+                            fontSize: 12,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w500,
+                            height: 1
+                          ),
+                        ) : const SizedBox(),
+                      isComputer ?
+                        Container(
+                          width: 12,
+                          height: 12,
+                          margin: const EdgeInsets.only(right: 4),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: partyData["color"] == "белые"
+                                ? scheme.inverseSurface
+                                : ColorsConst.neutralColor100
+                          ),
+                        ) : const SizedBox()
                     ],
                   ),
                 )
@@ -137,5 +144,4 @@ class OnePartyViewWidget extends StatelessWidget {
       ),
     );
   }
-
 }
