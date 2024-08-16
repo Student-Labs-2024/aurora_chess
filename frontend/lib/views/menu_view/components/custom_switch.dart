@@ -17,7 +17,7 @@ class _CustomSwitchState extends State<CustomSwitch> {
 
   @override
   Widget build(BuildContext context) {
-    bool isToggle =  widget.provider.isDarkMode;
+    bool isToggle = widget.provider.isDarkMode;
     final scheme = Theme.of(context).colorScheme;
     return GestureDetector(
       onTap: () => widget.provider.toggleTheme(),
