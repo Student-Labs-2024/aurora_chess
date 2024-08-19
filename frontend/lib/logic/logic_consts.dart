@@ -11,8 +11,10 @@ class LogicConsts {
   static const int countOfSquares = 64;
   static const int lenOfRow = 8;
   static const int height = 10;
-  static const int boardWidthMargin = 28;
-  static const int boardHeightMargin = 28;
+  static const double boardWidthMarginRatio = 14 / 372;
+  static const double boardHeightMarginRatio = 16 / 360;
+  static const double boardRatio = ((1 - 2 * LogicConsts.boardWidthMarginRatio)
+      / (1 - LogicConsts.boardHeightMarginRatio));
   static const int minCountOfPieces = 3;
   static const int baseChar = 97;
   static const int offset = 5;

@@ -27,7 +27,7 @@ class GuidePieceCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    final widthBoard = MediaQuery.of(context).size.width * 0.74;
     final scheme = Theme.of(context).colorScheme;
     String name = pieces[pieceIndex];
     return Column(
@@ -57,7 +57,7 @@ class GuidePieceCarousel extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                     "assets/images/guide_boards/${imgOfHints[name]![index]}",
-                    height: width * 0.74,
+                    height: widthBoard,
                   ),
                   HintDescription(
                     text: hintsOfPieces[name]![index],
