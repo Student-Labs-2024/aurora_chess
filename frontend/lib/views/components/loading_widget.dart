@@ -6,9 +6,10 @@ class LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: scheme.background,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

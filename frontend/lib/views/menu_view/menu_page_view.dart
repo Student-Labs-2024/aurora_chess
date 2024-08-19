@@ -21,15 +21,16 @@ class _MyMenuViewState extends State<MyMenuView> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<ThemeProvider>(context, listen: false);
-    var scheme = Theme.of(context).colorScheme;
-    var width = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        body: ConstrainedBox(
-          constraints: BoxConstraints(
-              minWidth: MediaQuery.of(context).size.width,
-              minHeight: MediaQuery.of(context).size.height),
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    final scheme = Theme.of(context).colorScheme;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final aspectRatio = height / width;
+    return Scaffold(
+      backgroundColor: scheme.background,
+      body: SafeArea(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minWidth: width, minHeight: height),
           child: IntrinsicHeight(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 25),
@@ -67,10 +68,12 @@ class _MyMenuViewState extends State<MyMenuView> {
                         ),
                       ),
                       Container(
-                        alignment: Alignment.centerRight,
+                        alignment: Alignment.center,
                         child: Image.asset(
                           "${MenuPageStringConst.pathToIcon}pieces.png",
-                          width: width * 0.9,
+                          width: aspectRatio > 2
+                              ? width * 0.9
+                              : (height - width) * 0.8,
                         ),
                       ),
                       const SizedBox(

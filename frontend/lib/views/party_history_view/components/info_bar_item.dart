@@ -14,7 +14,7 @@ class InfoBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     List<Color> computerColors = [
       scheme.onSecondaryContainer,
       scheme.primary,

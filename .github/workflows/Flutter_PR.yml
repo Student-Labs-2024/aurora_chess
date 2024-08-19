@@ -13,17 +13,28 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - uses: actions/setup-java@v1
         with:
           java-version: "19.x"
-
+      - uses: actions/checkout@v1
       - uses: subosito/flutter-action@v1
         with:
-          channel: "stable"
-      - uses: actions/checkout@v1
+          flutter-version: '3.16.2'
+          channel: 'stable'
+
+      - name: Set up Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.2.2' 
+          channel: 'stable'
+      
+      - name: Verify installations
+        run: |
+          flutter doctor
+          dart --version
       - name: Загрузить все пакеты
         run: |
           cd frontend

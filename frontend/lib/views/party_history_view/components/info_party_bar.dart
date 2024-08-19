@@ -13,19 +13,19 @@ class InfoPartyBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
 
     return Container(
       height: height,
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
       margin: const EdgeInsets.only(top: 16),
       decoration: BoxDecoration(
         color: scheme.onSurfaceVariant,
         borderRadius: BorderRadius.circular(16)
       ),
       child: isComputer ? Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         children: List.generate(PartyHistoryConst.gameResults.length, (index) {
           return Row(
@@ -34,9 +34,6 @@ class InfoPartyBar extends StatelessWidget {
                 index: index,
                 isComputer: isComputer,
               ),
-              SizedBox(
-                width: index < 2 ? 16 : 0,
-              )
             ],
           );
         }),
@@ -45,15 +42,13 @@ class InfoPartyBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InfoBarItem(
                 index: 0,
                 isComputer: isComputer,
               ),
-              const SizedBox(
-                width: 16,
-              ),
+              const SizedBox(),
               InfoBarItem(
                 index: 1,
                 isComputer: isComputer,

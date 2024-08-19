@@ -17,7 +17,7 @@ class ColorChoseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     Map<Player, String> icon = {
       Player.player2: "black.svg",
       Player.player1: "white.svg",

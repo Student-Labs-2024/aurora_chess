@@ -12,7 +12,7 @@ class MovesUndoRedoRow extends StatelessWidget {
       children: [
         Row(
           children: [
-            gameModel.allowUndoRedo ? UndoRedoButtons(gameModel) : Container(),
+            gameModel.allowUndoRedo ? UndoRedoButtons(gameModel, true) : Container(),
           ],
         ),
         gameModel.showMoveHistory || gameModel.allowUndoRedo

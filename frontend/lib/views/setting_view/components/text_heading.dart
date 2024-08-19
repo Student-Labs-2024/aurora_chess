@@ -14,7 +14,7 @@ class TextHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Container(
       margin: EdgeInsets.only(top: topMargin, bottom: bottomMargin),
       child: Text(

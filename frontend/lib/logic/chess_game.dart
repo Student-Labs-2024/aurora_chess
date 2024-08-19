@@ -20,7 +20,9 @@ class ChessGame extends Game with TapDetector {
   Move? latestMove;
 
   ChessGame(this.gameModel, this.context) {
-    width = MediaQuery.of(context).size.width - LogicConsts.boardMargin;
+    double screenWidth = MediaQuery.of(context).size.width;
+    width = (screenWidth * (1 - LogicConsts.boardWidthMarginRatio * 2))
+        .ceil().toDouble();
     tileSize = (width ?? 0) / LogicConsts.lenOfRow;
     for (var piece in board.player1Pieces + board.player2Pieces) {
       spriteMap[piece] = ChessPieceSprite(piece);
@@ -244,16 +246,12 @@ class ChessGame extends Game with TapDetector {
     }
     selectedPiece = null;
     _sendAdvantagesToProvider();
-    Future.delayed(const Duration(seconds: LogicConsts.secondsToHint))
-        .then((value) {
-      _aiHint();
-    });
     if (gameModel.isAIsTurn && clearRedo && changeTurn) {
       _aiMove();
     }
   }
 
-  void _aiHint() {
+  void aiHint() {
     var args = {};
     args["aiPlayer"] = gameModel.playerSide;
     args["aiDifficulty"] = gameModel.aiDifficulty;

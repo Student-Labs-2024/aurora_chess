@@ -13,7 +13,7 @@ class PointsIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Row(
       children: List.generate(count, (index) {
         return Row(
@@ -24,7 +24,7 @@ class PointsIndicator extends StatelessWidget {
               height: 10,
               colorFilter: ColorFilter.mode(
                   index == currentIndex
-                      ? scheme.surfaceContainer
+                      ? scheme.surfaceVariant
                       : scheme.inverseSurface,
                   BlendMode.srcIn),
             ),

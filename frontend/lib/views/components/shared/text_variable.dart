@@ -37,7 +37,7 @@ class TextRegular extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Text(text, style: TextStyle(fontSize: 24, color: scheme.primary));
   }
 }

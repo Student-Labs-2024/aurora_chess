@@ -16,7 +16,7 @@ class BottomBarGuide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Container(
       margin: const EdgeInsets.only(left: 24, right: 24, bottom: 37),
       padding: EdgeInsets.zero,
@@ -25,8 +25,8 @@ class BottomBarGuide extends StatelessWidget {
         children: [
           index > 0 ?
           CustomIconButton(
-            color: scheme.surfaceContainer,
-            iconName: "assets/images/icons/left_arrow_icon.svg",
+            color: scheme.surfaceVariant,
+            iconName: GuideStrings.leftArrowIcon,
             iconSize: 40,
             onTap: onBack,
           ): const SizedBox(width: 40,),
@@ -36,8 +36,8 @@ class BottomBarGuide extends StatelessWidget {
           ),
           index < hintsOfPieces.length - 1 ?
           CustomIconButton(
-            color: scheme.surfaceContainer,
-            iconName: "assets/images/icons/right_arrow_icon.svg",
+            color: scheme.surfaceVariant,
+            iconName: GuideStrings.rightArrowIcon,
             iconSize: 40,
             onTap: onForward,
           ) : const SizedBox(width: 40,),

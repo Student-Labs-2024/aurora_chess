@@ -16,6 +16,9 @@ class GameView extends StatefulWidget {
 
 class _GameViewState extends State<GameView> {
   bool isLoading = true;
+  bool isMoveBack = true;
+  bool isThreats = true;
+  bool isHints = true;
 
   Future<Map> _getSettings() async {
     var databasesPath = await getDatabasesPath();
@@ -32,6 +35,11 @@ class _GameViewState extends State<GameView> {
 
   void _setSettings() async {
     Map data = await _getSettings();
+    setState(() {
+      isMoveBack = data["isMoveBack"] == 0;
+      isThreats = data["isThreats"] == 0;
+      isHints = data["isHints"] == 0;
+    });
     widget.gameModel.setPlayerCount(data["withComputer"] + 1);
     widget.gameModel.setPlayerSide(Player.values[data["colorPieces"]]);
     if (data["withoutTime"] == 0) {
@@ -42,9 +50,12 @@ class _GameViewState extends State<GameView> {
     }
     widget.gameModel.setAIDifficulty(GameSettingConsts
         .difficultyLevels[LevelOfDifficulty.values[data["levelOfDifficulty"]]]);
-    await widget.gameModel.setAllowUndoRedo(data["isMoveBack"] == 0);
-    setState(() {
-      isLoading = false;
+    await widget.gameModel.setAllowUndoRedo(isMoveBack);
+
+    Future.delayed(const Duration(milliseconds: 300), () {
+      setState(() {
+        isLoading = false;
+      });
     });
   }
 
@@ -56,126 +67,131 @@ class _GameViewState extends State<GameView> {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
+    final width = MediaQuery.of(context).size.width;
     return isLoading
         ? const LoadingWidget()
-        : SafeArea(
-            child: Scaffold(
-              backgroundColor: scheme.surfaceDim,
-              body: Consumer<GameModel>(
-                builder: (context, gameModel, child) {
-                  return PopScope(
-                    canPop: true,
-                    onPopInvokedWithResult: _willPopCallback,
-                    child: Stack(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            MoveList(gameModel),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 24,
-                              ),
-                              child: SizedBox(
-                                height: 40,
-                                child: Stack(
-                                  children: [
-                                    CustomIconButton(
-                                      iconName:
-                                          "assets/images/icons/left_big_arrow_icon.svg",
-                                      color: scheme.outlineVariant,
-                                      iconSize: 40,
-                                      onTap: () {
-                                        context
-                                            .go(RouteLocations.settingsScreen);
-                                      },
-                                    ),
-                                    const GameStatus(),
-                                  ],
-                                ),
-                              ),
+        : Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SafeArea(
+            child: Consumer<GameModel>(
+              builder: (context, gameModel, child) {
+                return PopScope(
+                  canPop: true,
+                  onPopInvoked: _willPopCallback,
+                  child: Stack(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          MoveList(gameModel),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
                             ),
-                            const SizedBox(height: 16,),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 30),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  NameWithAdvantageForPlayer(
-                                    player: Player.player2,
-                                    gameModel: gameModel,
-                                  ),
-                                  Expanded(child: Container()),
-                                  gameModel.timeLimit == 0
-                                    ? const SizedBox(height: 48,)
-                                    : TimerWidget(
-                                      timeLeft: gameModel.player2TimeLeft,
-                                      isFilled: gameModel.turn == Player.player2,
-                                    ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 17, bottom: 15),
+                            child: SizedBox(
+                              height: 40,
                               child: Stack(
                                 children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 0.5, vertical: 0.5),
-                                    child: SvgPicture.asset(
-                                      "assets/images/board.svg",
-                                      width: MediaQuery.of(context).size.width - 1,
-                                      height: MediaQuery.of(context).size.width - 1,
-                                    ),
+                                  CustomIconButton(
+                                    iconName:
+                                        "assets/images/icons/left_big_arrow_icon.svg",
+                                    color: scheme.outlineVariant,
+                                    iconSize: 40,
+                                    onTap: () {
+                                      context
+                                          .go(RouteLocations.settingsScreen);
+                                    },
                                   ),
-                                  Align(
-                                    alignment: Alignment.topCenter,
-                                    child: ChessBoardWidget(gameModel)
-                                  ),
+                                  const GameStatus(),
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 30),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  NameWithAdvantageForPlayer(
-                                    player: Player.player1,
-                                    gameModel: gameModel,
+                          ),
+                          const SizedBox(height: 16,),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                NameWithAdvantageForPlayer(
+                                  player: Player.player2,
+                                  gameModel: gameModel,
+                                ),
+                                Expanded(child: Container()),
+                                gameModel.timeLimit == 0
+                                  ? const SizedBox(height: 48,)
+                                  : TimerWidget(
+                                    timeLeft: gameModel.player2TimeLeft,
+                                    isFilled: gameModel.turn == Player.player2,
                                   ),
-                                  Expanded(child: Container()),
-                                  gameModel.timeLimit == 0
-                                    ? const SizedBox(height: 48,)
-                                    : TimerWidget(
-                                      timeLeft: gameModel.player1TimeLeft,
-                                      isFilled: gameModel.turn == Player.player1,
-                                    ),
-                                ],
-                              ),
+                              ],
                             ),
-                            const Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.all(30),
-                              child: GameInfoAndControls(gameModel),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 17, bottom: 15),
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topCenter,
+                                  child: SvgPicture.asset(
+                                    "assets/images/board.svg",
+                                    width: width,
+                                    height: width * LogicConsts.boardRatio,
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.topCenter,
+                                  child: ChessBoardWidget(gameModel)
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        gameModel.isPromotionForPlayer
-                            ? Center(child: PieceChooseWindow(gameModel))
-                            : Container()
-                      ],
-                    ),
-                  );
-                },
-              ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                NameWithAdvantageForPlayer(
+                                  player: Player.player1,
+                                  gameModel: gameModel,
+                                ),
+                                Expanded(child: Container()),
+                                gameModel.timeLimit == 0
+                                  ? const SizedBox(height: 48,)
+                                  : TimerWidget(
+                                    timeLeft: gameModel.player1TimeLeft,
+                                    isFilled: gameModel.turn == Player.player1,
+                                  ),
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.all(30),
+                            child: GameInfoAndControls(
+                              gameModel: gameModel,
+                              isMoveBack: isMoveBack,
+                              isHints: isHints,
+                            ),
+                          ),
+                        ],
+                      ),
+                      gameModel.isPromotionForPlayer
+                          ? Center(child: PieceChooseWindow(gameModel))
+                          : Container()
+                    ],
+                  ),
+                );
+              },
             ),
-          );
+          ),
+        );
   }
 
-  Future<void> _willPopCallback(bool didPop, result) async {
+  Future<void> _willPopCallback(bool didPop) async {
     widget.gameModel.exitChessView();
   }
 }

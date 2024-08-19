@@ -4,6 +4,7 @@ import "package:flutter_svg/svg.dart";
 
 class UndoRedoButtons extends StatelessWidget {
   final GameModel gameModel;
+  final bool isMoveBack;
 
   bool get undoEnabled {
     if (gameModel.playingWithAI) {
@@ -23,32 +24,42 @@ class UndoRedoButtons extends StatelessWidget {
     }
   }
 
-  const UndoRedoButtons(this.gameModel, {super.key});
+  const UndoRedoButtons(this.gameModel, this.isMoveBack, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Row(
       children: [
         Expanded(
           child: IconButton(
             icon: SvgPicture.asset(
-              "assets/images/icons/left_arrow_icon.svg",
-              height: 25,
-              colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
+              GamePageConst.leftArrow,
+              colorFilter: ColorFilter.mode(
+                (isMoveBack || gameModel.playerCount == 2)
+                    ? scheme.primary : scheme.onError,
+                BlendMode.srcIn
+              ),
             ),
-            onPressed: undoEnabled ? () => undo() : null,
+            highlightColor: Colors.white.withOpacity(0.3),
+            onPressed: ((isMoveBack || gameModel.playerCount == 2)
+                && undoEnabled)  ? () => undo() : null,
           ),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: IconButton(
             icon: SvgPicture.asset(
-              "assets/images/icons/right_arrow_icon.svg",
-              height: 25,
-              colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
+              GamePageConst.rightArrow,
+              colorFilter: ColorFilter.mode(
+                (isMoveBack || gameModel.playerCount == 2)
+                    ? scheme.primary : scheme.onError,
+                BlendMode.srcIn
+              ),
             ),
-            onPressed: redoEnabled ? () => redo() : null,
+            highlightColor: Colors.white.withOpacity(0.3),
+            onPressed: ((isMoveBack || gameModel.playerCount == 2)
+                && redoEnabled) ? () => redo() : null,
           ),
         ),
       ],

@@ -68,10 +68,9 @@ class GuideStrings {
   ];
 
   static String partyHistoryPage = "История ваших партий";
-
   static String guideHeader = "Справочник";
-
   static String appbarMainIcon = "assets/images/icons/cancel.svg";
-
   static String appbarIcon = "assets/images/icons/left_big_arrow_icon.svg";
+  static String leftArrowIcon = "assets/images/icons/left_arrow_icon.svg";
+  static String rightArrowIcon = "assets/images/icons/right_arrow_icon.svg";
 }

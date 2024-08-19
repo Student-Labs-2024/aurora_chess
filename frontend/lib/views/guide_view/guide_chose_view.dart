@@ -18,12 +18,14 @@ class GuideChoseView extends StatelessWidget {
   static GuideChoseView builder(BuildContext context, GoRouterState state) =>
       const GuideChoseView();
   const GuideChoseView({super.key});
+
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+    final scheme = Theme.of(context).colorScheme;
+    return Scaffold(
+      backgroundColor: scheme.background,
+      body: SafeArea(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
@@ -39,22 +41,25 @@ class GuideChoseView extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 24),
                   child: ListView.builder(
                     padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: pieces.length,
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
-                      return SingleChildScrollView(
-                        child: GuideChosePieceButton(
-                          iconName: index < 6 ? "assets/images/pieces/${piecesIcons[index]}" : null,
-                          label: pieces[index],
-                          isPiece: index < 6,
-                          buttonColor: scheme.secondary,
-                          iconArrowColor: scheme.onPrimaryContainer,
-                          textColor: scheme.primary,
-                          onTap: () {
-                            context.push(RouteLocations.guideScreen, extra: index);
-                          },
-                        ),
+                      return GuideChosePieceButton(
+                        iconName: index < 6 ? "assets/images/pieces/${piecesIcons[index]}" : null,
+                        label: pieces[index],
+                        isPiece: index < 6,
+                        isPartyPage: false,
+                        buttonColor: scheme.secondary,
+                        iconArrowColor: scheme.onPrimaryContainer,
+                        textColor: scheme.primary,
+                        onTap: () {
+                          Future.delayed(const Duration(milliseconds: 200), () {
+                            context.push(RouteLocations.guideScreen,
+                                extra: index);
+                          });
+                        },
                       );
                     },
                   ),
@@ -67,11 +72,14 @@ class GuideChoseView extends StatelessWidget {
                 iconName: null,
                 label: GuideStrings.partyHistoryPage,
                 isPiece: false,
+                isPartyPage: true,
                 buttonColor: scheme.onTertiaryContainer,
-                iconArrowColor: scheme.surfaceDim,
-                textColor: scheme.surfaceDim,
+                iconArrowColor: scheme.background,
+                textColor: scheme.background,
                 onTap: () {
-                  context.push(RouteLocations.partyHistoryScreen);
+                  Future.delayed(const Duration(milliseconds: 200), () {
+                    context.push(RouteLocations.partyHistoryScreen);
+                  });
                 },
               ),
             ),

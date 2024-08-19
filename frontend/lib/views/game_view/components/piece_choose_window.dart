@@ -9,12 +9,12 @@ class PieceChooseWindow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Container(
       width: 245,
       height: 275,
       decoration: ShapeDecoration(
-        color: scheme.surfaceDim,
+        color: scheme.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -49,6 +49,7 @@ class PieceChooseWindow extends StatelessWidget {
                         colorFilter: ColorFilter.mode(
                             scheme.primary, BlendMode.srcIn),
                       ),
+                      highlightColor: scheme.errorContainer,
                       onPressed: () => gameModel.setPieceForPromotion(
                         ChessPieceType.bishop,
                       ),
@@ -61,6 +62,7 @@ class PieceChooseWindow extends StatelessWidget {
                         colorFilter: ColorFilter.mode(
                             scheme.primary, BlendMode.srcIn),
                       ),
+                      highlightColor: scheme.errorContainer,
                       onPressed: () => gameModel.setPieceForPromotion(
                         ChessPieceType.rook,
                       ),
@@ -79,6 +81,7 @@ class PieceChooseWindow extends StatelessWidget {
                         colorFilter: ColorFilter.mode(
                             scheme.primary, BlendMode.srcIn),
                       ),
+                      highlightColor: scheme.errorContainer,
                       onPressed: () => gameModel.setPieceForPromotion(
                         ChessPieceType.knight,
                       ),
@@ -91,6 +94,7 @@ class PieceChooseWindow extends StatelessWidget {
                         colorFilter: ColorFilter.mode(
                             scheme.primary, BlendMode.srcIn),
                       ),
+                      highlightColor: scheme.errorContainer,
                       onPressed: () => gameModel.setPieceForPromotion(
                         ChessPieceType.queen,
                       ),

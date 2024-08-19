@@ -7,8 +7,9 @@ import "../../../../exports.dart";
 
 class RestartExitButtons extends StatelessWidget {
   final GameModel gameModel;
+  final bool isHints;
 
-  const RestartExitButtons(this.gameModel, {super.key});
+  const RestartExitButtons(this.gameModel, this.isHints, {super.key});
 
   String _formatDuration(Duration duration) {
     int hours = duration.inHours;
@@ -40,7 +41,7 @@ class RestartExitButtons extends StatelessWidget {
   List<String> _getPartyData() {
     String enemy = PartyHistoryConst.gameEnemies[gameModel.playerCount - 1];
     String formattedDate = DateFormat("dd.MM.yyyy").format(DateTime.now());
-    String formattedTime = DateFormat("kk:mm").format(DateTime.now());
+    String formattedTime = DateFormat.Hm().format(DateTime.now());
     int firstTimeLeft = Duration(minutes: gameModel.timeLimit).inSeconds
         - gameModel.player1TimeLeft.inSeconds;
     int secondTimeLeft = Duration(minutes: gameModel.timeLimit).inSeconds
@@ -66,17 +67,23 @@ class RestartExitButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return Row(
       children: [
         Expanded(
           child: IconButton(
             icon: SvgPicture.asset(
-              "assets/images/icons/gridicons_menus.svg",
+              GamePageConst.menuIcon,
               colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
             ),
-            onPressed: () {
-              gameModel.newGame(context);
+            highlightColor: Colors.white.withOpacity(0.3),
+            onPressed: () async {
+              if (gameModel.gameOver) {
+                await _addPartyToHistory();
+              }
+              gameModel.exitChessView();
+              if (!context.mounted) return;
+              context.go(RouteLocations.settingsScreen);
             },
           ),
         ),
@@ -84,16 +91,17 @@ class RestartExitButtons extends StatelessWidget {
         Expanded(
           child: IconButton(
             icon: SvgPicture.asset(
-              "assets/images/icons/lamp_icon.svg",
-              colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
+              GamePageConst.lampIcon,
+              colorFilter: ColorFilter.mode(
+                (isHints || gameModel.playerCount == 2)
+                    ? scheme.primary : scheme.onError,
+                BlendMode.srcIn
+              ),
             ),
-            onPressed: () async {
-              if (gameModel.gameOver) {
-                await _addPartyToHistory();
-              }
-              gameModel.exitChessView();
-              context.go(RouteLocations.settingsScreen);
-            },
+            highlightColor: Colors.white.withOpacity(0.3),
+            onPressed: (isHints || gameModel.playerCount == 2) ? () {
+              gameModel.game!.aiHint();
+            } : null,
           ),
         ),
       ],

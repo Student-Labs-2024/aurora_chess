@@ -211,16 +211,17 @@ class _GameSettingsViewState extends State<GameSettingsView>
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     return isLoading
         ? const LoadingWidget()
-        : SafeArea(
-          child: Consumer<GameModel>(
-            builder: (context, gameModel, child) {
-          return DefaultTabController(
-            length: countOfTabs,
-            child: Scaffold(
-              body: Stack(
+        : Consumer<GameModel>(
+          builder: (context, gameModel, child) {
+        return DefaultTabController(
+          length: countOfTabs,
+          child: Scaffold(
+            backgroundColor: scheme.background,
+            body: SafeArea(
+              child: Stack(
                 children: [
                   SingleChildScrollView(
                     child: ConstrainedBox(
@@ -238,7 +239,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               AppBarSettings(
                                   label: GameSettingConsts.appBarLabel
                               ),
-
+                      
                               CustomTabBar(
                                 initialIndex: enemy.index,
                                 header: GameSettingConsts.gameModeText,
@@ -256,16 +257,16 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   });
                                 },
                               ),
-          
-                              ChoseColorWidget(
-                                piecesColor: piecesColor,
-                                onTap: (player) {
-                                  gameModel
-                                      .setPlayerSide(player);
-                                  setPiecesColor(player.index);
-                                },
-                              ),
-
+                              enemy == Enemy.computer ?
+                                ChoseColorWidget(
+                                  piecesColor: piecesColor,
+                                  onTap: (player) {
+                                    gameModel
+                                        .setPlayerSide(player);
+                                    setPiecesColor(player.index);
+                                  },
+                                ) : const SizedBox(),
+                      
                               CustomTabBar(
                                 initialIndex: withoutTime ? 0 : 1,
                                 header: GameSettingConsts.timeText,
@@ -282,7 +283,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   }
                                 },
                               ),
-          
+                      
                               !withoutTime
                                   ? Column(
                                 children: [
@@ -424,7 +425,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      color: scheme.surfaceDim,
+                      color: scheme.background,
                       child: Padding(
                         padding: const EdgeInsets.only(
                             top: 15, bottom: 23, left: 23, right: 23),
@@ -437,6 +438,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                             if (isSettingsEdited || !isDBEmpty) {
                               await setSettings();
                             }
+                            if (!context.mounted) return;
                             gameModel.newGame(context, notify: false);
                             context.go(RouteLocations.gameScreen, extra: gameModel);
                           },
@@ -447,9 +449,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
                 ],
               ),
             ),
-          );
-                },
-              ),
+          ),
         );
+              },
+            );
   }
 }

@@ -7,17 +7,7 @@ import "package:provider/provider.dart";
 
 void main() {
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => GameModel(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ThemeProvider(),
-        ),
-      ],
-      child: const MyApp(),
-    ),
+    const MyApp()
   );
   _loadFlameAssets();
 }
@@ -39,10 +29,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: Provider.of<ThemeProvider>(context).themeData,
-      routerConfig: router,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => GameModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ThemeProvider(),
+        ),
+      ],
+      child: Builder(
+        builder: (context) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: Provider.of<ThemeProvider>(context).themeData,
+            routerConfig: router,
+          );
+        }
+      ),
     );
   }
 }

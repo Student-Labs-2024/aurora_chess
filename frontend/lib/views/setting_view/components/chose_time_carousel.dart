@@ -36,8 +36,8 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    var scheme = Theme.of(context).colorScheme;
-    var height = MediaQuery.of(context).size.width - 110;
+    final scheme = Theme.of(context).colorScheme;
+    final height = MediaQuery.of(context).size.width - 110;
     return Container(
       margin: const EdgeInsets.only(top: 16),
       child: Column(
@@ -52,8 +52,10 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
               fontWeight: FontWeight.w700,
             ),
           ),
+
           Consumer<GameModel>(builder: (context, gameModel, child) {
             return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomIconButton(
                   iconName: "assets/images/icons/left_big_arrow_icon.svg",

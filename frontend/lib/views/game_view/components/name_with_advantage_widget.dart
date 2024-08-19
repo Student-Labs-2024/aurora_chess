@@ -15,9 +15,9 @@ class NameWithAdvantageForPlayer extends StatelessWidget {
     Map<int, String> difficultyLevels = {
       1: "Лёгкий",
       3: "Средний",
-      6: "Сложный"
+      5: "Сложный"
     };
-    var scheme = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     if (player == Player.player1) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,7 +1,7 @@
 import '../exports.dart';
 
 class LogicConsts {
-  static const secondsToHint = 50; //25-60 seconds is best choice
+  static const int secondsToHint = 50;
   static const int priceOfPawn = 100;
   static const int priceOfKnight = 320;
   static const int priceOfBishop = 330;
@@ -11,7 +11,10 @@ class LogicConsts {
   static const int countOfSquares = 64;
   static const int lenOfRow = 8;
   static const int height = 10;
-  static const int boardMargin = 28;
+  static const double boardWidthMarginRatio = 14 / 372;
+  static const double boardHeightMarginRatio = 16 / 360;
+  static const double boardRatio = ((1 - 2 * LogicConsts.boardWidthMarginRatio)
+      / (1 - LogicConsts.boardHeightMarginRatio));
   static const int minCountOfPieces = 3;
   static const int baseChar = 97;
   static const int offset = 5;

@@ -3,12 +3,12 @@ import "package:flutter/material.dart";
 
 ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
-  colorScheme: const ColorScheme.light(
-    surfaceDim: ColorsConst.neutralColor0,
+  colorScheme: ColorScheme.light(
+    background: ColorsConst.neutralColor0,
     primary: ColorsConst.neutralColor200,
     primaryContainer: ColorsConst.primaryColor100,
     onPrimary: ColorsConst.primaryColor0,
-    secondaryFixed: ColorsConst.neutralColor0,
+    onBackground: ColorsConst.neutralColor0,
     onPrimaryContainer: ColorsConst.neutralColor200,
     secondary: ColorsConst.secondaryColor0,
     onSecondaryContainer: ColorsConst.primaryColor100,
@@ -22,7 +22,7 @@ ThemeData lightMode = ThemeData(
     inversePrimary: ColorsConst.active100,
     onTertiary: ColorsConst.neutralColor300,
     onSurface: ColorsConst.secondaryColor100,
-    surfaceContainer: ColorsConst.secondaryColor200,
+    surfaceVariant: ColorsConst.secondaryColor200,
     inverseSurface: ColorsConst.secondaryColor0,
     outlineVariant: ColorsConst.neutralColor200,
     onInverseSurface: ColorsConst.secondaryColor0,
@@ -30,17 +30,19 @@ ThemeData lightMode = ThemeData(
     onSurfaceVariant: ColorsConst.primaryColor0,
     scrim: ColorsConst.secondaryColor200,
     error: ColorsConst.neutralColor100,
+    errorContainer: Colors.grey.withOpacity(0.2),
+    onError: ColorsConst.neutralColor100.withOpacity(0.5),
   ),
 );
 
 ThemeData darkMode = ThemeData(
   brightness: Brightness.dark,
-  colorScheme: const ColorScheme.dark(
-    surfaceDim: ColorsConst.neutralColor200,
+  colorScheme: ColorScheme.dark(
+    background: ColorsConst.neutralColor200,
     primary: ColorsConst.primaryColor0,
     primaryContainer: ColorsConst.primaryColor0,
     onPrimary: ColorsConst.primaryColor100,
-    secondaryFixed: ColorsConst.neutralColor100,
+    onBackground: ColorsConst.neutralColor100,
     onPrimaryContainer: ColorsConst.primaryColor100,
     secondary: ColorsConst.neutralColor100,
     onSecondaryContainer: ColorsConst.primaryColor200,
@@ -54,7 +56,7 @@ ThemeData darkMode = ThemeData(
     inversePrimary: ColorsConst.primaryColor0,
     onTertiary: ColorsConst.primaryColor0,
     onSurface: ColorsConst.primaryColor200,
-    surfaceContainer: ColorsConst.primaryColor200,
+    surfaceVariant: ColorsConst.primaryColor200,
     inverseSurface: ColorsConst.neutralColor0,
     outlineVariant: ColorsConst.neutralColor100,
     onInverseSurface: ColorsConst.secondaryColor300,
@@ -62,5 +64,7 @@ ThemeData darkMode = ThemeData(
     onSurfaceVariant: ColorsConst.secondaryColor300,
     scrim: ColorsConst.secondaryColor300,
     error: ColorsConst.secondaryColor100,
+    errorContainer: Colors.white.withOpacity(0.3),
+    onError: ColorsConst.neutralColor100,
   ),
 );
