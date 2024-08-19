@@ -37,7 +37,7 @@ class UndoRedoButtons extends StatelessWidget {
               GamePageConst.leftArrow,
               colorFilter: ColorFilter.mode(
                 (isMoveBack || gameModel.playerCount == 2)
-                    ? scheme.primary : scheme.tertiaryFixed,
+                    ? scheme.primary : scheme.onError,
                 BlendMode.srcIn
               ),
             ),
@@ -53,7 +53,7 @@ class UndoRedoButtons extends StatelessWidget {
               GamePageConst.rightArrow,
               colorFilter: ColorFilter.mode(
                 (isMoveBack || gameModel.playerCount == 2)
-                    ? scheme.primary : scheme.tertiaryFixed,
+                    ? scheme.primary : scheme.onError,
                 BlendMode.srcIn
               ),
             ),

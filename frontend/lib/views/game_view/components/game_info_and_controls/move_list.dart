@@ -38,7 +38,7 @@ class MoveList extends StatelessWidget {
                     Text(
                       "${((index + 1) / 2).ceil().toString()}.",
                       style: TextStyle(
-                        color: scheme.onPrimaryFixed,
+                        color: scheme.error,
                         fontSize: 20,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w500,

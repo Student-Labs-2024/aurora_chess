@@ -9,7 +9,7 @@ class LoadingWidget extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: scheme.surfaceDim,
+        backgroundColor: scheme.background,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

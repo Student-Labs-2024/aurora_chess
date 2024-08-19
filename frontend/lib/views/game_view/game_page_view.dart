@@ -68,6 +68,7 @@ class _GameViewState extends State<GameView> {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final width = MediaQuery.of(context).size.width;
     return isLoading
         ? const LoadingWidget()
         : Scaffold(
@@ -77,7 +78,7 @@ class _GameViewState extends State<GameView> {
               builder: (context, gameModel, child) {
                 return PopScope(
                   canPop: true,
-                  onPopInvokedWithResult: _willPopCallback,
+                  onPopInvoked: _willPopCallback,
                   child: Stack(
                     children: [
                       Column(
@@ -136,8 +137,8 @@ class _GameViewState extends State<GameView> {
                                   alignment: Alignment.topCenter,
                                   child: SvgPicture.asset(
                                     "assets/images/board.svg",
-                                    width: MediaQuery.of(context).size.width,
-                                    height: MediaQuery.of(context).size.width - 12,
+                                    width: width,
+                                    height: width * LogicConsts.boardRatio,
                                   ),
                                 ),
                                 Align(
@@ -190,7 +191,7 @@ class _GameViewState extends State<GameView> {
         );
   }
 
-  Future<void> _willPopCallback(bool didPop, result) async {
+  Future<void> _willPopCallback(bool didPop) async {
     widget.gameModel.exitChessView();
   }
 }

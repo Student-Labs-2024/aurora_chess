@@ -51,7 +51,7 @@ class _GuideViewState extends State<GuideView> {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: scheme.surfaceDim,
+      backgroundColor: scheme.background,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

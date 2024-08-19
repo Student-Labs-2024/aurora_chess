@@ -219,7 +219,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
         return DefaultTabController(
           length: countOfTabs,
           child: Scaffold(
-            backgroundColor: scheme.surfaceDim,
+            backgroundColor: scheme.background,
             body: SafeArea(
               child: Stack(
                 children: [
@@ -425,7 +425,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      color: scheme.surfaceDim,
+                      color: scheme.background,
                       child: Padding(
                         padding: const EdgeInsets.only(
                             top: 15, bottom: 23, left: 23, right: 23),

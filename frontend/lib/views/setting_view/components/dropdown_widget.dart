@@ -25,9 +25,6 @@ class _DropdownWidgetState extends State<DropdownWidget> {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return PopupMenuButton<LevelOfDifficulty>(
-      popUpAnimationStyle: AnimationStyle(
-        duration: const Duration(milliseconds: 10),
-      ),
       enableFeedback: false,
       splashRadius: 16,
       itemBuilder: (context) {

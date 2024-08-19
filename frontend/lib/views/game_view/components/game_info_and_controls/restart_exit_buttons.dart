@@ -94,7 +94,7 @@ class RestartExitButtons extends StatelessWidget {
               GamePageConst.lampIcon,
               colorFilter: ColorFilter.mode(
                 (isHints || gameModel.playerCount == 2)
-                    ? scheme.primary : scheme.tertiaryFixed,
+                    ? scheme.primary : scheme.onError,
                 BlendMode.srcIn
               ),
             ),

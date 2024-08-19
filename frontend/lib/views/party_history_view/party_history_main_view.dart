@@ -55,7 +55,7 @@ class _PartyHistoryMainViewState extends State<PartyHistoryMainView> {
     return isLoading
       ? const LoadingWidget()
       : Scaffold(
-        backgroundColor: scheme.surfaceDim,
+        backgroundColor: scheme.background,
         body: SafeArea(
           child: Column(
             children: [

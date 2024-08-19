@@ -24,7 +24,7 @@ class PointsIndicator extends StatelessWidget {
               height: 10,
               colorFilter: ColorFilter.mode(
                   index == currentIndex
-                      ? scheme.surfaceContainer
+                      ? scheme.surfaceVariant
                       : scheme.inverseSurface,
                   BlendMode.srcIn),
             ),

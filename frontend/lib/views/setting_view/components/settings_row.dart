@@ -63,7 +63,7 @@ class SettingsRow extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(horizontal: 24),
                       child: AlertDialog(
                         insetPadding: EdgeInsets.zero,
-                        backgroundColor: scheme.secondaryFixed,
+                        backgroundColor: scheme.onBackground,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(16.0)),
                         ),

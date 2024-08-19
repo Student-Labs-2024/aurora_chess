@@ -83,7 +83,7 @@ class OnePartyViewWidget extends StatelessWidget {
                       partyData["durationGame"] != "00:00"
                           ? "Длительность:" : "Без часов",
                       style: TextStyle(
-                          color: scheme.onPrimaryFixed,
+                          color: scheme.error,
                           fontSize: 12,
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w500,
@@ -94,7 +94,7 @@ class OnePartyViewWidget extends StatelessWidget {
                       Text(
                         "Цвет фигур:",
                         style: TextStyle(
-                          color: scheme.onPrimaryFixed,
+                          color: scheme.error,
                           fontSize: 12,
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w500,
@@ -115,7 +115,7 @@ class OnePartyViewWidget extends StatelessWidget {
                         Text(
                           partyData["durationGame"].toString(),
                           style: TextStyle(
-                            color: scheme.onPrimaryFixed,
+                            color: scheme.error,
                             fontSize: 12,
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w500,

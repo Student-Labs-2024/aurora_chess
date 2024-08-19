@@ -23,7 +23,7 @@ class GuideChoseView extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: scheme.surfaceDim,
+      backgroundColor: scheme.background,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,8 +74,8 @@ class GuideChoseView extends StatelessWidget {
                 isPiece: false,
                 isPartyPage: true,
                 buttonColor: scheme.onTertiaryContainer,
-                iconArrowColor: scheme.surfaceDim,
-                textColor: scheme.surfaceDim,
+                iconArrowColor: scheme.background,
+                textColor: scheme.background,
                 onTap: () {
                   Future.delayed(const Duration(milliseconds: 200), () {
                     context.push(RouteLocations.partyHistoryScreen);

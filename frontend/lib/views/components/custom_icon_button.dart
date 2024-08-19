@@ -25,7 +25,7 @@ class CustomIconButton extends StatelessWidget {
         onPressed: onTap,
         padding: EdgeInsets.zero,
         constraints: const BoxConstraints(),
-        highlightColor: scheme.surfaceBright,
+        highlightColor: scheme.errorContainer,
         icon: SvgPicture.asset(
           iconName,
           colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
