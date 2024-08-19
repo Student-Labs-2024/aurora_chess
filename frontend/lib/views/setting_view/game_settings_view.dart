@@ -4,6 +4,23 @@ import "package:provider/provider.dart";
 import "package:sqflite/sqflite.dart";
 import "../../exports.dart";
 
+
+class ExitGame {
+  const ExitGame(this.isSettingsEdited, this.isDBEmpty, this.setSettings);
+  final bool isSettingsEdited;
+  final bool isDBEmpty;
+  final Future<void> Function() setSettings;
+
+  Future<void> routeToGame(BuildContext context, GameModel gameModel) async {
+    if (isSettingsEdited || !isDBEmpty) {
+      await setSettings();
+    }
+    gameModel.newGame(context, notify: false);
+    context.go(RouteLocations.gameScreen, extra: gameModel);
+  }
+}
+
+
 class GameSettingsView extends StatefulWidget {
   static GameSettingsView builder(BuildContext context, GoRouterState state) =>
       const GameSettingsView();
@@ -188,14 +205,6 @@ class _GameSettingsViewState extends State<GameSettingsView>
     }
 
     await database.close();
-  }
-
-  Future<void> routeToGame(BuildContext context, GameModel gameModel) async {
-    if (isSettingsEdited || !isDBEmpty) {
-      await setSettings();
-    }
-    gameModel.newGame(context, notify: false);
-    context.go(RouteLocations.gameScreen, extra: gameModel);
   }
 
   void onInit() async {
@@ -442,7 +451,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
                           textColor: ColorsConst.primaryColor0,
                           buttonColor: scheme.secondaryContainer,
                           isClickable: true,
-                          onTap: () => routeToGame(context, gameModel),
+                          onTap: () =>
+                              ExitGame(isSettingsEdited, isDBEmpty, setSettings)
+                                  .routeToGame(context, gameModel),
                         ),
                       ),
                     ),

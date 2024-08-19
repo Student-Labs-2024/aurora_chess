@@ -5,11 +5,10 @@ import "package:intl/intl.dart";
 import "package:sqflite/sqflite.dart";
 import "../../../../exports.dart";
 
-class RestartExitButtons extends StatelessWidget {
-  final GameModel gameModel;
-  final bool isHints;
 
-  const RestartExitButtons(this.gameModel, this.isHints, {super.key});
+class SaveParty {
+  const SaveParty(this.gameModel);
+  final GameModel gameModel;
 
   String _formatDuration(Duration duration) {
     int hours = duration.inHours;
@@ -72,6 +71,14 @@ class RestartExitButtons extends StatelessWidget {
     gameModel.exitChessView();
     context.go(RouteLocations.settingsScreen);
   }
+}
+
+
+class RestartExitButtons extends StatelessWidget {
+  final GameModel gameModel;
+  final bool isHints;
+
+  const RestartExitButtons(this.gameModel, this.isHints, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +92,7 @@ class RestartExitButtons extends StatelessWidget {
               colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
             ),
             highlightColor: Colors.white.withOpacity(0.3),
-            onPressed: () => exitAndSave(context),
+            onPressed: () => SaveParty(gameModel).exitAndSave(context),
           ),
         ),
         const SizedBox(width: 10),
