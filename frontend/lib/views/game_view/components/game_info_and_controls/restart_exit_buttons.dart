@@ -65,6 +65,14 @@ class RestartExitButtons extends StatelessWidget {
     await database.close();
   }
 
+  Future<void> exitAndSave(BuildContext context) async {
+    if (gameModel.gameOver) {
+      await _addPartyToHistory();
+    }
+    gameModel.exitChessView();
+    context.go(RouteLocations.settingsScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
@@ -77,14 +85,7 @@ class RestartExitButtons extends StatelessWidget {
               colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
             ),
             highlightColor: Colors.white.withOpacity(0.3),
-            onPressed: () async {
-              // gameModel.newGame(context);
-              if (gameModel.gameOver) {
-                await _addPartyToHistory();
-              }
-              gameModel.exitChessView();
-              context.go(RouteLocations.settingsScreen);
-            },
+            onPressed: () => exitAndSave(context),
           ),
         ),
         const SizedBox(width: 10),

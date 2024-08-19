@@ -190,6 +190,14 @@ class _GameSettingsViewState extends State<GameSettingsView>
     await database.close();
   }
 
+  Future<void> routeToGame(BuildContext context, GameModel gameModel) async {
+    if (isSettingsEdited || !isDBEmpty) {
+      await setSettings();
+    }
+    gameModel.newGame(context, notify: false);
+    context.go(RouteLocations.gameScreen, extra: gameModel);
+  }
+
   void onInit() async {
     var databasesPath = await getDatabasesPath();
     String p = "$databasesPath/settings.db";
@@ -434,13 +442,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                           textColor: ColorsConst.primaryColor0,
                           buttonColor: scheme.secondaryContainer,
                           isClickable: true,
-                          onTap: () async {
-                            if (isSettingsEdited || !isDBEmpty) {
-                              await setSettings();
-                            }
-                            gameModel.newGame(context, notify: false);
-                            context.go(RouteLocations.gameScreen, extra: gameModel);
-                          },
+                          onTap: () => routeToGame(context, gameModel),
                         ),
                       ),
                     ),
