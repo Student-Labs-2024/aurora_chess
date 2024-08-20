@@ -46,6 +46,9 @@ jobs:
       - name: Install the project dependencies
         run: cd backend && poetry install
 
+      - name: Code analyze
+        run: cd backend && poetry run black src --check && poetry run black tests --check
+
       - name: Tests
         env:
           APP_CONFIG__DB__URL: postgresql+asyncpg://postgres:postgres@localhost:5432/postgres
