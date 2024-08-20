@@ -10,6 +10,22 @@ on:
 jobs:
   ci:
     runs-on: self-hosted
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     steps:
       - uses: actions/checkout@v4
 
@@ -31,4 +47,6 @@ jobs:
         run: cd backend && poetry install
 
       - name: Tests
+        env:
+          APP_CONFIG__DB__URL: postgresql+asyncpg://postgres:postgres@localhost:5432/postgres
         run: cd backend && poetry run pytest --cov=src/core --cov-report=term-missing
