@@ -62,6 +62,7 @@ class _MyMenuViewState extends State<MyMenuView> {
                         MenuPageStringConst.slogan,
                         style: TextStyle(
                           fontSize: 36,
+                          fontFamily: "Roboto",
                           fontStyle: FontStyle.normal,
                           fontWeight: FontWeight.w600,
                           color: scheme.primary

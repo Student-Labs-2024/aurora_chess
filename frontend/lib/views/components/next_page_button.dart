@@ -29,6 +29,7 @@ class NextPageButton extends StatelessWidget {
         text,
         style: TextStyle(
           fontSize: 24,
+          fontFamily: "Roboto",
           fontStyle: FontStyle.normal,
           fontWeight: FontWeight.w500,
           color: textColor
