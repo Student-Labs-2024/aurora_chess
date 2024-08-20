@@ -33,6 +33,7 @@ class PieceChooseWindow extends StatelessWidget {
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
                 fontSize: 20,
+                fontFamily: "Roboto",
                 fontWeight: FontWeight.w800,
               ),
             ),

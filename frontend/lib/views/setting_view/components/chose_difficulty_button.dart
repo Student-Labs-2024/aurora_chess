@@ -62,7 +62,6 @@ class ChoseDifficultyButton extends StatelessWidget {
                     fontFamily: "Roboto",
                     fontStyle: FontStyle.normal,
                     fontWeight: FontWeight.w500,
-                    // height: 0.11,
                     color: level == currentLevel
                       ? ColorsConst.primaryColor0
                       : scheme.primary,
@@ -74,7 +73,6 @@ class ChoseDifficultyButton extends StatelessWidget {
                     fontSize: 12,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.w500,
-                    // height: 0.11,
                     color: level == currentLevel
                         ? ColorsConst.primaryColor0
                         : scheme.primary,

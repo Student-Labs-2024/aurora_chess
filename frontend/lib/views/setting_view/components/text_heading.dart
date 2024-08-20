@@ -22,6 +22,7 @@ class TextHeading extends StatelessWidget {
         style: TextStyle(
           fontSize: 24,
           fontStyle: FontStyle.normal,
+          fontFamily: "Roboto",
           fontWeight: FontWeight.w700,
           color: scheme.primary,
         ),

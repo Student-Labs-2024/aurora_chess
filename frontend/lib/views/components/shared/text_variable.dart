@@ -12,7 +12,7 @@ class TextDefault extends StatelessWidget {
       text,
       style: TextStyle(
         fontSize: 16,
-        fontFamily: "Jura",
+        fontFamily: "Roboto",
         color: color,
       ),
     );
@@ -26,7 +26,13 @@ class TextSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: const TextStyle(fontSize: 20));
+    return Text(
+      text,
+      style: const TextStyle(
+        fontSize: 20,
+        fontFamily: "Roboto",
+      )
+    );
   }
 }
 
@@ -38,7 +44,14 @@ class TextRegular extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return Text(text, style: TextStyle(fontSize: 24, color: scheme.primary));
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: 24,
+        fontFamily: "Roboto",
+        color: scheme.primary
+      )
+    );
   }
 }
 
@@ -49,6 +62,12 @@ class TextLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: const TextStyle(fontSize: 36));
+    return Text(
+      text,
+      style: const TextStyle(
+        fontSize: 36,
+        fontFamily: "Roboto",
+      )
+    );
   }
 }
