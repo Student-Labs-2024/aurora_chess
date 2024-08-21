@@ -4,7 +4,6 @@ import "package:flutter_svg/svg.dart";
 
 class UndoRedoButtons extends StatelessWidget {
   final GameModel gameModel;
-  final bool isMoveBack;
 
   bool get undoEnabled {
     if (gameModel.playingWithAI) {
@@ -24,7 +23,7 @@ class UndoRedoButtons extends StatelessWidget {
     }
   }
 
-  const UndoRedoButtons(this.gameModel, this.isMoveBack, {super.key});
+  const UndoRedoButtons(this.gameModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +35,13 @@ class UndoRedoButtons extends StatelessWidget {
             icon: SvgPicture.asset(
               GamePageConst.leftArrow,
               colorFilter: ColorFilter.mode(
-                (isMoveBack || gameModel.playerCount == 2)
+                (gameModel.allowUndoRedo || gameModel.playerCount == 2)
                     ? scheme.primary : scheme.onError,
                 BlendMode.srcIn
               ),
             ),
             highlightColor: Colors.white.withOpacity(0.3),
-            onPressed: ((isMoveBack || gameModel.playerCount == 2)
+            onPressed: ((gameModel.allowUndoRedo || gameModel.playerCount == 2)
                 && undoEnabled)  ? () => undo() : null,
           ),
         ),
@@ -52,13 +51,13 @@ class UndoRedoButtons extends StatelessWidget {
             icon: SvgPicture.asset(
               GamePageConst.rightArrow,
               colorFilter: ColorFilter.mode(
-                (isMoveBack || gameModel.playerCount == 2)
+                (gameModel.allowUndoRedo || gameModel.playerCount == 2)
                     ? scheme.primary : scheme.onError,
                 BlendMode.srcIn
               ),
             ),
             highlightColor: Colors.white.withOpacity(0.3),
-            onPressed: ((isMoveBack || gameModel.playerCount == 2)
+            onPressed: ((gameModel.allowUndoRedo || gameModel.playerCount == 2)
                 && redoEnabled) ? () => redo() : null,
           ),
         ),

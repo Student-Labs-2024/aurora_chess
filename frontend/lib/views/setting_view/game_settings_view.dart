@@ -1,13 +1,12 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
-import "package:provider/provider.dart";
 import "package:sqflite/sqflite.dart";
 import "../../exports.dart";
 
 class GameSettingsView extends StatefulWidget {
-  static GameSettingsView builder(BuildContext context, GoRouterState state) =>
-      const GameSettingsView();
-  const GameSettingsView({super.key});
+  
+  const GameSettingsView(this.gameModel, {super.key});
+  final GameModel gameModel;
 
   @override
   State<GameSettingsView> createState() => _GameSettingsViewState();
@@ -42,6 +41,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
     setState(() {
       isSettingsEdited = true;
       enemy = Enemy.values[chose];
+      widget.gameModel.setPlayerCount(chose + 1);
     });
   }
 
@@ -49,6 +49,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
     setState(() {
       isSettingsEdited = true;
       piecesColor = Player.values[chose];
+      widget.gameModel.setPlayerSide(piecesColor);
     });
   }
 
@@ -56,6 +57,12 @@ class _GameSettingsViewState extends State<GameSettingsView>
     setState(() {
       isSettingsEdited = true;
       withoutTime = chose == 0;
+      if (withoutTime) {
+        widget.gameModel.setTimeLimit(0);
+      }
+      else {
+        widget.gameModel.setTimeLimit(durationOfGame);
+      }
     });
   }
 
@@ -63,6 +70,16 @@ class _GameSettingsViewState extends State<GameSettingsView>
     setState(() {
       isSettingsEdited = true;
       gameMode = LevelOfDifficulty.values[chose];
+      if (!isPersonality) {
+        widget.gameModel.setAIDifficulty(
+          GameSettingConsts.difficultyLevels[gameMode]
+        );
+      }
+      else {
+        widget.gameModel.setAIDifficulty(
+          GameSettingConsts.difficultyLevels[personalityGameMode]
+        );
+      }
     });
   }
 
@@ -70,14 +87,17 @@ class _GameSettingsViewState extends State<GameSettingsView>
     setState(() {
       isSettingsEdited = true;
       personalityGameMode = LevelOfDifficulty.values[chose];
+      widget.gameModel.setAIDifficulty(
+        GameSettingConsts.difficultyLevels[personalityGameMode]
+      );
     });
   }
 
-  void setMinutes(GameModel? gameModel, chose) {
-    if (gameModel != null) {
-      gameModel.setTimeLimit(chose);
-    }
+  void setMinutes(chose) {
     setState(() {
+      if(!withoutTime) {
+        widget.gameModel.setTimeLimit(chose);
+      }
       isSettingsEdited = true;
       durationOfGame = chose;
     });
@@ -87,6 +107,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
     setState(() {
       isSettingsEdited = true;
       addingOfMove = chose == GameSettingConsts.longDashSymbol ? 0 : chose;
+      widget.gameModel.setAddingOnMove(addingOfMove);
     });
   }
 
@@ -94,6 +115,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
     setState(() {
       isSettingsEdited = true;
       isPersonality = chose;
+      widget.gameModel.setIsPersonalityMode(chose);
     });
   }
 
@@ -111,6 +133,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
     setState(() {
       isSettingsEdited = true;
       isMoveBack = chose;
+      widget.gameModel.setAllowUndoRedo(chose);
     });
   }
 
@@ -125,6 +148,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
     setState(() {
       isSettingsEdited = true;
       isHints = chose;
+      widget.gameModel.setShowHint(chose);
     });
   }
 
@@ -141,7 +165,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
       setEnemy(data["withComputer"]);
       setPiecesColor(data["colorPieces"]);
       setIsTime(data["withoutTime"]);
-      setMinutes(null, data["durationGame"]);
+      setMinutes(data["durationGame"]);
       setSeconds(data["addingOnMove"]);
       setIsPersonality(data["isPersonality"] == 0);
       if (isPersonality) {
@@ -214,9 +238,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
     final scheme = Theme.of(context).colorScheme;
     return isLoading
         ? const LoadingWidget()
-        : Consumer<GameModel>(
-          builder: (context, gameModel, child) {
-        return DefaultTabController(
+        : DefaultTabController(
           length: countOfTabs,
           child: Scaffold(
             backgroundColor: scheme.background,
@@ -232,7 +254,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
                       child: IntrinsicHeight(
                         child: Container(
                           margin: const EdgeInsets.only(
-                              left: 24, right: 24, top: 24),
+                            left: 24, right: 24, top: 24
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -248,21 +271,12 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   GameSettingConsts.gameWithHumanText,
                                 ],
                                 isSettingsPage: true,
-                                onTap: (index) {
-                                  setState(() {
-                                    final playerCount = index + 1;
-                                    gameModel
-                                        .setPlayerCount(playerCount);
-                                    setEnemy(index);
-                                  });
-                                },
+                                onTap: setEnemy,
                               ),
                               enemy == Enemy.computer ?
                                 ChoseColorWidget(
                                   piecesColor: piecesColor,
                                   onTap: (player) {
-                                    gameModel
-                                        .setPlayerSide(player);
                                     setPiecesColor(player.index);
                                   },
                                 ) : const SizedBox(),
@@ -275,13 +289,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                   GameSettingConsts.gameWithTimeText,
                                 ],
                                 isSettingsPage: true,
-                                onTap: (index) {
-                                  setIsTime(index);
-                                  if (index == 0) {
-                                    gameModel.setTimeLimit(0);
-                                    setState(() {});
-                                  }
-                                },
+                                onTap: setIsTime,
                               ),
                       
                               !withoutTime
@@ -294,7 +302,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     header: GameSettingConsts
                                         .minutesSubtitle,
                                     startValue:durationOfGame,
-                                    onChanged: (value) => setMinutes(gameModel, value),
+                                    onChanged: setMinutes,
                                   ),
                                   ChoseTimeCarousel(
                                     values: GameSettingConsts
@@ -320,9 +328,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     bottomMargin: 16,
                                   ),
                                   Column(
-                                      children: List.generate(
-                                          LevelOfDifficulty.values
-                                              .length, (index) {
+                                    children: List.generate(
+                                      LevelOfDifficulty.values
+                                         .length, (index) {
                                         return ChoseDifficultyButton(
                                           level: LevelOfDifficulty
                                               .values[index],
@@ -332,14 +340,6 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                           personalityLevel:
                                           personalityGameMode,
                                           onTap: () {
-                                            gameModel.setAIDifficulty(
-                                              GameSettingConsts
-                                                .difficultyLevels[
-                                                  index == 3
-                                                    ? personalityGameMode
-                                                    : LevelOfDifficulty
-                                                    .values[index]]
-                                            );
                                             setIsPersonality(index == 3);
                                             setGameMode(index);
                                             setAdditionSettings(index);
@@ -366,10 +366,6 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     isChoseDiff: true,
                                     onChose: (value) {
                                       setPersonalityGameMode(value!.index);
-                                      gameModel.setAIDifficulty(
-                                        GameSettingConsts
-                                          .difficultyLevels[value]
-                                      );
                                     },
                                   ),
                                   SettingsRow(
@@ -381,13 +377,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     modalHeader: GameSettingConsts
                                         .moveBackText,
                                     isChoseDiff: false,
-                                    onChanged: (chose) {
-                                      setIsMoveBack(chose);
-                                      setState(() {
-                                        gameModel
-                                            .setAllowUndoRedo(chose);
-                                      });
-                                    },
+                                    onChanged: setIsMoveBack,
                                   ),
                                   SettingsRow(
                                     chose: isThreats,
@@ -408,9 +398,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                                     modalHeader:
                                     GameSettingConsts.hintsText,
                                     isChoseDiff: false,
-                                    onChanged: (chose) {
-                                      setIsHints(chose);
-                                    },
+                                    onChanged: setIsHints,
                                   ),
                                 ],
                               )
@@ -428,7 +416,8 @@ class _GameSettingsViewState extends State<GameSettingsView>
                       color: scheme.background,
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            top: 15, bottom: 23, left: 23, right: 23),
+                          top: 15, bottom: 23, left: 23, right: 23
+                        ),
                         child: NextPageButton(
                           text: GameSettingConsts.startGameText,
                           textColor: ColorsConst.primaryColor0,
@@ -439,8 +428,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
                               await setSettings();
                             }
                             if (!context.mounted) return;
-                            gameModel.newGame(context, notify: false);
-                            context.go(RouteLocations.gameScreen, extra: gameModel);
+                            widget.gameModel.newGame(context, notify: false);
+                            context.go(RouteLocations.gameScreen,
+                                extra: widget.gameModel);
                           },
                         ),
                       ),
@@ -451,7 +441,5 @@ class _GameSettingsViewState extends State<GameSettingsView>
             ),
           ),
         );
-              },
-            );
   }
 }

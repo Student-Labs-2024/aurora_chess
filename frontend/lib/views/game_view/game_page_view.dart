@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
 import "package:go_router/go_router.dart";
 import "package:provider/provider.dart";
-import "package:sqflite/sqflite.dart";
 import "../../exports.dart";
 
 class GameView extends StatefulWidget {
@@ -20,48 +19,13 @@ class _GameViewState extends State<GameView> {
   bool isThreats = true;
   bool isHints = true;
 
-  Future<Map> _getSettings() async {
-    var databasesPath = await getDatabasesPath();
-    String path = "$databasesPath/settings.db";
-    Database database = await openDatabase(path, version: 1,
-        onCreate: (Database db, int version) async {
-      await db.execute(GameSettingConsts.dbCreateScript);
-    });
-    List<Map> list =
-        await database.rawQuery(GameSettingConsts.dbGetSettingsScript);
-
-    return list.first;
-  }
-
-  void _setSettings() async {
-    Map data = await _getSettings();
-    setState(() {
-      isMoveBack = data["isMoveBack"] == 0;
-      isThreats = data["isThreats"] == 0;
-      isHints = data["isHints"] == 0;
-    });
-    widget.gameModel.setPlayerCount(data["withComputer"] + 1);
-    widget.gameModel.setPlayerSide(Player.values[data["colorPieces"]]);
-    if (data["withoutTime"] == 0) {
-      widget.gameModel.setTimeLimit(0);
-    }
-    else {
-      widget.gameModel.setTimeLimit(data["durationGame"]);
-    }
-    widget.gameModel.setAIDifficulty(GameSettingConsts
-        .difficultyLevels[LevelOfDifficulty.values[data["levelOfDifficulty"]]]);
-    await widget.gameModel.setAllowUndoRedo(isMoveBack);
-
+  @override
+  void initState() {
     Future.delayed(const Duration(milliseconds: 300), () {
       setState(() {
         isLoading = false;
       });
     });
-  }
-
-  @override
-  void initState() {
-    _setSettings();
     super.initState();
   }
 
@@ -100,7 +64,7 @@ class _GameViewState extends State<GameView> {
                                     iconSize: 40,
                                     onTap: () {
                                       context
-                                          .go(RouteLocations.settingsScreen);
+                                          .go(RouteLocations.settingsScreen, extra: gameModel);
                                     },
                                   ),
                                   const GameStatus(),
@@ -171,11 +135,7 @@ class _GameViewState extends State<GameView> {
                           const Spacer(),
                           Padding(
                             padding: const EdgeInsets.all(30),
-                            child: GameInfoAndControls(
-                              gameModel: gameModel,
-                              isMoveBack: isMoveBack,
-                              isHints: isHints,
-                            ),
+                            child: GameInfoAndControls(gameModel: gameModel,),
                           ),
                         ],
                       ),

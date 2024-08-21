@@ -14,10 +14,13 @@ class GameModel extends ChangeNotifier {
   Player selectedSide = Player.player1;
   Player playerSide = Player.player1;
   int timeLimit = 10;
+  int addingOnMove = 0;
   bool showMoveHistory = true;
   bool allowUndoRedo = true;
-  bool showHints = true;
+  bool showMoves = true;
+  bool showHint = true;
   bool flip = true;
+  bool isPersonalityMode = false;
 
   ChessGame? game;
   Timer? timer;
@@ -156,6 +159,11 @@ class GameModel extends ChangeNotifier {
     }
   }
 
+  void setAddingOnMove(int duration) {
+    addingOnMove = duration;
+    notifyListeners();
+  }
+
   void setPieceForPromotion(ChessPieceType piece) async {
     pieceForPromotion = piece;
     notifyListeners();
@@ -177,13 +185,39 @@ class GameModel extends ChangeNotifier {
     }
   }
 
+  void incrementPlayer1Timer() {
+    if (player1TimeLeft.inMilliseconds > 0 && !gameOver) {
+      player1TimeLeft = Duration(
+          milliseconds: player1TimeLeft.inMilliseconds + addingOnMove);
+      notifyListeners();
+    }
+  }
+
+  void incrementPlayer2Timer() {
+    if (player2TimeLeft.inMilliseconds > 0 && !gameOver) {
+      player2TimeLeft = Duration(
+          milliseconds: player2TimeLeft.inMilliseconds + addingOnMove);
+      notifyListeners();
+    }
+  }
+
   void setShowMoveHistory(bool show) async {
     showMoveHistory = show;
     notifyListeners();
   }
 
-  Future<void> setShowHints(bool show) async {
-    showHints = show;
+  Future<void> setShowMoves(bool show) async {
+    showMoves = show;
+    notifyListeners();
+  }
+
+  Future<void> setShowHint(bool show) async {
+    showHint = show;
+    notifyListeners();
+  }
+
+  void setIsPersonalityMode(bool show) {
+    isPersonalityMode = show;
     notifyListeners();
   }
 

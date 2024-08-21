@@ -28,80 +28,84 @@ class _MyMenuViewState extends State<MyMenuView> {
     final aspectRatio = height / width;
     return Scaffold(
       backgroundColor: scheme.background,
-      body: SafeArea(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(minWidth: width, minHeight: height),
-          child: IntrinsicHeight(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 25),
-              child: Stack(
-                children: [
-                  Column(
+      body: Consumer<GameModel>(
+        builder: (context, gameModel, child) {
+          return SafeArea(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minWidth: width, minHeight: height),
+              child: IntrinsicHeight(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                  child: Stack(
                     children: [
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
                         children: [
-                          CustomSwitch(provider),
-                          ButtonToGuide(
-                            backGroundColor: scheme.secondaryContainer,
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CustomSwitch(provider),
+                              ButtonToGuide(
+                                backGroundColor: scheme.secondaryContainer,
+                                height: 40,
+                                width: 40,
+                                onTap: () {
+                                  context.push(RouteLocations.guidebookScreen);
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
                             height: 40,
-                            width: 40,
-                            onTap: () {
-                              context.push(RouteLocations.guidebookScreen);
-                            },
+                          ),
+                          Text(
+                            MenuPageStringConst.slogan,
+                            style: TextStyle(
+                              fontSize: 36,
+                              fontFamily: "Roboto",
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.w600,
+                              color: scheme.primary
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              "${MenuPageStringConst.pathToIcon}pieces.png",
+                              width: aspectRatio > 2
+                                  ? width * 0.9
+                                  : (height - width) * 0.8,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 48,
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Text(
-                        MenuPageStringConst.slogan,
-                        style: TextStyle(
-                          fontSize: 36,
-                          fontFamily: "Roboto",
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.w600,
-                          color: scheme.primary
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: NextPageButton(
+                            text: MenuPageStringConst.localButton,
+                            textColor: ColorsConst.primaryColor0,
+                            buttonColor: scheme.secondaryContainer,
+                            isClickable: true,
+                            onTap: () {
+                              context.go(RouteLocations.settingsScreen, extra: gameModel);
+                            },
+                          ),
                         ),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Image.asset(
-                          "${MenuPageStringConst.pathToIcon}pieces.png",
-                          width: aspectRatio > 2
-                              ? width * 0.9
-                              : (height - width) * 0.8,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 48,
                       ),
                     ],
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: NextPageButton(
-                        text: MenuPageStringConst.localButton,
-                        textColor: ColorsConst.primaryColor0,
-                        buttonColor: scheme.secondaryContainer,
-                        isClickable: true,
-                        onTap: () {
-                          context.go(RouteLocations.settingsScreen);
-                        },
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        }
       ),
     );
   }

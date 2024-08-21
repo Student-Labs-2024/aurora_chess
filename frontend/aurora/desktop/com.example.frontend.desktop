@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=frontend
+Name=ChessKnock
 Comment=A new Flutter project.
 Icon=com.example.frontend
 Exec=/usr/bin/com.example.frontend
@@ -9,4 +9,4 @@ X-Nemo-Application-Type=silica-qt5
 [X-Application]
 Permissions=
 OrganizationName=com.example
-ApplicationName=frontend
+ApplicationName=ChessKnock
