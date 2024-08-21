@@ -107,6 +107,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
     setState(() {
       isSettingsEdited = true;
       addingOfMove = chose == GameSettingConsts.longDashSymbol ? 0 : chose;
+      widget.gameModel.setAddingOnMove(addingOfMove);
     });
   }
 

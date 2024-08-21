@@ -14,6 +14,7 @@ class GameModel extends ChangeNotifier {
   Player selectedSide = Player.player1;
   Player playerSide = Player.player1;
   int timeLimit = 10;
+  int addingOnMove = 0;
   bool showMoveHistory = true;
   bool allowUndoRedo = true;
   bool showMoves = true;
@@ -158,6 +159,11 @@ class GameModel extends ChangeNotifier {
     }
   }
 
+  void setAddingOnMove(int duration) {
+    addingOnMove = duration;
+    notifyListeners();
+  }
+
   void setPieceForPromotion(ChessPieceType piece) async {
     pieceForPromotion = piece;
     notifyListeners();
@@ -175,6 +181,22 @@ class GameModel extends ChangeNotifier {
     if (player2TimeLeft.inMilliseconds > 0 && !gameOver) {
       player2TimeLeft = Duration(
           milliseconds: player2TimeLeft.inMilliseconds - timerAccuracyMs);
+      notifyListeners();
+    }
+  }
+
+  void incrementPlayer1Timer() {
+    if (player1TimeLeft.inMilliseconds > 0 && !gameOver) {
+      player1TimeLeft = Duration(
+          milliseconds: player1TimeLeft.inMilliseconds + addingOnMove);
+      notifyListeners();
+    }
+  }
+
+  void incrementPlayer2Timer() {
+    if (player2TimeLeft.inMilliseconds > 0 && !gameOver) {
+      player2TimeLeft = Duration(
+          milliseconds: player2TimeLeft.inMilliseconds + addingOnMove);
       notifyListeners();
     }
   }
