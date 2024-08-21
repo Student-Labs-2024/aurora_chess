@@ -3,14 +3,10 @@ import "package:flutter/material.dart";
 
 class GameInfoAndControls extends StatelessWidget {
   final GameModel gameModel;
-  final bool isMoveBack;
-  final bool isHints;
 
   const GameInfoAndControls({
     super.key,
     required this.gameModel,
-    required this.isMoveBack,
-    required this.isHints,
   });
 
   @override
@@ -26,9 +22,9 @@ class GameInfoAndControls extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Expanded(child: RestartExitButtons(gameModel, isHints)),
+          Expanded(child: RestartExitButtons(gameModel)),
           const SizedBox(width: 10),
-          Expanded(child: UndoRedoButtons(gameModel, isMoveBack)),
+          Expanded(child: UndoRedoButtons(gameModel)),
         ],
       ),
     );

@@ -7,9 +7,8 @@ import "../../../../exports.dart";
 
 class RestartExitButtons extends StatelessWidget {
   final GameModel gameModel;
-  final bool isHints;
 
-  const RestartExitButtons(this.gameModel, this.isHints, {super.key});
+  const RestartExitButtons(this.gameModel, {super.key});
 
   String _formatDuration(Duration duration) {
     int hours = duration.inHours;
@@ -83,7 +82,7 @@ class RestartExitButtons extends StatelessWidget {
               }
               gameModel.exitChessView();
               if (!context.mounted) return;
-              context.go(RouteLocations.settingsScreen);
+              context.go(RouteLocations.settingsScreen, extra: gameModel);
             },
           ),
         ),
@@ -93,13 +92,13 @@ class RestartExitButtons extends StatelessWidget {
             icon: SvgPicture.asset(
               GamePageConst.lampIcon,
               colorFilter: ColorFilter.mode(
-                (isHints || gameModel.playerCount == 2)
+                (gameModel.showHint || gameModel.playerCount == 2)
                     ? scheme.primary : scheme.onError,
                 BlendMode.srcIn
               ),
             ),
             highlightColor: Colors.white.withOpacity(0.3),
-            onPressed: (isHints || gameModel.playerCount == 2) ? () {
+            onPressed: (gameModel.showHint || gameModel.playerCount == 2) ? () {
               gameModel.game!.aiHint();
             } : null,
           ),

@@ -16,8 +16,10 @@ class GameModel extends ChangeNotifier {
   int timeLimit = 10;
   bool showMoveHistory = true;
   bool allowUndoRedo = true;
-  bool showHints = true;
+  bool showMoves = true;
+  bool showHint = true;
   bool flip = true;
+  bool isPersonalityMode = false;
 
   ChessGame? game;
   Timer? timer;
@@ -182,8 +184,18 @@ class GameModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setShowHints(bool show) async {
-    showHints = show;
+  Future<void> setShowMoves(bool show) async {
+    showMoves = show;
+    notifyListeners();
+  }
+
+  Future<void> setShowHint(bool show) async {
+    showHint = show;
+    notifyListeners();
+  }
+
+  void setIsPersonalityMode(bool show) {
+    isPersonalityMode = show;
     notifyListeners();
   }
 

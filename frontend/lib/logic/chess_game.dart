@@ -65,13 +65,13 @@ class ChessGame extends Game with TapDetector {
   @override
   void render(Canvas canvas) {
     _drawBoard(canvas);
-    if (gameModel.showHints) {
+    if (gameModel.showMoves) {
       _drawCheckHint(canvas);
       _drawLatestMove(canvas);
     }
     _drawSelectedPieceHint(canvas);
     _drawPieces(canvas);
-    if (gameModel.showHints) {
+    if (gameModel.showMoves) {
       _drawMoveHints(canvas);
     }
   }
@@ -261,7 +261,7 @@ class ChessGame extends Game with TapDetector {
   void aiHint() {
     var args = {};
     args["aiPlayer"] = gameModel.playerSide;
-    args["aiDifficulty"] = gameModel.aiDifficulty;
+    args["aiDifficulty"] = 4;
     args["board"] = board;
     aiOperation = CancelableOperation.fromFuture(
       compute(calculateAIMove, args),
