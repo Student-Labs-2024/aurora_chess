@@ -27,7 +27,9 @@ router = APIRouter(prefix="/auth", tags=["Авторизация"])
 
 
 async def validate_auth_user(
-    username: str = Form(), password: str = Form(), db: AsyncSession = Depends(db_helper.session_getter)
+    username: str = Form(),
+    password: str = Form(),
+    db: AsyncSession = Depends(db_helper.session_getter),
 ) -> User | Exception:
     email = username
     unauthed_exc = HTTPException(
@@ -90,7 +92,9 @@ def auth_user_check_self_info(
 
 
 @router.post("/register", response_model=User)
-async def create_user(user: UserCreate = Depends(), db: AsyncSession = Depends(db_helper.session_getter)):
+async def create_user(
+    user: UserCreate = Depends(), db: AsyncSession = Depends(db_helper.session_getter)
+):
     user_from_db = await crud.get_user_by_email(db, email=user.email)
     if user_from_db:
         raise HTTPException(status_code=400, detail="Email already registered")

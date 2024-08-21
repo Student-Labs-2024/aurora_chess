@@ -1,6 +1,14 @@
 from datetime import datetime
 
-from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey, Boolean, LargeBinary
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    TIMESTAMP,
+    ForeignKey,
+    Boolean,
+    LargeBinary,
+)
 
 from core.database.db_helper import Base
 
