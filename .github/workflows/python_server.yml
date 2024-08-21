@@ -47,9 +47,28 @@ jobs:
         run: cd backend && poetry install
 
       - name: Code analyze
-        run: cd backend && poetry run black src --check && poetry run black tests --check
+        run: |
+          cd backend && 
+          poetry run black src --check && 
+          poetry run black tests --check
+
+      - name: Create certs
+        run: |
+          cd backend &&
+          cd src &&
+          mkdir certs &&
+          cd certs &&
+          ssh-keygen -t rsa -b 4096 -m PEM -f jwt-private.pem -N "" &&
+          ssh-keygen -f jwt-private.pem -e -m PKCS8 > jwt-public.pem 
 
       - name: Tests
         env:
           APP_CONFIG__DB__URL: postgresql+asyncpg://postgres:postgres@localhost:5432/postgres
-        run: cd backend && poetry run pytest --cov=src/core --cov-report=term-missing
+          APP_CONFIG__DB__USER: postgres2
+          APP_CONFIG__DB__PORT: 5432
+          APP_CONFIG__DB__PASSWORD: postgres2
+          APP_CONFIG__DB__NAME: postgres
+          APP_CONFIG__DB__HOST: localhost
+        run: |
+          cd backend &&
+          poetry run pytest --cov=src/core --cov-report=term-missing
