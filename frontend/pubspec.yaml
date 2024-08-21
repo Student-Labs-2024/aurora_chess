@@ -49,3 +49,8 @@ flutter:
     - assets/images/small_pieces/
     - assets/images/icons/
     - assets/images/guide_boards/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
