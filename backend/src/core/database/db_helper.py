@@ -1,3 +1,5 @@
+from sqlalchemy.orm import declarative_base
+
 from core.config import settings
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
@@ -46,3 +48,5 @@ db_helper = DatabaseHelper(
     max_overflow=settings.db.max_overflow,
     pool_size=settings.db.pool_size,
 )
+
+Base = declarative_base()
