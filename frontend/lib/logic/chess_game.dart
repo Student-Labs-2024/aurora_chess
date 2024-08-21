@@ -22,7 +22,8 @@ class ChessGame extends Game with TapDetector {
   ChessGame(this.gameModel, this.context) {
     double screenWidth = MediaQuery.of(context).size.width;
     width = (screenWidth * (1 - LogicConsts.boardWidthMarginRatio * 2))
-        .ceil().toDouble();
+        .ceil()
+        .toDouble();
     tileSize = (width ?? 0) / LogicConsts.lenOfRow;
     for (var piece in board.player1Pieces + board.player2Pieces) {
       spriteMap[piece] = ChessPieceSprite(piece);
@@ -50,10 +51,10 @@ class ChessGame extends Game with TapDetector {
             _movePiece(tile);
           } else {
             validMoves = [];
-            _selectPiece(touchedPiece);
+            _selectPiece(touchedPiece, null);
           }
         } else if (selectedPiece == null) {
-          _selectPiece(touchedPiece);
+          _selectPiece(touchedPiece, null);
         } else {
           _movePiece(tile);
         }
@@ -88,12 +89,18 @@ class ChessGame extends Game with TapDetector {
     }
   }
 
-  void _selectPiece(ChessPiece? piece) {
+  void _selectPiece(ChessPiece? piece, int? hintTile) {
     if (piece != null) {
       if (piece.player == gameModel.turn) {
         selectedPiece = piece;
         if (selectedPiece != null) {
-          validMoves = movesForPiece(piece, board);
+          if (hintTile == null) {
+            validMoves = movesForPiece(piece, board);
+          } else {
+            validMoves = [
+              hintTile,
+            ];
+          }
         }
         if (validMoves.isEmpty) {
           selectedPiece = null;
@@ -260,7 +267,7 @@ class ChessGame extends Game with TapDetector {
       compute(calculateAIMove, args),
     );
     aiOperation?.value.then((move) {
-      _selectPiece(board.tiles[move.from]);
+      _selectPiece(board.tiles[move.from], move.to);
     });
   }
 
