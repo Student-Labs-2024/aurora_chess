@@ -249,6 +249,7 @@ class ChessGame extends Game with TapDetector {
       gameModel.pushMoveMeta(meta);
     }
     if (changeTurn) {
+      addTimeOnMove(false);
       gameModel.changeTurn();
     }
     selectedPiece = null;
@@ -258,9 +259,18 @@ class ChessGame extends Game with TapDetector {
     }
   }
 
+  void addTimeOnMove(bool isFirstAiMove) {
+    if (gameModel.turn == Player.player1) {
+      gameModel.incrementPlayer1Timer();
+    }
+    else {
+      gameModel.incrementPlayer2Timer();
+    }
+  }
+
   void aiHint() {
     var args = {};
-    args["aiPlayer"] = gameModel.playerSide;
+    args["aiPlayer"] = gameModel.turn;
     args["aiDifficulty"] = 4;
     args["board"] = board;
     aiOperation = CancelableOperation.fromFuture(
