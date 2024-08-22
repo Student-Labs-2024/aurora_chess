@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_svg/svg.dart";
 import "package:go_router/go_router.dart";
 import "package:provider/provider.dart";
 import "../../exports.dart";
@@ -72,8 +73,8 @@ class _MyMenuViewState extends State<MyMenuView> {
                           ),
                           Container(
                             alignment: Alignment.center,
-                            child: Image.asset(
-                              "${MenuPageStringConst.pathToIcon}pieces.png",
+                            child: SvgPicture.asset(
+                              "${MenuPageStringConst.pathToIcon}pieces.svg",
                               width: aspectRatio > 2
                                   ? width * 0.9
                                   : (height - width) * 0.8,
