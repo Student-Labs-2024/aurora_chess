@@ -6,7 +6,7 @@ import '../../../exports.dart';
 // ignore: must_be_immutable
 class NameWithAdvantageForPlayer extends StatelessWidget {
   GameModel gameModel;
-  Player player;
+  final Player player;
   NameWithAdvantageForPlayer(
       {required this.player, required this.gameModel, super.key});
 
@@ -18,7 +18,7 @@ class NameWithAdvantageForPlayer extends StatelessWidget {
       5: "Сложный"
     };
     final scheme = Theme.of(context).colorScheme;
-    if (player == Player.player1) {
+    if (player != gameModel.selectedSide) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -32,60 +32,47 @@ class NameWithAdvantageForPlayer extends StatelessWidget {
               height: 1.2,
             ),
           ),
-          gameModel.player1Advantage > gameModel.player2Advantage
-              ? Row(
-                  children: [
-                    SvgPicture.asset('assets/images/icons/advantage.svg'),
-                    Text(
-                      "+${gameModel.player1Advantage - gameModel.player2Advantage}",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: scheme.primary,
-                        fontSize: 14,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
-                        height: 1,
-                      ),
-                    ),
-                  ],
-                )
-              : Container()
+          _advantageForThisPlayer(player, scheme),
         ],
       );
     } else {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            gameModel.playerCount == 1 ? 'Робот (${difficultyLevels[gameModel.aiDifficulty]})' : 'Игрок2',
-            style: TextStyle(
-              color: scheme.primary,
-              fontSize: 20,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w500,
-              height: 1.2,
-            ),
+      return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(
+          gameModel.playerCount == 1
+              ? 'Робот (${difficultyLevels[gameModel.aiDifficulty]})'
+              : 'Игрок2',
+          style: TextStyle(
+            color: scheme.primary,
+            fontSize: 20,
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.w500,
+            height: 1.2,
           ),
-          gameModel.player1Advantage < gameModel.player2Advantage
-              ? Row(
-                  children: [
-                    SvgPicture.asset('assets/images/icons/advantage.svg'),
-                    Text(
-                      "+${gameModel.player2Advantage - gameModel.player1Advantage}",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: scheme.primary,
-                        fontSize: 14,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
-                        height: 1,
-                      ),
-                    ),
-                  ],
-                )
-              : Container(),
-        ],
-      );
+        ),
+        _advantageForThisPlayer(player, scheme),
+      ]);
     }
+  }
+
+  Widget _advantageForThisPlayer(Player player, ColorScheme scheme) {
+    return gameModel.advantageForPlayer(oppositePlayer(player)) >
+            gameModel.advantageForPlayer(player)
+        ? Row(
+            children: [
+              SvgPicture.asset('assets/images/icons/advantage.svg'),
+              Text(
+                "+${gameModel.advantageForPlayer(oppositePlayer(player)) - gameModel.advantageForPlayer(player)}",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: scheme.primary,
+                  fontSize: 14,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w500,
+                  height: 1,
+                ),
+              ),
+            ],
+          )
+        : Container();
   }
 }

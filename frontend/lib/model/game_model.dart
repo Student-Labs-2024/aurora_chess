@@ -1,6 +1,8 @@
 import "dart:async";
 import "dart:math";
 
+import "package:flame/palette.dart";
+
 import "../exports.dart";
 import "package:flutter/material.dart";
 
@@ -44,6 +46,10 @@ class GameModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  int advantageForPlayer(Player player) {
+    return player == Player.player1 ? player1Advantage : player2Advantage;
+  }
+
   Player get aiTurn {
     return oppositePlayer(playerSide);
   }
@@ -72,8 +78,8 @@ class GameModel extends ChangeNotifier {
           Random.secure().nextInt(2) == 0 ? Player.player1 : Player.player2;
     }
     game = ChessGame(this, context);
-    timer = Timer.periodic(const Duration(milliseconds: timerAccuracyMs),
-        (timer) {
+    timer =
+        Timer.periodic(const Duration(milliseconds: timerAccuracyMs), (timer) {
       turn == Player.player1
           ? decrementPlayer1Timer()
           : decrementPlayer2Timer();
@@ -187,16 +193,16 @@ class GameModel extends ChangeNotifier {
 
   void incrementPlayer1Timer() {
     if (player1TimeLeft.inMilliseconds > 0 && !gameOver) {
-      player1TimeLeft = Duration(
-          milliseconds: player1TimeLeft.inMilliseconds + addingOnMove);
+      player1TimeLeft =
+          Duration(milliseconds: player1TimeLeft.inMilliseconds + addingOnMove);
       notifyListeners();
     }
   }
 
   void incrementPlayer2Timer() {
     if (player2TimeLeft.inMilliseconds > 0 && !gameOver) {
-      player2TimeLeft = Duration(
-          milliseconds: player2TimeLeft.inMilliseconds + addingOnMove);
+      player2TimeLeft =
+          Duration(milliseconds: player2TimeLeft.inMilliseconds + addingOnMove);
       notifyListeners();
     }
   }
