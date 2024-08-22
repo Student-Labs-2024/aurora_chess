@@ -188,7 +188,7 @@ class GameModel extends ChangeNotifier {
   void incrementPlayer1Timer() {
     if (player1TimeLeft.inMilliseconds > 0 && !gameOver) {
       player1TimeLeft = Duration(
-          milliseconds: player1TimeLeft.inMilliseconds + addingOnMove);
+          seconds: player1TimeLeft.inSeconds + addingOnMove);
       notifyListeners();
     }
   }
@@ -196,7 +196,7 @@ class GameModel extends ChangeNotifier {
   void incrementPlayer2Timer() {
     if (player2TimeLeft.inMilliseconds > 0 && !gameOver) {
       player2TimeLeft = Duration(
-          milliseconds: player2TimeLeft.inMilliseconds + addingOnMove);
+          seconds: player2TimeLeft.inSeconds + addingOnMove);
       notifyListeners();
     }
   }
