@@ -14,7 +14,7 @@ class GameStatus extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            _getStatus(gameModel),
+            _getStatus(gameModel, context, scheme),
             textAlign: TextAlign.center,
             style: TextStyle(
               color: scheme.primary,
@@ -34,7 +34,8 @@ class GameStatus extends StatelessWidget {
     );
   }
 
-  String _getStatus(GameModel gameModel) {
+  String _getStatus(
+      GameModel gameModel, BuildContext context, ColorScheme scheme) {
     if (!gameModel.gameOver) {
       if (gameModel.playerCount == 1) {
         if (gameModel.isAIsTurn) {

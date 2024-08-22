@@ -32,6 +32,7 @@ ThemeData lightMode = ThemeData(
     error: ColorsConst.neutralColor100,
     errorContainer: Colors.grey.withOpacity(0.2),
     onError: ColorsConst.neutralColor100.withOpacity(0.5),
+    onErrorContainer: ColorsConst.neutralColor0,
   ),
 );
 
@@ -66,5 +67,6 @@ ThemeData darkMode = ThemeData(
     error: ColorsConst.secondaryColor100,
     errorContainer: Colors.white.withOpacity(0.3),
     onError: ColorsConst.neutralColor100,
+    onErrorContainer: ColorsConst.neutralColor300, 
   ),
 );

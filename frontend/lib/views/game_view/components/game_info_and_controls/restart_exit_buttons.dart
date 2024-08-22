@@ -1,68 +1,12 @@
 import "package:flutter/material.dart";
 import "package:flutter_svg/svg.dart";
 import "package:go_router/go_router.dart";
-import "package:intl/intl.dart";
-import "package:sqflite/sqflite.dart";
 import "../../../../exports.dart";
 
 class RestartExitButtons extends StatelessWidget {
   final GameModel gameModel;
 
   const RestartExitButtons(this.gameModel, {super.key});
-
-  String _formatDuration(Duration duration) {
-    int hours = duration.inHours;
-    String minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
-    String seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
-    return hours == 0 ? "$minutes:$seconds" : "$hours:$minutes:$seconds";
-  }
-
-  String getResult() {
-    if (gameModel.stalemate) {
-      return "Ничья";
-    } else {
-      if (gameModel.playerCount == 1) {
-        if (gameModel.isAIsTurn) {
-          return "Победа";
-        } else {
-          return "Поражение";
-        }
-      } else {
-        if (gameModel.turn == Player.player1) {
-          return "Победа чёрных";
-        } else {
-          return "Победа белых";
-        }
-      }
-    }
-  }
-
-  List<String> _getPartyData() {
-    String enemy = PartyHistoryConst.gameEnemies[gameModel.playerCount - 1];
-    String formattedDate = DateFormat("dd.MM.yyyy").format(DateTime.now());
-    String formattedTime = DateFormat.Hm().format(DateTime.now());
-    int firstTimeLeft = Duration(minutes: gameModel.timeLimit).inSeconds
-        - gameModel.player1TimeLeft.inSeconds;
-    int secondTimeLeft = Duration(minutes: gameModel.timeLimit).inSeconds
-        - gameModel.player2TimeLeft.inSeconds;
-    Duration duration = Duration(seconds: (firstTimeLeft + secondTimeLeft));
-    String durationGame = _formatDuration(duration);
-    String result = getResult();
-    String color = gameModel.turn == Player.player1 ? "чёрные" : "белые";
-    return [enemy, formattedDate, formattedTime, durationGame, result, color];
-  }
-
-  Future<void> _addPartyToHistory() async {
-    var databasesPath = await getDatabasesPath();
-    String path = "$databasesPath/parties.db";
-    Database database = await openDatabase(path, version: 1,
-        onCreate: (Database db, int version) async {
-          await db.execute(PartyHistoryConst.dbCreateScript);
-        });
-    await database.rawInsert(PartyHistoryConst.dbInsertPartyScript, _getPartyData());
-
-    await database.close();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,12 +21,111 @@ class RestartExitButtons extends StatelessWidget {
             ),
             highlightColor: Colors.white.withOpacity(0.3),
             onPressed: () async {
-              if (gameModel.gameOver) {
-                await _addPartyToHistory();
-              }
-              gameModel.exitChessView();
-              if (!context.mounted) return;
-              context.go(RouteLocations.settingsScreen, extra: gameModel);
+              showDialog(
+                context: context,
+                builder: (dialogContext) => Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  child: AlertDialog(
+                    insetPadding: EdgeInsets.zero,
+                    backgroundColor: scheme.onBackground,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                    ),
+                    contentPadding: const EdgeInsets.only(
+                        top: 32, bottom: 32, left: 22, right: 22),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GestureDetector(
+                          onTap: () => {
+                            gameModel.newGame(context),
+                            Navigator.of(dialogContext).pop(),
+                          },
+                          child: Container(
+                            height: 60,
+                            decoration: ShapeDecoration(
+                              color: const Color(0xFF2C2C2C),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                'Перезапустить матч',
+                                style: TextStyle(
+                                  color: ColorsConst.primaryColor0,
+                                  fontFamily: "Roboto",
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () {
+                            if (gameModel.gameOver) {
+                              addPartyToHistory(gameModel);
+                            }
+                            gameModel.exitChessView();
+                            if (!context.mounted) return;
+                            context.go(RouteLocations.settingsScreen,
+                                extra: gameModel);
+                            Navigator.of(dialogContext).pop();
+                          },
+                          child: Container(
+                            height: 60,
+                            decoration: ShapeDecoration(
+                              color: const Color(0xFF2C2C2C),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                'Закончить игру',
+                                style: TextStyle(
+                                  color: ColorsConst.primaryColor0,
+                                  fontFamily: "Roboto",
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () => {
+                            Navigator.of(dialogContext).pop(),
+                          },
+                          child: Container(
+                            height: 60,
+                            decoration: ShapeDecoration(
+                              color: const Color(0xFF818181),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Продолжить',
+                                style: TextStyle(
+                                  color: scheme.onErrorContainer,
+                                  fontFamily: "Roboto",
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
             },
           ),
         ),
@@ -92,15 +135,17 @@ class RestartExitButtons extends StatelessWidget {
             icon: SvgPicture.asset(
               GamePageConst.lampIcon,
               colorFilter: ColorFilter.mode(
-                (gameModel.showHint || gameModel.playerCount == 2)
-                    ? scheme.primary : scheme.onError,
-                BlendMode.srcIn
-              ),
+                  (gameModel.showHint || gameModel.playerCount == 2)
+                      ? scheme.primary
+                      : scheme.onError,
+                  BlendMode.srcIn),
             ),
             highlightColor: Colors.white.withOpacity(0.3),
-            onPressed: (gameModel.showHint || gameModel.playerCount == 2) ? () {
-              gameModel.game!.aiHint();
-            } : null,
+            onPressed: (gameModel.showHint || gameModel.playerCount == 2)
+                ? () {
+                    gameModel.game!.aiHint();
+                  }
+                : null,
           ),
         ),
       ],

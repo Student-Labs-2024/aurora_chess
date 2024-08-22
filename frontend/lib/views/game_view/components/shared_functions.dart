@@ -1,0 +1,59 @@
+import 'package:intl/intl.dart';
+import 'package:sqflite/sqflite.dart';
+
+import '../../../exports.dart';
+
+String getResult(GameModel gameModel) {
+  if (gameModel.stalemate) {
+    return "Ничья";
+  } else {
+    if (gameModel.playerCount == 1) {
+      if (gameModel.isAIsTurn) {
+        return "Победа";
+      } else {
+        return "Поражение";
+      }
+    } else {
+      if (gameModel.turn == Player.player1) {
+        return "Победа чёрных";
+      } else {
+        return "Победа белых";
+      }
+    }
+  }
+}
+
+List<String> getPartyData(GameModel gameModel) {
+  String enemy = PartyHistoryConst.gameEnemies[gameModel.playerCount - 1];
+  String formattedDate = DateFormat("dd.MM.yyyy").format(DateTime.now());
+  String formattedTime = DateFormat.Hm().format(DateTime.now());
+  int firstTimeLeft = Duration(minutes: gameModel.timeLimit).inSeconds -
+      gameModel.player1TimeLeft.inSeconds;
+  int secondTimeLeft = Duration(minutes: gameModel.timeLimit).inSeconds -
+      gameModel.player2TimeLeft.inSeconds;
+  Duration duration = Duration(seconds: (firstTimeLeft + secondTimeLeft));
+  String durationGame = _formatDuration(duration);
+  String result = getResult(gameModel);
+  String color = gameModel.turn == Player.player1 ? "чёрные" : "белые";
+  return [enemy, formattedDate, formattedTime, durationGame, result, color];
+}
+
+Future<void> addPartyToHistory(GameModel gameModel) async {
+  var databasesPath = await getDatabasesPath();
+  String path = "$databasesPath/parties.db";
+  Database database = await openDatabase(path, version: 1,
+      onCreate: (Database db, int version) async {
+    await db.execute(PartyHistoryConst.dbCreateScript);
+  });
+  await database.rawInsert(
+      PartyHistoryConst.dbInsertPartyScript, getPartyData(gameModel));
+
+  await database.close();
+}
+
+String _formatDuration(Duration duration) {
+  int hours = duration.inHours;
+  String minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+  String seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+  return hours == 0 ? "$minutes:$seconds" : "$hours:$minutes:$seconds";
+}
