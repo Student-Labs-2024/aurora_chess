@@ -53,65 +53,67 @@ class _ChoseTimeCarouselState extends State<ChoseTimeCarousel> {
             ),
           ),
 
-          Consumer<GameModel>(builder: (context, gameModel, child) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomIconButton(
-                  iconName: "assets/images/icons/left_big_arrow_icon.svg",
-                  color: scheme.onTertiary,
-                  iconSize: 30,
-                  onTap: () {
-                    var currentIndex = scrollController.selectedItem > 0
-                        ? scrollController.selectedItem - 1
-                        : widget.values.length - 1;
-                    gameModel.setTimeLimit(widget.values[currentIndex]
-                        == GameSettingConsts.longDashSymbol ? 0
-                        : widget.values[currentIndex]);
-                    scrollController.jumpToItem(currentIndex);
-                  },
-                ),
-                SizedBox(
-                  height: 50,
-                  child: WheelChooser(
-                    controller: scrollController,
-                    horizontal: true,
-                    listHeight: height,
-                    isInfinite: true,
-                    itemSize: 65,
-                    perspective: 0.003,
-                    onValueChanged: widget.onChanged,
-                    datas: widget.values,
-                    startPosition: null,
-                    selectTextStyle: const TextStyle(
-                      color: ColorsConst.primaryColor100,
-                      fontSize: 22,
-                      fontFamily: "Roboto",
-                      fontWeight: FontWeight.w700,
-                    ),
-                    unSelectTextStyle: TextStyle(
-                      color: scheme.onTertiary,
-                      fontSize: 20,
-                      fontFamily: "Roboto",
-                      fontWeight: FontWeight.w500,
+          Center(
+            child: Consumer<GameModel>(builder: (context, gameModel, child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomIconButton(
+                    iconName: "assets/images/icons/left_big_arrow_icon.svg",
+                    color: scheme.onTertiary,
+                    iconSize: 30,
+                    onTap: () {
+                      var currentIndex = scrollController.selectedItem > 0
+                          ? scrollController.selectedItem - 1
+                          : widget.values.length - 1;
+                      gameModel.setTimeLimit(widget.values[currentIndex]
+                          == GameSettingConsts.longDashSymbol ? 0
+                          : widget.values[currentIndex]);
+                      scrollController.jumpToItem(currentIndex);
+                    },
+                  ),
+                  SizedBox(
+                    height: 50,
+                    child: WheelChooser(
+                      controller: scrollController,
+                      horizontal: true,
+                      listHeight: height,
+                      isInfinite: true,
+                      itemSize: 65,
+                      perspective: 0.003,
+                      onValueChanged: widget.onChanged,
+                      datas: widget.values,
+                      startPosition: null,
+                      selectTextStyle: const TextStyle(
+                        color: ColorsConst.primaryColor100,
+                        fontSize: 22,
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.w700,
+                      ),
+                      unSelectTextStyle: TextStyle(
+                        color: scheme.onTertiary,
+                        fontSize: 20,
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                ),
-                CustomIconButton(
-                  iconName: "assets/images/icons/right_big_arrow_icon.svg",
-                  color: scheme.onTertiary,
-                  iconSize: 30,
-                  onTap: () {
-                    var currentIndex = (scrollController.selectedItem + 1) % widget.values.length;
-                    gameModel.setTimeLimit(widget.values[currentIndex]
-                        == GameSettingConsts.longDashSymbol ? 0
-                        : widget.values[currentIndex]);
-                    scrollController.jumpToItem(currentIndex);
-                  },
-                ),
-              ],
-            );
-          }),
+                  CustomIconButton(
+                    iconName: "assets/images/icons/right_big_arrow_icon.svg",
+                    color: scheme.onTertiary,
+                    iconSize: 30,
+                    onTap: () {
+                      var currentIndex = (scrollController.selectedItem + 1) % widget.values.length;
+                      gameModel.setTimeLimit(widget.values[currentIndex]
+                          == GameSettingConsts.longDashSymbol ? 0
+                          : widget.values[currentIndex]);
+                      scrollController.jumpToItem(currentIndex);
+                    },
+                  ),
+                ],
+              );
+            }),
+          ),
         ],
       ),
     );

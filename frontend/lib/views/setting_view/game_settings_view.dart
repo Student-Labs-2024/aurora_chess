@@ -181,6 +181,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
         isDBEmpty = true;
       });
     }
+    else {
+      widget.gameModel.setTimeLimit(0);
+    }
 
     await database.close();
   }
