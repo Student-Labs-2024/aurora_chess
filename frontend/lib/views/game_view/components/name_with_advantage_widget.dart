@@ -18,7 +18,7 @@ class NameWithAdvantageForPlayer extends StatelessWidget {
       5: "Сложный"
     };
     final scheme = Theme.of(context).colorScheme;
-    if (player != gameModel.selectedSide) {
+    if (player != gameModel.playerSide) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
