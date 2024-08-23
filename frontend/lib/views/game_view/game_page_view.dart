@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
-import "package:go_router/go_router.dart";
 import "package:provider/provider.dart";
 import "../../exports.dart";
 
@@ -31,7 +30,6 @@ class _GameViewState extends State<GameView> {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
     final width = MediaQuery.of(context).size.width;
     return isLoading
         ? const LoadingWidget()
@@ -53,29 +51,9 @@ class _GameViewState extends State<GameView> {
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 24,
                               ),
-                              child: SizedBox(
-                                height: 40,
-                                child: Stack(
-                                  children: [
-                                    CustomIconButton(
-                                      iconName:
-                                          "assets/images/icons/left_big_arrow_icon.svg",
-                                      color: scheme.outlineVariant,
-                                      iconSize: 40,
-                                      onTap: () {
-                                        context.go(
-                                            RouteLocations.settingsScreen,
-                                            extra: gameModel);
-                                      },
-                                    ),
-                                    const GameStatus(),
-                                  ],
-                                ),
-                              ),
+                              child: BackArrowButton(gameModel),
                             ),
-                            const SizedBox(
-                              height: 16,
-                            ),
+                            const SizedBox(height: 16),
                             PlayerAndTimerWidget(
                               gameModel: gameModel,
                               currentPlayer: gameModel.playerSide,
