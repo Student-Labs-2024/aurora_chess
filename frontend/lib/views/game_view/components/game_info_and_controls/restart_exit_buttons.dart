@@ -3,14 +3,28 @@ import "package:flutter_svg/svg.dart";
 import "package:go_router/go_router.dart";
 import "../../../../exports.dart";
 
-class RestartExitButtons extends StatelessWidget {
+class RestartExitButtons extends StatefulWidget {
   final GameModel gameModel;
 
   const RestartExitButtons(this.gameModel, {super.key});
 
   @override
+  State<RestartExitButtons> createState() => _RestartExitButtonsState();
+}
+
+class _RestartExitButtonsState extends State<RestartExitButtons> {
+  late Color lampColor;
+
+  late bool isHint;
+
+  @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    lampColor = (widget.gameModel.showHint || widget.gameModel.playerCount == 2)
+        ? scheme.primary
+        : scheme.onError;
+    isHint = widget.gameModel.showHint && widget.gameModel.playerCount == 1
+        && widget.gameModel.isHintNeeded && !widget.gameModel.isPersonalityMode;
     return Row(
       children: [
         Expanded(
@@ -38,7 +52,7 @@ class RestartExitButtons extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () => {
-                            gameModel.newGame(context),
+                            widget.gameModel.newGame(context),
                             Navigator.of(dialogContext).pop(),
                           },
                           child: Container(
@@ -65,13 +79,13 @@ class RestartExitButtons extends StatelessWidget {
                         const SizedBox(height: 10),
                         GestureDetector(
                           onTap: () {
-                            if (gameModel.gameOver) {
-                              addPartyToHistory(gameModel);
+                            if (widget.gameModel.gameOver) {
+                              addPartyToHistory(widget.gameModel);
                             }
-                            gameModel.exitChessView();
+                            widget.gameModel.exitChessView();
                             if (!context.mounted) return;
                             context.go(RouteLocations.settingsScreen,
-                                extra: gameModel);
+                                extra: widget.gameModel);
                             Navigator.of(dialogContext).pop();
                           },
                           child: Container(
@@ -134,16 +148,15 @@ class RestartExitButtons extends StatelessWidget {
           child: IconButton(
             icon: SvgPicture.asset(
               GamePageConst.lampIcon,
-              colorFilter: ColorFilter.mode(
-                  (gameModel.showHint || gameModel.playerCount == 2)
-                      ? scheme.primary
-                      : scheme.onError,
-                  BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(isHint
+                  ? ColorsConst.primaryColor200
+                  : lampColor, BlendMode.srcIn
+              ),
             ),
             highlightColor: Colors.white.withOpacity(0.3),
-            onPressed: (gameModel.showHint || gameModel.playerCount == 2)
+            onPressed: (widget.gameModel.showHint || widget.gameModel.playerCount == 2)
                 ? () {
-                    gameModel.game!.aiHint();
+                    widget.gameModel.game!.aiHint();
                   }
                 : null,
           ),

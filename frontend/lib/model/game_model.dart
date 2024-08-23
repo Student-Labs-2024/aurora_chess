@@ -21,6 +21,9 @@ class GameModel extends ChangeNotifier {
   bool showHint = true;
   bool flip = true;
   bool isPersonalityMode = false;
+  bool isHintNeeded = false;
+  bool isMoveCompletion = false;
+  int hintDelay = 15;
 
   ChessGame? game;
   Timer? timer;
@@ -68,6 +71,8 @@ class GameModel extends ChangeNotifier {
     timer?.cancel();
     gameOver = false;
     stalemate = false;
+    isHintNeeded = false;
+    isMoveCompletion = false;
     turn = Player.player1;
     moveMetaList = [];
     player1TimeLeft = Duration(minutes: timeLimit);
@@ -228,6 +233,16 @@ class GameModel extends ChangeNotifier {
 
   void setIsPersonalityMode(bool show) {
     isPersonalityMode = show;
+    notifyListeners();
+  }
+
+  void setIsHintNeeded(bool show) {
+    isHintNeeded = show;
+    notifyListeners();
+  }
+
+  void setIsMoveCompletion(bool show) {
+    isMoveCompletion = show;
     notifyListeners();
   }
 

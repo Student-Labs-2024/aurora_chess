@@ -1,3 +1,4 @@
+import "dart:async";
 import "package:async/async.dart";
 import "package:flutter/material.dart";
 import "package:flame/events.dart";
@@ -12,6 +13,7 @@ class ChessGame extends Game with TapDetector {
   BuildContext context;
   ChessBoard board = ChessBoard();
   Map<ChessPiece, ChessPieceSprite> spriteMap = {};
+  Timer t = Timer(const Duration(seconds: 1), () { });
 
   CancelableOperation? aiOperation;
   List<int> validMoves = [];
@@ -20,6 +22,7 @@ class ChessGame extends Game with TapDetector {
   Move? latestMove;
 
   ChessGame(this.gameModel, this.context) {
+    t.cancel();
     double screenWidth = MediaQuery.of(context).size.width;
     width = (screenWidth * (1 - LogicConsts.boardWidthMarginRatio * 2))
         .ceil()
@@ -31,6 +34,13 @@ class ChessGame extends Game with TapDetector {
     _initSpritePositions();
     if (gameModel.isAIsTurn) {
       _aiMove();
+    }
+    else {
+      t = Timer(Duration(seconds: gameModel.hintDelay), () {
+        if (!gameModel.isMoveCompletion) {
+          gameModel.setIsHintNeeded(true);
+        }
+      });
     }
   }
 
@@ -124,6 +134,7 @@ class ChessGame extends Game with TapDetector {
         _moveCompletion(meta, changeTurn: true);
       }
     }
+    gameModel.setIsMoveCompletion(true);
   }
 
   Future<bool> _promotionWaiter(GameModel gameModel) async {
@@ -154,6 +165,13 @@ class ChessGame extends Game with TapDetector {
         if (meta.promotion) {
           promote(move.promotionType);
         }
+      }
+    });
+    gameModel.setIsMoveCompletion(false);
+    t.cancel();
+    t = Timer(Duration(seconds: gameModel.hintDelay), () {
+      if (!gameModel.isMoveCompletion) {
+        gameModel.setIsHintNeeded(true);
       }
     });
   }
@@ -222,6 +240,7 @@ class ChessGame extends Game with TapDetector {
     bool changeTurn = true,
     bool updateMetaList = true,
   }) {
+    gameModel.setIsHintNeeded(false);
     if (clearRedo) {
       board.redoStack = [];
     }
@@ -269,6 +288,7 @@ class ChessGame extends Game with TapDetector {
   }
 
   void aiHint() {
+    gameModel.setIsHintNeeded(false);
     var args = {};
     args["aiPlayer"] = gameModel.turn;
     args["aiDifficulty"] = 4;
