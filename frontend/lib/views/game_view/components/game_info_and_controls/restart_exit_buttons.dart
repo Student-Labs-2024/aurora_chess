@@ -49,10 +49,10 @@ class RestartExitButtons extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(16),
                               ),
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
-                                'Перезапустить матч',
-                                style: TextStyle(
+                                GamePageConst.gameRestartText,
+                                style: const TextStyle(
                                   color: ColorsConst.primaryColor0,
                                   fontFamily: "Roboto",
                                   fontSize: 20,
@@ -82,10 +82,10 @@ class RestartExitButtons extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(16),
                               ),
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
-                                'Закончить игру',
-                                style: TextStyle(
+                                GamePageConst.gameEndText,
+                                style: const TextStyle(
                                   color: ColorsConst.primaryColor0,
                                   fontFamily: "Roboto",
                                   fontSize: 20,
@@ -110,7 +110,7 @@ class RestartExitButtons extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                'Продолжить',
+                                GamePageConst.gameContinueText,
                                 style: TextStyle(
                                   color: scheme.onErrorContainer,
                                   fontFamily: "Roboto",
