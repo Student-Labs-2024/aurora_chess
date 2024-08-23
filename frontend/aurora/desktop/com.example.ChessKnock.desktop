@@ -3,7 +3,7 @@ Type=Application
 Name=ChessKnock
 Comment=A new Flutter project.
 Icon=com.example.frontend
-Exec=/usr/bin/com.example.frontend
+Exec=/usr/bin/com.example.ChessKnock
 X-Nemo-Application-Type=silica-qt5
 
 [X-Application]
