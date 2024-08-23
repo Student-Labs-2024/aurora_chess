@@ -249,7 +249,7 @@ class ChessGame extends Game with TapDetector {
       gameModel.pushMoveMeta(meta);
     }
     if (changeTurn) {
-      addTimeOnMove(false);
+      addTimeOnMove();
       gameModel.changeTurn();
     }
     selectedPiece = null;
@@ -259,7 +259,7 @@ class ChessGame extends Game with TapDetector {
     }
   }
 
-  void addTimeOnMove(bool isFirstAiMove) {
+  void addTimeOnMove() {
     if (gameModel.turn == Player.player1) {
       gameModel.incrementPlayer1Timer();
     }

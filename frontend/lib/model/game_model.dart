@@ -34,6 +34,7 @@ class GameModel extends ChangeNotifier {
   List<MoveMeta> moveMetaList = [];
   Duration player1TimeLeft = Duration.zero;
   Duration player2TimeLeft = Duration.zero;
+  Duration durationOfGame = Duration.zero;
 
   int player1Advantage = 0;
   int player2Advantage = 0;
@@ -71,6 +72,7 @@ class GameModel extends ChangeNotifier {
     moveMetaList = [];
     player1TimeLeft = Duration(minutes: timeLimit);
     player2TimeLeft = Duration(minutes: timeLimit);
+    durationOfGame = Duration.zero;
     if (selectedSide == Player.random) {
       playerSide =
           Random.secure().nextInt(2) == 0 ? Player.player1 : Player.player2;
@@ -177,6 +179,8 @@ class GameModel extends ChangeNotifier {
     if (player1TimeLeft.inMilliseconds > 0 && !gameOver) {
       player1TimeLeft = Duration(
           milliseconds: player1TimeLeft.inMilliseconds - timerAccuracyMs);
+      durationOfGame = Duration(
+          milliseconds: durationOfGame.inMilliseconds + timerAccuracyMs);
       notifyListeners();
     }
   }
@@ -185,6 +189,8 @@ class GameModel extends ChangeNotifier {
     if (player2TimeLeft.inMilliseconds > 0 && !gameOver) {
       player2TimeLeft = Duration(
           milliseconds: player2TimeLeft.inMilliseconds - timerAccuracyMs);
+      durationOfGame = Duration(
+          milliseconds: durationOfGame.inMilliseconds + timerAccuracyMs);
       notifyListeners();
     }
   }
