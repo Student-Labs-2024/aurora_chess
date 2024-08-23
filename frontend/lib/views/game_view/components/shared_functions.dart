@@ -27,14 +27,9 @@ List<String> getPartyData(GameModel gameModel) {
   String enemy = PartyHistoryConst.gameEnemies[gameModel.playerCount - 1];
   String formattedDate = DateFormat("dd.MM.yyyy").format(DateTime.now());
   String formattedTime = DateFormat.Hm().format(DateTime.now());
-  int firstTimeLeft = Duration(minutes: gameModel.timeLimit).inSeconds -
-      gameModel.player1TimeLeft.inSeconds;
-  int secondTimeLeft = Duration(minutes: gameModel.timeLimit).inSeconds -
-      gameModel.player2TimeLeft.inSeconds;
-  Duration duration = Duration(seconds: (firstTimeLeft + secondTimeLeft));
-  String durationGame = _formatDuration(duration);
+  String durationGame = _formatDuration(gameModel.durationOfGame);
   String result = getResult(gameModel);
-  String color = gameModel.turn == Player.player1 ? "чёрные" : "белые";
+  String color = gameModel.playerSide == Player.player1 ? "белые" : "чёрные";
   return [enemy, formattedDate, formattedTime, durationGame, result, color];
 }
 

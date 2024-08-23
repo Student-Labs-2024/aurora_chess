@@ -183,6 +183,13 @@ class _GameSettingsViewState extends State<GameSettingsView>
     }
     else {
       widget.gameModel.setTimeLimit(0);
+      widget.gameModel.setIsPersonalityMode(isPersonality);
+      widget.gameModel.setAIDifficulty(
+          GameSettingConsts.difficultyLevels[gameMode]);
+      widget.gameModel.setPlayerCount(1);
+      widget.gameModel.setPlayerSide(Player.random);
+      widget.gameModel.setAddingOnMove(0);
+      setAdditionSettings(0);
     }
 
     await database.close();
