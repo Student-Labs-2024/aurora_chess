@@ -42,6 +42,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
       isSettingsEdited = true;
       enemy = Enemy.values[chose];
       widget.gameModel.setPlayerCount(chose + 1);
+      if (widget.gameModel.playerCount == 2) {
+        widget.gameModel.setPlayerSide(Player.player1);
+      }
     });
   }
 
@@ -159,11 +162,11 @@ class _GameSettingsViewState extends State<GameSettingsView>
         });
     List<Map> list =
     await database.rawQuery(GameSettingConsts.dbGetSettingsScript);
-
+    print(list);
     if (list.isNotEmpty) {
       Map data = list.first;
-      setEnemy(data["withComputer"]);
       setPiecesColor(data["colorPieces"]);
+      setEnemy(data["withComputer"]);
       setIsTime(data["withoutTime"]);
       setMinutes(data["durationGame"]);
       setSeconds(data["addingOnMove"]);
