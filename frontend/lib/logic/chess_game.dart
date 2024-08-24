@@ -157,6 +157,7 @@ class ChessGame extends Game with TapDetector {
     );
     aiOperation?.value.then((move) {
       if (move == null || gameModel.gameOver) {
+        t.cancel();
         gameModel.endGame();
       } else {
         validMoves = [];
@@ -259,6 +260,7 @@ class ChessGame extends Game with TapDetector {
       }
       meta.isCheck = false;
       meta.isCheckmate = true;
+      t.cancel();
       gameModel.endGame();
     }
     if (undoing) {
