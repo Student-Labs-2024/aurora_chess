@@ -1,3 +1,4 @@
+import "dart:async";
 import "package:flutter/material.dart";
 import "package:flutter_svg/svg.dart";
 import "package:go_router/go_router.dart";
@@ -14,8 +15,19 @@ class RestartExitButtons extends StatefulWidget {
 
 class _RestartExitButtonsState extends State<RestartExitButtons> {
   late Color lampColor;
-
+  bool isLoad = true;
+  late Timer timer;
   late bool isHint;
+
+  @override
+  void initState() {
+    timer = Timer(const Duration(milliseconds: 100), () {
+      setState(() {
+        isLoad = false;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +91,7 @@ class _RestartExitButtonsState extends State<RestartExitButtons> {
                         const SizedBox(height: 10),
                         GestureDetector(
                           onTap: () {
+                            timer.cancel();
                             if (widget.gameModel.gameOver) {
                               addPartyToHistory(widget.gameModel);
                             }
@@ -144,22 +157,39 @@ class _RestartExitButtonsState extends State<RestartExitButtons> {
           ),
         ),
         const SizedBox(width: 10),
-        Expanded(
-          child: IconButton(
-            icon: SvgPicture.asset(
-              GamePageConst.lampIcon,
-              colorFilter: ColorFilter.mode(isHint
-                  ? ColorsConst.primaryColor200
-                  : lampColor, BlendMode.srcIn
-              ),
-            ),
-            highlightColor: Colors.white.withOpacity(0.3),
-            onPressed: (widget.gameModel.showHint || widget.gameModel.playerCount == 2)
-                ? () {
-                    widget.gameModel.game!.aiHint();
-                  }
-                : null,
+        TweenAnimationBuilder(
+          duration: const Duration(milliseconds: 200),
+          tween: ColorTween(
+            begin: isHint ? Colors.green.withOpacity(0)
+                : Colors.green.withOpacity(0.4),
+            end: isHint ? Colors.green.withOpacity(0.4)
+                : Colors.green.withOpacity(0)
           ),
+          builder: (BuildContext context, Color? value, Widget? child) {
+            return Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(90),
+                  color: isLoad ? Colors.transparent : value,
+                ),
+                child: IconButton(
+                  icon: SvgPicture.asset(
+                    GamePageConst.lampIcon,
+                    colorFilter: ColorFilter.mode(isHint
+                        ? ColorsConst.primaryColor200
+                        : lampColor, BlendMode.srcIn
+                    ),
+                  ),
+                  highlightColor: Colors.white.withOpacity(0.3),
+                  onPressed:
+                  (widget.gameModel.showHint || widget.gameModel.playerCount == 2)
+                      ? () {
+                    widget.gameModel.game!.aiHint();
+                  } : null,
+                ),
+              ),
+            );
+          },
         ),
       ],
     );
