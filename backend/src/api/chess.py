@@ -8,12 +8,14 @@ from fastapi import (
     Depends,
     WebSocketException,
 )
+from sqlalchemy.ext.asyncio import AsyncSession
 
+from auth.auth_router import get_current_auth_user
 from core.database.db_helper import db_helper
 from core.entities.player_session.websocket_player_session import WebsocketPlayerSession
 from core.factories.chess_player_factory import ChessPlayerFactory
 from core.schemas.user import User
-from core.services.rating_service import get_rating_by_user_id
+from core.services.rating_service import get_rating_by_user_id, RatingSchema
 from core.services.room_service import GameSchema
 from dependencies import message_dispatcher, rooms_service
 
@@ -23,6 +25,14 @@ from jwt.exceptions import InvalidTokenError
 
 
 router = APIRouter(tags=["Chess"])
+
+
+@router.get("/my_rating/", response_model=RatingSchema)
+async def user_check_self_rating(
+    db: AsyncSession = Depends(db_helper.session_getter),
+    user: User = Depends(get_current_auth_user),
+):
+    return await get_rating_by_user_id(db, user.id)
 
 
 @router.websocket("/ws")
