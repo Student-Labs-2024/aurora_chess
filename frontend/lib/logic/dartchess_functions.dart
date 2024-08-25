@@ -33,10 +33,15 @@ String _moveToString(MoveMeta meta, GameModel gameModel) {
   String move;
   int fromTile = meta.move!.from;
   int toTile = meta.move!.to;
+  if ((meta.queenCastle || meta.kingCastle) && meta.type == ChessPieceType.rook) {
+    int buf = fromTile;
+    fromTile = toTile;
+    toTile = buf;
+  }
   String promotion = meta.promotion
     ? pieceToChar(meta.promotionType ?? ChessPieceType.promotion) : "";
 
-  String strMove = "${intToTile(fromTile, gameModel)}${intToTile(toTile, gameModel)}";
+  String strMove = "${intToTile(fromTile, gameModel, true)}${intToTile(toTile, gameModel, true)}";
   move = "$strMove$promotion";
 
   return move;
@@ -86,10 +91,11 @@ bool checkCountInvite(List<String> posList) {
   return false;
 }
 
-String intToTile(int tile, GameModel gameModel) {
+String intToTile(int tile, GameModel gameModel, bool isDartChess) {
   String row;
   String col;
-  if (gameModel.playerCount == 1 && gameModel.playerSide == Player.player2) {
+
+  if (gameModel.playerCount == 1 && gameModel.playerSide == Player.player2 && !isDartChess) {
     col = GamePageConst.listOfColumns[tile % _len];
     row = ((tile / _len).floor() + 1).toString();
   }
@@ -132,7 +138,7 @@ String pieceToChar(ChessPieceType type) {
       }
     default:
       {
-        return "?";
+        return "";
       }
   }
 }

@@ -98,7 +98,7 @@ class MoveList extends StatelessWidget {
           ? "=${pieceToChar(meta.promotionType ?? ChessPieceType.promotion)
           .toUpperCase()}"
           : "";
-      String tile = intToTile(meta.move!.to, gameModel);
+      String tile = intToTile(meta.move!.to, gameModel, false);
       move = "$takeString$tile$promotion";
     }
     String check = meta.isCheck ? "+" : "";
