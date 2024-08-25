@@ -162,7 +162,6 @@ class _GameSettingsViewState extends State<GameSettingsView>
         });
     List<Map> list =
     await database.rawQuery(GameSettingConsts.dbGetSettingsScript);
-    print(list);
     if (list.isNotEmpty) {
       Map data = list.first;
       setPiecesColor(data["colorPieces"]);
