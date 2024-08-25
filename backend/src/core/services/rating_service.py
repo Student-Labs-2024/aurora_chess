@@ -34,10 +34,9 @@ async def get_rating_by_user_id(db: AsyncSession, user_id: int) -> RatingSchema:
     if db_rating:
         return RatingSchema.model_validate(db_rating)
     else:
-        return await create_rating(db, RatingSchema.model_validate({
-            "value": 1000,
-            "user_id": user_id
-        }))
+        return await create_rating(
+            db, RatingSchema.model_validate({"value": 1000, "user_id": user_id})
+        )
 
 
 async def update_rating_by_user_id(db: AsyncSession, user_id: int, rating):
