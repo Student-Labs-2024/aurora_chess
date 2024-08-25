@@ -129,7 +129,7 @@ class ChessGame extends Game with TapDetector {
         gameModel.isPromotionForPlayer = true;
         _moveCompletion(meta, changeTurn: false);
         _promotionWaiter(gameModel)
-            .then((value) => promote(gameModel.pieceForPromotion));
+            .then((value) => promote(gameModel.pieceForPromotion, meta));
       } else {
         _moveCompletion(meta, changeTurn: true);
       }
@@ -164,7 +164,7 @@ class ChessGame extends Game with TapDetector {
         var meta = push(move, board, getMeta: true);
         _moveCompletion(meta, changeTurn: !meta.promotion);
         if (meta.promotion) {
-          promote(move.promotionType);
+          promote(move.promotionType, meta);
         }
       }
     });
@@ -183,6 +183,8 @@ class ChessGame extends Game with TapDetector {
 
   void undoMove() {
     board.redoStack.add(pop(board));
+    gameModel.redoPosList.add(gameModel.posList.removeLast());
+    gameModel.lastPos = gameModel.posList.last;
     if (gameModel.moveMetaList.length > 1) {
       var meta = gameModel.moveMetaList[gameModel.moveMetaList.length - 2];
       _moveCompletion(meta, clearRedo: false, undoing: true);
@@ -196,6 +198,9 @@ class ChessGame extends Game with TapDetector {
     board.redoStack.add(pop(board));
     board.redoStack.add(pop(board));
     gameModel.popMoveMeta();
+    gameModel.redoPosList.add(gameModel.posList.removeLast());
+    gameModel.redoPosList.add(gameModel.posList.removeLast());
+    gameModel.lastPos = gameModel.posList.last;
     if (gameModel.moveMetaList.length > 1) {
       _moveCompletion(gameModel.moveMetaList[gameModel.moveMetaList.length - 2],
           clearRedo: false, undoing: true, changeTurn: false);
@@ -209,26 +214,34 @@ class ChessGame extends Game with TapDetector {
     validMoves = [];
     latestMove = null;
     checkHintTile = null;
+    gameModel.lastPos = GamePageConst.startPos;
+    gameModel.posList = [GamePageConst.startPos];
     gameModel.popMoveMeta();
   }
 
   void redoMove() {
+    gameModel.posList.add(gameModel.redoPosList.removeLast());
+    gameModel.lastPos = gameModel.posList.last;
     _moveCompletion(pushMSO(board.redoStack.removeLast(), board),
         clearRedo: false);
   }
 
   void redoTwoMoves() {
+    gameModel.posList.add(gameModel.redoPosList.removeLast());
+    gameModel.posList.add(gameModel.redoPosList.removeLast());
+    gameModel.lastPos = gameModel.posList.last;
     _moveCompletion(pushMSO(board.redoStack.removeLast(), board),
         clearRedo: false, updateMetaList: true);
     _moveCompletion(pushMSO(board.redoStack.removeLast(), board),
         clearRedo: false, updateMetaList: true);
   }
 
-  void promote(ChessPieceType type) {
+  void promote(ChessPieceType type, MoveMeta meta) {
     board.moveStack.last.movedPiece?.type = type;
     board.moveStack.last.promotionType = type;
     addPromotedPiece(board, board.moveStack.last);
     gameModel.moveMetaList.last.promotionType = type;
+    gameModel.lastPos = updatePos(meta, gameModel);
     _moveCompletion(gameModel.moveMetaList.last, updateMetaList: false);
     gameModel.pieceForPromotion = ChessPieceType.promotion;
     gameModel.isPromotionForPlayer = false;
@@ -262,6 +275,40 @@ class ChessGame extends Game with TapDetector {
       meta.isCheckmate = true;
       t.cancel();
       gameModel.endGame();
+    }
+    if (board.player1Pieces.length <= 2 && board.player2Pieces.length <= 2) {
+      if (board.player1Pieces.length == 1 && board.player2Pieces.length == 1) {
+        gameModel.draw = true;
+        meta.isDraw = true;
+        t.cancel();
+        gameModel.endGame();
+      }
+      List<ChessPieceType> player1Pieces = [];
+      List<ChessPieceType> player2Pieces = [];
+      for (var piece in board.player1Pieces) {
+        player1Pieces.add(piece.type);
+      }
+      for (var piece in board.player2Pieces) {
+        player2Pieces.add(piece.type);
+      }
+      if ((player1Pieces.contains(ChessPieceType.bishop)
+          || player1Pieces.contains(ChessPieceType.knight)) &&
+          (player2Pieces.contains(ChessPieceType.bishop)
+          || player2Pieces.contains(ChessPieceType.knight))) {
+        gameModel.draw = true;
+        meta.isDraw = true;
+        t.cancel();
+        gameModel.endGame();
+      }
+    }
+    if (!gameModel.isPromotionForPlayer && !undoing && clearRedo) {
+      gameModel.lastPos = updatePos(meta, gameModel);
+      if (checkDraw(gameModel, gameModel.lastPos)) {
+        gameModel.draw = true;
+        meta.isDraw = true;
+        t.cancel();
+        gameModel.endGame();
+      }
     }
     if (undoing) {
       gameModel.popMoveMeta();

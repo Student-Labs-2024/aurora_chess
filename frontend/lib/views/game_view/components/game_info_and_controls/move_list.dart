@@ -95,64 +95,14 @@ class MoveList extends StatelessWidget {
     } else {
       String takeString = meta.took ? "x" : "";
       String promotion = meta.promotion
-          ? "=${_pieceToChar(meta.promotionType ?? ChessPieceType.promotion)}"
+          ? "=${pieceToChar(meta.promotionType ?? ChessPieceType.promotion)
+          .toUpperCase()}"
           : "";
-      String tile = _intToTile(meta.move!.to, len);
+      String tile = intToTile(meta.move!.to, gameModel);
       move = "$takeString$tile$promotion";
     }
     String check = meta.isCheck ? "+" : "";
     String checkmate = meta.isCheckmate && !meta.isStalemate ? "#" : "";
     return "$move$check$checkmate";
-  }
-
-  String _intToTile(int tile, int len) {
-    String row;
-    String col;
-    if (gameModel.playerCount == 1 && gameModel.playerSide == Player.player2) {
-      col = GamePageConst.listOfColumns[tile % len];
-      row = ((tile / len).floor() + 1).toString();
-    }
-    else {
-      row = "${len - tileToRow(tile)}";
-      col = _colToChar(tileToCol(tile));
-    }
-    return "$col$row";
-  }
-
-  String _pieceToChar(ChessPieceType type) {
-    switch (type) {
-      case ChessPieceType.king:
-        {
-          return "K";
-        }
-      case ChessPieceType.queen:
-        {
-          return "Q";
-        }
-      case ChessPieceType.rook:
-        {
-          return "R";
-        }
-      case ChessPieceType.bishop:
-        {
-          return "B";
-        }
-      case ChessPieceType.knight:
-        {
-          return "N";
-        }
-      case ChessPieceType.pawn:
-        {
-          return "";
-        }
-      default:
-        {
-          return "?";
-        }
-    }
-  }
-
-  String _colToChar(int col) {
-    return String.fromCharCode(baseChar + col);
   }
 }
