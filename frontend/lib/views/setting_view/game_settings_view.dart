@@ -25,7 +25,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
   LevelOfDifficulty gameMode = LevelOfDifficulty.easy;
   LevelOfDifficulty personalityGameMode = LevelOfDifficulty.easy;
   bool isLoading = true;
-  bool isDBEmpty = false;
+  bool isDBNotEmpty = false;
   bool withoutTime = true;
   bool isPersonality = false;
   bool isMoveBack = true;
@@ -180,7 +180,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
       setIsThreats(data["isThreats"] == 0);
       setIsHints(data["isHints"] == 0);
       setState(() {
-        isDBEmpty = true;
+        isDBNotEmpty = true;
       });
     }
     else {
@@ -215,7 +215,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
       isHints ? 0 : 1
     ];
 
-    if (isDBEmpty) {
+    if (isDBNotEmpty) {
       await database.rawUpdate(
           GameSettingConsts.dbUpdateSettingsScript, updatedSettings);
     } else {
@@ -227,6 +227,11 @@ class _GameSettingsViewState extends State<GameSettingsView>
   }
 
   void onInit() async {
+    Future.delayed(const Duration(seconds: 3), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
     var databasesPath = await getDatabasesPath();
     String p = "$databasesPath/settings.db";
     setState(() {
@@ -436,7 +441,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                           buttonColor: scheme.secondaryContainer,
                           isClickable: true,
                           onTap: () async {
-                            if (isSettingsEdited || !isDBEmpty) {
+                            if (isSettingsEdited) {
                               await setSettings();
                             }
                             if (!context.mounted) return;
