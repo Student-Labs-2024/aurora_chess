@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import '../../../exports.dart';
 
 String getResult(GameModel gameModel) {
-  if (gameModel.stalemate) {
+  if (gameModel.stalemate || gameModel.draw) {
     return "Ничья";
   } else {
     if (gameModel.playerCount == 1) {
