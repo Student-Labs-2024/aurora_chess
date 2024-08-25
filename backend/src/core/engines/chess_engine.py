@@ -48,14 +48,7 @@ class ChessEngine:
         return True, new_fen, status
 
     def get_game_status(self):
-        result = self.board.result()
-        if result == "1-0":
-            return "white victory"
-        elif result == "0-1":
-            return "black victory"
-        elif result == "1/2-1/2":
-            return "draw"
-        return "game in progress"
+        return self.board.result()
 
     def get_moves(self) -> list[Move]:
         return deepcopy(self.moves)
