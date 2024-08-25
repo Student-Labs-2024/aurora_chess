@@ -301,7 +301,7 @@ class ChessGame extends Game with TapDetector {
         gameModel.endGame();
       }
     }
-    if (!gameModel.isPromotionForPlayer && !undoing && clearRedo) {
+    if (!meta.promotion && !undoing && clearRedo) {
       gameModel.lastPos = updatePos(meta, gameModel);
       if (checkDraw(gameModel, gameModel.lastPos)) {
         gameModel.draw = true;
