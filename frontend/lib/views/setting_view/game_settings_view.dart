@@ -227,11 +227,6 @@ class _GameSettingsViewState extends State<GameSettingsView>
   }
 
   void onInit() async {
-    Future.delayed(const Duration(seconds: 3), () {
-      setState(() {
-        isLoading = false;
-      });
-    });
     var databasesPath = await getDatabasesPath();
     String p = "$databasesPath/settings.db";
     setState(() {
