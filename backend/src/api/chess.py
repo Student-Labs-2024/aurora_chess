@@ -35,7 +35,8 @@ async def websocket_endpoint(websocket: WebSocket):
         json_type = message["jsonType"]
         await message_dispatcher.get_handler(json_type).handle(message, player_session)
     except WebSocketDisconnect:
-        pass
+        player = player_session.get_player()
+        player.set_session(None)
 
 
 class WebsocketAuthPlayerSession(WebsocketPlayerSession):
@@ -164,4 +165,5 @@ async def websocket_endpoint(websocket: WebSocket):
         json_type = message["jsonType"]
         await message_dispatcher.get_handler(json_type).handle(message, player_session)
     except WebSocketDisconnect:
-        pass
+        player = player_session.get_player()
+        player.set_session(None)
