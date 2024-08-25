@@ -10,6 +10,9 @@ class RatingSchema(BaseModel):
     value: int
     user_id: int
 
+    class Config:
+        from_attributes = True
+
 
 async def create_rating(db: AsyncSession, rating: RatingSchema) -> RatingSchema:
     db_rating = Rating(**rating.model_dump())
