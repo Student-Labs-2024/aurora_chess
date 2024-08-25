@@ -7,6 +7,10 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from core.config import settings
 from core.database.models.user import *
+from core.database.models.game import *
+from core.database.models.rating import *
+from core.database.models.move import *
+
 from core.database.db_helper import Base
 
 from alembic import context

@@ -1,13 +1,10 @@
-import asyncio
 import json
 
-from core.entities.game_room.abstract_game_room import AbstractGameRoom
 from core.entities.player_session.abstract_player_session import AbstractPlayerSession
 from core.handlers.message_handler import MessageHandler
-from core.schemas.player_move_response import PlayerMoveResponse, PlayerMoveResponseData
 from core.schemas.room_start_request import RoomStartRequest
 from core.schemas.room_start_response import RoomStartResponseData, RoomStartResponse
-from core.services.room_service import RoomService
+from core.services.room_service import RoomService, GameSchema
 from utils.chess_board import fen_to_list_board
 
 
@@ -18,8 +15,7 @@ class RoomStartRequestHandler(MessageHandler):
     ):
         self.__room_service: RoomService = room_service
 
-    def __is_owner(self, room, player, session):
-        owner = room.get_owner()
+    def __is_owner(self, owner, player, session):
         return (
             owner.get_side() == player.player_side
             and owner.get_name() == player.player_name
@@ -36,13 +32,17 @@ class RoomStartRequestHandler(MessageHandler):
         room_name = data.room_name
         player_info = data.player
 
-        room: AbstractGameRoom = self.__room_service.get_room(room_name)
+        room: GameSchema = await self.__room_service.get_room(room_name)
 
         if not (
             room
             and not room.is_active()
             and room.is_full()
-            and self.__is_owner(room, player_info, player_session)
+            and self.__is_owner(
+                await self.__room_service.get_creator(room_name),
+                player_info,
+                player_session,
+            )
         ):
             response_data = RoomStartResponseData(
                 confirmationStatus="not valid",
@@ -57,7 +57,7 @@ class RoomStartRequestHandler(MessageHandler):
             )
             return
 
-        room.start_game()
+        await self.__room_service.start_game(room_name)
 
         response_data = RoomStartResponseData(
             confirmationStatus="confirmed",
@@ -66,7 +66,7 @@ class RoomStartRequestHandler(MessageHandler):
             board=fen_to_list_board(room.get_board()),
             players=[
                 {"playerName": player.get_name(), "playerSide": player.get_side()}
-                for player in room.get_players()
+                for player in await self.__room_service.get_players(room_name)
             ],
         )
         response_message = RoomStartResponse(
@@ -75,7 +75,7 @@ class RoomStartRequestHandler(MessageHandler):
 
         other_player_session = [
             player.get_session()
-            for player in room.get_players()
+            for player in await self.__room_service.get_players(room_name)
             if player.get_session() != player_session
         ][0]
 

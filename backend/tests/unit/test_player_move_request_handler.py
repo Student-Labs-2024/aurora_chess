@@ -17,7 +17,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
     async def test_valid_move(self):
         room_service = MagicMock(spec=RoomService)
         game_room = MagicMock(spec=AbstractGameRoom)
-        game_room.make_move.return_value = (
+        room_service.make_move.return_value = (
             True,
             "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
             "game in progress",
@@ -40,9 +40,9 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         other_player.get_session.return_value = session_other_player
 
         game_type = "test_invalid_session"
-        game_room.get_game_type.return_value = game_type
-        game_room.is_legal_move.return_value = True
-        game_room.get_players.return_value = [player_room, other_player]
+        game_room.game_type = game_type
+        room_service.is_legal_move.return_value = True
+        room_service.get_players.return_value = [player_room, other_player]
 
         room_name = "invalid_test_session"
         player = {"playerName": "player_white", "playerSide": "white"}
@@ -87,9 +87,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         )
 
         room_service.get_room.assert_called_once_with(room_name)
-        game_room.get_game_type.asser_called_once()
-        game_room.get_players.asser_called_once()
-        game_room.is_legal_move.assert_called_once()
+        room_service.is_legal_move.assert_called_once()
         player_room.get_session.asser_called_once()
         player_session.send_message.assert_called_once_with(
             json.dumps(response_message.model_dump(by_alias=True))
@@ -110,12 +108,12 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         player_room.get_side.return_value = "white"
 
         game_type = "test_invalid_session"
-        game_room.get_game_type.return_value = game_type
-        game_room.is_legal_move.return_value = (
+        game_room.game_type = game_type
+        room_service.is_legal_move.return_value = (
             "r1bqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
             == "rrbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
         )
-        game_room.get_players.return_value = [player_room]
+        room_service.get_players.return_value = [player_room]
 
         room_name = "invalid_test_session"
         player = {"playerName": "player_white", "playerSide": "white"}
@@ -159,9 +157,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         )
 
         room_service.get_room.assert_called_once_with(room_name)
-        game_room.get_game_type.asser_called_once()
-        game_room.get_players.asser_called_once()
-        game_room.is_legal_move.assert_called_once()
+        room_service.is_legal_move.assert_called_once()
         player_room.get_session.asser_called_once()
         player_session.send_message.assert_called_once_with(
             json.dumps(response_message.model_dump(by_alias=True))
@@ -182,9 +178,11 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         player_room.side = "white"
 
         game_type = "test_invalid_session"
-        game_room.get_game_type.return_value = game_type
-        game_room.is_legal_move.return_value = lambda x: ChessEngine().is_legal_move(x)
-        game_room.get_players.return_value = [player_room]
+        game_room.game_type = game_type
+        room_service.is_legal_move.return_value = lambda x: ChessEngine().is_legal_move(
+            x
+        )
+        room_service.get_players.return_value = [player_room]
 
         room_name = "invalid_test_session"
         player = {"playerName": "player_white", "playerSide": "white"}
@@ -228,8 +226,6 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         )
 
         room_service.get_room.assert_called_once_with(room_name)
-        game_room.get_game_type.asser_called_once()
-        game_room.get_players.asser_called_once()
         player_room.get_session.asser_called_once()
         player_session.send_message.assert_called_once_with(
             json.dumps(response_message.model_dump(by_alias=True))
@@ -250,9 +246,9 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         player_room.side = "white"
 
         game_type = "test_invalid_session"
-        game_room.get_game_type.return_value = game_type
-        game_room.is_legal_move.return_value = True
-        game_room.get_players.return_value = [player_room]
+        game_room.game_type = game_type
+        room_service.is_legal_move.return_value = True
+        room_service.get_players.return_value = [player_room]
 
         room_name = "invalid_test_session"
         player = {"playerName": "player_white", "playerSide": "white"}
@@ -296,8 +292,6 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         )
 
         room_service.get_room.assert_called_once_with(room_name)
-        game_room.get_game_type.asser_called_once()
-        game_room.get_players.asser_called_once()
         player_room.get_session.asser_called_once()
         player_session.send_message.assert_called_once_with(
             json.dumps(response_message.model_dump(by_alias=True))
@@ -318,9 +312,8 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         player_room.side = "white"
 
         game_type = "test_invalid_session"
-        game_room.get_game_type.return_value = game_type
-        game_room.is_legal_move.return_value = True
-        game_room.get_players.return_value = [player_room]
+        game_room.game_type = game_type
+        room_service.is_legal_move.return_value = True
 
         room_name = "invalid_test_session"
         player = {"playerName": "player_white", "playerSide": "white"}
@@ -364,8 +357,6 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         )
 
         room_service.get_room.assert_called_once_with(room_name)
-        game_room.get_game_type.asser_called_once()
-        game_room.get_players.asser_called_once()
         player_room.get_session.asser_called_once()
         player_session.send_message.assert_called_once_with(
             json.dumps(response_message.model_dump(by_alias=True))
@@ -386,9 +377,9 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         player_room.side = "white"
 
         game_type = "test_invalid_session"
-        game_room.get_game_type.return_value = game_type + "fvs"
-        game_room.is_legal_move.return_value = True
-        game_room.get_players.return_value = [player_room]
+        game_room.game_type = game_type
+        room_service.is_legal_move.return_value = True
+        room_service.get_players.return_value = [player_room]
 
         room_name = "invalid_test_session"
         player = {"playerName": "player_white", "playerSide": "white"}
@@ -432,8 +423,6 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         )
 
         room_service.get_room.assert_called_once_with(room_name)
-        game_room.get_game_type.asser_called_once()
-        game_room.get_players.asser_called_once()
         player_room.get_session.asser_called_once()
         player_session.send_message.assert_called_once_with(
             json.dumps(response_message.model_dump(by_alias=True))

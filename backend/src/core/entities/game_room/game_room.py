@@ -6,45 +6,33 @@ from core.schemas.move import Move
 
 
 class GameRoom(AbstractGameRoom):
-    def __init__(self, room_name, game_type):
-        super().__init__(room_name, game_type)
-        self.players = []
+    def __init__(self, game_type):
+        super().__init__(game_type)
+        self.id: int | None = None
+        self.player_white = None
+        self.player_black = None
+        self.result: Literal["", "*", "1-0", "0-1", "1/2-1/2"] = ""
+        self.creator = None
         self.__engine = ChessEngine()
-        self.game_status: Literal["waiting", "active"] = "waiting"
+        self.board: str = self.__engine.board.board_fen()
 
     def make_move(self, move) -> tuple[bool, str, str]:
-        return self.__engine.make_move(move=move)
-
-    def finish_game(self) -> None:
-        pass
+        result = self.__engine.make_move(move=move)
+        self.board = result[1]
+        return result
 
     def get_board(self):
         return self.__engine.board.board_fen()
 
-    def add_player(self, player):
-        self.players.append(player)
-
-    def is_full(self) -> bool:
-        return len(self.players) == 2
-
-    def free_colors(self):
-        colors = ["white", "black"]
-        for player in self.players:
-            print(player.side)
-            colors.remove(player.side)
-        return colors
-
-    def get_players(self):
-        return self.players
+    def is_full(self):
+        return self.player_black and self.player_white
 
     def is_legal_move(self, move: Move):
         return self.__engine.is_legal_move(move)[0]
 
     def is_active(self):
-        return self.game_status == "active"
-
-    def get_owner(self):
-        return self.players[0]
+        return self.result
 
     def start_game(self):
-        self.game_status = "active"
+        if not self.result:
+            self.result = "*"
