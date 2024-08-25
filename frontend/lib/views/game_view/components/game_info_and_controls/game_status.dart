@@ -39,32 +39,34 @@ class GameStatus extends StatelessWidget {
     if (!gameModel.gameOver) {
       if (gameModel.playerCount == 1) {
         if (gameModel.isAIsTurn) {
-          return "Ход противника ";
+          return GamePageConst.gameStatusEnemyMove;
         } else {
-          return "Ваш ход";
+          return GamePageConst.gameStatusOurMove;
         }
       } else {
         if (gameModel.turn == Player.player1) {
-          return "Ход белых";
+          return GamePageConst.gameStatusWhiteMove;
         } else {
-          return "Ход чёрных";
+          return GamePageConst.gameStatusBlackMove;
         }
       }
     } else {
       if (gameModel.stalemate) {
-        return "Ничья";
+        return GamePageConst.gameStatusStalemate;
+      } else if (gameModel.draw) {
+        return GamePageConst.gameStatusDraw;
       } else {
         if (gameModel.playerCount == 1) {
           if (gameModel.isAIsTurn) {
-            return "Вы выиграли!";
+            return GamePageConst.gameStatusYouWin;
           } else {
-            return "Вы проиграли";
+            return GamePageConst.gameStatusYouLose;
           }
         } else {
           if (gameModel.turn == Player.player1) {
-            return "Выиграли чёрные";
+            return GamePageConst.gameStatusBlackWin;
           } else {
-            return "Выиграли белые";
+            return GamePageConst.gameStatusWhiteWin;
           }
         }
       }

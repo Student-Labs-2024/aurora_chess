@@ -1,6 +1,5 @@
 import "dart:async";
 import "dart:math";
-
 import "../exports.dart";
 import "package:flutter/material.dart";
 
@@ -29,12 +28,16 @@ class GameModel extends ChangeNotifier {
   Timer? timer;
   bool gameOver = false;
   bool stalemate = false;
+  bool draw = false;
   bool promotionRequested = false;
   bool isPromotionForPlayer = false;
   ChessPieceType pieceForPromotion = ChessPieceType.promotion;
   bool moveListUpdated = false;
   Player turn = Player.player1;
   List<MoveMeta> moveMetaList = [];
+  List<String> posList = [];
+  List<String> redoPosList = [];
+  String lastPos = GamePageConst.startPos;
   Duration player1TimeLeft = Duration.zero;
   Duration player2TimeLeft = Duration.zero;
   Duration durationOfGame = Duration.zero;
@@ -71,10 +74,14 @@ class GameModel extends ChangeNotifier {
     timer?.cancel();
     gameOver = false;
     stalemate = false;
+    draw = false;
     isHintNeeded = false;
     isMoveCompletion = false;
     turn = Player.player1;
     moveMetaList = [];
+    posList = [GamePageConst.startPos];
+    redoPosList = [];
+    lastPos = GamePageConst.startPos;
     player1TimeLeft = Duration(minutes: timeLimit);
     player2TimeLeft = Duration(minutes: timeLimit);
     durationOfGame = Duration.zero;
