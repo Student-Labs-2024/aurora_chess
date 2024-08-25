@@ -1,13 +1,10 @@
-import asyncio
 import json
 
-from core.entities.game_room.abstract_game_room import AbstractGameRoom
-from core.entities.player.chess_player import ChessPlayer
 from core.entities.player_session.abstract_player_session import AbstractPlayerSession
 from core.handlers.message_handler import MessageHandler
 from core.schemas.player_move_request import PlayerMoveRequest
 from core.schemas.player_move_response import PlayerMoveResponse, PlayerMoveResponseData
-from core.services.room_service import RoomService
+from core.services.room_service import RoomService, GameSchema
 from utils.chess_board import interpritation_move, fen_to_list_board
 
 
@@ -18,10 +15,7 @@ class PlayerMoveRequestHandler(MessageHandler):
     ):
         self.__room_service: RoomService = room_service
 
-    def __is_valid_player(
-        self, room: AbstractGameRoom, player, player_session: AbstractPlayerSession
-    ):
-        players: list[ChessPlayer] = room.get_players()
+    def __is_valid_player(self, players, player, player_session: AbstractPlayerSession):
         for room_player in players:
             if (
                 room_player.get_name() == player.player_name
@@ -44,14 +38,18 @@ class PlayerMoveRequestHandler(MessageHandler):
 
         chess_move = interpritation_move(player_move, player_info.player_side)
 
-        room: AbstractGameRoom = self.__room_service.get_room(room_name)
+        room: GameSchema = await self.__room_service.get_room(room_name)
 
         if not (
             room
             and room.is_active()
-            and room.get_game_type() == game_type
-            and self.__is_valid_player(room, player_info, player_session)
-            and room.is_legal_move(chess_move)
+            and room.game_type == game_type
+            and self.__is_valid_player(
+                await self.__room_service.get_players(room_name),
+                player_info,
+                player_session,
+            )
+            and await self.__room_service.is_legal_move(room_name, chess_move)
         ):
             response_data = PlayerMoveResponseData(
                 confirmationStatus="not valid",
@@ -68,7 +66,9 @@ class PlayerMoveRequestHandler(MessageHandler):
             )
             return
 
-        status, new_board_fen, game_status = room.make_move(chess_move)
+        status, new_board_fen, game_status = await self.__room_service.make_move(
+            room_name, chess_move
+        )
         response_data = PlayerMoveResponseData(
             confirmationStatus="confirmed",
             player=data.player,
@@ -86,7 +86,7 @@ class PlayerMoveRequestHandler(MessageHandler):
         )
         other_player_session = [
             player.get_session()
-            for player in room.get_players()
+            for player in await self.__room_service.get_players(room_name)
             if player.get_session() != player_session
         ][0]
 

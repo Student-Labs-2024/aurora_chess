@@ -1,4 +1,3 @@
-import asyncio
 import json
 
 from core.entities.player.abstract_player import AbstractPlayer
@@ -25,21 +24,31 @@ class ConnectionRequestHandler(MessageHandler):
         player_info = data.player
         room_connection_status = "does not exists"
         room_name = data.room.room_name
-        room = self.__room_service.get_room(room_name)
+        room = await self.__room_service.get_room(room_name)
         if (
             room
-            and not room.is_full()
-            and player_info.player_side in room.free_colors()
+            and not await self.__room_service.room_is_full(room_name)
+            and player_info.player_side
+            == await self.__room_service.free_side(room_name)
         ):
             player: AbstractPlayer = self.__player_factory.create_player(
-                player_session, player_info.player_name, player_info.player_side
+                player_session,
+                player_info.player_name,
+                player_info.player_side,
+                player_session.user_id,
             )
             player.set_session(player_session)
-            room.add_player(player)
+            await self.__room_service.add_player_to_room(
+                room_name, player, player_info.player_side
+            )
             player_session.set_player(player)
             player_session.set_current_room(room)
             room_connection_status = "successfully_connected"
-            player_1_info = room.get_players()[0]
+            player_1_info = [
+                player
+                for player in await self.__room_service.get_players(room_name)
+                if player.side != player_info.player_side
+            ][0]
             player_1 = {
                 "playerName": player_1_info.name,
                 "playerSide": player_1_info.side,
@@ -67,8 +76,14 @@ class ConnectionRequestHandler(MessageHandler):
         response_message = RoomConnectionResponse.model_validate(response_message)
 
         if room_connection_status == "successfully_connected":
-            owner = room.get_owner().get_session()
-            await owner.send_message(
+            other_player = [
+                player
+                for player in await self.__room_service.get_players(room_name)
+                if player.side != player_info.player_side
+            ][0]
+
+            other_player_session = other_player.get_session()
+            await other_player_session.send_message(
                 json.dumps(response_message.model_dump(by_alias=True))
             )
 

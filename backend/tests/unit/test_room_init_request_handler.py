@@ -12,7 +12,7 @@ class TestRoomInitRequestHandler(unittest.IsolatedAsyncioTestCase):
     async def test_handle_room_already_exists(self):
         room_service = MagicMock(spec=RoomService)
         room_service.get_room.return_value = MagicMock(spec=AbstractGameRoom)
-        room_service.create_room.return_value = "already exists"
+        room_service.create_room.return_value = None
         player_session = MagicMock()
         player_session.send_message = AsyncMock()
         player_factory = MagicMock()
@@ -53,11 +53,11 @@ class TestRoomInitRequestHandler(unittest.IsolatedAsyncioTestCase):
         rooms = {}
         room = MagicMock()
 
-        def func(*args):
+        async def func(*args):
             rooms["new_room"] = room
-            return "successfully created"
+            return room
 
-        room_service = MagicMock(spec=RoomService)
+        room_service = AsyncMock(spec=RoomService)
         room_service.get_room = lambda x: rooms.get(x)
         room_service.create_room = func
         player_session = MagicMock()
