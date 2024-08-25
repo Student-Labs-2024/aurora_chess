@@ -5,8 +5,6 @@ from sqlalchemy import (
     Integer,
     String,
     TIMESTAMP,
-    ForeignKey,
-    Boolean,
     LargeBinary,
 )
 

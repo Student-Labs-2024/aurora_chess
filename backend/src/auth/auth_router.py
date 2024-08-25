@@ -12,9 +12,6 @@ from core.services import user_service as crud
 
 from core.database.db_helper import db_helper
 
-from fastapi.requests import Request
-
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login/")
 
 
