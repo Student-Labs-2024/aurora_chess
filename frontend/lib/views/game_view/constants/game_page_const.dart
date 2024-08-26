@@ -22,4 +22,8 @@ class GamePageConst {
   static String gameRestartText = "Перезапустить матч";
   static String gameGiveUpText = "Сдаться";
   static String gameBackModalHeader = "Сдаться?";
+  static String gameResultWin = "Победа";
+  static String gameResultLose = "Поражение";
+  static String gameResultWinBlack = "Победа чёрных";
+  static String gameResultWinWhite = "Победа белых";
 }
