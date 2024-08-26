@@ -6,29 +6,29 @@ import '../../../exports.dart';
 String getResult(GameModel gameModel) {
   if (gameModel.gameOver) {
     if (gameModel.stalemate || gameModel.draw) {
-      return "Ничья";
+      return GamePageConst.gameStatusDraw;
     } else {
       if (gameModel.playerCount == 1) {
         if (gameModel.isAIsTurn) {
-          return "Победа";
+          return GamePageConst.gameResultWin;
         } else {
-          return "Поражение";
+          return GamePageConst.gameResultLose;
         }
       } else {
         if (gameModel.turn == Player.player1) {
-          return "Победа чёрных";
+          return GamePageConst.gameResultWinBlack;
         } else {
-          return "Победа белых";
+          return GamePageConst.gameResultWinWhite;
         }
       }
     }
   }
   else {
     if (gameModel.playerCount == 1) {
-      return "Поражение";
+      return GamePageConst.gameResultLose;
     }
     else {
-      return "Ничья";
+      return GamePageConst.gameStatusDraw;
     }
   }
 
