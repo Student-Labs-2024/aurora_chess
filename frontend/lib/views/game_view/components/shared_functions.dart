@@ -4,23 +4,34 @@ import 'package:sqflite/sqflite.dart';
 import '../../../exports.dart';
 
 String getResult(GameModel gameModel) {
-  if (gameModel.stalemate || gameModel.draw) {
-    return "Ничья";
-  } else {
-    if (gameModel.playerCount == 1) {
-      if (gameModel.isAIsTurn) {
-        return "Победа";
-      } else {
-        return "Поражение";
-      }
+  if (gameModel.gameOver) {
+    if (gameModel.stalemate || gameModel.draw) {
+      return "Ничья";
     } else {
-      if (gameModel.turn == Player.player1) {
-        return "Победа чёрных";
+      if (gameModel.playerCount == 1) {
+        if (gameModel.isAIsTurn) {
+          return "Победа";
+        } else {
+          return "Поражение";
+        }
       } else {
-        return "Победа белых";
+        if (gameModel.turn == Player.player1) {
+          return "Победа чёрных";
+        } else {
+          return "Победа белых";
+        }
       }
     }
   }
+  else {
+    if (gameModel.playerCount == 1) {
+      return "Поражение";
+    }
+    else {
+      return "Ничья";
+    }
+  }
+
 }
 
 List<String> getPartyData(GameModel gameModel) {
