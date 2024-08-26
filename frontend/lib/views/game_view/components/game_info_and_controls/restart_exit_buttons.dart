@@ -21,7 +21,7 @@ class _RestartExitButtonsState extends State<RestartExitButtons> {
 
   @override
   void initState() {
-    timer = Timer(const Duration(milliseconds: 100), () {
+    timer = Timer(const Duration(milliseconds: 200), () {
       setState(() {
         isLoad = false;
       });
@@ -160,9 +160,9 @@ class _RestartExitButtonsState extends State<RestartExitButtons> {
         TweenAnimationBuilder(
           duration: const Duration(milliseconds: 200),
           tween: ColorTween(
-            begin: isHint ? Colors.green.withOpacity(0)
-                : Colors.green.withOpacity(0.4),
-            end: isHint ? Colors.green.withOpacity(0.4)
+            begin: isHint ? Colors.white.withOpacity(0)
+                : Colors.green.withOpacity(0.8),
+            end: isHint ? Colors.white.withOpacity(0.8)
                 : Colors.green.withOpacity(0)
           ),
           builder: (BuildContext context, Color? value, Widget? child) {
