@@ -36,35 +36,58 @@ class RestartExitButtons extends StatelessWidget {
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        GestureDetector(
-                          onTap: () => {
-                            gameModel.newGame(context),
+                        MaterialButton(
+                          onPressed: () => {
                             Navigator.of(dialogContext).pop(),
                           },
-                          child: Container(
-                            height: 60,
-                            decoration: ShapeDecoration(
-                              color: const Color(0xFF2C2C2C),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: const Center(
-                              child: Text(
-                                'Перезапустить матч',
-                                style: TextStyle(
-                                  color: ColorsConst.primaryColor0,
-                                  fontFamily: "Roboto",
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                          height: 60,
+                          color: scheme.surfaceVariant,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              'Продолжить',
+                              style: TextStyle(
+                                color: ColorsConst.neutralColor0,
+                                fontFamily: "Roboto",
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
                         ),
                         const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () {
+                        MaterialButton(
+                          onPressed: () => {
+                            gameModel.newGame(context),
+                            Navigator.of(dialogContext).pop(),
+                          },
+                          height: 60,
+                          color: scheme.outline,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Перезапустить матч',
+                              style: TextStyle(
+                                color: scheme.onTertiary,
+                                fontFamily: "Roboto",
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        MaterialButton(
+                          height: 60,
+                          color: scheme.outline,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          onPressed: () {
                             if (gameModel.gameOver) {
                               addPartyToHistory(gameModel);
                             }
@@ -74,49 +97,14 @@ class RestartExitButtons extends StatelessWidget {
                                 extra: gameModel);
                             Navigator.of(dialogContext).pop();
                           },
-                          child: Container(
-                            height: 60,
-                            decoration: ShapeDecoration(
-                              color: const Color(0xFF2C2C2C),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: const Center(
-                              child: Text(
-                                'Закончить игру',
-                                style: TextStyle(
-                                  color: ColorsConst.primaryColor0,
-                                  fontFamily: "Roboto",
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () => {
-                            Navigator.of(dialogContext).pop(),
-                          },
-                          child: Container(
-                            height: 60,
-                            decoration: ShapeDecoration(
-                              color: const Color(0xFF818181),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Продолжить',
-                                style: TextStyle(
-                                  color: scheme.onErrorContainer,
-                                  fontFamily: "Roboto",
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                          child: Center(
+                            child: Text(
+                              'Закончить игру',
+                              style: TextStyle(
+                                color: scheme.onTertiary,
+                                fontFamily: "Roboto",
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),

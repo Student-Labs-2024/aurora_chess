@@ -16,7 +16,7 @@ class ChessGame extends Game with TapDetector {
   CancelableOperation? aiOperation;
   List<int> validMoves = [];
   ChessPiece? selectedPiece;
-  int? checkHintTile;
+  List<int> checkHintTiles = [];
   Move? latestMove;
 
   ChessGame(this.gameModel, this.context) {
@@ -189,7 +189,7 @@ class ChessGame extends Game with TapDetector {
     selectedPiece = null;
     validMoves = [];
     latestMove = null;
-    checkHintTile = null;
+    checkHintTiles = [];
     gameModel.popMoveMeta();
   }
 
@@ -227,11 +227,16 @@ class ChessGame extends Game with TapDetector {
     }
     validMoves = [];
     latestMove = meta.move;
-    checkHintTile = null;
+    checkHintTiles = [];
     var oppositeTurn = oppositePlayer(gameModel.turn);
     if (kingInCheck(oppositeTurn, board)) {
       meta.isCheck = true;
-      checkHintTile = kingForPlayer(oppositeTurn, board)?.tile;
+      checkHintTiles.add(kingForPlayer(oppositeTurn, board)!.tile);
+    }
+    if (pieceInCheck(oppositeTurn, board).isNotEmpty && gameModel.isThreatsPicked) {
+      for (int tile in pieceInCheck(oppositeTurn, board)) {
+        checkHintTiles.add(tile);
+      }
     }
     if (kingInCheckmate(oppositeTurn, board)) {
       if (!meta.isCheck) {
@@ -262,8 +267,7 @@ class ChessGame extends Game with TapDetector {
   void addTimeOnMove(bool isFirstAiMove) {
     if (gameModel.turn == Player.player1) {
       gameModel.incrementPlayer1Timer();
-    }
-    else {
+    } else {
       gameModel.incrementPlayer2Timer();
     }
   }
@@ -376,16 +380,19 @@ class ChessGame extends Game with TapDetector {
   }
 
   void _drawCheckHint(Canvas canvas) {
-    if (checkHintTile != null) {
-      canvas.drawRect(
-        Rect.fromLTWH(
-          getXFromTile(checkHintTile!, tileSize ?? 0, gameModel),
-          getYFromTile(checkHintTile!, tileSize ?? 0, gameModel),
-          tileSize ?? 0,
-          tileSize ?? 0,
-        ),
-        Paint()..color = ColorsConst.feedback100,
-      );
+    if (checkHintTiles.isNotEmpty) {
+      for (int tile in checkHintTiles) {
+        canvas.drawRect(
+          Rect.fromLTWH(
+            getXFromTile(tile, tileSize ?? 0, gameModel),
+            getYFromTile(tile, tileSize ?? 0, gameModel),
+            tileSize ?? 0,
+            tileSize ?? 0,
+          ),
+          Paint()..color = ColorsConst.feedback100,
+        );
+      }
+      
     }
   }
 

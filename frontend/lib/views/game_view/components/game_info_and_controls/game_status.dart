@@ -14,7 +14,7 @@ class GameStatus extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            _getStatus(gameModel, context, scheme),
+            getStatus(gameModel, context, scheme),
             textAlign: TextAlign.center,
             style: TextStyle(
               color: scheme.primary,
@@ -33,39 +33,39 @@ class GameStatus extends StatelessWidget {
       ),
     );
   }
+}
 
-  String _getStatus(
-      GameModel gameModel, BuildContext context, ColorScheme scheme) {
-    if (!gameModel.gameOver) {
+String getStatus(
+    GameModel gameModel, BuildContext context, ColorScheme scheme) {
+  if (!gameModel.gameOver) {
+    if (gameModel.playerCount == 1) {
+      if (gameModel.isAIsTurn) {
+        return "Ход противника ";
+      } else {
+        return "Ваш ход";
+      }
+    } else {
+      if (gameModel.turn == Player.player1) {
+        return "Ход белых";
+      } else {
+        return "Ход чёрных";
+      }
+    }
+  } else {
+    if (gameModel.stalemate) {
+      return "Ничья";
+    } else {
       if (gameModel.playerCount == 1) {
         if (gameModel.isAIsTurn) {
-          return "Ход противника ";
+          return "Вы выиграли!";
         } else {
-          return "Ваш ход";
+          return "Вы проиграли";
         }
       } else {
         if (gameModel.turn == Player.player1) {
-          return "Ход белых";
+          return "Выиграли чёрные";
         } else {
-          return "Ход чёрных";
-        }
-      }
-    } else {
-      if (gameModel.stalemate) {
-        return "Ничья";
-      } else {
-        if (gameModel.playerCount == 1) {
-          if (gameModel.isAIsTurn) {
-            return "Вы выиграли!";
-          } else {
-            return "Вы проиграли";
-          }
-        } else {
-          if (gameModel.turn == Player.player1) {
-            return "Выиграли чёрные";
-          } else {
-            return "Выиграли белые";
-          }
+          return "Выиграли белые";
         }
       }
     }

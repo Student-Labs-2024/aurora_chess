@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:sqflite/sqflite.dart";
 import "../../exports.dart";
+import "dart:async";
 
 class GameSettingsView extends StatefulWidget {
   
@@ -24,6 +25,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
   Player piecesColor = Player.random;
   LevelOfDifficulty gameMode = LevelOfDifficulty.easy;
   LevelOfDifficulty personalityGameMode = LevelOfDifficulty.easy;
+  Timer timer = Timer(Duration.zero, () {});
   bool isLoading = true;
   bool isDBEmpty = false;
   bool withoutTime = true;
@@ -141,6 +143,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
     setState(() {
       isSettingsEdited = true;
       isThreats = chose;
+      widget.gameModel.setIsThreatsPicked(chose);
     });
   }
 
@@ -218,6 +221,11 @@ class _GameSettingsViewState extends State<GameSettingsView>
   }
 
   void onInit() async {
+    timer = Timer(const Duration(seconds: 3), () { 
+      setState(() {
+        isLoading = false;
+      });
+    });
     var databasesPath = await getDatabasesPath();
     String p = "$databasesPath/settings.db";
     setState(() {
@@ -227,6 +235,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
 
     setState(() {
       isLoading = false;
+      timer.cancel();
     });
   }
 

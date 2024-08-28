@@ -31,7 +31,6 @@ const kingQueenMoves = [
   upLeft
 ];
 
-
 List<Move> allMoves(Player player, ChessBoard board, int aiDifficulty) {
   List<MoveAndValue> moves = [];
   var pieces = List.from(piecesForPlayer(player, board));
@@ -39,7 +38,8 @@ List<Move> allMoves(Player player, ChessBoard board, int aiDifficulty) {
     var tiles = movesForPiece(piece, board);
     for (var tile in tiles) {
       if (piece.type == ChessPieceType.pawn &&
-          (tileToRow(tile) == 0 || tileToRow(tile) == LogicConsts.lenOfRow - 1)) {
+          (tileToRow(tile) == 0 ||
+              tileToRow(tile) == LogicConsts.lenOfRow - 1)) {
         for (var promotion in promotions) {
           var move =
               MoveAndValue(Move(piece.tile, tile, promotionType: promotion), 0);
@@ -116,7 +116,8 @@ List<int> movesForPiece(ChessPiece piece, ChessBoard board,
 List<int> _pawnMoves(ChessPiece pawn, ChessBoard board) {
   List<int> moves = [];
   var offset = pawn.player == Player.player1
-      ? -LogicConsts.lenOfRow : LogicConsts.lenOfRow;
+      ? -LogicConsts.lenOfRow
+      : LogicConsts.lenOfRow;
   var firstTile = pawn.tile + offset;
   if (board.tiles[firstTile] == null) {
     moves.add(firstTile);
@@ -151,7 +152,8 @@ List<int> _pawnDiagonalAttacks(ChessPiece pawn, ChessBoard board) {
 
 bool _canTakeEnPassant(Player pawnPlayer, int diagonal, ChessBoard board) {
   var offset = (pawnPlayer == Player.player1)
-      ? LogicConsts.lenOfRow : -LogicConsts.lenOfRow;
+      ? LogicConsts.lenOfRow
+      : -LogicConsts.lenOfRow;
   var takenPiece = board.tiles[diagonal + offset];
   return takenPiece != null &&
       takenPiece.player != pawnPlayer &&
@@ -284,9 +286,23 @@ bool kingInCheckmate(Player player, ChessBoard board) {
   return true;
 }
 
+List<int> pieceInCheck(Player player, ChessBoard board) {
+  List<int> piecesAtThreat = [];
+  for (var piece in piecesForPlayer(oppositePlayer(player), board)) {
+    for (var myPiece in piecesForPlayer(player, board)) {
+      if (movesForPiece(piece, board, legal: false).contains(myPiece.tile)) {
+        piecesAtThreat.add(myPiece.tile);
+      }
+    }
+  }
+  return piecesAtThreat;
+}
+
 bool _inBounds(int row, int col) {
-  return row >= 0 && row < LogicConsts.lenOfRow
-      && col >= 0 && col < LogicConsts.lenOfRow;
+  return row >= 0 &&
+      row < LogicConsts.lenOfRow &&
+      col >= 0 &&
+      col < LogicConsts.lenOfRow;
 }
 
 int _rowColToTile(int row, int col) {
