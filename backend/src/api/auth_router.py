@@ -3,8 +3,8 @@ from fastapi import APIRouter, Depends, Form, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 
-from auth import utils as auth_utils
-from auth.utils import hash_password
+from api import utils as auth_utils
+from api.utils import hash_password
 from core.schemas.user import UserCreate, User
 from sqlalchemy.ext.asyncio import AsyncSession
 

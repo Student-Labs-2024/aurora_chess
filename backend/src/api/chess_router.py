@@ -10,7 +10,7 @@ from fastapi import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from auth.auth_router import get_current_auth_user
+from api.auth_router import get_current_auth_user
 from core.database.db_helper import db_helper
 from core.entities.player_session.websocket_player_session import WebsocketPlayerSession
 from core.factories.chess_player_factory import ChessPlayerFactory
@@ -20,7 +20,7 @@ from core.services.room_service import GameSchema
 from dependencies import message_dispatcher, rooms_service
 
 from core.services import user_service as crud
-from auth import utils as auth_utils
+from api import utils as auth_utils
 from jwt.exceptions import InvalidTokenError
 
 
