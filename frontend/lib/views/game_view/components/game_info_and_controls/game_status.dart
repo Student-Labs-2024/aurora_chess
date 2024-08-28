@@ -57,15 +57,35 @@ String getStatus(
     } else {
       if (gameModel.playerCount == 1) {
         if (gameModel.isAIsTurn) {
-          return "Вы выиграли!";
+          return GamePageConst.gameStatusEnemyMove;
         } else {
-          return "Вы проиграли";
+          return GamePageConst.gameStatusOurMove;
         }
       } else {
         if (gameModel.turn == Player.player1) {
-          return "Выиграли чёрные";
+          return GamePageConst.gameStatusWhiteMove;
         } else {
-          return "Выиграли белые";
+          return GamePageConst.gameStatusBlackMove;
+        }
+      }
+    } else {
+      if (gameModel.stalemate) {
+        return GamePageConst.gameStatusStalemate;
+      } else if (gameModel.draw) {
+        return GamePageConst.gameStatusDraw;
+      } else {
+        if (gameModel.playerCount == 1) {
+          if (gameModel.isAIsTurn) {
+            return GamePageConst.gameStatusYouWin;
+          } else {
+            return GamePageConst.gameStatusYouLose;
+          }
+        } else {
+          if (gameModel.turn == Player.player1) {
+            return GamePageConst.gameStatusBlackWin;
+          } else {
+            return GamePageConst.gameStatusWhiteWin;
+          }
         }
       }
     }

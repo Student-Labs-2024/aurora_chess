@@ -1,6 +1,5 @@
 import "dart:async";
 import "dart:math";
-
 import "../exports.dart";
 import "package:flutter/material.dart";
 
@@ -21,19 +20,27 @@ class GameModel extends ChangeNotifier {
   bool showHint = true;
   bool flip = true;
   bool isPersonalityMode = false;
+  bool isHintNeeded = false;
+  bool isMoveCompletion = false;
+  int hintDelay = 15;
 
   ChessGame? game;
   Timer? timer;
   bool gameOver = false;
   bool stalemate = false;
+  bool draw = false;
   bool promotionRequested = false;
   bool isPromotionForPlayer = false;
   ChessPieceType pieceForPromotion = ChessPieceType.promotion;
   bool moveListUpdated = false;
   Player turn = Player.player1;
   List<MoveMeta> moveMetaList = [];
+  List<String> posList = [];
+  List<String> redoPosList = [];
+  String lastPos = GamePageConst.startPos;
   Duration player1TimeLeft = Duration.zero;
   Duration player2TimeLeft = Duration.zero;
+  Duration durationOfGame = Duration.zero;
 
   bool isThreatsPicked = false;
 
@@ -73,10 +80,17 @@ class GameModel extends ChangeNotifier {
     timer?.cancel();
     gameOver = false;
     stalemate = false;
+    draw = false;
+    isHintNeeded = false;
+    isMoveCompletion = false;
     turn = Player.player1;
     moveMetaList = [];
+    posList = [GamePageConst.startPos];
+    redoPosList = [];
+    lastPos = GamePageConst.startPos;
     player1TimeLeft = Duration(minutes: timeLimit);
     player2TimeLeft = Duration(minutes: timeLimit);
+    durationOfGame = Duration.zero;
     if (selectedSide == Player.random) {
       playerSide =
           Random.secure().nextInt(2) == 0 ? Player.player1 : Player.player2;
@@ -183,6 +197,8 @@ class GameModel extends ChangeNotifier {
     if (player1TimeLeft.inMilliseconds > 0 && !gameOver) {
       player1TimeLeft = Duration(
           milliseconds: player1TimeLeft.inMilliseconds - timerAccuracyMs);
+      durationOfGame = Duration(
+          milliseconds: durationOfGame.inMilliseconds + timerAccuracyMs);
       notifyListeners();
     }
   }
@@ -191,6 +207,8 @@ class GameModel extends ChangeNotifier {
     if (player2TimeLeft.inMilliseconds > 0 && !gameOver) {
       player2TimeLeft = Duration(
           milliseconds: player2TimeLeft.inMilliseconds - timerAccuracyMs);
+      durationOfGame = Duration(
+          milliseconds: durationOfGame.inMilliseconds + timerAccuracyMs);
       notifyListeners();
     }
   }
@@ -228,6 +246,16 @@ class GameModel extends ChangeNotifier {
 
   void setIsPersonalityMode(bool show) {
     isPersonalityMode = show;
+    notifyListeners();
+  }
+
+  void setIsHintNeeded(bool show) {
+    isHintNeeded = show;
+    notifyListeners();
+  }
+
+  void setIsMoveCompletion(bool show) {
+    isMoveCompletion = show;
     notifyListeners();
   }
 

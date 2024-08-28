@@ -21,9 +21,13 @@ class AppBarGuide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
     return Container(
       margin: EdgeInsets.only(
-          left: 24, right: 24, top: 40, bottom: bottomMargin),
+        left: 24, right: 24,
+        top: devicePixelRatio > 2 ? 40 : 24,
+        bottom: bottomMargin
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,

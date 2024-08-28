@@ -21,7 +21,7 @@ class TestChessEngine(unittest.TestCase):
         success, board, game_state = self.engine.make_move(move)
         self.assertTrue(success)
         self.assertEqual(board, "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR")
-        self.assertEqual(game_state, "game in progress")
+        self.assertEqual(game_state, "*")
 
         move = {
             "from_square": "e7",
@@ -34,7 +34,7 @@ class TestChessEngine(unittest.TestCase):
         success, board, game_state = self.engine.make_move(move)
         self.assertTrue(success)
         self.assertEqual(board, "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR")
-        self.assertEqual(game_state, "game in progress")
+        self.assertEqual(game_state, "*")
 
     def test_cant_make_move_incorrect_step(self):
         move = {
@@ -94,7 +94,7 @@ class TestChessEngine(unittest.TestCase):
         success, board, game_state = self.engine.make_move(move)
         self.assertTrue(success)
         self.assertEqual(board, "rnbqkbnr/ppp1pppp/8/3P4/8/8/PPPP1PPP/RNBQKBNR")
-        self.assertEqual(game_state, "game in progress")
+        self.assertEqual(game_state, "*")
 
     def test_scholars_mate(self):
         move = {
@@ -108,7 +108,7 @@ class TestChessEngine(unittest.TestCase):
         success, board, game_state = self.engine.make_move(move)
         self.assertTrue(success)
         self.assertEqual(board, "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR")
-        self.assertEqual(game_state, "game in progress")
+        self.assertEqual(game_state, "*")
 
         move = {
             "from_square": "e7",
@@ -121,7 +121,7 @@ class TestChessEngine(unittest.TestCase):
         success, board, game_state = self.engine.make_move(move)
         self.assertTrue(success)
         self.assertEqual(board, "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR")
-        self.assertEqual(game_state, "game in progress")
+        self.assertEqual(game_state, "*")
 
         move = {
             "from_square": "d1",
@@ -134,7 +134,7 @@ class TestChessEngine(unittest.TestCase):
         success, board, game_state = self.engine.make_move(move)
         self.assertTrue(success)
         self.assertEqual(board, "rnbqkbnr/pppp1ppp/8/4p2Q/4P3/8/PPPP1PPP/RNB1KBNR")
-        self.assertEqual(game_state, "game in progress")
+        self.assertEqual(game_state, "*")
 
         move = {
             "from_square": "b8",
@@ -147,7 +147,7 @@ class TestChessEngine(unittest.TestCase):
         success, board, game_state = self.engine.make_move(move)
         self.assertTrue(success)
         self.assertEqual(board, "r1bqkbnr/pppp1ppp/2n5/4p2Q/4P3/8/PPPP1PPP/RNB1KBNR")
-        self.assertEqual(game_state, "game in progress")
+        self.assertEqual(game_state, "*")
 
         move = {
             "from_square": "f1",
@@ -160,7 +160,7 @@ class TestChessEngine(unittest.TestCase):
         success, board, game_state = self.engine.make_move(move)
         self.assertTrue(success)
         self.assertEqual(board, "r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR")
-        self.assertEqual(game_state, "game in progress")
+        self.assertEqual(game_state, "*")
 
         move = {
             "from_square": "g8",
@@ -175,7 +175,7 @@ class TestChessEngine(unittest.TestCase):
         self.assertEqual(
             board, "r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR"
         )
-        self.assertEqual(game_state, "game in progress")
+        self.assertEqual(game_state, "*")
 
         move = {
             "from_square": "h5",
@@ -188,7 +188,7 @@ class TestChessEngine(unittest.TestCase):
         success, board, game_state = self.engine.make_move(move)
         self.assertTrue(success)
         self.assertEqual(board, "r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR")
-        self.assertEqual(game_state, "white victory")
+        self.assertEqual(game_state, "1-0")
 
     def test_pat(self):
         self.engine.board.set_board_fen("4k3/4P3/3K4/8/8/8/8/8")
@@ -203,15 +203,15 @@ class TestChessEngine(unittest.TestCase):
         success, board, game_state = self.engine.make_move(move)
         self.assertTrue(success)
         self.assertEqual(board, "4k3/4P3/4K3/8/8/8/8/8")
-        self.assertEqual(game_state, "draw")
+        self.assertEqual(game_state, "1/2-1/2")
 
     def test_not_enough_pieces_two_kings(self):
         self.engine.board.set_board_fen("8/8/3k4/8/8/3K4/8/8")
-        self.assertEqual(self.engine.get_game_status(), "draw")
+        self.assertEqual(self.engine.get_game_status(), "1/2-1/2")
 
     def test_not_enough_pieces_two_kings_and_knight(self):
         self.engine.board.set_board_fen("8/8/3k4/8/8/1N1K4/8/8")
-        self.assertEqual(self.engine.get_game_status(), "draw")
+        self.assertEqual(self.engine.get_game_status(), "1/2-1/2")
 
     def test_promote_pawn(self):
         self.engine.board.set_board_fen("8/P7/3k4/8/8/1N1K4/p7/8")
@@ -227,7 +227,7 @@ class TestChessEngine(unittest.TestCase):
         success, board, game_state = self.engine.make_move(move)
         self.assertTrue(success)
         self.assertEqual(board, "N7/8/3k4/8/8/1N1K4/p7/8")
-        self.assertEqual(game_state, "game in progress")
+        self.assertEqual(game_state, "*")
 
         move = {
             "from_square": "a2",
@@ -241,4 +241,4 @@ class TestChessEngine(unittest.TestCase):
         success, board, game_state = self.engine.make_move(move)
         self.assertTrue(success)
         self.assertEqual(board, "N7/8/3k4/8/8/1N1K4/8/n7")
-        self.assertEqual(game_state, "game in progress")
+        self.assertEqual(game_state, "*")

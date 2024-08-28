@@ -28,14 +28,4 @@ def calculate_new_elo(
 ):
     expection_score = calculate_expection_score(player_elo, opponent_elo)
     k = k_factor(player_elo, player_age, games_played)
-    print(k)
-    print(expection_score)
     return round(player_elo + k * (score - expection_score))
-
-
-elo_w = 2800
-elo_b = 1500
-
-score_w = 0
-
-print(calculate_new_elo(elo_w, elo_b, score_w))

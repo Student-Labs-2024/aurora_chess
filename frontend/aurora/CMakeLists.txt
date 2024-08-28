@@ -4,7 +4,7 @@
 # PSDK_MAJOR             - Build psdk major version
 
 cmake_minimum_required(VERSION 3.10)
-project(com.example.frontend LANGUAGES CXX)
+project(com.example.ChessKnock LANGUAGES CXX)
 
 include(GNUInstallDirs)
 

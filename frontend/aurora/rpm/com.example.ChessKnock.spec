@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_datadir}/%{name}/lib/.*$
 %global __requires_exclude ^lib(dconf|flutter-embedder|maliit-glib|.+_platform_plugin)\\.so.*$
 
-Name: com.example.frontend
+Name: com.example.ChessKnock
 Summary: A new Flutter project.
 Version: 0.1.0
 Release: 1

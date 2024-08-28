@@ -12,6 +12,7 @@ class MoveMeta {
   bool isCheck = false;
   bool isCheckmate = false;
   bool isStalemate = false;
+  bool isDraw = false;
   bool rowIsAmbiguous = false;
   bool colIsAmbiguous = false;
 

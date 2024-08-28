@@ -27,7 +27,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
   LevelOfDifficulty personalityGameMode = LevelOfDifficulty.easy;
   Timer timer = Timer(Duration.zero, () {});
   bool isLoading = true;
-  bool isDBEmpty = false;
+  bool isDBNotEmpty = false;
   bool withoutTime = true;
   bool isPersonality = false;
   bool isMoveBack = true;
@@ -44,6 +44,9 @@ class _GameSettingsViewState extends State<GameSettingsView>
       isSettingsEdited = true;
       enemy = Enemy.values[chose];
       widget.gameModel.setPlayerCount(chose + 1);
+      if (widget.gameModel.playerCount == 2) {
+        widget.gameModel.setPlayerSide(Player.player1);
+      }
     });
   }
 
@@ -162,11 +165,10 @@ class _GameSettingsViewState extends State<GameSettingsView>
         });
     List<Map> list =
     await database.rawQuery(GameSettingConsts.dbGetSettingsScript);
-
     if (list.isNotEmpty) {
       Map data = list.first;
-      setEnemy(data["withComputer"]);
       setPiecesColor(data["colorPieces"]);
+      setEnemy(data["withComputer"]);
       setIsTime(data["withoutTime"]);
       setMinutes(data["durationGame"]);
       setSeconds(data["addingOnMove"]);
@@ -181,11 +183,18 @@ class _GameSettingsViewState extends State<GameSettingsView>
       setIsThreats(data["isThreats"] == 0);
       setIsHints(data["isHints"] == 0);
       setState(() {
-        isDBEmpty = true;
+        isDBNotEmpty = true;
       });
     }
     else {
       widget.gameModel.setTimeLimit(0);
+      widget.gameModel.setIsPersonalityMode(isPersonality);
+      widget.gameModel.setAIDifficulty(
+          GameSettingConsts.difficultyLevels[gameMode]);
+      widget.gameModel.setPlayerCount(1);
+      widget.gameModel.setPlayerSide(Player.random);
+      widget.gameModel.setAddingOnMove(0);
+      setAdditionSettings(0);
     }
 
     await database.close();
@@ -209,7 +218,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
       isHints ? 0 : 1
     ];
 
-    if (isDBEmpty) {
+    if (isDBNotEmpty) {
       await database.rawUpdate(
           GameSettingConsts.dbUpdateSettingsScript, updatedSettings);
     } else {
@@ -436,7 +445,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
                           buttonColor: scheme.secondaryContainer,
                           isClickable: true,
                           onTap: () async {
-                            if (isSettingsEdited || !isDBEmpty) {
+                            if (isSettingsEdited) {
                               await setSettings();
                             }
                             if (!context.mounted) return;

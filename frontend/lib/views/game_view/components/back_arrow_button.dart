@@ -16,7 +16,7 @@ class BackArrowButton extends StatelessWidget {
       child: Stack(
         children: [
           CustomIconButton(
-            iconName: "assets/images/icons/left_big_arrow_icon.svg",
+            iconName: GamePageConst.leftBigArrow,
             color: scheme.outlineVariant,
             iconSize: 40,
             onTap: () {
@@ -39,7 +39,7 @@ class BackArrowButton extends StatelessWidget {
                       contentPadding: const EdgeInsets.only(
                           top: 16, bottom: 32, left: 22, right: 22),
                       title: Text(
-                        'Сдаться?',
+                        GamePageConst.gameBackModalHeader,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,

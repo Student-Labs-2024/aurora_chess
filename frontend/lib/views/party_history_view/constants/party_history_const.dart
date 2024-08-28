@@ -3,6 +3,8 @@ class PartyHistoryConst {
 
   static String appbarIconName = "assets/images/icons/left_big_arrow_icon.svg";
 
+  static String appbarMainIcon = "assets/images/icons/cancel.svg";
+
   static String infoPartyIconName = "assets/images/icons/black.svg";
 
   static List<String> gameResults = ["Победа", "Поражение", "Ничья"];

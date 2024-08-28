@@ -9,6 +9,7 @@ class AbstractPlayerSession(ABC):
         self._connection = connection
         self._player: AbstractPlayer | None = None
         self._current_room: AbstractGameRoom | None = None
+        self.user_id: int | None = None
 
     @abstractmethod
     def send_message(self, message) -> None:

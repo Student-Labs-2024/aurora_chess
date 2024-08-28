@@ -60,8 +60,8 @@ class _PartyHistoryMainViewState extends State<PartyHistoryMainView> {
           child: Column(
             children: [
               AppBarGuide(
-                isMainGuide: false,
-                iconName: PartyHistoryConst.appbarIconName,
+                isMainGuide: true,
+                iconName: PartyHistoryConst.appbarMainIcon,
                 iconColor: scheme.onTertiary,
                 bottomMargin: 32,
                 header: PartyHistoryConst.partyHistoryHeader,

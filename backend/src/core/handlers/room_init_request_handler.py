@@ -1,14 +1,12 @@
-import asyncio
 import json
 
-from core.entities.game_room.abstract_game_room import AbstractGameRoom
 from core.entities.player.abstract_player import AbstractPlayer
 from core.entities.player_session.abstract_player_session import AbstractPlayerSession
 from core.factories.abstract_player_factory import AbstractPlayerFactory
 from core.handlers.message_handler import MessageHandler
 from core.schemas.room_init_request import RoomInitRequest
 from core.schemas.room_init_response import RoomInitResponse
-from core.services.room_service import RoomService
+from core.services.room_service import RoomService, GameSchema
 
 
 class RoomInitRequestHandler(MessageHandler):
@@ -29,17 +27,29 @@ class RoomInitRequestHandler(MessageHandler):
         game_type = data.game_type
         room_name = data.room.room_name
 
-        room_init_status: str = self.__room_service.create_room(room_name, game_type)
-        if room_init_status == "successfully created":
-            room: AbstractGameRoom = self.__room_service.get_room(room_name)
+        room_schema = {
+            "game_type": game_type,
+        }
+
+        room_init_status = "already exists"
+        room: GameSchema = await self.__room_service.create_room(
+            GameSchema.model_validate(room_schema), room_name
+        )
+        if room:
             player_info = data.player
             player: AbstractPlayer = self.__player_factory.create_player(
-                player_session, player_info.player_name, player_info.player_side
+                player_session,
+                player_info.player_name,
+                player_info.player_side,
+                player_session.user_id,
             )
             player.set_session(player_session)
-            room.add_player(player)
+            await self.__room_service.add_player_to_room(
+                room_name, player, side=player_info.player_side
+            )
             player_session.set_player(player)
             player_session.set_current_room(room)
+            room_init_status = "successfully created"
 
         response_message = {
             "jsonType": "roomInitResponse",

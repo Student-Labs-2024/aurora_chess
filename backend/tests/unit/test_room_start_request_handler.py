@@ -13,7 +13,7 @@ from utils.chess_board import fen_to_list_board
 
 class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
     async def test_valid_start(self):
-        room_service = MagicMock(spec=RoomService)
+        room_service = AsyncMock(spec=RoomService)
         game_room = MagicMock(spec=AbstractGameRoom)
         game_room.is_active.return_value = False
         game_room.is_full.return_value = True
@@ -36,11 +36,10 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         player_black.get_name.return_value = "player_black"
         player_black.get_side.return_value = "black"
 
-        game_room.get_owner.return_value = player_white_owner
+        room_service.get_creator.return_value = player_white_owner
+        room_service.get_players.return_value = [player_white_owner, player_black]
 
         game_type = "test_invalid_player_info"
-        game_room.get_game_type.return_value = game_type
-        game_room.get_players.return_value = [player_white_owner, player_black]
         room_name = "invalid_test_player_info"
 
         message = {
@@ -70,8 +69,6 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         )
 
         room_service.get_room.assert_called_once_with(room_name)
-        game_room.get_game_type.asser_called_once()
-        game_room.get_players.asser_called_once()
         player_white_owner.get_session.asser_called_once()
         player_white_owner.get_name.assert_called()
         player_white_owner.get_side.assert_called()
@@ -109,11 +106,11 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         player_black.get_name.return_value = "player_black"
         player_black.get_side.return_value = "black"
 
-        game_room.get_owner.return_value = player_white_owner
+        room_service.get_creator.return_value = player_white_owner
+        room_service.get_players.return_value = [player_white_owner, player_black]
 
         game_type = "test_invalid_player_info"
-        game_room.get_game_type.return_value = game_type
-        game_room.get_players.return_value = [player_white_owner, player_black]
+        game_room.game_type = game_type
         room_name = "invalid_test_player_info"
 
         message = {
@@ -138,8 +135,6 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         )
 
         room_service.get_room.assert_called_once_with(room_name)
-        game_room.get_game_type.asser_called_once()
-        game_room.get_players.asser_called_once()
         player_white_owner.get_session.asser_called_once()
         player_white_owner.get_name.assert_called_once()
         player_white_owner.get_side.assert_called()
@@ -174,11 +169,11 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         player_black.get_name.return_value = "player_black"
         player_black.get_side.return_value = "black"
 
-        game_room.get_owner.return_value = player_white_owner
+        room_service.get_creator.return_value = player_white_owner
+        room_service.get_players.return_value = [player_white_owner, player_black]
 
         game_type = "test_invalid_player_info"
-        game_room.get_game_type.return_value = game_type
-        game_room.get_players.return_value = [player_white_owner, player_black]
+        game_room.game_type = game_type
         room_name = "invalid_test_player_info"
 
         message = {
@@ -203,8 +198,6 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         )
 
         room_service.get_room.assert_called_once_with(room_name)
-        game_room.get_game_type.asser_called_once()
-        game_room.get_players.asser_called_once()
         player_white_owner.get_session.asser_called_once()
         player_white_owner.get_name.assert_not_called()
         player_white_owner.get_side.assert_not_called()
@@ -239,11 +232,11 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         player_black.get_name.return_value = "player_black"
         player_black.get_side.return_value = "black"
 
-        game_room.get_owner.return_value = player_white_owner
+        room_service.get_creator.return_value = player_white_owner
+        room_service.get_players.return_value = [player_white_owner, player_black]
 
         game_type = "test_invalid_player_info"
-        game_room.get_game_type.return_value = game_type
-        game_room.get_players.return_value = [player_white_owner, player_black]
+        game_room.game_type = game_type
         room_name = "invalid_test_player_info"
 
         message = {
@@ -268,8 +261,6 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         )
 
         room_service.get_room.assert_called_once_with(room_name)
-        game_room.get_game_type.asser_called_once()
-        game_room.get_players.asser_called_once()
         player_white_owner.get_session.asser_called_once()
         player_white_owner.get_name.assert_not_called()
         player_white_owner.get_side.assert_not_called()
@@ -304,11 +295,11 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         player_black.get_name.return_value = "player_black"
         player_black.get_side.return_value = "black"
 
-        game_room.get_owner.return_value = player_white_owner
+        room_service.get_creator.return_value = player_white_owner
+        room_service.get_players.return_value = [player_white_owner, player_black]
 
         game_type = "test_invalid_player_info"
-        game_room.get_game_type.return_value = game_type
-        game_room.get_players.return_value = [player_white_owner, player_black]
+        game_room.game_type = game_type
         room_name = "invalid_test_player_info"
 
         message = {
@@ -333,8 +324,6 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         )
 
         room_service.get_room.assert_called_once_with(room_name)
-        game_room.get_game_type.asser_called_once()
-        game_room.get_players.asser_called_once()
         player_white_owner.get_session.asser_called_once()
         player_white_owner.get_name.assert_called_once()
         player_white_owner.get_side.assert_called_once()
@@ -369,11 +358,10 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         player_black.get_name.return_value = "player_black"
         player_black.get_side.return_value = "black"
 
-        game_room.get_owner.return_value = player_white_owner
+        room_service.get_creator.return_value = player_white_owner
+        room_service.get_players.return_value = [player_white_owner, player_black]
 
         game_type = "test_invalid_player_info"
-        game_room.get_game_type.return_value = game_type
-        game_room.get_players.return_value = [player_white_owner, player_black]
         room_name = "invalid_test_player_info"
 
         message = {
@@ -398,8 +386,6 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         )
 
         room_service.get_room.assert_called_once_with(room_name + "   ")
-        game_room.get_game_type.asser_called_once()
-        game_room.get_players.asser_called_once()
         player_white_owner.get_session.asser_called_once()
         player_white_owner.get_name.assert_not_called()
         player_white_owner.get_side.assert_not_called()
