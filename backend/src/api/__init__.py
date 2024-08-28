@@ -17,4 +17,3 @@ router.include_router(
 router.include_router(
     auth_router,
 )
-
