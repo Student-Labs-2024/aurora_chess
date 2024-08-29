@@ -50,7 +50,6 @@ class SettingsRow extends StatelessWidget {
                 style: TextStyle(
                   color: scheme.primary,
                   fontSize: 16,
-                  fontFamily: "Roboto",
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -75,7 +74,6 @@ class SettingsRow extends StatelessWidget {
                           modalHeader,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontFamily: "Roboto",
                             fontWeight: FontWeight.w500,
                             fontSize: 28,
                             color: scheme.primary
@@ -88,7 +86,6 @@ class SettingsRow extends StatelessWidget {
                             textAlign: TextAlign.center,
                             maxLines: 2,
                             style: TextStyle(
-                              fontFamily: "Roboto",
                               fontWeight: FontWeight.w500,
                               fontSize: 20,
                               color: scheme.primary

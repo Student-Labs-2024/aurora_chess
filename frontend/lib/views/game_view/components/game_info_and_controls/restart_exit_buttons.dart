@@ -62,36 +62,56 @@ class _RestartExitButtonsState extends State<RestartExitButtons> {
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        GestureDetector(
-                          onTap: () => {
-                            widget.gameModel.newGame(context),
+                        MaterialButton(
+                          onPressed: () => {
                             Navigator.of(dialogContext).pop(),
                           },
-                          child: Container(
-                            height: 60,
-                            decoration: ShapeDecoration(
-                              color: const Color(0xFF2C2C2C),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                GamePageConst.gameRestartText,
-                                style: const TextStyle(
-                                  color: ColorsConst.primaryColor0,
-                                  fontFamily: "Roboto",
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                          height: 60,
+                          color: scheme.surfaceVariant,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              GamePageConst.gameContinueText,
+                              style: TextStyle(
+                                color: ColorsConst.neutralColor0,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
                         ),
                         const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () {
-                            timer.cancel();
+                        MaterialButton(
+                          onPressed: () => {
+                            widget.gameModel.newGame(context),
+                            Navigator.of(dialogContext).pop(),
+                          },
+                          height: 60,
+                          color: scheme.outline,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Center(
+                            child: Text(
+                              GamePageConst.gameRestartText,
+                              style: TextStyle(
+                                color: scheme.onTertiary,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        MaterialButton(
+                          height: 60,
+                          color: scheme.outline,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          onPressed: () {
                             if (widget.gameModel.gameOver) {
                               addPartyToHistory(widget.gameModel);
                             }
@@ -101,49 +121,13 @@ class _RestartExitButtonsState extends State<RestartExitButtons> {
                                 extra: widget.gameModel);
                             Navigator.of(dialogContext).pop();
                           },
-                          child: Container(
-                            height: 60,
-                            decoration: ShapeDecoration(
-                              color: const Color(0xFF2C2C2C),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                GamePageConst.gameEndText,
-                                style: const TextStyle(
-                                  color: ColorsConst.primaryColor0,
-                                  fontFamily: "Roboto",
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () => {
-                            Navigator.of(dialogContext).pop(),
-                          },
-                          child: Container(
-                            height: 60,
-                            decoration: ShapeDecoration(
-                              color: const Color(0xFF818181),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                GamePageConst.gameContinueText,
-                                style: TextStyle(
-                                  color: scheme.onErrorContainer,
-                                  fontFamily: "Roboto",
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                          child: Center(
+                            child: Text(
+                              GamePageConst.gameEndText,
+                              style: TextStyle(
+                                color: scheme.onTertiary,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
