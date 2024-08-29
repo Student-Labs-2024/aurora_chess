@@ -73,7 +73,7 @@ class _RestartExitButtonsState extends State<RestartExitButtons> {
                           ),
                           child: const Center(
                             child: Text(
-                              GamePageConst.gameContinueText,
+                              GamePageConst.continueGameText,
                               style: TextStyle(
                                 color: ColorsConst.neutralColor0,
                                 fontSize: 20,
