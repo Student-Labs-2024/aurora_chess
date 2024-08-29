@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
+import "package:go_router/go_router.dart";
 import "package:provider/provider.dart";
 import "../../exports.dart";
 
@@ -30,7 +31,9 @@ class _GameViewState extends State<GameView> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final scheme = Theme.of(context).colorScheme;
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
     return isLoading
         ? const LoadingWidget()
         : Scaffold(
@@ -67,8 +70,9 @@ class _GameViewState extends State<GameView> {
                                     alignment: Alignment.topCenter,
                                     child: SvgPicture.asset(
                                       "assets/images/board.svg",
-                                      width: width,
-                                      height: width * LogicConsts.boardRatio,
+                                      width: deviceWidth,
+                                      height:
+                                          deviceWidth * LogicConsts.boardRatio,
                                     ),
                                   ),
                                   Align(
@@ -93,7 +97,102 @@ class _GameViewState extends State<GameView> {
                         ),
                         gameModel.isPromotionForPlayer
                             ? Center(child: PieceChooseWindow(gameModel))
-                            : Container()
+                            : Container(),
+                        gameModel.gameOver
+                            ? Builder(
+                                builder: (dialogContext) => Stack(
+                                  children: [
+                                    Container(
+                                      width: deviceWidth,
+                                      height: deviceHeight,
+                                      color: Colors.black54,
+                                    ),
+                                    AlertDialog(
+                                      insetPadding: EdgeInsets.zero,
+                                      backgroundColor: scheme.onBackground,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(16.0)),
+                                      ),
+                                      contentPadding: const EdgeInsets.only(
+                                          top: 32,
+                                          bottom: 32,
+                                          left: 22,
+                                          right: 22),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            getStatus(
+                                                gameModel, context, scheme),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: scheme.onTertiary,
+                                              fontSize: 28,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 20),
+                                          MaterialButton(
+                                            onPressed: () => {
+                                              gameModel.newGame(context),
+                                            },
+                                            height: 60,
+                                            color: scheme.surfaceVariant,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                            ),
+                                            child: const Center(
+                                              child: Text(
+                                                GamePageConst.gameRestartText,
+                                                style: TextStyle(
+                                                  color:
+                                                      ColorsConst.neutralColor0,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          MaterialButton(
+                                            onPressed: () {
+                                              if (gameModel.gameOver) {
+                                                addPartyToHistory(gameModel);
+                                              }
+                                              gameModel.exitChessView();
+                                              if (!context.mounted) return;
+                                              context.go(
+                                                  RouteLocations.settingsScreen,
+                                                  extra: gameModel);
+                                              Navigator.of(dialogContext).pop();
+                                            },
+                                            height: 60,
+                                            color: scheme.outline,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                GamePageConst.gameEndText,
+                                                style: TextStyle(
+                                                  color: scheme.onTertiary,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Container(),
                       ],
                     ),
                   );

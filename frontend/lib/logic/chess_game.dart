@@ -13,12 +13,12 @@ class ChessGame extends Game with TapDetector {
   BuildContext context;
   ChessBoard board = ChessBoard();
   Map<ChessPiece, ChessPieceSprite> spriteMap = {};
-  Timer t = Timer(const Duration(seconds: 1), () { });
+  Timer t = Timer(const Duration(seconds: 1), () {});
 
   CancelableOperation? aiOperation;
   List<int> validMoves = [];
   ChessPiece? selectedPiece;
-  int? checkHintTile;
+  List<int> checkHintTiles = [];
   Move? latestMove;
 
   ChessGame(this.gameModel, this.context) {
@@ -34,8 +34,7 @@ class ChessGame extends Game with TapDetector {
     _initSpritePositions();
     if (gameModel.isAIsTurn) {
       _aiMove();
-    }
-    else {
+    } else {
       t = Timer(Duration(seconds: gameModel.hintDelay), () {
         if (!gameModel.isMoveCompletion) {
           gameModel.setIsHintNeeded(true);
@@ -213,7 +212,7 @@ class ChessGame extends Game with TapDetector {
     selectedPiece = null;
     validMoves = [];
     latestMove = null;
-    checkHintTile = null;
+    checkHintTiles = [];
     gameModel.lastPos = GamePageConst.startPos;
     gameModel.posList = [GamePageConst.startPos];
     gameModel.popMoveMeta();
@@ -260,11 +259,17 @@ class ChessGame extends Game with TapDetector {
     }
     validMoves = [];
     latestMove = meta.move;
-    checkHintTile = null;
+    checkHintTiles = [];
     var oppositeTurn = oppositePlayer(gameModel.turn);
     if (kingInCheck(oppositeTurn, board)) {
       meta.isCheck = true;
-      checkHintTile = kingForPlayer(oppositeTurn, board)?.tile;
+      checkHintTiles.add(kingForPlayer(oppositeTurn, board)!.tile);
+    }
+    if (pieceInCheck(oppositeTurn, board).isNotEmpty &&
+        gameModel.isThreatsPicked) {
+      for (int tile in pieceInCheck(oppositeTurn, board)) {
+        checkHintTiles.add(tile);
+      }
     }
     if (kingInCheckmate(oppositeTurn, board)) {
       if (!meta.isCheck) {
@@ -291,10 +296,10 @@ class ChessGame extends Game with TapDetector {
       for (var piece in board.player2Pieces) {
         player2Pieces.add(piece.type);
       }
-      if ((player1Pieces.contains(ChessPieceType.bishop)
-          || player1Pieces.contains(ChessPieceType.knight)) &&
-          (player2Pieces.contains(ChessPieceType.bishop)
-          || player2Pieces.contains(ChessPieceType.knight))) {
+      if ((player1Pieces.contains(ChessPieceType.bishop) ||
+              player1Pieces.contains(ChessPieceType.knight)) &&
+          (player2Pieces.contains(ChessPieceType.bishop) ||
+              player2Pieces.contains(ChessPieceType.knight))) {
         gameModel.draw = true;
         meta.isDraw = true;
         t.cancel();
@@ -330,8 +335,7 @@ class ChessGame extends Game with TapDetector {
   void addTimeOnMove() {
     if (gameModel.turn == Player.player1) {
       gameModel.incrementPlayer1Timer();
-    }
-    else {
+    } else {
       gameModel.incrementPlayer2Timer();
     }
   }
@@ -445,16 +449,18 @@ class ChessGame extends Game with TapDetector {
   }
 
   void _drawCheckHint(Canvas canvas) {
-    if (checkHintTile != null) {
-      canvas.drawRect(
-        Rect.fromLTWH(
-          getXFromTile(checkHintTile!, tileSize ?? 0, gameModel),
-          getYFromTile(checkHintTile!, tileSize ?? 0, gameModel),
-          tileSize ?? 0,
-          tileSize ?? 0,
-        ),
-        Paint()..color = ColorsConst.feedback100,
-      );
+    if (checkHintTiles.isNotEmpty) {
+      for (int tile in checkHintTiles) {
+        canvas.drawRect(
+          Rect.fromLTWH(
+            getXFromTile(tile, tileSize ?? 0, gameModel),
+            getYFromTile(tile, tileSize ?? 0, gameModel),
+            tileSize ?? 0,
+            tileSize ?? 0,
+          ),
+          Paint()..color = ColorsConst.feedback100,
+        );
+      }
     }
   }
 

@@ -42,64 +42,54 @@ class BackArrowButton extends StatelessWidget {
                         GamePageConst.gameBackModalHeader,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontFamily: "Roboto",
-                            fontWeight: FontWeight.w500,
-                            fontSize: 28,
-                            color: scheme.primary),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 28,
+                          color: scheme.onTertiary,
+                        ),
                       ),
                       content: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          GestureDetector(
-                            onTap: () => {
+                          MaterialButton(
+                            onPressed: () => {
                               Navigator.of(dialogContext).pop(),
                             },
-                            child: Container(
-                              height: 60,
-                              decoration: ShapeDecoration(
-                                color: const Color(0xFF2C2C2C),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  GamePageConst.continueGameText,
-                                  style: const TextStyle(
-                                    color: ColorsConst.primaryColor0,
-                                    fontFamily: "Roboto",
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                            height: 60,
+                            color: scheme.surfaceVariant,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                GamePageConst.continueGameText,
+                                style: TextStyle(
+                                  color: ColorsConst.neutralColor0,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),
                           ),
                           const SizedBox(height: 10),
-                          GestureDetector(
-                            onTap: () => {
+                          MaterialButton(
+                            onPressed: () => {
                               addPartyToHistory(gameModel),
                               context.go(RouteLocations.settingsScreen,
                                   extra: gameModel),
                               Navigator.of(dialogContext).pop(),
                             },
-                            child: Container(
-                              height: 60,
-                              decoration: ShapeDecoration(
-                                color: const Color(0xFF818181),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  GamePageConst.gameGiveUpText,
-                                  style: TextStyle(
-                                    color: scheme.onErrorContainer,
-                                    fontFamily: "Roboto",
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                            height: 60,
+                            color: scheme.outline,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Center(
+                              child: Text(
+                                GamePageConst.gameGiveUpText,
+                                style: TextStyle(
+                                  color: scheme.onTertiary,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),

@@ -284,6 +284,18 @@ bool kingInCheckmate(Player player, ChessBoard board) {
   return true;
 }
 
+List<int> pieceInCheck(Player player, ChessBoard board) {
+  List<int> piecesAtThreat = [];
+  for (var piece in piecesForPlayer(oppositePlayer(player), board)) {
+    for (var myPiece in piecesForPlayer(player, board)) {
+      if (movesForPiece(piece, board, legal: false).contains(myPiece.tile)) {
+        piecesAtThreat.add(myPiece.tile);
+      }
+    }
+  }
+  return piecesAtThreat;
+}
+
 bool _inBounds(int row, int col) {
   return row >= 0 && row < LogicConsts.lenOfRow
       && col >= 0 && col < LogicConsts.lenOfRow;

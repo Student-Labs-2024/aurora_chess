@@ -14,7 +14,7 @@ class GameStatus extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            _getStatus(gameModel, context, scheme),
+            getStatus(gameModel, context, scheme),
             textAlign: TextAlign.center,
             style: TextStyle(
               color: scheme.primary,
@@ -33,41 +33,41 @@ class GameStatus extends StatelessWidget {
       ),
     );
   }
+}
 
-  String _getStatus(
-      GameModel gameModel, BuildContext context, ColorScheme scheme) {
-    if (!gameModel.gameOver) {
+String getStatus(
+    GameModel gameModel, BuildContext context, ColorScheme scheme) {
+  if (!gameModel.gameOver) {
+    if (gameModel.playerCount == 1) {
+      if (gameModel.isAIsTurn) {
+        return GamePageConst.gameStatusEnemyMove;
+      } else {
+        return GamePageConst.gameStatusOurMove;
+      }
+    } else {
+      if (gameModel.turn == Player.player1) {
+        return GamePageConst.gameStatusWhiteMove;
+      } else {
+        return GamePageConst.gameStatusBlackMove;
+      }
+    }
+  } else {
+    if (gameModel.stalemate) {
+      return GamePageConst.gameStatusStalemate;
+    } else if (gameModel.draw) {
+      return GamePageConst.gameStatusDraw;
+    } else {
       if (gameModel.playerCount == 1) {
         if (gameModel.isAIsTurn) {
-          return GamePageConst.gameStatusEnemyMove;
+          return GamePageConst.gameStatusYouWin;
         } else {
-          return GamePageConst.gameStatusOurMove;
+          return GamePageConst.gameStatusYouLose;
         }
       } else {
         if (gameModel.turn == Player.player1) {
-          return GamePageConst.gameStatusWhiteMove;
+          return GamePageConst.gameStatusBlackWin;
         } else {
-          return GamePageConst.gameStatusBlackMove;
-        }
-      }
-    } else {
-      if (gameModel.stalemate) {
-        return GamePageConst.gameStatusStalemate;
-      } else if (gameModel.draw) {
-        return GamePageConst.gameStatusDraw;
-      } else {
-        if (gameModel.playerCount == 1) {
-          if (gameModel.isAIsTurn) {
-            return GamePageConst.gameStatusYouWin;
-          } else {
-            return GamePageConst.gameStatusYouLose;
-          }
-        } else {
-          if (gameModel.turn == Player.player1) {
-            return GamePageConst.gameStatusBlackWin;
-          } else {
-            return GamePageConst.gameStatusWhiteWin;
-          }
+          return GamePageConst.gameStatusWhiteWin;
         }
       }
     }
