@@ -266,7 +266,8 @@ class ChessGame extends Game with TapDetector {
       checkHintTiles.add(kingForPlayer(oppositeTurn, board)!.tile);
     }
     if (pieceInCheck(oppositeTurn, board).isNotEmpty &&
-        gameModel.isThreatsPicked) {
+        gameModel.isThreatsPicked && gameModel.playerCount == 1 && !meta.isCheck
+        && !meta.isDraw && !meta.isStalemate && !meta.isCheckmate) {
       for (int tile in pieceInCheck(oppositeTurn, board)) {
         checkHintTiles.add(tile);
       }
@@ -344,7 +345,7 @@ class ChessGame extends Game with TapDetector {
     gameModel.setIsHintNeeded(false);
     var args = {};
     args["aiPlayer"] = gameModel.turn;
-    args["aiDifficulty"] = 4;
+    args["aiDifficulty"] = 3;
     args["board"] = board;
     aiOperation = CancelableOperation.fromFuture(
       compute(calculateAIMove, args),

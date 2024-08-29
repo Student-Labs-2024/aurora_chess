@@ -19,9 +19,9 @@ class BackArrowButton extends StatelessWidget {
             iconName: GamePageConst.leftBigArrow,
             color: scheme.outlineVariant,
             iconSize: 40,
-            onTap: () {
+            onTap: () async {
               if (gameModel.gameOver) {
-                addPartyToHistory(gameModel);
+                await addPartyToHistory(gameModel);
                 context.go(RouteLocations.settingsScreen, extra: gameModel);
               } else {
                 showDialog(
@@ -72,11 +72,11 @@ class BackArrowButton extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           MaterialButton(
-                            onPressed: () => {
-                              addPartyToHistory(gameModel),
+                            onPressed: () async {
+                              await addPartyToHistory(gameModel);
                               context.go(RouteLocations.settingsScreen,
-                                  extra: gameModel),
-                              Navigator.of(dialogContext).pop(),
+                                  extra: gameModel);
+                              Navigator.of(dialogContext).pop();
                             },
                             height: 60,
                             color: scheme.outline,
