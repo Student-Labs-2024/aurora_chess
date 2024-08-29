@@ -59,9 +59,9 @@ String getStatus(
     } else {
       if (gameModel.playerCount == 1) {
         if (gameModel.isAIsTurn) {
-          return GamePageConst.gameStatusYouWin;
+          return GamePageConst.gameResultWin;
         } else {
-          return GamePageConst.gameStatusYouLose;
+          return GamePageConst.gameResultLose;
         }
       } else {
         if (gameModel.turn == Player.player1) {

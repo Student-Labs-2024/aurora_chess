@@ -12,14 +12,11 @@ class GamePageConst {
   static const gameStatusBlackMove = "Ход чёрных";
   static const gameStatusStalemate = "Пат (Ничья)";
   static const gameStatusDraw = "Ничья";
-  static const gameStatusYouWin = "Вы выиграли!";
-  static const gameStatusYouLose = "Вы проиграли";
   static const gameStatusBlackWin = "Выиграли чёрные";
   static const gameStatusWhiteWin = "Выиграли белые";
-  static const gameEndText = "Закончить игру";
-  static const gameContinueText = "Продолжить";
+  static const gameEndText = "В главное меню";
   static const continueGameText = "Продолжить игру";
-  static const gameRestartText = "Перезапустить партию";
+  static const gameRestartText = "Новая игра";
   static const gameGiveUpText = "Сдаться";
   static const gameBackModalHeader = "Сдаться?";
   static const gameResultWin = "Победа";

@@ -437,15 +437,17 @@ class ChessGame extends Game with TapDetector {
         ),
         Paint()..color = ColorsConst.feedback300,
       );
-      canvas.drawRect(
-        Rect.fromLTWH(
-          getXFromTile(latestMove!.to, tileSize ?? 0, gameModel),
-          getYFromTile(latestMove!.to, tileSize ?? 0, gameModel),
-          tileSize ?? 0,
-          tileSize ?? 0,
-        ),
-        Paint()..color = ColorsConst.feedback300,
-      );
+      if (!checkHintTiles.contains(latestMove!.to)) {
+        canvas.drawRect(
+          Rect.fromLTWH(
+            getXFromTile(latestMove!.to, tileSize ?? 0, gameModel),
+            getYFromTile(latestMove!.to, tileSize ?? 0, gameModel),
+            tileSize ?? 0,
+            tileSize ?? 0,
+          ),
+          Paint()..color = ColorsConst.feedback300,
+        );
+      }
     }
   }
 
