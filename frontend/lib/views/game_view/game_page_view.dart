@@ -138,6 +138,7 @@ class _GameViewState extends State<GameView> {
                                               if (gameModel.gameOver) {
                                                 await addPartyToHistory(gameModel);
                                               }
+                                              if (!context.mounted) return;
                                               gameModel.newGame(context);
                                             },
                                             height: 60,

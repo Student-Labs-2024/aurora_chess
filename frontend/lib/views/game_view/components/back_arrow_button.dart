@@ -22,6 +22,7 @@ class BackArrowButton extends StatelessWidget {
             onTap: () async {
               if (gameModel.gameOver) {
                 await addPartyToHistory(gameModel);
+                if (!context.mounted) return;
                 context.go(RouteLocations.settingsScreen, extra: gameModel);
               } else {
                 showDialog(
@@ -74,6 +75,7 @@ class BackArrowButton extends StatelessWidget {
                           MaterialButton(
                             onPressed: () async {
                               await addPartyToHistory(gameModel);
+                              if (!context.mounted) return;
                               context.go(RouteLocations.settingsScreen,
                                   extra: gameModel);
                               Navigator.of(dialogContext).pop();

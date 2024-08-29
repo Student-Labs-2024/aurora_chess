@@ -88,6 +88,7 @@ class _RestartExitButtonsState extends State<RestartExitButtons> {
                             if (widget.gameModel.gameOver) {
                               await addPartyToHistory(widget.gameModel);
                             }
+                            if (!context.mounted) return;
                             widget.gameModel.newGame(context);
                             Navigator.of(dialogContext).pop();
                           },
