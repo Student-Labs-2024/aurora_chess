@@ -84,9 +84,13 @@ class _RestartExitButtonsState extends State<RestartExitButtons> {
                         ),
                         const SizedBox(height: 10),
                         MaterialButton(
-                          onPressed: () => {
-                            widget.gameModel.newGame(context),
-                            Navigator.of(dialogContext).pop(),
+                          onPressed: () async {
+                            if (widget.gameModel.gameOver) {
+                              await addPartyToHistory(widget.gameModel);
+                            }
+                            if (!context.mounted) return;
+                            widget.gameModel.newGame(context);
+                            Navigator.of(dialogContext).pop();
                           },
                           height: 60,
                           color: scheme.outline,
@@ -111,10 +115,8 @@ class _RestartExitButtonsState extends State<RestartExitButtons> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          onPressed: () {
-                            if (widget.gameModel.gameOver) {
-                              addPartyToHistory(widget.gameModel);
-                            }
+                          onPressed: () async {
+                            await addPartyToHistory(widget.gameModel);
                             widget.gameModel.exitChessView();
                             if (!context.mounted) return;
                             context.go(RouteLocations.settingsScreen,
@@ -144,10 +146,10 @@ class _RestartExitButtonsState extends State<RestartExitButtons> {
         TweenAnimationBuilder(
           duration: const Duration(milliseconds: 200),
           tween: ColorTween(
-            begin: isHint ? Colors.white.withOpacity(0)
-                : Colors.green.withOpacity(0.8),
-            end: isHint ? Colors.white.withOpacity(0.8)
-                : Colors.green.withOpacity(0)
+            begin: isHint ? ColorsConst.neutralColor0.withOpacity(0)
+                : ColorsConst.neutralColor0,
+            end: isHint ? ColorsConst.neutralColor0
+                : ColorsConst.neutralColor0.withOpacity(0)
           ),
           builder: (BuildContext context, Color? value, Widget? child) {
             return Expanded(

@@ -144,6 +144,7 @@ class _GameSettingsViewState extends State<GameSettingsView>
     setState(() {
       isSettingsEdited = true;
       isThreats = chose;
+      widget.gameModel.setIsThreatsPicked(chose);
     });
   }
 

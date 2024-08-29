@@ -134,8 +134,12 @@ class _GameViewState extends State<GameView> {
                                           ),
                                           const SizedBox(height: 20),
                                           MaterialButton(
-                                            onPressed: () => {
-                                              gameModel.newGame(context),
+                                            onPressed: () async {
+                                              if (gameModel.gameOver) {
+                                                await addPartyToHistory(gameModel);
+                                              }
+                                              if (!context.mounted) return;
+                                              gameModel.newGame(context);
                                             },
                                             height: 60,
                                             color: scheme.surfaceVariant,
@@ -157,9 +161,9 @@ class _GameViewState extends State<GameView> {
                                           ),
                                           const SizedBox(height: 10),
                                           MaterialButton(
-                                            onPressed: () {
+                                            onPressed: () async {
                                               if (gameModel.gameOver) {
-                                                addPartyToHistory(gameModel);
+                                                await addPartyToHistory(gameModel);
                                               }
                                               gameModel.exitChessView();
                                               if (!context.mounted) return;

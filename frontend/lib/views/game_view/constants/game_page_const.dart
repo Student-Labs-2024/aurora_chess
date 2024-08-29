@@ -19,7 +19,7 @@ class GamePageConst {
   static const gameEndText = "Закончить игру";
   static const gameContinueText = "Продолжить";
   static const continueGameText = "Продолжить игру";
-  static const gameRestartText = "Перезапустить матч";
+  static const gameRestartText = "Перезапустить партию";
   static const gameGiveUpText = "Сдаться";
   static const gameBackModalHeader = "Сдаться?";
   static const gameResultWin = "Победа";
