@@ -10,4 +10,4 @@ class SystemMessage(BaseModel):
 
 
 class SystemMessagesMixin(BaseModel):
-    system_messages: list[SystemMessage] = None
+    system_messages: list[SystemMessage] | None = None
