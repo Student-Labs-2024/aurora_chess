@@ -3,6 +3,7 @@ from core.handlers.connection_request_handler import ConnectionRequestHandler
 from core.handlers.default_handler import DefaultHandler
 from core.handlers.player_move_request_handler import PlayerMoveRequestHandler
 from core.handlers.room_init_request_handler import RoomInitRequestHandler
+from core.handlers.room_start_request_handler import RoomStartRequestHandler
 from core.repository.room_repository.ram_room_repository import RAMRoomRepository
 from core.services.message_handler_service import MessageHandlerService
 from core.services.room_service import RoomService
@@ -21,7 +22,7 @@ message_dispatcher.register_handler(
 
 message_dispatcher.register_handler(
     "roomStartRequest",
-    PlayerMoveRequestHandler(room_service=rooms_service),
+    RoomStartRequestHandler(room_service=rooms_service),
 )
 
 message_dispatcher.register_handler(

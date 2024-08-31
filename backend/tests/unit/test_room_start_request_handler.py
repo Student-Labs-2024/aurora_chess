@@ -17,8 +17,9 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         game_room = MagicMock(spec=AbstractGameRoom)
         game_room.is_active.return_value = False
         game_room.is_full.return_value = True
+
         board = "a/b/c/d/e"
-        game_room.get_board.return_value = board
+        room_service.get_board.return_value = board
         room_service.get_room.return_value = game_room
 
         handler = RoomStartRequestHandler(room_service)
@@ -41,6 +42,8 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
 
         game_type = "test_invalid_player_info"
         room_name = "invalid_test_player_info"
+
+        game_room.game_type = game_type
 
         message = {
             "jsonType": "roomStartRequest",
@@ -88,7 +91,7 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         room_service = MagicMock(spec=RoomService)
         game_room = MagicMock(spec=AbstractGameRoom)
         game_room.is_active.return_value = False
-        game_room.is_full.return_value = True
+        room_service.is_full.return_value = True
         room_service.get_room.return_value = game_room
 
         handler = RoomStartRequestHandler(room_service)
@@ -214,7 +217,7 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         room_service = MagicMock(spec=RoomService)
         game_room = MagicMock(spec=AbstractGameRoom)
         game_room.is_active.return_value = False
-        game_room.is_full.return_value = False
+        room_service.is_full.return_value = False
         room_service.get_room.return_value = game_room
 
         handler = RoomStartRequestHandler(room_service)
@@ -363,6 +366,7 @@ class TestStartMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
 
         game_type = "test_invalid_player_info"
         room_name = "invalid_test_player_info"
+        game_room.game_type = game_type
 
         message = {
             "jsonType": "roomStartRequest",

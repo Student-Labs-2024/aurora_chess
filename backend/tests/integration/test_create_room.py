@@ -1,3 +1,4 @@
+import pytest
 from fastapi.testclient import TestClient
 from main import app
 
@@ -7,7 +8,8 @@ import json
 client = TestClient(app)
 
 
-def test_player_can_create_room():
+@pytest.mark.asyncio
+async def test_player_can_create_room():
     game_type = "gameWithFriend"
     room_name = "test_create_room_with_friend_positive"
     player_name = "player_1"
@@ -45,7 +47,8 @@ def test_player_can_create_room():
     assert actual_response_message["data"] == response_message["data"]
 
 
-def test_player_cant_create_alredy_exist_room():
+@pytest.mark.asyncio
+async def test_player_cant_create_alredy_exist_room():
     game_type = "gameWithFriend"
     room_name = "test_create_room_with_friend_positive"
     player_name = "player_1"
