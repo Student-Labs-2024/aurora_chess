@@ -7,4 +7,4 @@ class Error(BaseModel):
 
 
 class ErrorsMixin(BaseModel):
-    errors: list[Error] = None
+    errors: list[Error] | None = None
