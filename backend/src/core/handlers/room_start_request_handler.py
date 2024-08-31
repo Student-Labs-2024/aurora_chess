@@ -36,8 +36,9 @@ class RoomStartRequestHandler(MessageHandler):
 
         if not (
             room
+            and game_type == room.game_type
             and not room.is_active()
-            and room.is_full()
+            and await self.__room_service.is_full(room_name)
             and self.__is_owner(
                 await self.__room_service.get_creator(room_name),
                 player_info,
@@ -63,7 +64,7 @@ class RoomStartRequestHandler(MessageHandler):
             confirmationStatus="confirmed",
             gameType=game_type,
             roomName=room_name,
-            board=fen_to_list_board(room.get_board()),
+            board=fen_to_list_board(await self.__room_service.get_board(room_name)),
             players=[
                 {"playerName": player.get_name(), "playerSide": player.get_side()}
                 for player in await self.__room_service.get_players(room_name)
