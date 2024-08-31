@@ -1,10 +1,7 @@
 from typing import Literal
 
 from pydantic import BaseModel
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.database.models.game import Game
 from core.repository.room_repository.abstract_room_repository import (
     AbstractRoomRepository,
 )
@@ -29,15 +26,8 @@ class GameSchema(BaseModel):
 
     moves: list[MoveSchema] | None = None
 
-    def is_full(self):
-        return self.player_black and self.player_white
-
     def is_active(self):
         return self.result
-
-    def start_game(self):
-        if not self.result:
-            self.result = "*"
 
 
 class RoomService:
@@ -83,3 +73,6 @@ class RoomService:
 
     async def make_move(self, room_name, move):
         return await self.__game_room_repository.make_move(room_name, move)
+
+    async def is_full(self, room_name):
+        return await self.__game_room_repository.is_full(room_name)

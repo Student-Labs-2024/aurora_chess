@@ -54,7 +54,7 @@ class PlayerMoveRequestHandler(MessageHandler):
             response_data = PlayerMoveResponseData(
                 confirmationStatus="not valid",
                 player=data.player,
-                player_move=data.player_move,
+                playerMove=data.player_move,
                 gameType=game_type,
                 roomName=room_name,
             )
@@ -72,7 +72,7 @@ class PlayerMoveRequestHandler(MessageHandler):
         response_data = PlayerMoveResponseData(
             confirmationStatus="confirmed",
             player=data.player,
-            player_move=data.player_move,
+            playerMove=data.player_move,
             gameType=game_type,
             gameStatus=game_status,
             roomName=room_name,

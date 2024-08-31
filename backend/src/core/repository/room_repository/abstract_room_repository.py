@@ -45,3 +45,7 @@ class AbstractRoomRepository(ABC):
     @abstractmethod
     def make_move(self, room_name, move):
         raise NotImplemented
+
+    @abstractmethod
+    def is_full(self, room_name):
+        raise NotImplemented

@@ -43,13 +43,17 @@ async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     player_session = WebsocketPlayerSession(websocket)
     try:
-        message_json: json = await websocket.receive_json()
-        message = json.loads(message_json)
-        json_type = message["jsonType"]
-        await message_dispatcher.get_handler(json_type).handle(message, player_session)
+        while True:
+            message_json: json = await websocket.receive_json()
+            message = json.loads(message_json)
+            json_type = message["jsonType"]
+            await message_dispatcher.get_handler(json_type).handle(
+                message, player_session
+            )
     except WebSocketDisconnect:
         player = player_session.get_player()
-        player.set_session(None)
+        if player:
+            player.set_session(None)
 
 
 class QueuePlayers:
@@ -158,4 +162,5 @@ async def websocket_endpoint(websocket: WebSocket):
         await message_dispatcher.get_handler(json_type).handle(message, player_session)
     except WebSocketDisconnect:
         player = player_session.get_player()
-        player.set_session(None)
+        if player:
+            player.set_session(None)

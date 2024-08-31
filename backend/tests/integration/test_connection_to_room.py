@@ -1,7 +1,5 @@
-from pprint import pprint
-
+import pytest
 from fastapi.testclient import TestClient
-from starlette.websockets import WebSocketDisconnect
 
 from main import app
 
@@ -10,7 +8,8 @@ import json
 client = TestClient(app)
 
 
-def test_player_can_connect_to_room():
+@pytest.mark.asyncio
+async def test_player_can_connect_to_room():
     game_type = "gameWithFriend"
     room_name = "test_connection_to_room_positive"
     player_name_2 = "player_2"
@@ -64,10 +63,12 @@ def test_player_can_connect_to_room():
 
     with client.websocket_connect(f"api/chess/ws") as websocket:
         websocket.send_json(json_request_message_create)
+        websocket.receive_json()
 
         with client.websocket_connect(f"api/chess/ws") as websocket_1:
             websocket_1.send_json(json_request_message_connect)
             json_responce_message = websocket_1.receive_json()
+            json_responce_message_creator = websocket.receive_json()
 
         websocket_1.close()
         websocket.close()
@@ -75,9 +76,13 @@ def test_player_can_connect_to_room():
     actual_responce_message = json.loads(json_responce_message)
     assert actual_responce_message["jsonType"] == responce_message_connect["jsonType"]
     assert actual_responce_message["data"] == responce_message_connect["data"]
+    actual_responce_message = json.loads(json_responce_message_creator)
+    assert actual_responce_message["jsonType"] == responce_message_connect["jsonType"]
+    assert actual_responce_message["data"] == responce_message_connect["data"]
 
 
-def test_player_cant_connect_to_not_existed_room():
+@pytest.mark.asyncio
+async def test_player_cant_connect_to_not_existed_room():
     game_type = "gameWithFriend"
     room_name = "test_connection_to_room_negative"
     player_name = "player_2"
@@ -116,28 +121,3 @@ def test_player_cant_connect_to_not_existed_room():
     actual_responce_message = json.loads(json_responce_message)
     assert actual_responce_message["jsonType"] == responce_message_connect["jsonType"]
     assert actual_responce_message["data"] == responce_message_connect["data"]
-
-
-def test_player_can_connect_to_rooxczxczxm():
-
-    try:
-        with client.websocket_connect(
-            f"api/chess/ws/rating", headers={"Authorization": "qwe"}
-        ) as websocket:
-            print(websocket.__dict__)
-    except WebSocketDisconnect as e:
-        pprint(e.__dict__)
-
-        """websocket.send_json(json_request_message_create)
-
-        with client.websocket_connect(f"api/chess/ws") as websocket_1:
-            websocket_1.send_json(json_request_message_connect)
-            json_responce_message = websocket_1.receive_json()
-
-        websocket_1.close()
-        websocket.close()"""
-
-    """actual_responce_message = json.loads(json_responce_message)
-    assert actual_responce_message["jsonType"] == responce_message_connect["jsonType"]
-    assert actual_responce_message["data"] == responce_message_connect["data"]
-"""
