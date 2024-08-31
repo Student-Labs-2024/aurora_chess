@@ -323,7 +323,9 @@ class ChessGame extends Game with TapDetector {
       gameModel.pushMoveMeta(meta);
     }
     if (changeTurn) {
-      addTimeOnMove();
+      if(clearRedo) {
+        addTimeOnMove();
+      }
       gameModel.changeTurn();
     }
     selectedPiece = null;
