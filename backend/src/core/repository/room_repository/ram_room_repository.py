@@ -41,7 +41,7 @@ class RAMRoomRepository(AbstractRoomRepository):
 
     async def get_players(self, room_name):
         room = self.__rooms[room_name]
-        return [room.player_black, room.player_black]
+        return [room.player_white, room.player_black]
 
     async def get_creator(self, room_name):
         return self.__rooms[room_name].creator
@@ -58,3 +58,7 @@ class RAMRoomRepository(AbstractRoomRepository):
 
     async def make_move(self, room_name, move):
         return self.__rooms[room_name].make_move(move)
+
+    async def is_full(self, room_name):
+        room = self.__rooms[room_name]
+        return room.player_black and room.player_white
