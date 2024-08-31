@@ -30,7 +30,7 @@ class ChoseColorWidget extends StatelessWidget {
               },
             ),
             const SizedBox(
-              width: 11,
+              width: 8,
             ),
             ColorChoseButton(
               variant: Player.random,
@@ -40,7 +40,7 @@ class ChoseColorWidget extends StatelessWidget {
               },
             ),
             const SizedBox(
-              width: 11,
+              width: 8,
             ),
             ColorChoseButton(
               variant: Player.player2,

@@ -24,6 +24,9 @@ class GameSettingConsts {
   static String hardDescription = "Никакой помощи";
   static String personalityDescription = "Настрой под себя";
   static String longDashSymbol = "—";
+  static String whiteColorChose = "Белые";
+  static String blackColorChose = "Чёрные";
+  static String randomColorChose = "Случайный цвет";
   static int countOfDifficultyLevels = 3;
 
   static List<int> listOfDurations = [
