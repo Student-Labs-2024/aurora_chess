@@ -10,7 +10,7 @@ class PlayerMoveRequestData(BaseModel):
     game_type: str = Field(alias="gameType")
     room_name: str = Field(alias="roomName")
     player: Player
-    player_move: PlayerMove
+    player_move: PlayerMove = Field(alias="playerMove")
 
 
 class PlayerMoveRequest(JsonTypeStrMixin, ExternalDataMixin):

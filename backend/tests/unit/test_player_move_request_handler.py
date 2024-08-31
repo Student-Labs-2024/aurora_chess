@@ -67,7 +67,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
                 "gameType": game_type,
                 "roomName": room_name,
                 "player": player,
-                "player_move": player_move,
+                "playerMove": player_move,
             },
         }
 
@@ -77,7 +77,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         response_data = PlayerMoveResponseData(
             confirmationStatus="confirmed",
             player=player,
-            player_move=player_move,
+            playerMove=player_move,
             gameType=game_type,
             roomName=room_name,
             gameStatus="game in progress",
@@ -138,7 +138,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
                 "gameType": game_type,
                 "roomName": room_name,
                 "player": player,
-                "player_move": player_move,
+                "playerMove": player_move,
             },
         }
 
@@ -148,7 +148,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         response_data = PlayerMoveResponseData(
             confirmationStatus="not valid",
             player=player,
-            player_move=player_move,
+            playerMove=player_move,
             gameType=game_type,
             roomName=room_name,
         )
@@ -207,7 +207,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
                 "gameType": game_type,
                 "roomName": room_name,
                 "player": player,
-                "player_move": player_move,
+                "playerMove": player_move,
             },
         }
 
@@ -217,7 +217,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         response_data = PlayerMoveResponseData(
             confirmationStatus="not valid",
             player=player,
-            player_move=player_move,
+            playerMove=player_move,
             gameType=game_type,
             roomName=room_name,
         )
@@ -273,7 +273,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
                 "gameType": game_type,
                 "roomName": room_name,
                 "player": player,
-                "player_move": player_move,
+                "playerMove": player_move,
             },
         }
 
@@ -283,7 +283,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         response_data = PlayerMoveResponseData(
             confirmationStatus="not valid",
             player=player,
-            player_move=player_move,
+            playerMove=player_move,
             gameType=game_type,
             roomName=room_name,
         )
@@ -338,7 +338,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
                 "gameType": game_type,
                 "roomName": room_name,
                 "player": player,
-                "player_move": player_move,
+                "playerMove": player_move,
             },
         }
 
@@ -348,7 +348,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         response_data = PlayerMoveResponseData(
             confirmationStatus="not valid",
             player=player,
-            player_move=player_move,
+            playerMove=player_move,
             gameType=game_type,
             roomName=room_name,
         )
@@ -404,7 +404,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
                 "gameType": game_type,
                 "roomName": room_name,
                 "player": player,
-                "player_move": player_move,
+                "playerMove": player_move,
             },
         }
 
@@ -414,7 +414,7 @@ class TestPlayerMoveRequestHandler(unittest.IsolatedAsyncioTestCase):
         response_data = PlayerMoveResponseData(
             confirmationStatus="not valid",
             player=player,
-            player_move=player_move,
+            playerMove=player_move,
             gameType=game_type,
             roomName=room_name,
         )
