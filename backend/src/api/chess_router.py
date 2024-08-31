@@ -10,8 +10,11 @@ from fastapi import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from auth.auth_router import get_current_auth_user
+from api.auth_router import get_current_auth_user
 from core.database.db_helper import db_helper
+from core.entities.player_session.websocket_auth_player_session import (
+    WebsocketAuthPlayerSession,
+)
 from core.entities.player_session.websocket_player_session import WebsocketPlayerSession
 from core.factories.chess_player_factory import ChessPlayerFactory
 from core.schemas.user import User
@@ -20,7 +23,7 @@ from core.services.room_service import GameSchema
 from dependencies import message_dispatcher, rooms_service
 
 from core.services import user_service as crud
-from auth import utils as auth_utils
+from api import utils as auth_utils
 from jwt.exceptions import InvalidTokenError
 
 
@@ -47,23 +50,6 @@ async def websocket_endpoint(websocket: WebSocket):
     except WebSocketDisconnect:
         player = player_session.get_player()
         player.set_session(None)
-
-
-class WebsocketAuthPlayerSession(WebsocketPlayerSession):
-    def __init__(
-        self,
-        connection,
-        user_id,
-        username,
-        user_age=18,
-        user_games=30,
-    ):
-        super().__init__(connection)
-        self.user_id = user_id
-        self.user_elo = None
-        self.user_age = user_age
-        self.user_games = user_games
-        self.username = username
 
 
 class QueuePlayers:
@@ -120,7 +106,6 @@ async def websocket_endpoint(websocket: WebSocket):
         queue.add_to_wait(player_session)
     else:
         room: GameSchema = GameSchema.model_validate({"game_type": "mm"})
-        # создание комнаты и отправка сообщений о готовности игры юзерам
         room = rooms_service.create_room(room)
         room_id = room.id
         factory = ChessPlayerFactory()
@@ -150,8 +135,6 @@ async def websocket_endpoint(websocket: WebSocket):
         )
         rooms_service.start_game(room_id)
 
-        # отправка сообщения
-
         message = {
             "jsonType": "gameStart",
             "data": {
@@ -168,7 +151,6 @@ async def websocket_endpoint(websocket: WebSocket):
         await player_session.send_message(message)
         await opponent_session.send_message(message)
 
-    # процесс игры
     try:
         message_json: json = await websocket.receive_json()
         message = json.loads(message_json)

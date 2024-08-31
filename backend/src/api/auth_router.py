@@ -1,10 +1,10 @@
 from jwt.exceptions import InvalidTokenError
 from fastapi import APIRouter, Depends, Form, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from pydantic import BaseModel
 
-from auth import utils as auth_utils
-from auth.utils import hash_password
+from api import utils as auth_utils
+from api.utils import hash_password
+from core.schemas.token_info import TokenInfo
 from core.schemas.user import UserCreate, User
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -13,11 +13,6 @@ from core.services import user_service as crud
 from core.database.db_helper import db_helper
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login/")
-
-
-class TokenInfo(BaseModel):
-    access_token: str
-    token_type: str
 
 
 router = APIRouter(prefix="/auth", tags=["Авторизация"])
