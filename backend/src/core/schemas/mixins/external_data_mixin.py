@@ -9,4 +9,4 @@ class ExternalData(BaseModel):
 
 
 class ExternalDataMixin(BaseModel):
-    external_data: list[ExternalData] = None
+    external_data: list[ExternalData] | None = None
