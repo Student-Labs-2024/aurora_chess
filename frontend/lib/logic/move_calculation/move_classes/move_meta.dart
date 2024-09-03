@@ -15,6 +15,7 @@ class MoveMeta {
   bool isDraw = false;
   bool rowIsAmbiguous = false;
   bool colIsAmbiguous = false;
+  bool isEnPassant = false;
 
   MoveMeta(this.move, this.player, this.type);
 }
