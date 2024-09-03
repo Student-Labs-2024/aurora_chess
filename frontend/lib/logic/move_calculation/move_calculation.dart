@@ -167,8 +167,7 @@ List<int> _bishopMoves(ChessPiece bishop, ChessBoard board) {
 }
 
 List<int> _rookMoves(ChessPiece rook, ChessBoard board, bool legal) {
-  return _movesFromDirections(rook, board, rookMoves, true) +
-      _rookCastleMove(rook, board, legal);
+  return _movesFromDirections(rook, board, rookMoves, true);
 }
 
 List<int> _queenMoves(ChessPiece queen, ChessBoard board) {
@@ -178,16 +177,6 @@ List<int> _queenMoves(ChessPiece queen, ChessBoard board) {
 List<int> _kingMoves(ChessPiece king, ChessBoard board, bool legal) {
   return _movesFromDirections(king, board, kingQueenMoves, false) +
       _kingCastleMoves(king, board, legal);
-}
-
-List<int> _rookCastleMove(ChessPiece rook, ChessBoard board, bool legal) {
-  if (!legal || !kingInCheck(rook.player, board)) {
-    var king = kingForPlayer(rook.player, board);
-    if (_canCastle(king, rook, board, legal)) {
-      return [king?.tile ?? 0];
-    }
-  }
-  return [];
 }
 
 List<int> _kingCastleMoves(ChessPiece king, ChessBoard board, bool legal) {

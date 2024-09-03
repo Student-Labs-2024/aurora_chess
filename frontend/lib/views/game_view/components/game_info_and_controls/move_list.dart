@@ -93,7 +93,7 @@ class MoveList extends StatelessWidget {
     } else if (meta.queenCastle) {
       move = "O-O-O";
     } else {
-      String takeString = meta.took ? "x" : "";
+      String takeString = (meta.took || meta.isEnPassant) ? "x" : "";
       String promotion = meta.promotion
           ? "=${pieceToChar(meta.promotionType ?? ChessPieceType.promotion)
           .toUpperCase()}"

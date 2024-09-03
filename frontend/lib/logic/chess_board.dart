@@ -104,6 +104,7 @@ MoveMeta push(Move move, ChessBoard board,
   if (meta.type == ChessPieceType.pawn && meta.took) {
     meta.rowIsAmbiguous = true;
   }
+  meta.isEnPassant = mso.enPassant;
   board.moveStack.add(mso);
   board.moveCount++;
   return meta;
