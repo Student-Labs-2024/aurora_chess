@@ -19,11 +19,41 @@ class NameWithAdvantageForPlayer extends StatelessWidget {
     };
     final scheme = Theme.of(context).colorScheme;
     if (player != gameModel.playerSide) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      return ConstrainedBox(
+        constraints: const BoxConstraints(
+          maxHeight: 48,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              gameModel.playerCount == 1 ? 'Игрок' : 'Игрок1',
+              style: TextStyle(
+                color: scheme.primary,
+                fontSize: 20,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w500,
+                height: 1.2,
+              ),
+            ),
+            _advantageForThisPlayer(player, scheme),
+          ],
+        ),
+      );
+    } else {
+      return ConstrainedBox(
+        constraints: const BoxConstraints(
+          maxHeight: 48,
+        ),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
           Text(
-            gameModel.playerCount == 1 ? 'Игрок' : 'Игрок1',
+            gameModel.playerCount == 1
+                ? 'Робот (${difficultyLevels[gameModel.aiDifficulty]})'
+                : 'Игрок2',
             style: TextStyle(
               color: scheme.primary,
               fontSize: 20,
@@ -33,24 +63,8 @@ class NameWithAdvantageForPlayer extends StatelessWidget {
             ),
           ),
           _advantageForThisPlayer(player, scheme),
-        ],
+        ]),
       );
-    } else {
-      return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(
-          gameModel.playerCount == 1
-              ? 'Робот (${difficultyLevels[gameModel.aiDifficulty]})'
-              : 'Игрок2',
-          style: TextStyle(
-            color: scheme.primary,
-            fontSize: 20,
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w500,
-            height: 1.2,
-          ),
-        ),
-        _advantageForThisPlayer(player, scheme),
-      ]);
     }
   }
 
